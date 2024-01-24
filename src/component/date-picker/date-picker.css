@@ -1,0 +1,287 @@
+.w-textformfield {
+  position: relative;
+}
+
+.w-textformfield {
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wbaseItem-value.w-textformfield .wbaseItem-value:has(> .textfield) {
+  width: 100% !important;
+  flex: 1;
+  align-items: center;
+  display: flex;
+}
+
+.w-textformfield.helper-text {
+  overflow: visible !important;
+  border-color: red !important;
+}
+
+:is(.w-textformfield, .w-upload-file-field).helper-text::after {
+  content: attr(helper-text);
+  color: red;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: max-content;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  transform: translate(-7.5%, 92.5%) scale(0.85);
+}
+
+.w-textformfield .textfield {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-items: center;
+  gap: 4px;
+  width: 100%;
+  background-color: transparent !important;
+}
+
+.w-textformfield .textfield>input,
+label {
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  transition: 0.4s;
+}
+
+.w-textformfield .textfield>input {
+  min-width: 0;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+  line-height: inherit;
+  order: 1;
+}
+
+.w-textformfield .textfield>input::placeholder {
+  color: inherit;
+}
+
+.w-textformfield .textfield:has(> label)>input {
+  transform: translateY(-50%);
+}
+
+.textfield>label {
+  transform: translateY(calc(50% + 4px + (0.25 * 100%)));
+  order: 0;
+  line-height: 0.8;
+}
+
+.w-textformfield .textfield.content>label {
+  transform: scale(0.75) translate(-12.5%, -12.5%);
+  text-align: start;
+}
+
+.textfield>input:focus~label {
+  transform: scale(0.75) translate(-12.5%, -12.5%);
+  text-align: start;
+  color: var(--focus-color);
+}
+
+.w-textformfield .textfield:has(> label)>input:focus {
+  transform: none;
+}
+
+.w-textformfield .textfield.content:has(> label)>input {
+  transform: none;
+}
+
+.w-textformfield .textfield+.suffix-btn-txtfd {
+  width: var(--suffix-size);
+  position: relative;
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+  --suffix-size:18px;
+  margin: 8px;
+}
+
+.w-textformfield .textfield+.suffix-btn-txtfd>* {
+  position: absolute;
+  box-sizing: border-box;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+body:has(> .w-date-picker-popup) {
+  position: relative;
+}
+
+.w-date-picker-popup {
+  position: absolute;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  height: fit-content;
+  box-shadow: 0 0 12px 0 #00204d1f;
+  align-items: center;
+}
+
+.w-date-picker-popup * {
+  cursor: context-menu;
+}
+
+.w-date-picker-popup>.header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.w-date-picker-popup>.header>span {
+  width: 100%;
+  flex: 1;
+  margin: 0 24px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.w-date-picker-popup>.header>* {
+  font-size: 16px;
+  color: #4b6281;
+  cursor: pointer;
+}
+
+.w-date-picker-popup>.header>button {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.w-date-picker-popup>.header>button * {
+  pointer-events: none;
+}
+
+.w-date-picker-popup>.body {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  border-top: 1px solid #00358014;
+}
+
+.w-date-picker-popup>.body:has(div:nth-child(5)) {
+  border-bottom: 1px solid #00358014;
+}
+
+.w-date-picker-popup>.body>div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-picker-circle {
+  width: 32px;
+  height: 32px;
+  margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  border-radius: 50%;
+  color: #00204de5;
+}
+
+:is(.month-picker-circle, .year-picker-circle) {
+  width: 56px;
+  height: 32px;
+  margin: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  border-radius: 24px;
+  color: #00204de5;
+  cursor: pointer;
+}
+
+.w-date-picker-popup div:not(div:first-child)>.date-picker-circle {
+  cursor: pointer;
+}
+
+:is(.date-picker-circle,
+  .month-picker-circle,
+  .year-picker-circle)[is-select="true"] {
+  background-color: #366ae2;
+  color: white;
+}
+
+.date-picker-circle[in-range="false"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.w-date-picker-popup>.footer {
+  width: fit-content;
+  display: none;
+  padding: 16px 24px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  line-height: 22px;
+  color: #366ae2;
+  font-weight: 500;
+  align-items: center;
+}
+
+.w-date-picker-popup>.body:has(div:nth-child(5))+.footer {
+  display: block;
+}
+
+.auto-complete-body {
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  height: fit-content;
+  overflow: hidden auto;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.auto-complete-body>.option {
+  width: 100%;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  font: var(--font-style-label-label-2-400-body);
+  color: black;
+  cursor: pointer;
+}
+
+.auto-complete-body>.option>* {
+  pointer-events: none;
+}
+
+.auto-complete-body:has(> *:first-child) {
+  border: 0.5px solid #c5c5c5;
+}
+
+.auto-complete-body>.option:not(.option:last-child) {
+  border-bottom: 1px solid #c5c5c5;
+}
+
+.auto-complete-body>.option:hover {
+  background-color: var(--background-color-background-grey-light-2);
+}

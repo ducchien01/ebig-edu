@@ -1,0 +1,168 @@
+.select-multi-container {
+  border-radius: 4px;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  column-gap: 6px;
+  overflow-x: auto;
+}
+
+.select-multi-container.disabled {
+  background-color: #fafafa !important;
+  pointer-events: none !important;
+}
+
+.select-multi-container.helper-text {
+  overflow: visible !important;
+  border-color: red !important;
+}
+
+.select-multi-container.helper-text::after {
+  content: attr(helper-text);
+  color: red;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: max-content;
+  font-size: 12px;
+  line-height: 16px;
+  font-family: Inter;
+  font-weight: inherit;
+  transform: translate(-7.5%, 92.5%) scale(0.85);
+}
+
+.select-multi-container::-webkit-scrollbar {
+  display: none;
+}
+
+.selected-item-value > * {
+  pointer-events: none;
+}
+
+.select-multi-container > .select-multi-placeholder {
+  font: 400 12px/16px "Inter";
+  color: #c5c5c5;
+}
+
+.select-multi-container > .selected-item-value {
+  border-radius: 4px;
+  padding: 8px;
+  background-color: #F2F5F8;
+  column-gap: 8px;
+}
+
+.select-multi-container > .selected-item-value > .selected-value-title {
+  font: 400 12px/16px "Inter";
+  color: #00204D99;
+}
+
+.select-multi-container > .selected-item-value > .suffix-icon {
+  color: rgba(0, 32, 77, 0.6);
+}
+
+.select-multi-popup {
+  position: absolute;
+  z-index: 9999;
+  background-color: white;
+  border-radius: 8px;
+  height: fit-content;
+  box-shadow: 0 0 12px 0 #00204d1f;
+  align-items: center;
+  padding: 8px 0;
+  overflow: hidden;
+}
+
+.select-multi-popup > .header-search {
+  margin: 0 8px;
+  width: calc(100% - 16px);
+  padding: 8px 16px;
+  border: 1px solid var(--primary-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  align-items: center;
+}
+
+.select-multi-popup > .header-search > input {
+  outline: none;
+  padding: 0;
+  border: 0;
+  font: 400 12px/16px "Inter";
+  color: #1C2430;
+  min-width: 0;
+  flex: 1;
+  max-width: 100%;
+}
+
+.select-multi-popup > .select-body {
+  max-height: 100%;
+  flex: 1;
+  align-items: start;
+  row-gap: 2px;
+  max-height: 280px;
+  min-height: 80px;
+  width: 100%;
+  overflow: hidden auto;
+}
+
+.select-multi-popup > .select-body > .select-tile {
+  justify-content: start;
+  align-items: center;
+  padding: 8px 16px;
+  column-gap: 6px;
+  width: 100%;
+  cursor: context-menu;
+}
+
+.select-multi-popup > .select-body > .select-tile:hover {
+  background-color: #f1f1f1;
+}
+
+.select-tile > .select-tile-title {
+  font: 400 12px/16px "Inter";
+  color: #1C2430;
+}
+
+.select-tile > .prefix-checkbox {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+  border: 0.5px solid #00358033;
+}
+
+.select-tile > .prefix-checkbox > input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.select-tile > .prefix-checkbox > svg {
+  left: 0;
+  top: 0;
+  display: none;
+  transition: 0.4s;
+}
+
+.select-tile > .prefix-checkbox > input:checked ~ svg {
+  display: block;
+}
+
+.select-tile > .prefix-checkbox:has(input:checked) {
+  background-color: var(--primary-color);
+}
+
+/* .select-tile > .prefix-checkbox > svg > path {
+  stroke: var(--check-color) !important;
+} */
+
+.no-results-found {
+  padding: 8px;
+  font: 400 14px/20px "Inter";
+  color: #1C2430;
+}

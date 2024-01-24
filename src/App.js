@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import './component/select2/select2.css';
+import './styles/ds-typography.css';
+import './styles/ds-skin.css';
+
+import MainLayout from './screens/Main/main-layout';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+
+const checkToken = () => {
+  // const token = localStorage.getItem('token');
+  // if (token) return true;
+  // return false;
+  return true;
+};
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/admin/*" element={checkToken() === true ? <MainLayout /> : <Navigate to={"/login"} replace />} />
+        <Route path="/admin" element={<Navigate to={checkToken() === false ? "/login" : "/admin"} replace />} />
+
+      </Routes>
+    </BrowserRouter></>
   );
 }
 

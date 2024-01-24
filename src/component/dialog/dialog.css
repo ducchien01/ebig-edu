@@ -1,0 +1,121 @@
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.dialog-container {
+    position: relative;
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    row-gap: 24px;
+    /* transform: translateY(-10%); */
+}
+
+.dialog-container button {
+    outline: none;
+    padding: 0;
+    border: none;
+}
+
+.dialog-body {
+    row-gap: 16px;
+}
+
+.dialog-body > .dialog-status {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-body > .dialog-title {
+    font: 600 20px/28px 'Inter';
+    color: #00204D;
+}
+
+.dialog-body > .dialog-content {
+    font: 400 14px/22px 'Inter';
+    color: #00204DCC;
+}
+
+.dialog-footer {
+    column-gap: 8px;
+    justify-content: end;
+}
+
+.dialog-footer > .dialog-action {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    background-color: #F2F5F8;
+    align-items: center;
+    font: 500 14px/22px 'Inter';
+    color: #00204D99;
+}
+
+.dialog-footer > .dialog-submit {
+    color: #ffffff;
+}
+/* 
+INFOR = 1
+ERROR = 2
+WARNING = 3
+SUCCSESS = 4
+*/
+
+.dialog-container[type="1"] .dialog-status {
+    background-color: #EDF2FD;
+}
+
+.dialog-container[type="2"] .dialog-status {
+    background-color: #FCEEED;
+}
+
+.dialog-container[type="3"] .dialog-status {
+    background-color: #FFF3EB;
+}
+
+.dialog-container[type="4"] .dialog-status {
+    background-color: #E8F7EF;
+}
+
+.dialog-container[type="1"] .dialog-footer > .dialog-submit {
+    background-color: #366AE2;
+}
+
+.dialog-container[type="2"] .dialog-footer > .dialog-submit {
+    background-color: #E14337;
+}
+
+.dialog-container[type="3"] .dialog-footer > .dialog-submit {
+    background-color: #FC6B03;
+}
+
+.dialog-container[type="4"] .dialog-footer > .dialog-submit {
+    background-color: #39AC6D;
+}
+
+.dialog-container > .dialog-close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 6px 0px #2D32390F;
+}

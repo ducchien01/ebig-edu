@@ -7,24 +7,12 @@ body,
   margin: 0;
   padding: 0;
 
-  position: relative;
-
   box-sizing: border-box;
   background-color: white;
 }
 
-* {
-  flex-shrink: 0 !important;
-  box-sizing: border-box;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.col {
-  display: flex;
-  flex-direction: column;
+body * {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }

@@ -1,11 +1,12 @@
+import React from 'react';
 import './App.css';
-import './component/select2/select2.css';
-import './styles/ds-typography.css';
-import './styles/ds-skin.css';
+import './assets/skin/color.css';
+import './assets/skin/typography.css';
+import './assets/skin/layout.css';
 
-import MainLayout from './screens/Main/main-layout';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
+import MainLayout from './local-component/main-layout/main-layout';
 
 const checkToken = () => {
   // const token = localStorage.getItem('token');
@@ -20,10 +21,9 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/admin/*" element={checkToken() === true ? <MainLayout /> : <Navigate to={"/login"} replace />} />
-        <Route path="/admin" element={<Navigate to={checkToken() === false ? "/login" : "/admin"} replace />} />
-
+        {/* <Route path="/login" element={<LoginScreen />} /> */}
+        <Route path="/*" element={checkToken() === true ? <MainLayout /> : <Navigate to={"/login"} replace />} />
+        <Route path="/" element={<Navigate to={checkToken() === false ? "/login" : "/edu-management/dashboard"} replace />} />
       </Routes>
     </BrowserRouter></>
   );

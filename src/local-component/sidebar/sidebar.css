@@ -1,0 +1,95 @@
+.sidebar {
+              height: 100%;
+              width: 24%;
+              min-width: 368px;
+}
+
+.sidebar>.collapse {
+              padding: 24px 16px;
+              row-gap: 24px;
+              border-right: 1px solid #00358014;
+              box-sizing: border-box;
+              align-items: center;
+              height: 100%;
+}
+
+.sidebar button {
+              border: none;
+              background-color: transparent;
+              outline: none;
+              padding: 0;
+}
+
+.sidebar>.collapse>div {
+              flex: 1;
+              row-gap: 12px;
+}
+
+.sidebar>.collapse .sidebar-item {
+              border-radius: 8px;
+              box-sizing: border-box;
+              padding: 12px;
+              width: 48px;
+              height: 48px;
+              cursor: pointer;
+}
+
+.sidebar>.collapse .sidebar-item.selected {
+              background-color: #00358014;
+              pointer-events: none;
+}
+
+.sidebar>.collapse>.log-out-icon {
+              width: 24px;
+              height: 24px;
+}
+
+
+.sidebar>.expand {
+              width: 100%;
+              flex: 1;
+              padding: 32px 16px 24px 16px;
+              border-right: 1px solid #00358014;
+              box-sizing: border-box;
+              row-gap: 24px;
+              height: 100%;
+}
+
+.sidebar>.expand>.module-menu {
+              flex: 1;
+              height: 100%;
+              overflow: hidden auto !important;
+              row-gap: 12px;
+}
+
+.expand>.module-menu .col:has(> .sidebar-module-tile) {
+              display: none;
+}
+
+.expand>.module-menu>.col {
+              display: flex !important;
+}
+
+.expand>.module-menu .sidebar-module-tile {
+              justify-content: space-between;
+              padding: 8px 16px;
+              text-decoration: none;
+              box-sizing: border-box;
+              border-radius: 8px;
+}
+
+.expand>.module-menu .sidebar-module-tile.selected {
+              background-color: #00358014;
+}
+
+.module-menu .sidebar-module-tile>.label-3 {
+              flex: 1;
+}
+
+.module-menu .col:has(> .sidebar-module-tile > .fa-chevron-up)>.col {
+              display: flex !important;
+}
+
+.sidebar>.expand > .support-action {
+              flex-wrap: wrap;
+}

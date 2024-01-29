@@ -94,3 +94,51 @@ export const menuList = [
                             link: 'edu-management/school/curriculum',
               },
 ]
+
+export const supportModule = [
+              {
+                            id: 2,
+                            name: 'Help',
+                            link: ''
+              },
+              {
+                            id: 3,
+                            name: 'Status',
+                            link: ''
+              },
+              {
+                            id: 4,
+                            name: 'About',
+                            link: ''
+              },
+              {
+                            id: 5,
+                            name: 'Careers',
+                            link: ''
+              },
+              {
+                            id: 6,
+                            name: 'Blog',
+                            link: ''
+              },
+              {
+                            id: 7,
+                            name: 'Privacy',
+                            link: ''
+              },
+              {
+                            id: 8,
+                            name: 'Terms',
+                            link: ''
+              },
+              {
+                            id: 9,
+                            name: 'Text to speech',
+                            link: ''
+              },
+              {
+                            id: 10,
+                            name: 'Teams',
+                            link: ''
+              },
+]

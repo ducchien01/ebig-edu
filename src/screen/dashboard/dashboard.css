@@ -1,0 +1,65 @@
+.edu-dashboard {
+              width: 100%;
+              height: max-content;
+              row-gap: 24px;
+              align-items: center;
+}
+
+.banner-container {
+              background-image: url("../../assets/demo-banner.png");
+              background-size: cover;
+              row-gap: 32px;
+              padding: 5% 10%;
+              width: 100%;
+              box-sizing: border-box;
+}
+
+.banner-container .banner-btn {
+              color: #ffffff;
+              border-radius: 24px;
+              background-color: var(--primary-color);
+              padding: 8px 16px;
+              width: fit-content;
+}
+
+.banner-container .banner-btn-2 {
+              color: var(--primary-color);
+              border-radius: 24px;
+              border: 1px solid var(--primary-color);
+              padding: 8px 16px;
+              width: fit-content;
+}
+
+.dashboard-content {
+              row-gap: 32px;
+              width: 90%;
+              padding-bottom: 32px;
+              box-sizing: border-box;
+}
+
+.block-view {
+              row-gap: 16px;
+}
+
+.card-view-1 {
+              background-color: #F2F5F8;
+              border-radius: 8px;
+              padding: 40px 32px;
+}
+
+.card-view-1 .text-content {
+              flex: 1;
+              width: 100%;
+}
+
+.card-view-1 .card-button {
+              column-gap: 8px;
+              padding: 8px 16px;
+              border: 1px solid #00358033;
+              border-radius: 24px;
+              text-decoration: none;
+}
+
+.card-view-1 .card-button * {
+              color: #00204D99;
+}

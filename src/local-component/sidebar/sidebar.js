@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './sidebar.css'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { OutlineCircleArrowLeft } from '../../assets/const/icon';
-import { menuList } from '../../assets/const/const-list';
+import { menuList, supportModule } from '../../assets/const/const-list';
 export default function SideBar() {
               const location = useLocation()
               const [moduleList, setModuleList] = useState(menuList)
@@ -41,23 +41,30 @@ export default function SideBar() {
                                           <div key={'module-menu'} className='module-menu col'>
                                                         {moduleList.filter(e => e.parentId === topicModule?.id).map(item => moduleTile(item))}
                                           </div>,
-                                          <div key={'support-action'} className='support-action row'></div>
+                                          <div key={'support-action'} className='support-action row'>
+                                                        {supportModule.map(e => <div className='button-text-6'>{e.name}</div>)}
+                                          </div>
                             ]
               }
 
               useEffect(() => {
                             const pathFragment = location.pathname.split("/")
-                            setSelected(menuList.filter(e => pathFragment.some(p => e.link.split('/').some(m => m === p))))
+                            setSelected(menuList.filter(e => {
+                                          if(e.parentId === 1) e.isExpand ??= true
+                                          return pathFragment.some(p => e.link.split('/').some(m => m === p));
+                            }))
               }, [location.pathname])
 
-              return <div className="row sidebar" expand={selected.find(e => e.parentId === 1)?.isExpand}>
-                            <div className="col collapse">
-                                          <div className='col'>
+              return <div className="row sidebar" expand={`${selected.find(e => e.parentId === 1)?.isExpand}`} >
+                            <div className="col collapse" >
+                                          <div className='col' >
                                                         {moduleList.filter(e => e.parentId === 1).map((item, index) => {
                                                                       return <div key={index} className={`sidebar-item ${selected.some(e => e.id === item.id) ? 'selected' : ''}`}
                                                                                     onClick={() => {
                                                                                                   if (selected.some(e => e.id === item.id)) {
                                                                                                                 item.isExpand = !item.isExpand
+                                                                                                  } else {
+                                                                                                                item.isExpand = selected.find(e => e.parentId === 1)?.isExpand
                                                                                                   }
                                                                                                   setSelected(moduleList.filter(e => {
                                                                                                                 if (e.id === item.id) {

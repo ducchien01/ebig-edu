@@ -16,3 +16,10 @@ body * {
   background-position: center;
   background-size: contain;
 }
+
+body * {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+}

@@ -1,23 +1,19 @@
 .sidebar {
               height: 100%;
-              width: 24%;
-              min-width: 368px;
+              max-width: 448px;
+              z-index: 1;
 }
 
 .sidebar>.collapse {
+              background-color: #ffffff;
+              z-index: 1;
               padding: 24px 16px;
               row-gap: 24px;
               border-right: 1px solid #00358014;
               box-sizing: border-box;
               align-items: center;
               height: 100%;
-}
-
-.sidebar button {
-              border: none;
-              background-color: transparent;
-              outline: none;
-              padding: 0;
+              max-width: 81px;
 }
 
 .sidebar>.collapse>div {
@@ -36,7 +32,6 @@
 
 .sidebar>.collapse .sidebar-item.selected {
               background-color: #00358014;
-              pointer-events: none;
 }
 
 .sidebar>.collapse>.log-out-icon {
@@ -46,6 +41,7 @@
 
 
 .sidebar>.expand {
+              max-width: 366px;
               width: 100%;
               flex: 1;
               padding: 32px 16px 24px 16px;
@@ -53,6 +49,7 @@
               box-sizing: border-box;
               row-gap: 24px;
               height: 100%;
+              background-color: #ffffff;
 }
 
 .sidebar>.expand>.module-menu {
@@ -60,6 +57,10 @@
               height: 100%;
               overflow: hidden auto !important;
               row-gap: 12px;
+}
+
+.sidebar>.expand>.module-menu::-webkit-scrollbar {
+              display: none;
 }
 
 .expand>.module-menu .col:has(> .sidebar-module-tile) {
@@ -90,6 +91,7 @@
               display: flex !important;
 }
 
-.sidebar>.expand > .support-action {
+.sidebar>.expand>.support-action {
               flex-wrap: wrap;
+              gap: 16px;
 }

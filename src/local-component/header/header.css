@@ -44,13 +44,6 @@
               background-color: transparent;
 }
 
-.header>.action>button {
-              outline: none;
-              border: none;
-              background-color: transparent;
-              padding: 0;
-}
-
 .header>.action>.action-icon {
               width: 24px;
               height: 24px;

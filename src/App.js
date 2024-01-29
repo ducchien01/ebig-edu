@@ -6,7 +6,7 @@ import './assets/skin/layout.css';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import 'react-toastify/dist/ReactToastify.css';
-import MainLayout from './local-component/main-layout/main-layout';
+import MainLayout from './screen/main-layout/main-layout';
 
 const checkToken = () => {
   // const token = localStorage.getItem('token');

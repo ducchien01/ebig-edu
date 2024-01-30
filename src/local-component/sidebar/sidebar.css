@@ -2,6 +2,9 @@
               height: 100%;
               max-width: 448px;
               z-index: 1;
+              width: 81px !important;
+              min-width: 81px;
+              transition: width, min-width ease-in-out 1s;
 }
 
 .sidebar>.collapse {
@@ -50,6 +53,20 @@
               row-gap: 24px;
               height: 100%;
               background-color: #ffffff;
+              margin-left: -100%;
+              transition: margin-left ease-in-out 0.8s;
+}
+
+
+.sidebar[expand="true"] {
+              width: 24%;
+              min-width: 368px;
+              transition: width, min-width ease-in-out 1s;
+}
+
+.sidebar[expand="true"]>.expand {
+              margin-left: 0;
+              transition: margin-left ease-in-out 0.8s;
 }
 
 .sidebar>.expand>.module-menu {

@@ -14,7 +14,7 @@ export default function SideBar() {
               const moduleTile = (item) => {
                             const children = moduleList.filter(e => e.parentId === item.id)
                             if (children.length) item.hideChildren ??= true
-                            return <div key={item.id} className='col'>
+                            return <div key={`module-tile-${item.id}`} className='col'>
                                           <NavLink className={`sidebar-module-tile row ${location.pathname.includes(item.link) && !children.length ? 'selected' : ''}`}
                                                         style={{ paddingLeft: 16 * (item.listId?.length ?? 1) }}
                                                         to={children.length ? null : item.link}
@@ -59,7 +59,7 @@ export default function SideBar() {
                             <div className="col collapse" >
                                           <div className='col' >
                                                         {moduleList.filter(e => e.parentId === 1).map((item, index) => {
-                                                                      return <div key={index} className={`sidebar-item ${selected.some(e => e.id === item.id) ? 'selected' : ''}`}
+                                                                      return <div key={`sidebar-item-${index}`} className={`sidebar-item ${selected.some(e => e.id === item.id) ? 'selected' : ''}`}
                                                                                     onClick={() => {
                                                                                                   if (selected.some(e => e.id === item.id)) {
                                                                                                                 item.isExpand = !item.isExpand

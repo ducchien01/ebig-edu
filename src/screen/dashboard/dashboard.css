@@ -41,8 +41,13 @@
               row-gap: 16px;
 }
 
+.block-view>.list-card {
+              gap: 24px;
+              flex-wrap: wrap;
+}
+
 .card-view-1 {
-              background-color: #F2F5F8;
+              background-color: var(--background);
               border-radius: 8px;
               padding: 40px 32px;
 }
@@ -52,7 +57,7 @@
               width: 100%;
 }
 
-.card-view-1 .card-button {
+.card-button {
               column-gap: 8px;
               padding: 8px 16px;
               border: 1px solid #00358033;
@@ -60,6 +65,63 @@
               text-decoration: none;
 }
 
-.card-view-1 .card-button * {
+.card-button * {
               color: #00204D99;
+}
+
+.card-image-1 {
+              flex-wrap: wrap;
+              width: 100%;
+              border-radius: 8px;
+              background-color: var(--background);
+              column-gap: 32px;
+              row-gap: 24px;
+}
+
+.card-image-1 * {
+              --gutter: 32px;
+}
+
+.card-image-1>.prefix-img {
+              background-image: url('../../assets/demo-image1.png');
+              --gutter: 32px;
+              height: 300px;
+              background-size: cover;
+}
+
+.card-image-1>.card-content {
+              padding: 0 24px;
+              flex-wrap: wrap;
+              column-gap: 16px;
+              row-gap: 32px;
+}
+
+.block-view>.block-title {
+              justify-content: space-between;
+}
+
+.block-view>.block-title>.button-text-3 {
+              color: var(--primary-color);
+}
+
+.list-card-scroll {
+              overflow: auto hidden;
+              column-gap: 40px;
+}
+
+.card-image-2 {
+              height: 300px;
+              width: 294px;
+}
+
+.card-image-2 > .top-img{
+              background-size: cover;
+              height: 180px;
+              width: 100%;
+              border-radius: 8px;
+}
+
+.card-image-2 > .text-content {
+              padding: 24px 0;
+              row-gap: 4px;
 }

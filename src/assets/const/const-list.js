@@ -1,4 +1,4 @@
-import { OutlineBook, FilledBook, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet } from './icon'
+import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet } from './icon'
 import demoAvatar from '../demo-avatar.png';
 export const menuList = [
               {
@@ -6,8 +6,8 @@ export const menuList = [
                             parentId: 1,
                             name: 'Education Management',
                             link: 'edu-management',
-                            icon: <OutlineBook />,
-                            selectedIcon: <FilledBook />,
+                            icon: <OutlineBooks />,
+                            selectedIcon: <FilledBooks />,
               },
               {
                             id: 3,

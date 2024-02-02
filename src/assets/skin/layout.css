@@ -159,10 +159,22 @@
               }
 
               /* more config responsive */
+              .card-view-1 {
+                            height: fit-content !important;
+              }
+
+              .card-image-3 {
+                            height: fit-content !important;
+                            padding: 16px !important;
+              }
 }
 
 /* Small devices (portrait tablets and large phones, 576px and up) Small (sm)*/
 @media only screen and (min-width: 576px) and (max-width: 768px) {
+              :root {
+                            font-size: 6px;
+              }
+
               .row>.col0-sm {
                             display: none !important;
               }
@@ -244,12 +256,13 @@
               }
 
               .sidebar .expand {
+                            row-gap: 16px !important;
                             position: absolute;
                             left: 0;
                             top: 0;
                             transform: translateX(calc(-100% + 81px)) !important;
                             transition: transform ease-in-out 1.2s !important;
-                            min-width: 290px !important;
+                            min-width: 260px !important;
                             box-shadow: 0 0 12px 0 #00204d1f;
               }
 
@@ -257,10 +270,27 @@
                             transform: translateX(82px) !important;
                             transition: transform ease-in-out 1.2s !important;
               }
+
+              .sidebar>.expand>.module-menu {
+                            row-gap: 8px !important;
+              }
+
+              .card-view-1 {
+                            height: fit-content !important;
+              }
+
+              .card-image-3 {
+                            height: fit-content !important;
+                            padding: 16px !important;
+              }
 }
 
 /* Medium devices (landscape tablets, 768px and up) Medium (md)*/
 @media only screen and (min-width: 768px) and (max-width: 992px) {
+              :root {
+                            font-size: 6px;
+              }
+
               .row>.col0-md {
                             display: none !important;
               }
@@ -330,10 +360,32 @@
                             min-width: auto !important;
                             flex: 0 100% !important;
               }
+
+              /* more config resposive */
+              .sidebar>.expand {
+                            row-gap: 16px !important;
+              }
+
+              .sidebar>.expand>.module-menu {
+                            row-gap: 8px !important;
+              }
+
+              .card-view-1 {
+                            height: fit-content !important;
+              }
+
+              .card-image-3 {
+                            height: fit-content !important;
+                            padding: 12px !important;
+              }
 }
 
 /* Large devices (laptops/desktops, 992px and up) Large (lg)*/
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+              :root {
+                            font-size: 8px;
+              }
+
               .row>.col0-lg {
                             display: none !important;
               }
@@ -403,10 +455,24 @@
                             min-width: auto !important;
                             flex: 0 100% !important;
               }
+
+              /* more config resposive */
+              .card-view-1.col24-lg {
+                            height: fit-content !important;
+              }
+
+              .card-image-3 {
+                            height: fit-content !important;
+                            padding: 16px !important;
+              }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) X-large (xl)*/
 @media only screen and (min-width: 1200px) {
+              :root {
+                            font-size: 8px;
+              }
+
               .row>.col0-xl {
                             display: none !important;
               }
@@ -476,10 +542,19 @@
                             min-width: auto !important;
                             flex: 0 100% !important;
               }
+
+              /* more config resposive */
+              .card-image-3 {
+                            padding: 20px !important;
+              }
 }
 
 /* Extra large devices (large laptops and desktops, 1600px and up) XX-large (xxl) */
 @media only screen and (min-width: 1600px) {
+              :root {
+                            font-size: 10px;
+              }
+
               .row>.col0-xxl {
                             display: none !important;
               }

@@ -42,7 +42,7 @@ export default function SideBar() {
                                                         {moduleList.filter(e => e.parentId === topicModule?.id).map(item => moduleTile(item))}
                                           </div>,
                                           <div key={'support-action'} className='support-action row'>
-                                                        {supportModule.map(e => <div className='button-text-6'>{e.name}</div>)}
+                                                        {supportModule.map((e,i) => <div key={`support-module-${i}`} className='button-text-6'>{e.name}</div>)}
                                           </div>
                             ]
               }

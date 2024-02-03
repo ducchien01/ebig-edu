@@ -256,26 +256,22 @@
               }
 
               .sidebar .expand {
-                            row-gap: 16px !important;
+                            /* row-gap: 16px !important; */
                             position: absolute;
                             left: 0;
                             top: 0;
-                            transform: translateX(calc(-100% + 81px)) !important;
+                            transform: translateX(calc(-100% + 8.1rem)) !important;
                             transition: transform ease-in-out 1.2s !important;
-                            min-width: 260px !important;
+                            min-width: 32rem !important;
                             box-shadow: 0 0 12px 0 #00204d1f;
               }
 
               .sidebar[expand="true"] .expand {
-                            transform: translateX(82px) !important;
+                            transform: translateX(8.2rem) !important;
                             transition: transform ease-in-out 1.2s !important;
               }
 
-              .sidebar>.expand>.module-menu {
-                            row-gap: 8px !important;
-              }
-
-              .card-view-1 {
+              .card-view-1, .card-image-2 {
                             height: fit-content !important;
               }
 
@@ -362,21 +358,13 @@
               }
 
               /* more config resposive */
-              .sidebar>.expand {
-                            row-gap: 16px !important;
-              }
-
-              .sidebar>.expand>.module-menu {
-                            row-gap: 8px !important;
-              }
-
-              .card-view-1 {
+              .card-view-1 , .card-image-2 {
                             height: fit-content !important;
               }
 
               .card-image-3 {
                             height: fit-content !important;
-                            padding: 12px !important;
+                            padding: 1.6rem !important;
               }
 }
 
@@ -463,7 +451,7 @@
 
               .card-image-3 {
                             height: fit-content !important;
-                            padding: 16px !important;
+                            padding: 2rem !important;
               }
 }
 
@@ -545,7 +533,7 @@
 
               /* more config resposive */
               .card-image-3 {
-                            padding: 20px !important;
+                            padding: 2rem !important;
               }
 }
 

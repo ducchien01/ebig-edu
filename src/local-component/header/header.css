@@ -1,6 +1,6 @@
 .header {
-              padding: 0 32px;
-              height: 56px;
+              padding: 0 3.2rem;
+              height: 5.6rem;
               width: 100%;
               background-color: #394960;
 }
@@ -10,15 +10,15 @@
               background-repeat: no-repeat;
               background-size: contain;
               background-position: center;
-              width: 112.61px;
-              height: 28px;
+              width: 11.261rem;
+              height: 2.8rem;
 }
 
 .header>.action {
               flex: 1;
               width: 100%;
               justify-content: end;
-              column-gap: 16px;
+              column-gap: 1.6rem;
 }
 
 .header>.action {
@@ -28,29 +28,36 @@
 }
 
 .header>.action>.search-ebig {
-              padding: 6px 12px;
-              border-radius: 100px;
-              column-gap: 12px;
+              padding: 0.6rem 1.2rem;
+              border-radius: 10rem;
+              column-gap: 1.2rem;
               background-color: #F2F5F8;
+              box-sizing: border-box;
+}
+
+.action>.search-ebig>.prefix-icon-search {
+              width: 1.6rem;
+              height: 1.6rem;
 }
 
 .action>.search-ebig>input {
-              outline: none;
-              padding: 0;
-              border: none;
               width: 100%;
               flex: 1;
-              min-width: 60px;
               background-color: transparent;
 }
 
+input::placeholder {
+              line-height: normal;
+              opacity: 0.7;
+}
+
 .header>.action>.action-icon {
-              width: 24px;
-              height: 24px;
+              width: 2.4rem;
+              height: 2.4rem;
 }
 
 .header>.action>.user-infor {
-              width: 32px;
-              height: 32px;
+              width: 3.2rem;
+              height: 3.2rem;
               border-radius: 50%;
 }

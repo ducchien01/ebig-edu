@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './dashboard.css'
-import { faArrowRight, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowRight, faArrowUp, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
 import demoImg2 from '../../assets/demo-image2.png';
 import demoImg3 from '../../assets/demo-image3.png';
@@ -12,7 +12,7 @@ import avatarDemo2 from '../../assets/demo-avatar2.png';
 import { FilledBell, FilledBook, FilledSocialSharing } from '../../assets/const/icon';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
-export default function EduDashboard({ type = 1 }) {
+export default function EduDashboard({ type = 0 }) {
               return <div className="edu-dashboard col">
                             <div className="banner-container col">
                                           <div className="col" style={{ rowGap: 8 }}>
@@ -49,7 +49,7 @@ function NewbieDashboard() {
                                                                                                   content: 'Learn from expert professionals and join the largest online community for creatives.',
                                                                                                   link: ''
                                                                                     }
-                                                                      ].map((e, i) => <div key={`card-${i}`} className='card-view-1 row col12 col24-md col24-sm col24-min' style={{ '--gutter': '24px', columnGap: 40 }}>
+                                                                      ].map((e, i) => <div key={`card-${i}`} className='card-view-1 row col12 col24-md col24-sm col24-min' style={{ '--gutter': '2.4rem', columnGap: '4rem' }}>
                                                                                     <div className='col text-content'>
                                                                                                   <div className='heading-5'>{e.title}</div>
                                                                                                   <div className='subtitle-3'>{e.content}</div>
@@ -64,13 +64,13 @@ function NewbieDashboard() {
                                           </div>
                             </div>
                             <div className='card-image-1 row'>
-                                          <div className='prefix-img col18 col24-sm col24-min'></div>
+                                          <div className='prefix-img col8 col24-sm col24-min'></div>
                                           <div className='row card-content col16 col24-sm col24-min'>
-                                                        <div className='col text-content col24 col16-sm col16-min' style={{ 'gutter': '16px' }}>
+                                                        <div className='col text-content col24 col16-sm col16-min' style={{ 'gutter': '1.6rem' }}>
                                                                       <div className='heading-5'>Xây dựng khóa học đầu tiên</div>
                                                                       <div className='subtitle-3'>Learn from expert professionals and join <br /> the largest online community for creatives.</div>
                                                         </div>
-                                                        <div className='col col8-sm col8-min' style={{ 'gutter': '16px' }}>
+                                                        <div className='col' >
                                                                       <NavLink to={'/edu-management/school/course/add'} className='card-button row'>
                                                                                     <div className='button-text-3'>Tạo khóa học</div>
                                                                                     <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: 16 }} />
@@ -83,7 +83,7 @@ function NewbieDashboard() {
                                                         <div className='heading-6'>Hướng dẫn dành cho bạn</div>
                                                         <NavLink to={'/edu-management/school/course/instructions'} className='button-text-3'>Xem tất cả</NavLink>
                                           </div>
-                                          <div className='row list-card-scroll'>
+                                          <div className='row list-card-view' style={{ flexWrap: 'wrap', columnGap: '4rem' }}>
                                                         {[
                                                                       {
                                                                                     name: 'Cách tạo khóa học Online',
@@ -105,7 +105,7 @@ function NewbieDashboard() {
                                                                                     descript: 'Tự học online với hệ thống bài giảng sẵn có từ các chuyên gia',
                                                                                     img: demoImg2
                                                                       },
-                                                        ].map((e, i) => <div key={`card-img-${i}`} className='card-image-2 col'>
+                                                        ].map((e, i) => <div key={`card-img-${i}`} className='card-image-2 col col6 col12-md col12-sm' style={{ '--gutter': '4rem' }}>
                                                                       <div className='top-img' style={{ backgroundImage: `url(${e.img})` }}></div>
                                                                       <div className='col text-content'>
                                                                                     <div className='heading-5'>{e.name}</div>
@@ -153,7 +153,7 @@ function OldUserDashboard() {
                                                                                     return Math.abs(a.time - now) - Math.abs(b.time - now)
                                                                       }).map((e, i) => {
                                                                                     const eTime = new Date(e.time)
-                                                                                    return <div key={`card-${i}`} className={`card-view-1 row ${i === 0 ? 'col12' : 'col6'} col24-lg col24-md col24-sm col24-min`} style={{ '--gutter': '24px', columnGap: 40, padding: '28px 24px' }}>
+                                                                                    return <div key={`card-${i}`} className={`card-view-1 row ${i === 0 ? 'col12' : 'col6'} col24-lg col24-md col24-sm col24-min`} style={{ '--gutter': '2.4rem', columnGap: '4rem', padding: '2.8rem 2.4rem' }}>
                                                                                                   <div className='row text-content' style={{ columnGap: 40 }}>
                                                                                                                 {i === 0 ? <div className='col' style={{ rowGap: 4 }}>
                                                                                                                               <div className='heading-4'>{`${eTime.getHours()}:${eTime.getMinutes()}`}</div>
@@ -166,7 +166,7 @@ function OldUserDashboard() {
                                                                                                                 </div>
                                                                                                   </div>
                                                                                                   {i === 0 ? <NavLink className='card-button-2 row'>
-                                                                                                                <FilledSocialSharing color='white' width={16} height={16} />
+                                                                                                                <div className='row' style={{ width: '1.6rem', height: '1.6rem' }}><FilledSocialSharing color='white' /></div>
                                                                                                                 <div className='button-text-3'>Vào dạy</div>
                                                                                                   </NavLink> : <div className='noti row'>
                                                                                                                 <FilledBell width={15} height={15} color='#366AE2' />
@@ -204,7 +204,7 @@ function OldUserDashboard() {
                                                                                                   schedule: 'Thứ 2, thứ 5 hàng tuần',
                                                                                                   students: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
                                                                                     },
-                                                                      ].map((e, i) => <div key={`card-img-${i}`} className='card-image-3 row col12' style={{ '--gutter': '24px' }}>
+                                                                      ].map((e, i) => <div key={`card-img-${i}`} className='card-image-3 row col12' style={{ '--gutter': '2.4rem' }}>
                                                                                     <div className='prefix-img col8 col24-lg col24-md col24-sm col24-min' style={{ backgroundImage: `url(${e.img})` }}></div>
                                                                                     <div className='col card-content col16 col24-lg col24-md col24-sm col24-min'>
                                                                                                   <div className='col content-1'>
@@ -219,8 +219,8 @@ function OldUserDashboard() {
                                                                                                                 <div className='col'>
                                                                                                                               <div className='subtitle-4'>{e.students.length} học viên</div>
                                                                                                                               <div className='list-avatar'>
-                                                                                                                                            {e.students.slice(0, 4).map((st, index) => <div key={`av-${index}`} className='avatar-circle' style={{ left: `${24 * index}px`, backgroundImage: `url(${st.avatar ?? avatarDemo2})` }}></div>)}
-                                                                                                                                            {e.students.length > 4 ? <div className='avatar-circle col label-5' style={{ left: `96px` }}>+{e.students.length - 4}</div> : null}
+                                                                                                                                            {e.students.slice(0, 4).map((st, index) => <div key={`av-${index}`} className='avatar-circle' style={{ left: `${2.4 * index}rem`, backgroundImage: `url(${st.avatar ?? avatarDemo2})` }}></div>)}
+                                                                                                                                            {e.students.length > 4 ? <div className='avatar-circle col label-5' style={{ left: `9.6rem` }}>+{e.students.length - 4}</div> : null}
                                                                                                                               </div>
                                                                                                                 </div>
                                                                                                                 <div className='col schedule-time'>
@@ -235,7 +235,7 @@ function OldUserDashboard() {
                             </div>
                             <div className='block-view col'>
                                           <div className='block-title heading-6'>Học viên mới</div>
-                                          <div className='row list-card-view'>
+                                          <div className='row list-card-view' style={{ flexWrap: 'wrap', padding: '1.6rem 0' }}>
                                                         {
                                                                       [
                                                                                     {
@@ -266,13 +266,95 @@ function OldUserDashboard() {
                                                                                                   following: 20,
                                                                                                   descript: 'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.',
                                                                                     },
-                                                                      ].map((e, i) => <div key={`new-st-card-${i}`} className='card-image-4' >
+                                                                      ].map((e, i) => <div key={`new-st-card-${i}`} className='card-image-4 col6 col12-md col12-sm col' style={{ '--gutter': '2.4rem', rowGap: '1.6rem' }}>
                                                                                     <div className='prefix-img' style={{ backgroundImage: `url(${e.avatar})` }}></div>
-                                                                                    <div className='col card-content'>
-                                                                                                  <div className='heading-7'>{e.name}</div>
-                                                                                                  <div className='subtitle-4'>{e.followers} Người theo dõi · {e.following} Đang theo dõi</div>
+                                                                                    <div className='col' style={{ rowGap: 8 }}>
+                                                                                                  <div className='col card-content' style={{ rowGap: 4 }}>
+                                                                                                                <div className='heading-7'>{e.name}</div>
+                                                                                                                <div className='subtitle-4'>{e.followers} Người theo dõi · {e.following} Đang theo dõi</div>
+                                                                                                  </div>
+                                                                                                  <div className='body-3'>{e.descript}</div>
                                                                                     </div>
+                                                                                    <div className='row card-btn button-text-3'>Theo dõi</div>
                                                                       </div>)
+                                                        }
+                                          </div>
+                            </div>
+                            <div className='block-view col'>
+                                          <div className='block-title heading-6'>Kinh doanh tháng này</div>
+                                          <div className='row block-body-tile'>
+                                                        <div className='row list-content-block' >
+                                                                      {
+                                                                                    [
+                                                                                                  {
+                                                                                                                title: 'Doanh thu',
+                                                                                                                number: '1.284.035.024',
+                                                                                                                percent: 15,
+                                                                                                  },
+                                                                                                  {
+                                                                                                                title: 'Lợi nhuận',
+                                                                                                                number: '880.055.025',
+                                                                                                                percent: 15,
+                                                                                                  },
+                                                                                                  {
+                                                                                                                title: 'Học viên mới',
+                                                                                                                number: 312,
+                                                                                                                percent: -5,
+                                                                                                  },
+                                                                                                  {
+                                                                                                                title: 'Tổng số học viên',
+                                                                                                                number: 969,
+                                                                                                                percent: 30
+                                                                                                  },
+                                                                                    ].map((e, i) => <div key={`new-st-card-${i}`} className='content-block col6 col12-lg col12-md col12-sm col' >
+                                                                                                  <div className='col' style={{ rowGap: 4 }}>
+                                                                                                                <div className='highlight-5'>{e.number}</div>
+                                                                                                                <div className='subtitle-4'>{e.title}</div>
+                                                                                                  </div>
+                                                                                                  <div className='row' style={{ columnGap: 8 }}>
+                                                                                                                <div className='button-text-5' style={{ color: e.percent < 0 ? '#E14337' : '#39AC6D' }}><FontAwesomeIcon icon={e.percent < 0 ? faArrowDown : faArrowUp} /> {Math.abs(e.percent)}%</div>
+                                                                                                                <div className='button-text-5'>so với tháng trước</div>
+                                                                                                  </div>
+                                                                                    </div>)
+                                                                      }
+                                                        </div>
+                                                        <div className='block-btn button-text-3'>Xem báo cáo</div>
+                                          </div>
+                            </div>
+                            <div className='block-view col'>
+                                          <div className='block-title row'>
+                                                        <div className='heading-6'>Hướng dẫn dành cho bạn</div>
+                                                        <NavLink to={'/edu-management/school/course/instructions'} className='button-text-3'>Xem tất cả</NavLink>
+                                          </div>
+                                          <div className='row list-card-view' style={{ flexWrap: 'wrap', columnGap: '4rem' }}>
+                                                        {[
+                                                                      {
+                                                                                    name: 'Cách tạo khóa học Online',
+                                                                                    descript: 'Tự học online với hệ thống bài giảng sẵn có từ các chuyên gia',
+                                                                                    img: demoImg2
+                                                                      },
+                                                                      {
+                                                                                    name: 'Lớp học Online A-Z',
+                                                                                    descript: 'Tham gia các lớp học được giảng dạy trực tuyến từ các chuyên gia',
+                                                                                    img: demoImg3
+                                                                      },
+                                                                      {
+                                                                                    name: 'Mentor ra sao cho hiệu quả',
+                                                                                    descript: 'Tự học online với hệ thống bài giảng sẵn có từ các chuyên gia',
+                                                                                    img: demoImg4
+                                                                      },
+                                                                      {
+                                                                                    name: 'Cách tạo khóa học Online',
+                                                                                    descript: 'Tự học online với hệ thống bài giảng sẵn có từ các chuyên gia',
+                                                                                    img: demoImg2
+                                                                      },
+                                                        ].map((e, i) => <div key={`card-img-${i}`} className='card-image-2 col col6 col12-md col12-sm' style={{ '--gutter': '4rem' }}>
+                                                                      <div className='top-img' style={{ backgroundImage: `url(${e.img})` }}></div>
+                                                                      <div className='col text-content'>
+                                                                                    <div className='heading-5'>{e.name}</div>
+                                                                                    <div className='subtitle-3'>{e.descript}</div>
+                                                                      </div>
+                                                        </div>)
                                                         }
                                           </div>
                             </div>

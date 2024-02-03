@@ -8,7 +8,7 @@ export default function HeaderView() {
                             <div className="logo"></div>
                             <div className="action row">
                                           <div className='search-ebig row'>
-                                                        <OutlineSearch width={16} height={16} />
+                                                        <div className='prefix-icon-search row'><OutlineSearch /></div>
                                                         <input className='placeholder-2' placeholder="Search..." />
                                           </div>
                                           <button type='button' className='action-icon'><FilledBell color='#ffffff' /></button>

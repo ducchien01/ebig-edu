@@ -4,8 +4,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './sidebar.css'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { OutlineCircleArrowLeft } from '../../assets/const/icon';
-import { menuList, supportModule } from '../../assets/const/const-list';
+import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
+import { menuList, supportModule } from '../../../assets/const/const-list';
 export default function SideBar() {
               const location = useLocation()
               const [moduleList, setModuleList] = useState(menuList)

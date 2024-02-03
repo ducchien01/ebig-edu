@@ -6,7 +6,7 @@
 }
 
 .header>.logo {
-              background-image: url("../../assets/Logo.svg");
+              background-image: url("../../../assets/Logo.svg");
               background-repeat: no-repeat;
               background-size: contain;
               background-position: center;

@@ -1,13 +1,12 @@
 import React from 'react';
-import './App.css';
 import './assets/skin/color.css';
 import './assets/skin/typography.css';
+import './App.css';
 import './assets/skin/layout.css';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import MainLayout from './screen/layout/main-layout';
 // import 'react-toastify/dist/ReactToastify.css';
-import MainLayout from './screen/main-layout/main-layout';
-
 const checkToken = () => {
   // const token = localStorage.getItem('token');
   // if (token) return true;

@@ -2,17 +2,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './dashboard.css'
 import { faArrowDown, faArrowRight, faArrowUp, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
-import demoImg2 from '../../assets/demo-image2.png';
-import demoImg3 from '../../assets/demo-image3.png';
-import demoImg4 from '../../assets/demo-image4.png';
-import demoImg5 from '../../assets/demo-image5.png';
-import demoImg6 from '../../assets/demo-image6.png';
-import avatarDemo1 from '../../assets/demo-avatar1.png';
-import avatarDemo2 from '../../assets/demo-avatar2.png';
-import { FilledBell, FilledBook, FilledSocialSharing } from '../../assets/const/icon';
+import demoImg2 from '../../../assets/demo-image2.png';
+import demoImg3 from '../../../assets/demo-image3.png';
+import demoImg4 from '../../../assets/demo-image4.png';
+import demoImg5 from '../../../assets/demo-image5.png';
+import demoImg6 from '../../../assets/demo-image6.png';
+import avatarDemo1 from '../../../assets/demo-avatar1.png';
+import avatarDemo2 from '../../../assets/demo-avatar2.png';
+import { FilledBell, FilledBook, FilledSocialSharing } from '../../../assets/const/icon';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
-export default function EduDashboard({ type = 0 }) {
+export default function EduDashboard({ type = 1 }) {
               return <div className="edu-dashboard col">
                             <div className="banner-container col">
                                           <div className="col" style={{ rowGap: 8 }}>

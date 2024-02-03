@@ -86,7 +86,7 @@
               flex: 0 100% !important;
 }
 
-/* Extra small devices (phones, 576px and down) */
+/* Extra small devices (phones, 576px and down) min*/
 @media only screen and (max-width: 576px) {
               .row>.col0-min {
                             display: none !important;
@@ -172,7 +172,7 @@
 /* Small devices (portrait tablets and large phones, 576px and up) Small (sm)*/
 @media only screen and (min-width: 576px) and (max-width: 768px) {
               :root {
-                            font-size: 6px;
+                            font-size: 6px !important;
               }
 
               .row>.col0-sm {
@@ -271,7 +271,8 @@
                             transition: transform ease-in-out 1.2s !important;
               }
 
-              .card-view-1, .card-image-2 {
+              .card-view-1,
+              .card-image-2 {
                             height: fit-content !important;
               }
 
@@ -284,7 +285,7 @@
 /* Medium devices (landscape tablets, 768px and up) Medium (md)*/
 @media only screen and (min-width: 768px) and (max-width: 992px) {
               :root {
-                            font-size: 6px;
+                            font-size: 6px !important;
               }
 
               .row>.col0-md {
@@ -358,7 +359,8 @@
               }
 
               /* more config resposive */
-              .card-view-1 , .card-image-2 {
+              .card-view-1,
+              .card-image-2 {
                             height: fit-content !important;
               }
 
@@ -371,7 +373,7 @@
 /* Large devices (laptops/desktops, 992px and up) Large (lg)*/
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
               :root {
-                            font-size: 8px;
+                            font-size: 8px !important;
               }
 
               .row>.col0-lg {
@@ -458,7 +460,7 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) X-large (xl)*/
 @media only screen and (min-width: 1200px) {
               :root {
-                            font-size: 8px;
+                            font-size: 8px !important;
               }
 
               .row>.col0-xl {
@@ -540,7 +542,7 @@
 /* Extra large devices (large laptops and desktops, 1600px and up) XX-large (xxl) */
 @media only screen and (min-width: 1600px) {
               :root {
-                            font-size: 10px;
+                            font-size: 10px !important;
               }
 
               .row>.col0-xxl {
@@ -611,5 +613,12 @@
                             width: auto !important;
                             min-width: auto !important;
                             flex: 0 100% !important;
+              }
+
+              .card-view-2>.card-content-2 {
+                            border: none !important;
+                            border-left: 1px solid #00358014 !important;
+                            padding-left: 2.4rem !important;
+                            padding-top: 0 !important;
               }
 }

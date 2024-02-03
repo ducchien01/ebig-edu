@@ -1,0 +1,38 @@
+.edu-dashboard {
+              width: 100%;
+              height: max-content;
+              row-gap: 2.4rem;
+              align-items: center;
+}
+
+.banner-container {
+              background-image: url("../../../assets/demo-banner.png");
+              background-size: cover;
+              row-gap: 3.2rem;
+              padding: 5% 10%;
+              width: 100%;
+              box-sizing: border-box;
+}
+
+.banner-container .banner-btn {
+              color: #ffffff;
+              border-radius: 24px;
+              background-color: var(--primary-color);
+              padding: 8px 1.6rem;
+              width: fit-content;
+}
+
+.banner-container .banner-btn-2 {
+              color: var(--primary-color);
+              border-radius: 24px;
+              border: 1px solid var(--primary-color);
+              padding: 8px 1.6rem;
+              width: fit-content;
+}
+
+.dashboard-content {
+              row-gap: 3.2rem;
+              width: 100%;
+              padding: 3.2rem 8.9rem;
+              box-sizing: border-box;
+}

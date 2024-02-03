@@ -1,11 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react'
-import HeaderView from '../../local-component/header/header'
-import SideBar from '../../local-component/sidebar/sidebar'
 import './main-layout.css'
 import { menuList } from '../../assets/const/const-list';
 import { Route, Routes } from 'react-router-dom';
 import { getcomponentRouter } from '../../router/router';
+import HeaderView from './header/header';
+import SideBar from './sidebar/sidebar';
 export default function MainLayout() {
               useEffect(() => { }, [])
 

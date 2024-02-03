@@ -1,7 +1,7 @@
 import React from 'react';
-import { FilledBell, FilledChat, OutlineSearch } from '../../assets/const/icon'
+import { FilledBell, FilledChat, OutlineSearch } from '../../../assets/const/icon'
 import './header.css'
-import demoAvatar from '../../assets/demo-avatar.png';
+import demoAvatar from '../../../assets/demo-avatar.png';
 
 export default function HeaderView() {
               return <div className="header row">

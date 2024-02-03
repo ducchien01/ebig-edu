@@ -1,4 +1,5 @@
-import EduDashboard from "../screen/dashboard/dashboard";
+import EduDashboard from "../screen/module/dashboard/dashboard";
+import EduSchedule from "../screen/module/schedule/schedule";
 
 export const getcomponentRouter = (moduleCode, ActionCode) => {
     if (ActionCode) {
@@ -12,6 +13,8 @@ export const getcomponentRouter = (moduleCode, ActionCode) => {
         switch (moduleCode) {
             case "edu-management/dashboard":
                 return <EduDashboard />;
+            case "edu-management/schedule":
+                return <EduSchedule />;
             default:
                 break;
         }

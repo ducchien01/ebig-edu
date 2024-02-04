@@ -1,28 +1,37 @@
 import React, { CSSProperties } from 'react';
-import './checkbox.css';
+import './switch.css';
 
-interface CheckboxProps {
+interface SwitchProps {
     onChange?: Function,
     value?: boolean,
-    checkColor?: string,
     disabled: false,
     style: CSSProperties,
     size?: number | string,
+    dotColor?: string,
+    onBackground?: string,
+    offBackground?: string,
 }
 
-interface CheckboxState {
+interface SwitchState {
     value?: boolean,
 }
 
-export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
-    state: Readonly<CheckboxState> = {
+export class Switch extends React.Component<SwitchProps, SwitchState> {
+    state: Readonly<SwitchState> = {
         value: this.props.value ?? false
     }
 
     render() {
+        const propStyle = {
+            '--off-bg': this.props.offBackground ?? 'var(--background)',
+            '--on-bg': this.props.onBackground ?? 'var(--primary-color)',
+            '--dot-color': this.props.dotColor ?? '#ffffff',
+            '--size': this.props.size ? (typeof this.props.size === 'number') ? `${this.props.size}px` : this.props.size : '20px'
+        }
         let convertStyle: CSSProperties = {
-            width: this.props.size ?? 24,
-            height: this.props.size ?? 24,
+            height: this.props.size ?? 20,
+            width: `calc(${this.props.size ? (typeof this.props.size === 'number') ? `${this.props.size}px` : this.props.size : '20px'} * 9 / 5)`,
+            ...propStyle
         }
         if (this.props.style) {
             delete this.props.style.width
@@ -33,10 +42,10 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
             delete this.props.style.maxHeight
             convertStyle = {
                 ...this.props.style,
-                ...convertStyle
+                ...convertStyle,
             }
         }
-        return <label className="checkbox-container row" style={convertStyle} >
+        return <label className="switch-container row" style={convertStyle} >
             <input type="checkbox" checked={this.state.value} disabled={this.props.disabled}
                 onChange={() => {
                     const newValue = !this.state.value
@@ -44,9 +53,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
                     if (this.props.onChange) this.props.onChange(newValue)
                 }}
             />
-            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
-                <path d="M6.72 11.52 L10.8 15.6 L18 7.2" fill="none" strokeLinecap="round" stroke={this.props.checkColor ?? '#ffffff'} />
-            </svg>
+            <span className="slider"></span>
         </label>
     }
 }

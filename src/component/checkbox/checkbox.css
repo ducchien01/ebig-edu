@@ -37,3 +37,12 @@
 .checkbox-container:has(> input:checked) {
     border: none !important;
 }
+
+.checkbox-container:has(> input:disabled)  {
+    background-color: var(--disabled-background) !important;
+    border: 1px solid #00358033 !important;
+}
+
+.checkbox-container:has(> input:disabled) > svg > path {
+    stroke: #00204D40 !important;
+}

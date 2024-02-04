@@ -1,84 +1,53 @@
-.switch {
+.switch-container {
     position: relative;
     display: inline-block;
-    width: 44px;
-    height: 24px;
+    background-color: var(--off-bg) !important;
+    border-radius: 50vw !important;
+    border: none;
+    outline: none;
 }
 
-.switch input {
+.switch-container>input {
     opacity: 0;
     width: 0;
     height: 0;
+    border: none;
+    outline: none;
 }
 
-.slider {
+.switch-container>.slider {
+    font-size: var(--size);
     position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
+    height: calc(100% - 0.2em);
+    aspect-ratio: 1 / 1;
+    left: 0.1em;
+    top: 0.1em;
+    background-color: var(--dot-color);
+    transition: 0.4s;
     border-radius: 50%;
 }
 
-input:checked+.slider {
-    background-color: var(--primary-color);
+.switch-container>input:checked+.slider {
+    -webkit-transform: translateX(calc(0.8 * (100% + 0.2em)));
+    -ms-transform: translateX(calc(0.8 * (100% + 0.2em)));
+    transform: translateX(calc(0.8 * (100% + 0.2em)));
 }
 
-input:checked+.slider:before {
-    transform: translateX(26px);
+.switch-container:has(> input:checked) {
+    background-color: var(--on-bg) !important;
 }
 
-.switch.size20 {
-    width: 44px;
-    height: 24px;
+.switch-container:has(> input:disabled:not(*:checked)) {
+    pointer-events: none;
+    border: 1px inset #00358033;
+    background-color: var(--disabled-background) !important;
 }
 
-.switch.size20 .slider {
-    border-radius: 18px;
+.switch-container:has(> input:disabled:not(*:checked)) .slider {
+    background-color: #00204D40;
 }
 
-.switch.size20 .slider:before {
-    height: 20px;
-    width: 20px;
-    left: 2px;
-    bottom: 2px;
-}
-
-.switch.size20 input:checked+.slider:before {
-    transform: translateX(20px);
-}
-
-.switch.size24 {
-    width: 54px;
-    height: 30px;
-}
-
-.switch.size24 .slider {
-    border-radius: 22px;
-}
-
-.switch.size24 .slider:before {
-    height: 24px;
-    width: 24px;
-    left: 3px;
-    bottom: 3px;
-}
-
-.switch.size24 input:checked+.slider:before {
-    transform: translateX(24px);
+.switch-container:has(> input:disabled:checked) {
+    pointer-events: none;
+    background-color: #bccdf5 !important;
 }

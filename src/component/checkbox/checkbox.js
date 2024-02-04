@@ -2,7 +2,6 @@ import React from 'react';
 import './checkbox.css';
 
 export default function Checkbox({ onChange, value, defaultValue, checkColor = '#ffffff', disabled = false, style }) {
-    
     delete style.backgroundColor
     delete style['background-color']
     return (

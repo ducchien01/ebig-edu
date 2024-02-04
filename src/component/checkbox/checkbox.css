@@ -1,9 +1,14 @@
 .checkbox-container {
     position: relative;
-    width: 24px;
-    aspect-ratio: 1 / 1 !important;
     border-radius: 4px;
     display: inline-block;
+    border: 1px solid #00358033;
+    background-color: var(--primary-color);
+    transition: border, background-color 0.5s;
+}
+
+.checkbox-container:not(*:has(> input:checked)) {
+    background-color: transparent !important;
 }
 
 .checkbox-container>input {
@@ -30,6 +35,5 @@
 }
 
 .checkbox-container:has(> input:checked) {
-    background-color: var(--checked-color) !important;
     border: none !important;
 }

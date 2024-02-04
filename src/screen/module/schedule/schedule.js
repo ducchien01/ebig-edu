@@ -7,6 +7,7 @@ import avatarDemo2 from '../../../assets/demo-avatar2.png';
 import demoImg2 from '../../../assets/demo-image2.png';
 import demoImg3 from '../../../assets/demo-image3.png';
 import demoImg4 from '../../../assets/demo-image4.png';
+import { Checkbox } from "../../../component/checkbox/checkbox.tsx";
 
 export default function EduSchedule() {
               const [openSchedule, setOpenSchedule] = useState(true)
@@ -44,6 +45,7 @@ export default function EduSchedule() {
                                                         <div className="button-text-3">Tạo nhắc nhở</div>
                                           </div>
                             </div>
+                            <Checkbox size={'4.8rem'} />
                             <div className='block-view col'>
                                           <div className='block-title row'>
                                                         <div className="heading-7">Sắp diễn ra</div>

@@ -15,9 +15,9 @@
 }
 
 .import-file-container:not(.button-only) {
-  max-width: 570px;
-  padding: 36px;
-  column-gap: 16px;
+  max-width: 57rem;
+  padding: 3.6rem;
+  column-gap: 1.6rem;
   border-radius: 8px;
   border: 1px solid #00358033;
 }
@@ -27,8 +27,8 @@
 }
 
 .import-file-container > .import-file-prefix {
-  width: 56px;
-  height: 56px;
+  width: 5.6rem;
+  height: 5.6rem;
   border-radius: 50%;
   background-color: #edf2fd;
   align-items: center;
@@ -42,17 +42,17 @@
 }
 
 .file-preview-content > .title-file {
-  font: 600 16px/24px "Inter";
+  font: 600 1.6rem/2.4rem "Inter";
   color: #00204d;
 }
 
 .file-preview-content > .subtitle-file {
-  font: 400 12px/16px "Inter";
+  font: 400 1.2rem/1.6rem "Inter";
   color: #00204d99;
 }
 
 .import-file-container > .import-file-suffix {
-  padding: 9px 16px;
+  padding: 8px 1.6rem;
   border-radius: 8px;
   column-gap: 8px;
   align-items: center;
@@ -62,17 +62,17 @@
 
 .import-file-container > .import-file-suffix > span {
   padding: 0;
-  font: 500 14px/22px "Inter";
+  font: 500 1.4rem/2.2rem "Inter";
   color: #00204d99;
 }
 
 .import-file-container .preview-file-link {
-  font: 500 12px/16px "Inter";
+  font: 500 1.2rem/1.6rem "Inter";
   color: #366ae2;
 }
 
 .remove-preview-file {
-  width: 16px;
-  height: 16px;
+  width: 1.6rem;
+  height: 1.6rem;
   margin-left: 6px;
 }

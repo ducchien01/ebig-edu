@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import './date-picker.css'
 import { Ultis } from '../../Utils'
@@ -396,15 +396,14 @@ export class DatePicker extends React.Component {
 
   renderUI() {
     return <div>
-      <div
-        className={`date-picker-container row input-border ${this.props.disabled ? 'disabled' : ''} ${this.props.control && this.props.errors[this.props.name] && 'helper-text'}`}
+      <div className={`date-picker-container row input-border ${this.props.disabled ? 'disabled' : ''} ${this.props.control && this.props.errors[this.props.name] && 'helper-text'}`}
         helper-text={this.props.control && this.props.errors[this.props.name]?.message}
       >
-        <div className='input-field-value' style={{ height: '40px' }}>
+        <div className='input-field-value' style={{ height: '4rem' }}>
           <input
             autoComplete='off'
             className='regular1'
-            style={{ fontSize: '12px' }}
+            style={{ fontSize: '1.2rem' }}
             placeholder={this.props.placeholder}
             maxLength={this.props.pickerType === 'year' ? 4 : type === 'month' ? 7 : 10}
             onFocus={ev => {

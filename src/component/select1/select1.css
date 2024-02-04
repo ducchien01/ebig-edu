@@ -3,12 +3,12 @@
   align-items: center;
   justify-content: start;
   width: 100%;
-  height: 40px;
+  height: 4rem;
   max-height: 100%;
   box-sizing: border-box;
   padding: 8px;
   column-gap: 6px;
-  width: 160px;
+  width: 16rem;
   position: relative;
   border: 0.5px solid #00358033;
   border-radius: 4px;
@@ -32,10 +32,7 @@
   left: 0;
   bottom: -4px;
   width: max-content;
-  font-size: 12px;
-  line-height: 16px;
-  font-family: Inter;
-  font-weight: inherit;
+  font: inherit 1.2rem/1.6rem 'Inter';
   transform: translate(-7.5%, 92.5%) scale(0.85);
 }
 
@@ -67,7 +64,7 @@
 }
 
 .select1-container>.selected-item-value>.selected-value-title {
-  font: 400 12px/16px "Inter";
+  font: 400 1.2rem/1.6rem "Inter";
   color: #1C2430;
 }
 
@@ -86,8 +83,8 @@
 
 .select1-popup>.header-search {
   margin: 0 8px;
-  width: calc(100% - 16px);
-  padding: 8px 16px;
+  width: calc(100% - 1.6rem);
+  padding: 8px 1.6rem;
   border: 1px solid var(--primary-border-color);
   box-sizing: border-box;
   border-radius: 4px;
@@ -98,7 +95,7 @@
   outline: none;
   padding: 0;
   border: 0;
-  font: 400 12px/16px "Inter";
+  font: 400 1.2rem/1.6rem "Inter";
   color: #1C2430;
   min-width: 0;
   flex: 1;
@@ -114,8 +111,8 @@
 
 .select1-popup>.select1-body>.select1-scroll-view {
   overflow: hidden auto;
-  max-height: 260px;
-  min-height: 80px;
+  max-height: 26rem;
+  min-height: 8rem;
   width: 100%;
   align-items: start;
 }
@@ -127,7 +124,7 @@
 .select1-popup>.select1-body .select1-tile {
   justify-content: start;
   align-items: center;
-  padding: 12px 16px;
+  padding: 1.2rem 1.6rem;
   column-gap: 6px;
   width: 100%;
   cursor: context-menu;
@@ -144,6 +141,6 @@
 
 .no-results-found {
   padding: 8px;
-  font: 400 14px/20px "Inter";
+  font: 400 1.4rem/2rem "Inter";
   color: #1C2430;
 }

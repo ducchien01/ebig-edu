@@ -320,6 +320,7 @@ body * {
   flex-wrap: wrap;
   gap: 2.4rem;
   height: 100%;
+  background-color: var(--background);
 }
 
 .card-view-2>div {
@@ -347,4 +348,31 @@ body * {
 .card-view-2 .button-text-3:first-child {
   background-color: var(--primary-color);
   color: #ffffff;
+}
+
+.tab-header-2 {
+  column-gap: 2.4rem;
+  border-bottom: 1px inset #00358014;
+  overflow: visible;
+}
+
+.tab-header-2 > .tab-btn {
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom, color ease-in-out 0.7s;
+  cursor: pointer;
+}
+
+.tab-header-2 > .tab-btn.selected {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-container {
+  row-gap: 4rem;
+}
+
+.tab-container > .tab-body-2 {
+  flex-wrap: wrap;
+  gap: 4rem;
 }

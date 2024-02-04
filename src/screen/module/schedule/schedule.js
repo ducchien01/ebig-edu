@@ -1,14 +1,17 @@
-import { NavLink } from "react-router-dom";
 import { FilledBell, FilledSocialSharing, FilledTimeAlarm } from "../../../assets/const/icon";
 import './schedule.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import avatarDemo2 from '../../../assets/demo-avatar2.png';
+import demoImg2 from '../../../assets/demo-image2.png';
+import demoImg3 from '../../../assets/demo-image3.png';
+import demoImg4 from '../../../assets/demo-image4.png';
 
 export default function EduSchedule() {
               const [openSchedule, setOpenSchedule] = useState(true)
-              const [selectedTab, setSelectedTab] = useState(0)
+              const [activeScheduleTab, setActiveScheduleTab] = useState(0)
+              const [activeProcessTab, setActiveProcessTab] = useState(0)
               const eventList = [
                             {
                                           title: 'Toán cao cấp đại học',
@@ -44,7 +47,7 @@ export default function EduSchedule() {
                             <div className='block-view col'>
                                           <div className='block-title row'>
                                                         <div className="heading-7">Sắp diễn ra</div>
-                                                        <NavLink to={'/edu-management/schedule/note/all'} className='button-text-3'>Xem tất cả nhắc nhở</NavLink>
+                                                        <button type="button" className='button-text-3'>Xem tất cả nhắc nhở</button>
                                           </div>
                                           <div className='row list-card'>
                                                         {
@@ -65,10 +68,10 @@ export default function EduSchedule() {
                                                                                                                               {i === 0 ? null : <div className='body-3' style={{ marginTop: 4 }}>{e.note}</div>}
                                                                                                                 </div>
                                                                                                   </div>
-                                                                                                  {i === 0 ? <NavLink className='card-button-2 row'>
+                                                                                                  {i === 0 ? <button type="button" className='card-button-2 row'>
                                                                                                                 <div className='row' style={{ width: '1.6rem', height: '1.6rem' }}><FilledSocialSharing color='white' /></div>
                                                                                                                 <div className='button-text-3'>Vào dạy</div>
-                                                                                                  </NavLink> : <div className='noti row'>
+                                                                                                  </button> : <div className='noti row'>
                                                                                                                 <FilledBell width={15} height={15} color='#366AE2' />
                                                                                                   </div>}
                                                                                     </div>;
@@ -84,17 +87,17 @@ export default function EduSchedule() {
                                                                       <FontAwesomeIcon icon={openSchedule ? faChevronDown : faChevronUp} size="1x" color="#00204DCC" />
                                                         </button>
                                                         <div className="tab-header row">
-                                                                      <div className={`tab-btn label-4 row ${selectedTab === 0 ? 'selected' : ''}`} onClick={() => setSelectedTab(0)}>Ngày</div>
-                                                                      <div className={`tab-btn label-4 row ${selectedTab === 1 ? 'selected' : ''}`} onClick={() => setSelectedTab(1)}>Tuần</div>
-                                                                      <div className={`tab-btn label-4 row ${selectedTab === 2 ? 'selected' : ''}`} onClick={() => setSelectedTab(2)}>Tháng</div>
+                                                                      <div className={`tab-btn label-4 row ${activeScheduleTab === 0 ? 'selected' : ''}`} onClick={() => setActiveScheduleTab(0)}>Ngày</div>
+                                                                      <div className={`tab-btn label-4 row ${activeScheduleTab === 1 ? 'selected' : ''}`} onClick={() => setActiveScheduleTab(1)}>Tuần</div>
+                                                                      <div className={`tab-btn label-4 row ${activeScheduleTab === 2 ? 'selected' : ''}`} onClick={() => setActiveScheduleTab(2)}>Tháng</div>
                                                         </div>
                                           </div>
-                                          <div className="tab-view" style={{ width: '100%', height: 360, backgroundColor: 'var(--background)' }}></div>
+                                          {openSchedule ? <div className="tab-view" style={{ width: '100%', height: 360, backgroundColor: 'var(--background)' }}></div> : null}
                             </div>
                             <div className='block-view col'>
                                           <div className='block-title row'>
                                                         <div className="heading-5">Đặt lịch mentor</div>
-                                                        <NavLink to={'/edu-management/schedule/mentor-schedule/all'} className='button-text-3'>Xem tất cả</NavLink>
+                                                        <button type="button" className='button-text-3'>Xem tất cả</button>
                                           </div>
                                           <div className="row list-card-view">
                                                         {
@@ -121,7 +124,7 @@ export default function EduSchedule() {
                                                                                     },
                                                                       ].map((e, i) => <div key={`card-view-${i}`} className='card-view-2 row col12' style={{ '--gutter': '2.4rem' }}>
                                                                                     <div className="col card-content-1 col16-xxl col24">
-                                                                                                  <div className="col" style={{rowGap: '1.2rem'}} >
+                                                                                                  <div className="col" style={{ rowGap: '1.2rem' }} >
                                                                                                                 <div className="col" style={{ rowGap: 4, paddingBottom: '1.2rem' }}>
                                                                                                                               <div className="heading-7">{e.title}</div>
                                                                                                                               <div className="subtitle-4">{e.time}</div>
@@ -134,16 +137,63 @@ export default function EduSchedule() {
                                                                                     </div>
                                                                                     <div className="col card-content-2 col8-xxl col24">
                                                                                                   <div className="col" style={{ rowGap: 4 }}>
-                                                                                                                <div className="heading-6">{e.timeLimit}</div>
-                                                                                                                <div className="subtitle-4">{e.schedule}</div>
+                                                                                                                <div className="heading-6" style={{ textAlign: 'center' }}>{e.timeLimit}</div>
+                                                                                                                <div className="subtitle-4" style={{ textAlign: 'center' }}>{e.schedule}</div>
                                                                                                   </div>
-                                                                                                  <div className="row" style={{columnGap: 8}}>
+                                                                                                  <div className="row" style={{ gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
                                                                                                                 <div className="button-text-3">Chấp nhận</div>
                                                                                                                 <div className="button-text-3">Từ chối</div>
                                                                                                   </div>
                                                                                     </div>
                                                                       </div>)
                                                         }
+                                          </div>
+                            </div>
+                            <div className='block-view col'>
+                                          <div className='block-title heading-5'>Tiến trình giảng dạy</div>
+                                          <div className="col tab-container">
+                                                        <div className="tab-header-2 row">
+                                                                      <div className={`tab-btn label-4 row ${activeProcessTab === 0 ? 'selected' : ''}`} onClick={() => setActiveProcessTab(0)}>Lớp học</div>
+                                                                      <div className={`tab-btn label-4 row ${activeProcessTab === 1 ? 'selected' : ''}`} onClick={() => setActiveProcessTab(1)}>Mentor</div>
+                                                        </div>
+                                                        <div className="tab-body-2 row">
+                                                                      {
+                                                                                    [
+                                                                                                  {
+                                                                                                                name: 'Thiết kế UI/UX dành cho người mới bắt đầu',
+                                                                                                                next: 'Review bài tập số 2',
+                                                                                                                img: demoImg2
+                                                                                                  },
+                                                                                                  {
+                                                                                                                name: 'Copy-writing for beginner',
+                                                                                                                next: 'Review bài tập số 5',
+                                                                                                                img: demoImg3
+                                                                                                  },
+                                                                                                  {
+                                                                                                                name: 'HTML-CSS-JS cơ bản',
+                                                                                                                next: 'Css selector',
+                                                                                                                img: demoImg2
+                                                                                                  },
+                                                                                                  {
+                                                                                                                name: 'Thiết kế UI/UX bằng Figma',
+                                                                                                                next: 'Import thư viện',
+                                                                                                                img: demoImg4
+                                                                                                  },
+                                                                                                  {
+                                                                                                                name: 'React-js tutorial',
+                                                                                                                next: 'Function Component',
+                                                                                                                img: demoImg3
+                                                                                                  },
+                                                                                                  {
+                                                                                                                name: 'Flutter tutorial',
+                                                                                                                next: 'Setup environment',
+                                                                                                                img: demoImg4
+                                                                                                  },
+                                                                                    ].map((e, i) => <div key={`card-img-${i}`} className='card-image-2 col col6 col12-md col12-sm' style={{ '--gutter': '4rem' }}>
+                                                                                                  <div className='top-img' style={{ backgroundImage: `url(${e.img})` }}></div>
+                                                                                    </div>)
+                                                                      }
+                                                        </div>
                                           </div>
                             </div>
               </div>

@@ -7,12 +7,7 @@ import { Controller } from 'react-hook-form'
 
 const checkmark = (
   <svg width='100%' height='100%' viewBox='0 0 20 20'>
-    <path
-      d='M5.6 9.6 L9.0 13.0 L15.0 6.0'
-      fill='none'
-      strokeLinecap='round'
-      stroke='white'
-    ></path>
+    <path d='M5.6 9.6 L9.0 13.0 L15.0 6.0' fill='none' strokeLinecap='round' stroke='white' ></path>
   </svg>
 )
 
@@ -54,7 +49,7 @@ export class SelectMultiple extends React.Component {
       if (thisPopupRect.right > document.body.offsetWidth) {
         var style = {
           top: this.state.offset.y + this.state.offset.height + 2 + 'px',
-          width: this.state.offset.width + 'px',
+          width: `${this.state.offset.width / 10}rem`,
           right: document.body.offsetWidth - this.state.offset.right + 'px'
         }
       }
@@ -65,7 +60,7 @@ export class SelectMultiple extends React.Component {
           bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
         } : {
           left: this.state.offset.x + 'px',
-          width: this.state.offset.width + 'px',
+          width: `${this.state.offset.width / 10}rem`,
           bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
         }
       }
@@ -121,7 +116,7 @@ export class SelectMultiple extends React.Component {
             style={this.state.style ?? {
               top: this.state.offset.y + this.state.offset.height + 2 + 'px',
               left: this.state.offset.x + 'px',
-              width: this.state.offset.width + 'px'
+              width: `${this.state.offset.width / 10}rem`,
             }}
             onMouseOver={ev => {
               this.setState({

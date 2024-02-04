@@ -16,18 +16,18 @@
 }
 
 .select1-container.disabled {
-  background-color: #fafafa !important;
+  background-color: var(--disabled-background) !important;
   pointer-events: none !important;
 }
 
 .select1-container.helper-text {
   overflow: visible !important;
-  border-color: red !important;
+  border-color: var(--helper-text-color) !important;
 }
 
 .select1-container.helper-text::after {
   content: attr(helper-text);
-  color: red;
+  color: var(--helper-text-color);
   position: absolute;
   left: 0;
   bottom: -4px;
@@ -45,13 +45,13 @@
 }
 
 .select1-container>.select1-placeholder {
-  font: 400 12px/16px "Inter";
+  font: 400 1.2rem/1.6rem "Inter";
   color: #c5c5c5;
   flex: 1;
 }
 
 .select1-container>.select1-value-name {
-  font: 400 12px/16px "Inter";
+  font: 400 1.2rem/1.6rem "Inter";
   color: #282c34;
   flex: 1;
 }

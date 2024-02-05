@@ -27,10 +27,10 @@ const successSvg = (
 )
 
 export const enum DialogStatus {
-  INFOR = 1,
-  ERROR = 2,
-  WARNING = 3,
-  SUCCSESS = 4,
+  INFOR,
+  ERROR,
+  WARNING,
+  SUCCSESS,
 }
 
 interface DialogState {

@@ -74,7 +74,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
   }
 
   componentDidUpdate(prevProps: Select1Props, prevState: Select1State) {
-    if (prevProps.value !== this.props.value || prevProps.options !== this.props.options) {
+    if (prevProps.value !== this.props.value) {
       this.setState({
         ...this.state,
         value: this.props.value
@@ -102,10 +102,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
             bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
           }
         }
-        if (style) this.setState({
-          ...this.state,
-          style: style
-        })
+        if (style) this.setState({ ...this.state, style: style })
       }
     }
   }
@@ -134,7 +131,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
   render() {
     const selectedValue: ObjWithKnownKeys | undefined = this.props.options.find(e => e.id === this.state.value)
     return <div
-      className={`select1-container row input-border ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
+      className={`select1-container row ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
       helper-text={this.props.helperText}
       style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
       onClick={ev => {
@@ -143,7 +140,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
           this.setState({
             ...this.state,
             isOpen: true,
-            offset: ((ev.target as HTMLDivElement).closest('.select1-container') ?? (ev.target as HTMLDivElement)).getBoundingClientRect(),
+            offset: ((ev.target as HTMLElement).closest('.select1-container') ?? (ev.target as HTMLElement)).getBoundingClientRect(),
             style: undefined
           })
         }

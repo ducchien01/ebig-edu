@@ -2,13 +2,15 @@ import { FilledBell, FilledSocialSharing, FilledTimeAlarm } from "../../../asset
 import './schedule.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import avatarDemo2 from '../../../assets/demo-avatar2.png';
 import demoImg2 from '../../../assets/demo-image2.png';
 import demoImg3 from '../../../assets/demo-image3.png';
 import demoImg4 from '../../../assets/demo-image4.png';
+import { Popup, Select1, showPopup } from "../../../component/export-component";
 
 export default function EduSchedule() {
+              const ref = useRef()
               const [openSchedule, setOpenSchedule] = useState(true)
               const [activeScheduleTab, setActiveScheduleTab] = useState(0)
               const [activeProcessTab, setActiveProcessTab] = useState(0)
@@ -36,13 +38,39 @@ export default function EduSchedule() {
                             },
               ]
 
+              const addNotePopup = () => {
+                            showPopup({
+                                          ref: ref,
+                                          heading: <div className="row popup-header heading-7">Tạo nhắc nhở</div>,
+                                          content: <div className="col popup-body">
+                                                        <div className="input-container col">
+                                                                      <div className="label-3">Lời nhắc nhở</div>
+                                                                      <div className="input-field"><input placeholder="Nhập lời nhắc" /></div>
+                                                        </div>
+                                                        <div className="input-container col">
+                                                                      <div className='input-label row'>
+                                                                                    <span className='label-3'>Khóa học</span>
+                                                                                    <span className='required-icon regular2'>*</span>
+                                                                      </div>
+                                                                      <div className="input-field">
+                                                                                    <Select1
+                                                                                                  placeholder="Chọn khóa học"
+                                                                                    />
+                                                                      </div>
+                                                        </div>
+                                          </div>,
+                                          footer: <div className="row"></div>,
+                            })
+              }
+
               return <div className="edu-schedule col view-container">
+                            <Popup ref={ref} />
                             <div className="view-header row">
                                           <div className="heading-4">Giảng dạy</div>
-                                          <div className="suffix-btn row">
+                                          <button type="button" className="suffix-btn row" onClick={addNotePopup}>
                                                         <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledTimeAlarm /></div>
                                                         <div className="button-text-3">Tạo nhắc nhở</div>
-                                          </div>
+                                          </button>
                             </div>
                             <div className='block-view col'>
                                           <div className='block-title row'>

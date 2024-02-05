@@ -13,7 +13,7 @@ interface ObjWithKnownKeys {
 
 interface Select1Props {
   value?: any,
-  options: Array<ObjWithKnownKeys>,
+  options: Required<Array<ObjWithKnownKeys>>,
   onChange?: Function,
   label?: string,
   placeholder?: string,
@@ -55,8 +55,8 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
   }
 
   props: Readonly<Select1Props> = {
-    options: [],
-    disabled: false
+    disabled: false,
+    options: []
   }
 
   parseValue(value: any) {
@@ -152,7 +152,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
       {selectedValue?.name ? (<div className='select1-value-name'>{selectedValue.name}</div>) : (<div className='select1-placeholder'>{this.props.placeholder}</div>)}
       <FontAwesomeIcon
         icon={this.state.isOpen ? faCaretUp : faCaretDown}
-        style={{ fontSize: 11, color: '#888' }}
+        style={{ fontSize: '1.2rem', color: '#888' }}
       />
       {this.state.isOpen &&
         ReactDOM.createPortal(

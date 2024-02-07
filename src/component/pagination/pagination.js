@@ -1,6 +1,6 @@
 import ReactPaginate from "react-paginate";
-import Select2 from "../select2/Select2";
 import './pagination.css';
+import { Select1 } from "../export-component";
 
 export default function Pagination({ currentPage, itemPerPage, totalItem, onChangePage, hiddenPageSize = false }) {
     if (currentPage > 1 && (totalItem === 0 || (Math.floor(totalItem / itemPerPage) + (totalItem % itemPerPage === 0 ? 0 : 1)) < currentPage)) {
@@ -17,9 +17,9 @@ export default function Pagination({ currentPage, itemPerPage, totalItem, onChan
                     {hiddenPageSize ? null : <div className="row 1b44a252-c5ea-4aff-a72f-031b67a08f3c" level={8} cateid={140} >
                         <div className="w-text abcbe7b5-579f-40ed-abfc-1adffadeec15 regular2" level={9} cateid={139}>Items/page</div>
                         <div className="row 5f746375-6816-4c67-b614-6bdbe3fba40a" level={9} cateid={85} placeholder="10">
-                            <Select2
-                                data={[10, 20, 50, 100, 200].map((item, _) => { return { id: item, name: item } })}
-                                options={{ placeholder: `${itemPerPage}` }}
+                            <Select1
+                                placeholder={itemPerPage}
+                                options={[10, 20, 50, 100, 200].map((item, _) => { return { id: item, name: item } })}
                                 onChange={(ev) => {
                                     if (!isNaN(parseInt(ev.target.value)))
                                         itemPerPage = parseInt(ev.target.value);

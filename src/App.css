@@ -45,6 +45,7 @@ body * {
 .block-view>.list-card {
   gap: 2.4rem;
   flex-wrap: wrap;
+  align-items: stretch !important;       
 }
 
 .block-view>.block-title {
@@ -58,6 +59,7 @@ body * {
 .list-card-view {
   width: 100%;
   gap: 2.4rem;
+  align-items: stretch !important;       
 }
 
 .list-card-scroll {
@@ -69,11 +71,6 @@ body * {
   background-color: var(--background);
   border-radius: 8px;
   padding: 4rem 3.2rem;
-  height: 100%;
-}
-
-.card-view-1:not(*[class*="col24"]) {
-  height: 100%;
 }
 
 .card-view-1 .text-content {
@@ -150,7 +147,6 @@ body * {
 
 .card-image-2 {
   width: 29.4rem;
-  height: 100%;
 }
 
 .card-image-2>.top-img {
@@ -320,7 +316,6 @@ body * {
   padding: 2.4rem;
   flex-wrap: wrap;
   gap: 2.4rem;
-  height: 100%;
   background-color: var(--background);
 }
 
@@ -371,9 +366,4 @@ body * {
 
 .tab-container {
   row-gap: 4rem;
-}
-
-.tab-container > .tab-body-2 {
-  flex-wrap: wrap;
-  gap: 4rem;
 }

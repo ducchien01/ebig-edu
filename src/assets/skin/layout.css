@@ -159,14 +159,6 @@
               }
 
               /* more config responsive */
-              .card-view-1 {
-                            height: fit-content !important;
-              }
-
-              .card-image-3 {
-                            height: fit-content !important;
-                            padding: 16px !important;
-              }
 }
 
 /* Small devices (portrait tablets and large phones, 576px and up) Small (sm)*/
@@ -270,16 +262,6 @@
                             transform: translateX(8.2rem) !important;
                             transition: transform ease-in-out 1.2s !important;
               }
-
-              .card-view-1,
-              .card-image-2 {
-                            height: fit-content !important;
-              }
-
-              .card-image-3 {
-                            height: fit-content !important;
-                            padding: 16px !important;
-              }
 }
 
 /* Medium devices (landscape tablets, 768px and up) Medium (md)*/
@@ -359,15 +341,6 @@
               }
 
               /* more config resposive */
-              .card-view-1,
-              .card-image-2 {
-                            height: fit-content !important;
-              }
-
-              .card-image-3 {
-                            height: fit-content !important;
-                            padding: 1.6rem !important;
-              }
 }
 
 /* Large devices (laptops/desktops, 992px and up) Large (lg)*/
@@ -447,14 +420,6 @@
               }
 
               /* more config resposive */
-              .card-view-1.col24-lg {
-                            height: fit-content !important;
-              }
-
-              .card-image-3 {
-                            height: fit-content !important;
-                            padding: 2rem !important;
-              }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) X-large (xl)*/
@@ -534,9 +499,6 @@
               }
 
               /* more config resposive */
-              .card-image-3 {
-                            padding: 2rem !important;
-              }
 }
 
 /* Extra large devices (large laptops and desktops, 1600px and up) XX-large (xxl) */

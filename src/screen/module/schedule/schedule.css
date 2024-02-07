@@ -5,3 +5,26 @@
               padding: 1.6rem 8.9rem;
 }
 
+.course-list {
+              gap: 4rem;
+              flex-wrap: wrap;
+              width: 100%;
+              flex: 1;
+              align-items: stretch;       
+}
+
+.course-list>.card-view-course {
+              --gutter: 4rem;
+}
+
+.course-list>.card-view-course>.course-img {
+              background-size: cover;
+              height: 18rem;
+              width: 100%;
+              border-radius: 8px;
+}
+
+.course-list>.card-view-course>.course-infor {
+              row-gap: 2rem;
+              max-height: 148px;
+}

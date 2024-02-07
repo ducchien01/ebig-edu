@@ -3,11 +3,11 @@ import './schedule.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
-// import avatarDemo2 from '../../../assets/demo-avatar2.png';
-// import demoImg2 from '../../../assets/demo-image2.png';
-// import demoImg3 from '../../../assets/demo-image3.png';
-// import demoImg4 from '../../../assets/demo-image4.png';
-import { DatePicker, Popup, Select1, showPopup } from "../../../component/export-component";
+import avatarDemo2 from '../../../assets/demo-avatar2.png';
+import demoImg2 from '../../../assets/demo-image2.png';
+import demoImg3 from '../../../assets/demo-image3.png';
+import demoImg4 from '../../../assets/demo-image4.png';
+import {  Popup, Select1, SelectMultiple, showPopup } from "../../../component/export-component";
 
 export default function EduSchedule() {
               const ref = useRef()
@@ -72,7 +72,6 @@ export default function EduSchedule() {
                                                         <div className="button-text-3">Tạo nhắc nhở</div>
                                           </button>
                             </div>
-                            <DatePicker placeholder="Chọn ngày" />
                             <div className='block-view col'>
                                           <div className='block-title row'>
                                                         <div className="heading-7">Sắp diễn ra</div>

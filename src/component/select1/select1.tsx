@@ -15,9 +15,7 @@ interface Select1Props {
   value?: any,
   options: Required<Array<ObjWithKnownKeys>>,
   onChange?: Function,
-  label?: string,
   placeholder?: string,
-  name?: string,
   disabled: boolean,
   className?: string,
   helperText?: string,
@@ -52,11 +50,6 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
     },
     isOpen: false,
     onSelect: null,
-  }
-
-  props: Readonly<Select1Props> = {
-    disabled: false,
-    options: []
   }
 
   parseValue(value: any) {
@@ -129,7 +122,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
   }
 
   render() {
-    const selectedValue: ObjWithKnownKeys | undefined = this.props.options.find(e => e.id === this.state.value)
+    const selectedValue: ObjWithKnownKeys | undefined = (this.props.options ?? []).find(e => e.id === this.state.value)
     return <div
       className={`select1-container row ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
       helper-text={this.props.helperText}

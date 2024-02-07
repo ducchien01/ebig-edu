@@ -1,9 +1,8 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import ReactDOM from 'react-dom'
 import './input-multi-select.css'
-import { Controller } from 'react-hook-form'
 
 const checkmark = (
   <svg width='100%' height='100%' viewBox='0 0 20 20'>
@@ -11,19 +10,52 @@ const checkmark = (
   </svg>
 )
 
-export class SelectMultiple extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: props.value ?? [],
-      offset: { x: 0, y: 0 },
-      isOpen: false,
-      onSelect: null,
-      search: null
-    }
+interface ObjWithKnownKeys {
+  [k: string]: any;
+}
+
+interface SelectMultipleProps {
+  value?: any,
+  options: Required<Array<ObjWithKnownKeys>>,
+  onChange?: Function,
+  placeholder?: string,
+  disabled: boolean,
+  className?: string,
+  helperText?: string,
+  helperTextColor?: string,
+  style?: CSSProperties,
+}
+
+interface SelectMultipleState {
+  value: Array<any>,
+  offset: DOMRect,
+  isOpen: boolean,
+  onSelect: any,
+  search?: Array<ObjWithKnownKeys>,
+  style?: Object
+};
+
+export class SelectMultiple extends React.Component<SelectMultipleProps, SelectMultipleState> {
+  state: SelectMultipleState = {
+    value: this.props.value,
+    offset: {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      toJSON: function () {
+        throw new Error('Function not implemented.')
+      }
+    },
+    isOpen: false,
+    onSelect: null,
   }
 
-  onCheck(item, field) {
+  onCheck(item: ObjWithKnownKeys) {
     if (this.state.value.some(e => e.id === item.id)) {
       var newValue = this.state.value.filter(e => e.id !== item.id)
     } else {
@@ -33,11 +65,10 @@ export class SelectMultiple extends React.Component {
       ...this.state,
       value: newValue
     })
-    if (field) field.onChange(newValue)
     if (this.props.onChange) this.props.onChange(newValue)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: SelectMultipleProps, prevState: SelectMultipleState) {
     if (prevProps.value !== this.props.value) {
       this.setState({
         ...this.state,
@@ -45,43 +76,47 @@ export class SelectMultiple extends React.Component {
       })
     }
     if (prevState.isOpen !== this.state.isOpen && this.state.isOpen) {
-      const thisPopupRect = document.body.querySelector('.select-multi-popup').getBoundingClientRect()
-      if (thisPopupRect.right > document.body.offsetWidth) {
-        var style = {
-          top: this.state.offset.y + this.state.offset.height + 2 + 'px',
-          width: `${this.state.offset.width / 10}rem`,
-          right: document.body.offsetWidth - this.state.offset.right + 'px'
+      const thisPopupRect = document.body.querySelector('.select-multi-popup')?.getBoundingClientRect()
+      if (thisPopupRect) {
+        let style: { top?: string, left?: string, right?: string, bottom?: string, width?: string, height?: string } | undefined;
+        if (thisPopupRect.right > document.body.offsetWidth) {
+          style = {
+            top: this.state.offset.y + this.state.offset.height + 2 + 'px',
+            width: `${this.state.offset.width / 10}rem`,
+            right: document.body.offsetWidth - this.state.offset.right + 'px'
+          }
         }
-      }
-      if (thisPopupRect.bottom > document.body.offsetHeight) {
-        style = style ? {
-          ...style,
-          top: null,
-          bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
-        } : {
-          left: this.state.offset.x + 'px',
-          width: `${this.state.offset.width / 10}rem`,
-          bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
+        if (thisPopupRect.bottom > document.body.offsetHeight) {
+          style = style ? {
+            ...style,
+            top: undefined,
+            bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
+          } : {
+            left: this.state.offset.x + 'px',
+            width: `${this.state.offset.width / 10}rem`,
+            bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
+          }
         }
+        if (style) this.setState({
+          ...this.state,
+          style: style
+        })
       }
-      if (style) this.setState({
-        ...this.state,
-        style: style
-      })
     }
   }
 
-  renderUI(field) {
+  render() {
     return <div
-      className={`select-multi-container row input-border ${this.props.disabled ? 'disabled' : ''} ${this.props.control && this.props.errors[this.props.name] && 'helper-text'}`}
-      helper-text={this.props.control && this.props.errors[this.props.name]?.message}
+      className={`select-multi-container row ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
+      helper-text={this.props.helperText}
+      style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
       onClick={ev => {
         if (!this.state.isOpen) {
           this.setState({
             ...this.state,
             isOpen: true,
-            style: null,
-            offset: ev.target.closest('.select-multi-container').getBoundingClientRect()
+            style: undefined,
+            offset: ((ev.target as HTMLElement).closest('.select1-container') ?? (ev.target as HTMLElement)).getBoundingClientRect(),
           })
         }
       }}
@@ -96,7 +131,6 @@ export class SelectMultiple extends React.Component {
                 ...this.state,
                 value: newValue
               })
-              if (field) field.onChange(newValue)
               if (this.props.onChange) this.props.onChange(newValue)
             }}
           >
@@ -150,7 +184,7 @@ export class SelectMultiple extends React.Component {
                   } else {
                     this.setState({
                       ...this.state,
-                      search: null
+                      search: undefined
                     })
                   }
                 }}
@@ -175,7 +209,7 @@ export class SelectMultiple extends React.Component {
                       <input
                         type='checkbox'
                         checked={this.state.value.some(e => e.id === item.id)}
-                        onChange={() => this.onCheck(item, field)}
+                        onChange={() => this.onCheck(item)}
                       />
                       {checkmark}
                     </label>
@@ -193,17 +227,5 @@ export class SelectMultiple extends React.Component {
           document.body
         )}
     </div>
-  }
-
-  render() {
-    return this.props.control ? (
-      <Controller
-        name={this.props.name}
-        control={this.props.control}
-        render={({ field }) => {
-          return this.renderUI(field)
-        }}
-      />
-    ) : this.renderUI()
   }
 }

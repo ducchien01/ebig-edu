@@ -1,17 +1,16 @@
-import { FilledBell, FilledBook, FilledSocialSharing, FilledTimeAlarm } from "../../../assets/const/icon";
+import { FilledBell, FilledSocialSharing, FilledTimeAlarm } from "../../../assets/const/icon";
 import './schedule.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 import avatarDemo2 from '../../../assets/demo-avatar2.png';
-import { Popup, ProgressBar, Select1, showPopup } from "../../../component/export-component";
-import CourseList from "./local-component/course-list";
+import { Popup, Select1, showPopup } from "../../../component/export-component";
+import TeachingProcessList from './local-component/teaching-process-list'
 
 export default function EduSchedule() {
               const ref = useRef()
               const [openSchedule, setOpenSchedule] = useState(true)
               const [activeScheduleTab, setActiveScheduleTab] = useState(0)
-              const [activeProcessTab, setActiveProcessTab] = useState(0)
               const eventList = [
                             {
                                           title: 'Toán cao cấp đại học',
@@ -175,17 +174,7 @@ export default function EduSchedule() {
                                                         }
                                           </div>
                             </div>
-                            <div className='block-view col'>
-                                          <div className='block-title heading-5'>Tiến trình giảng dạy</div>
-                                          <div className="col tab-container">
-                                                        <div className="tab-header-2 row">
-                                                                      <div className={`tab-btn label-4 row ${activeProcessTab === 0 ? 'selected' : ''}`} onClick={() => setActiveProcessTab(0)}>Lớp học</div>
-                                                                      <div className={`tab-btn label-4 row ${activeProcessTab === 1 ? 'selected' : ''}`} onClick={() => setActiveProcessTab(1)}>Mentor</div>
-                                                        </div>
-                                                        <div className="tab-body-2 row">
-                                                                      <CourseList/>
-                                                        </div>
-                                          </div>
-                            </div>
+                            <TeachingProcessList />
+
               </div>
 }

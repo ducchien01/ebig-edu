@@ -10,7 +10,7 @@
               flex-wrap: wrap;
               width: 100%;
               flex: 1;
-              align-items: stretch;       
+              align-items: stretch;
 }
 
 .course-list>.card-view-course {
@@ -27,4 +27,18 @@
 .course-list>.card-view-course>.course-infor {
               row-gap: 2rem;
               max-height: 148px;
+              height: 100%;
+              flex: 1;
+}
+
+.card-view-course>.course-infor>.heading-7 {
+              max-height: 4.8rem;
+              flex: 1;
+}
+
+.card-view-course>.course-infor .percent-tag {
+              border-radius: 10rem;
+              background-color: var(--background);
+              color: #00204D99 !important;
+              padding: 4px 0.8rem;
 }

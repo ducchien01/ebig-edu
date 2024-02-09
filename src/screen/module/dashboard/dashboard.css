@@ -36,3 +36,130 @@
               padding: 3.2rem 8.9rem;
               box-sizing: border-box;
 }
+
+.card-view-instruction>.top-img {
+              background-size: cover;
+              height: 18rem;
+              width: 100%;
+              border-radius: 8px;
+}
+
+.card-view-instruction>.text-content {
+              padding: 2.4rem 0;
+              row-gap: 4px;
+              flex: 1;
+}
+
+.card-view-instruction>.text-content>.heading-5 {
+              flex: 1;
+              height: 100%;
+}
+
+.list-card-new-student {
+              flex-wrap: wrap;
+              padding: 1.6rem 0;
+              align-items: stretch;
+              gap: 2.4rem;
+}
+
+.card-new-student {
+              --gutter: 2.4rem;
+              row-gap: 1.6rem;
+}
+
+.card-new-student>.prefix-img {
+              width: 8rem;
+              height: 8rem;
+              border-radius: 50%;
+}
+
+.card-new-student>.card-btn {
+              padding: 5px 1.2rem;
+              border-radius: 24px;
+              background-color: var(--background);
+              width: fit-content;
+              color: #00204D99;
+}
+
+.card-business-infor {
+              padding: 1.6rem 0;
+              border-radius: 8px;
+              background-color: var(--background);
+}
+
+.list-business-infor {
+              flex-wrap: wrap;
+              padding: 1.6rem 0;
+              flex: 1;
+              width: 100%;
+}
+
+.list-business-infor>.business-infor {
+              --gutter: 2.4rem;
+              row-gap: 1.6rem;
+              padding: 1.2rem 2.8rem;
+}
+
+.card-current-course {
+              padding: 2.4rem;
+              border-radius: 8px;
+              border: 1px solid #00358014;
+              gap: 2.4rem;
+              flex-wrap: wrap;
+}
+
+.card-current-course>.prefix-img {
+              background-image: url('../../../assets/demo-image5.png');
+              --gutter: 2.4rem;
+              height: max(104px, 16rem);
+              background-size: cover;
+              border-radius: 8px;
+              overflow: hidden;
+}
+
+.card-current-course>.course-content {
+              row-gap: 1.6rem;
+}
+
+.card-current-course>.course-content>.content-1 {
+              row-gap: 8px;
+              padding-bottom: 1.2rem;
+              border-bottom: 1px solid #00358014;
+}
+
+.card-current-course>.course-content>.content-2 {
+              column-gap: 8px;
+}
+
+.card-current-course .list-avatar {
+              position: relative;
+              width: 12.8rem;
+              height: 3.2rem;
+}
+
+.card-current-course .list-avatar>.avatar-circle {
+              position: absolute;
+              top: 0;
+              background-color: var(--background);
+              border: 2px solid #ffffff;
+              border-radius: 50%;
+              overflow: hidden;
+              width: 3.2rem;
+              height: 3.2rem;
+              justify-content: center;
+              align-items: center;
+}
+
+.card-current-course .content-2>.course-time {
+              flex: 1;
+              width: 100%;
+              align-items: end;
+}
+
+.card-current-course .content-2>.course-time>* {
+              width: 100%;
+              text-overflow: ellipsis;
+              text-wrap: nowrap;
+              overflow: hidden;
+              text-align: end;
+}

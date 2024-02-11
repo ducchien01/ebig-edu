@@ -214,41 +214,6 @@ body * {
   color: var(--primary-color);
 }
 
-.card-view-2 {
-  border-radius: 8px;
-  padding: 2.4rem;
-  flex-wrap: wrap;
-  gap: 2.4rem;
-  background-color: var(--background);
-}
-
-.card-view-2>div {
-  row-gap: 1.2rem;
-}
-
-.card-view-2 .prefix-avatar-user {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
-  background-size: contain;
-}
-
-.card-view-2>.card-content-2 {
-  border-top: 1px solid #00358014;
-  padding-top: 2.4rem;
-}
-
-.card-view-2 .button-text-3 {
-  padding: 5px 1.2rem;
-  border-radius: 2.4rem;
-  background-color: #ffffff;
-}
-
-.card-view-2 .button-text-3:first-child {
-  background-color: var(--primary-color);
-  color: #ffffff;
-}
-
 .tab-header-2 {
   column-gap: 2.4rem;
   border-bottom: 1px inset #00358014;

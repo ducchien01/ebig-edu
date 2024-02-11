@@ -1,0 +1,7 @@
+.component-text {
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: var(--max-line);
+              overflow: hidden;
+              text-overflow: ellipsis;
+}

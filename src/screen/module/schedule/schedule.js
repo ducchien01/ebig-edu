@@ -3,9 +3,9 @@ import './schedule.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
-import avatarDemo2 from '../../../assets/demo-avatar2.png';
 import { Popup, Select1, showPopup } from "../../../component/export-component";
 import TeachingProcessList from './local-component/teaching-process-list'
+import MeentorList from "./local-component/mentor-list";
 
 export default function EduSchedule() {
               const ref = useRef()
@@ -119,61 +119,7 @@ export default function EduSchedule() {
                                           </div>
                                           {openSchedule ? <div className="tab-view" style={{ width: '100%', height: 360, backgroundColor: 'var(--background)' }}></div> : null}
                             </div>
-                            <div className='block-view col'>
-                                          <div className='block-title row'>
-                                                        <div className="heading-5">Đặt lịch mentor</div>
-                                                        <button type="button" className='button-text-3'>Xem tất cả</button>
-                                          </div>
-                                          <div className="row list-card-view">
-                                                        {
-                                                                      [
-                                                                                    {
-                                                                                                  title: 'Coach 1:1 Phân tích dữ liệu dành cho beginner',
-                                                                                                  time: '5 buổi từ 18/09/2023',
-                                                                                                  student: {
-                                                                                                                avatar: avatarDemo2,
-                                                                                                                name: 'Nguyễn Minh Nguyệt'
-                                                                                                  },
-                                                                                                  timeLimit: '19:00 - 20:00',
-                                                                                                  schedule: 'Thứ 3, thứ 6 hàng tuần',
-                                                                                    },
-                                                                                    {
-                                                                                                  title: 'Coach 1:1 Design mobile app by Figma',
-                                                                                                  time: '4 buổi từ 02/06/2023',
-                                                                                                  student: {
-                                                                                                                avatar: avatarDemo2,
-                                                                                                                name: 'Nguyễn Minh Nguyệt'
-                                                                                                  },
-                                                                                                  timeLimit: '14:00 - 15:30',
-                                                                                                  schedule: 'Thứ 2, thứ 4 hàng tuần',
-                                                                                    },
-                                                                      ].map((e, i) => <div key={`card-view-${i}`} className='card-view-2 row col12' style={{ '--gutter': '2.4rem' }}>
-                                                                                    <div className="col card-content-1 col16-xxl col24">
-                                                                                                  <div className="col" style={{ rowGap: '1.2rem' }} >
-                                                                                                                <div className="col" style={{ rowGap: 4, paddingBottom: '1.2rem' }}>
-                                                                                                                              <div className="heading-7">{e.title}</div>
-                                                                                                                              <div className="subtitle-4">{e.time}</div>
-                                                                                                                </div>
-                                                                                                                <div className="row" style={{ columnGap: 4 }}>
-                                                                                                                              <div className="prefix-avatar-user" style={{ backgroundImage: `url(${e.student.avatar})` }}></div>
-                                                                                                                              <div className="label-4">{e.student.name}</div>
-                                                                                                                </div>
-                                                                                                  </div>
-                                                                                    </div>
-                                                                                    <div className="col card-content-2 col8-xxl col24">
-                                                                                                  <div className="col" style={{ rowGap: 4 }}>
-                                                                                                                <div className="heading-6" style={{ textAlign: 'center' }}>{e.timeLimit}</div>
-                                                                                                                <div className="subtitle-4" style={{ textAlign: 'center' }}>{e.schedule}</div>
-                                                                                                  </div>
-                                                                                                  <div className="row" style={{ gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
-                                                                                                                <div className="button-text-3">Chấp nhận</div>
-                                                                                                                <div className="button-text-3">Từ chối</div>
-                                                                                                  </div>
-                                                                                    </div>
-                                                                      </div>)
-                                                        }
-                                          </div>
-                            </div>
+                            <MeentorList/>
                             <TeachingProcessList />
 
               </div>

@@ -576,11 +576,4 @@
                             min-width: auto !important;
                             flex: 0 100% !important;
               }
-
-              .card-view-2>.card-content-2 {
-                            border: none !important;
-                            border-left: 1px solid #00358014 !important;
-                            padding-left: 2.4rem !important;
-                            padding-top: 0 !important;
-              }
 }

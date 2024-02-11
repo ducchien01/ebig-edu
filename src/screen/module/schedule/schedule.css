@@ -42,3 +42,47 @@
               color: #00204D99 !important;
               padding: 4px 0.8rem;
 }
+
+.card-mentor-infor {
+              border-radius: 8px;
+              padding: 2.4rem;
+              flex-wrap: wrap;
+              gap: 2.4rem;
+              background-color: var(--background);
+              --gutter: 2.4rem;
+              align-items: start;
+}
+
+.card-mentor-infor>div {
+              row-gap: 1.2rem;
+              --gutter: 2.4rem;
+}
+
+.card-mentor-infor .prefix-avatar-user {
+              width: 2.4rem;
+              height: 2.4rem;
+              border-radius: 50%;
+              background-size: contain;
+}
+
+.card-mentor-infor>.time-infor {
+              border-top: 1px solid #00358014;
+              padding-top: 2.4rem;
+}
+
+.card-mentor-infor>.time-infor>.row {
+              gap: 8px;
+              flex-wrap: wrap;
+              justify-content: center;
+}
+
+.card-mentor-infor .button-text-3 {
+              padding: 5px 1.2rem;
+              border-radius: 2.4rem;
+              background-color: #ffffff;
+}
+
+.card-mentor-infor .button-text-3:first-child {
+              background-color: var(--primary-color);
+              color: #ffffff;
+}

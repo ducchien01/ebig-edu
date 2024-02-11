@@ -7,6 +7,7 @@ import { DatePicker, DatePickerType } from './date-picker/date-picker.tsx'
 import { SelectMultiple } from './input-multi-select/input-multi-select.tsx'
 import { ProgressBar } from './progress-bar/progress-bar.tsx'
 import { ComponentStatus, getStatusIcon } from './component-status.tsx'
+import { Text } from './text/text.tsx'
 
 export {
               ComponentStatus,
@@ -23,4 +24,5 @@ export {
               DatePickerType,
               SelectMultiple,
               ProgressBar,
+              Text,
 }

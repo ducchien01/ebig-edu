@@ -7,6 +7,7 @@ import ComingList from './local-component/coming-list';
 import NewStudentList from './local-component/new-student-list';
 import MothBusiness from './local-component/moth-business';
 import CurrentCourseList from './local-component/current-course-list';
+import { Text } from '../../../component/export-component';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
 export default function EduDashboard({ type = 0 }) {
@@ -48,8 +49,8 @@ function NewbieDashboard() {
                                                                                     }
                                                                       ].map((e, i) => <div key={`card-${i}`} className='card-view-1 row col12 col24-md col24-sm col24-min' style={{ '--gutter': '2.4rem', columnGap: '4rem' }}>
                                                                                     <div className='col text-content'>
-                                                                                                  <div className='heading-5'>{e.title}</div>
-                                                                                                  <div className='subtitle-3'>{e.content}</div>
+                                                                                                  <Text className='heading-5' maxLine={3}>{e.title}</Text>
+                                                                                                  <Text className='subtitle-3' maxLine={4}>{e.content}</Text>
                                                                                     </div>
                                                                                     <NavLink className='card-button row'>
                                                                                                   <div className='button-text-3'>Truy cập</div>

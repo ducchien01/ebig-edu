@@ -58,7 +58,7 @@ export default function MeentorList() {
                                                         <div className="col time-infor col8-xxl col8-xl col24">
                                                                       <div className="col" style={{ rowGap: 4 }}>
                                                                                     <Text className="heading-6" style={{ textAlign: 'center' }}>{e.timeLimit}</Text>
-                                                                                    <Text className="subtitle-4" style={{ textAlign: 'center' }}>{e.schedule}</Text>
+                                                                                    <Text className="subtitle-4" style={{ textAlign: 'center' }} maxLine={1}>{e.schedule}</Text>
                                                                       </div>
                                                                       <div className="row" >
                                                                                     <button className="button-text-3">Chấp nhận</button>

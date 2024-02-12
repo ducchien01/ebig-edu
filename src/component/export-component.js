@@ -8,6 +8,7 @@ import { SelectMultiple } from './input-multi-select/input-multi-select.tsx'
 import { ProgressBar } from './progress-bar/progress-bar.tsx'
 import { ComponentStatus, getStatusIcon } from './component-status.tsx'
 import { Text } from './text/text.tsx'
+import { Pagination } from './pagination/pagination.tsx'
 
 export {
               ComponentStatus,
@@ -25,4 +26,5 @@ export {
               SelectMultiple,
               ProgressBar,
               Text,
+              Pagination
 }

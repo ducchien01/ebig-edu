@@ -3,6 +3,7 @@ import './assets/skin/color.css';
 import './assets/skin/typography.css';
 import './App.css';
 import './assets/skin/layout.css';
+import './component/table/table.css'
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from './screen/layout/main-layout';

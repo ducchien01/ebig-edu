@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom"
 import demoImg2 from '../../../../assets/demo-image2.png';
 import demoImg3 from '../../../../assets/demo-image3.png';
 import demoImg4 from '../../../../assets/demo-image4.png';
+import { Text } from "../../../../component/export-component";
 
 export default function InstructionList() {
               const list = [
@@ -36,8 +37,8 @@ export default function InstructionList() {
                                           {list.map((e, i) => <div key={`card-img-${i}`} className='card-view-instruction col col6 col12-md col12-sm' style={{ '--gutter': '4rem' }}>
                                                         <div className='top-img' style={{ backgroundImage: `url(${e.img})` }}></div>
                                                         <div className='col text-content'>
-                                                                      <div className='heading-5'>{e.name}</div>
-                                                                      <div className='subtitle-3'>{e.descript}</div>
+                                                                      <Text className='heading-5'>{e.name}</Text>
+                                                                      <Text className='subtitle-3' maxLine={3}>{e.descript}</Text>
                                                         </div>
                                           </div>)}
                             </div>

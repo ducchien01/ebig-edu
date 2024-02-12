@@ -82,7 +82,7 @@ export class SelectMultiple extends React.Component<SelectMultipleProps, SelectM
         if (thisPopupRect.right > document.body.offsetWidth) {
           style = {
             top: this.state.offset.y + this.state.offset.height + 2 + 'px',
-            width: `${this.state.offset.width / 10}rem`,
+            width: `${this.state.offset.width}px`,
             right: document.body.offsetWidth - this.state.offset.right + 'px'
           }
         }
@@ -93,7 +93,7 @@ export class SelectMultiple extends React.Component<SelectMultipleProps, SelectM
             bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
           } : {
             left: this.state.offset.x + 'px',
-            width: `${this.state.offset.width / 10}rem`,
+            width: `${this.state.offset.width}px`,
             bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
           }
         }

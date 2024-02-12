@@ -16,11 +16,12 @@ interface Select1Props {
   options: Required<Array<ObjWithKnownKeys>>,
   onChange?: Function,
   placeholder?: string,
-  disabled: boolean,
+  disabled?: boolean,
   className?: string,
   helperText?: string,
   helperTextColor?: string,
   style?: CSSProperties,
+  searchPlaceholder?: string
 };
 
 interface Select1State {
@@ -80,7 +81,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
         if (thisPopupRect.right > document.body.offsetWidth) {
           style = {
             top: this.state.offset.y + this.state.offset.height + 2 + 'px',
-            width: `${this.state.offset.width / 10}rem`,
+            width: `${this.state.offset.width}px`,
             right: document.body.offsetWidth - this.state.offset.right + 'px'
           }
         }
@@ -91,7 +92,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
             bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
           } : {
             left: this.state.offset.x + 'px',
-            width: `${this.state.offset.width / 10}rem`,
+            width: `${this.state.offset.width}px`,
             bottom: document.body.offsetHeight - this.state.offset.bottom + 'px'
           }
         }
@@ -167,7 +168,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
             }
           >
             <div className='row header-search'>
-              <input autoFocus={true} placeholder={'Tìm kiếm'}
+              <input autoFocus={true} placeholder={this.props.searchPlaceholder ?? 'Tìm kiếm'}
                 onChange={ev => {
                   if (ev.target.value.trim().length) {
                     this.setState({

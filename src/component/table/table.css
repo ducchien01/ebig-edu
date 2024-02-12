@@ -79,3 +79,17 @@
     overflow: hidden;
     max-height: 3em;
 }
+
+.fixed-first-column {
+    z-index: 2;
+    left: 0;
+    position: sticky;
+    /* box-shadow: 1px 0px 6px 0px rgba(45, 50, 57, 0.06); */
+}
+
+.fixed-last-column {
+    z-index: 2;
+    right: 0;
+    position: sticky;
+    /* box-shadow: -1px 0px 6px 0px rgba(45, 50, 57, 0.06); */
+}

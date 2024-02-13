@@ -62,3 +62,9 @@
     /* box-shadow: 1px 0px 6px 0px rgba(45, 50, 57, 0.06); */
     background-color: #ffffff;
 }
+
+.tb-cell.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

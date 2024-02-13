@@ -88,7 +88,7 @@ function PopupFullNoteList() {
                                                                       <TbCell fixed={true} style={{ minWidth: 360 }}>Lời nhắc</TbCell>
                                                                       <TbCell style={{ minWidth: 150, }} >Khóa học</TbCell>
                                                                       <TbCell style={{ minWidth: 240, }} >Bài học</TbCell>
-                                                                      <TbCell style={{ minWidth: 80, }} >Thời gian nhắc nhở</TbCell>
+                                                                      <TbCell style={{ minWidth: 240, }} >Thời gian nhắc nhở</TbCell>
                                                                       <TbCell fixed={true} style={{ minWidth: 110, }} >Action</TbCell>
                                                         </TbHeader>
                                                         <TbBody>
@@ -97,7 +97,7 @@ function PopupFullNoteList() {
                                                                                                   <TbCell fixed={true} style={{ minWidth: 360, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
                                                                                                   <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
                                                                                                   <TbCell style={{ minWidth: 240, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
-                                                                                                  <TbCell style={{ minWidth: 240, }} className='center'>15 tháng 10 2023 , 15:00</TbCell>
+                                                                                                  <TbCell style={{ minWidth: 240, }} >15 tháng 10 2023 , 15:00</TbCell>
                                                                                                   <TbCell fixed={true} style={{ minWidth: 110, }}>
                                                                                                                 <div className="row" style={{ gap: 8 }}>
                                                                                                                               <button type="button" className="row" onClick={() => { navigate('') }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
@@ -113,39 +113,6 @@ function PopupFullNoteList() {
                                                                       }
                                                         </TbBody>
                                           </Table>
-                                          {/* <table className='custom-table'>
-                                                        <thead>
-                                                                      <tr>
-                                                                                    <th style={{ minWidth: 360, }} className='fixed-first-column'>Lời nhắc</th>
-                                                                                    <th style={{ minWidth: 150, }} className=''>Khóa học</th>
-                                                                                    <th style={{ minWidth: 240, }} className=''>Bài học</th>
-                                                                                    <th style={{ minWidth: 80, }} className='' >Thời gian nhắc nhở</th>
-                                                                                    <th style={{ minWidth: 110, }} className='fixed-last-column' >Action</th>
-                                                                      </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                                      {
-                                                                                    Array.from({ length: 10 }, (_, index) => (
-                                                                                                  <tr key={index}>
-                                                                                                                <td style={{ minWidth: 360, }} className='fixed-first-column'><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></td>
-                                                                                                                <td style={{ minWidth: 150, }} className=''><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></td>
-                                                                                                                <td style={{ minWidth: 240, }} className=''><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></td>
-                                                                                                                <td style={{ minWidth: 240, }} className='center'>15 tháng 10 2023 , 15:00</td>
-                                                                                                                <td style={{ minWidth: 110, }} className='fixed-last-column'>
-                                                                                                                              <div className="row" style={{ gap: 8 }}>
-                                                                                                                                            <button type="button" className="row" onClick={() => { navigate('') }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
-                                                                                                                                                          <FilledEdit />
-                                                                                                                                            </button>
-                                                                                                                                            <button type="button" className="row" onClick={() => { confirmDelete() }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
-                                                                                                                                                          <FilledTrashCan />
-                                                                                                                                            </button>
-                                                                                                                              </div>
-                                                                                                                </td>
-                                                                                                  </tr>
-                                                                                    ))
-                                                                      }
-                                                        </tbody>
-                                          </table> */}
                             </div>
                             <div className="popup-footer row">
                                           <Pagination

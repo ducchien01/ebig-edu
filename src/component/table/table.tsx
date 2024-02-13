@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 import './table.css'
 
 type TbCellProps = {
@@ -6,11 +6,12 @@ type TbCellProps = {
     children?: ReactNode,
     className?: string,
     style?: CSSProperties,
+    alignCenter?: boolean,
 }
 
 export class TbCell extends React.Component<TbCellProps> {
     render(): React.ReactNode {
-        return <td style={this.props.style} className={`tb-cell ${this.props.className ?? ''} ${this.props.fixed ? 'tb-cell-fixed' : ''}`}>{this.props.children}</td>
+        return <td style={this.props.style} className={`tb-cell ${this.props.alignCenter ? 'center' : ""} ${this.props.className ?? ''} ${this.props.fixed ? 'tb-cell-fixed' : ''}`}>{this.props.children}</td>
     }
 }
 
@@ -18,12 +19,13 @@ interface TbRowProps {
     children?: Array<TbCell>,
     className?: string,
     style?: CSSProperties,
+    onClick?: MouseEventHandler<HTMLTableRowElement>,
 }
 
 
 export class TbRow extends React.Component<TbRowProps> {
     render(): React.ReactNode {
-        return <tr style={this.props.style} className={`tb-row ${this.props.className ?? ""}`}>
+        return <tr style={this.props.style} className={`tb-row ${this.props.className ?? ""}`} onClick={this.props.onClick}>
             {(this.props.children ?? []).map((e: TbCell, i: number) => {
                 let ox: number | string = 0
                 if (this.props.children && i > 0 && i < (this.props.children.length - 1)) {
@@ -34,6 +36,7 @@ export class TbRow extends React.Component<TbRowProps> {
                 }
                 return <TbCell
                     key={`tb-cell-${i}`}
+                    alignCenter={e.props.alignCenter}
                     children={e.props.children}
                     fixed={e.props.fixed}
                     style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0 } : { left: ox } : e.props.style}
@@ -54,6 +57,7 @@ export class TbHeader extends React.Component<TbRowProps> {
                     }
                     return <TbCell
                         key={`tb-cell-${i}`}
+                        alignCenter={e.props.alignCenter}
                         children={e.props.children}
                         fixed={e.props.fixed}
                         style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0 } : { left: ox } : e.props.style}

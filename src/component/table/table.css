@@ -8,6 +8,7 @@
     top: 0;
     z-index: 4;
     position: sticky;
+    background-color: #f9fafb !important;
 }
 
 .custom-table>.tb-header>tr {
@@ -15,13 +16,14 @@
     border-bottom: 1px solid #00358014;
 }
 
-.custom-table td {
+.custom-table .tb-cell {
     height: 4rem;
     text-align: left;
     flex-shrink: 0 !important;
     padding: 0 24px;
     font: 400 1.4rem/2.2rem 'Inter';
     color: #00204DCC;
+    vertical-align: middle;
 }
 
 .custom-table>.tb-header>tr>td {
@@ -63,8 +65,14 @@
     background-color: #ffffff;
 }
 
-.tb-cell.center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.tb-cell[align-cell='start'] {
+    text-align: start;
+}
+
+.tb-cell[align-cell='center'] {
+    text-align: center;
+}
+
+.tb-cell[align-cell='end'] {
+    text-align: end;
 }

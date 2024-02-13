@@ -9,7 +9,8 @@ import { ProgressBar } from './progress-bar/progress-bar.tsx'
 import { ComponentStatus, getStatusIcon } from './component-status.tsx'
 import { Text } from './text/text.tsx'
 import { Pagination } from './pagination/pagination.tsx'
-import { Table, TbCell, TbHeader, TbRow, TbBody } from './table/table.tsx'
+import { Table, TbCell, TbHeader, TbRow, TbBody, CellAlignItems } from './table/table.tsx'
+import { TextField } from './text-field/text-field.tsx'
 
 export {
               ComponentStatus,
@@ -28,5 +29,6 @@ export {
               ProgressBar,
               Text,
               Pagination,
-              Table, TbCell, TbHeader, TbBody, TbRow,
+              Table, TbCell, TbHeader, TbBody, TbRow, CellAlignItems,
+              TextField
 }

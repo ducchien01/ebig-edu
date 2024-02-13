@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import avatarDemo2 from '../../../../assets/demo-avatar2.png';
-import { Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from '../../../../component/export-component';
+import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from '../../../../component/export-component';
 import demoAvatar from '../../../../assets/demo-avatar1.png'
 
 export default function MeentorList() {
@@ -77,15 +77,15 @@ function PopupGetFullMentorList() {
               const [selected, setSelected] = useState()
 
               return <div className="col" style={{ maxHeight: "100%", flex: 1 }}>
-                            <div className="popup-body" style={{ width: '100%', height: '100%', flex: 1, overflow: 'auto' }}>
+                            <div className="popup-body">
                                           <Table>
                                                         <TbHeader>
                                                                       <TbCell fixed={true} style={{ minWidth: 360 }}>Học viên</TbCell>
                                                                       <TbCell style={{ minWidth: 150, }} >Khóa mentor</TbCell>
-                                                                      <TbCell style={{ minWidth: 80, }} alignCenter={true}>Số buổi</TbCell>
+                                                                      <TbCell style={{ minWidth: 80, }} align={CellAlignItems.center}>Số buổi</TbCell>
                                                                       <TbCell style={{ minWidth: 180, }} >Ngày bắt đầu</TbCell>
                                                                       <TbCell style={{ minWidth: 240, }} >Thời gian hẹn</TbCell>
-                                                                      <TbCell fixed={true} style={{ minWidth: 110, }} alignCenter={true} >Action</TbCell>
+                                                                      <TbCell fixed={true} style={{ minWidth: 240, }} align={CellAlignItems.center} >Action</TbCell>
                                                         </TbHeader>
                                                         <TbBody>
                                                                       {
@@ -100,10 +100,10 @@ function PopupGetFullMentorList() {
                                                                                                                 </div>
                                                                                                   </TbCell>
                                                                                                   <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
-                                                                                                  <TbCell style={{ minWidth: 80, }} alignCenter={true}><Text>5</Text></TbCell>
+                                                                                                  <TbCell style={{ minWidth: 80, }} align={CellAlignItems.center}><Text>5</Text></TbCell>
                                                                                                   <TbCell style={{ minWidth: 180, }} >18/10/2023</TbCell>
                                                                                                   <TbCell style={{ minWidth: 240, }} >19:00 - 20:00 Thứ 3,6 hàng tuần</TbCell>
-                                                                                                  <TbCell fixed={true} style={{ minWidth: 110, }}>
+                                                                                                  <TbCell fixed={true} style={{ minWidth: 240, }}>
                                                                                                                 {selected === index ? <div className="row" style={{ gap: 8 }}>
                                                                                                                               <button type="button" className="row" style={{ gap: '0.8rem' }} onClick={() => { }}>
                                                                                                                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

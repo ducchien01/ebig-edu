@@ -1,17 +1,23 @@
 import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 import './table.css'
 
+export enum CellAlignItems {
+    start = 'start',
+    center = 'center',
+    end = 'end',
+}
+
 type TbCellProps = {
     fixed?: boolean,
     children?: ReactNode,
     className?: string,
     style?: CSSProperties,
-    alignCenter?: boolean,
+    align?: CellAlignItems,
 }
 
 export class TbCell extends React.Component<TbCellProps> {
     render(): React.ReactNode {
-        return <td style={this.props.style} className={`tb-cell ${this.props.alignCenter ? 'center' : ""} ${this.props.className ?? ''} ${this.props.fixed ? 'tb-cell-fixed' : ''}`}>{this.props.children}</td>
+        return <td style={this.props.style} align-cell={this.props.align ?? CellAlignItems.start} className={`tb-cell ${this.props.className ?? ''} ${this.props.fixed ? 'tb-cell-fixed' : ''}`}>{this.props.children}</td>
     }
 }
 
@@ -36,7 +42,7 @@ export class TbRow extends React.Component<TbRowProps> {
                 }
                 return <TbCell
                     key={`tb-cell-${i}`}
-                    alignCenter={e.props.alignCenter}
+                    align={e.props.align}
                     children={e.props.children}
                     fixed={e.props.fixed}
                     style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0 } : { left: ox } : e.props.style}
@@ -57,7 +63,7 @@ export class TbHeader extends React.Component<TbRowProps> {
                     }
                     return <TbCell
                         key={`tb-cell-${i}`}
-                        alignCenter={e.props.alignCenter}
+                        align={e.props.align}
                         children={e.props.children}
                         fixed={e.props.fixed}
                         style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0 } : { left: ox } : e.props.style}

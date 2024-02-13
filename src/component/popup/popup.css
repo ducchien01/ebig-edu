@@ -83,7 +83,9 @@
   box-shadow: 0px 1px 6px 0px #2d32390f;
 }
 
-.popup-container>.popup-body {
-  padding: 1.6rem 2rem;
-  gap: 2rem;
+.popup-body {
+  width: 100%;
+  max-height: 100%;
+  flex: 1;
+  overflow: auto;
 }

@@ -15,6 +15,7 @@ body * {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  font-family: 'Inter' !important;
 }
 
 body * {
@@ -22,6 +23,12 @@ body * {
   background-color: transparent;
   outline: none;
   padding: 0;
+}
+
+button {
+  outline: none;
+  padding: 0;
+  border: none;
 }
 
 .view-container>.view-header {
@@ -45,7 +52,7 @@ body * {
 .block-view>.list-card {
   gap: 2.4rem;
   flex-wrap: wrap;
-  align-items: stretch !important;       
+  align-items: stretch !important;
 }
 
 .block-view>.block-title {
@@ -59,12 +66,7 @@ body * {
 .list-card-view {
   width: 100%;
   gap: 2.4rem;
-  align-items: stretch !important;       
-}
-
-.list-card-scroll {
-  overflow: auto hidden;
-  column-gap: 4rem;
+  align-items: stretch !important;
 }
 
 .card-view-1 {
@@ -205,14 +207,14 @@ body * {
   overflow: visible;
 }
 
-.tab-header-2 > .tab-btn {
+.tab-header-2>.tab-btn {
   padding: 8px 0;
   border-bottom: 2px solid transparent;
   transition: border-bottom, color ease-in-out 0.7s;
   cursor: pointer;
 }
 
-.tab-header-2 > .tab-btn.selected {
+.tab-header-2>.tab-btn.selected {
   color: var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
 }

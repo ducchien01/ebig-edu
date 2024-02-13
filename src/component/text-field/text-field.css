@@ -18,8 +18,15 @@
               height: 100%;
               border: none;
               outline: none;
-              padding: 0.8rem 1.6rem;
               background-color: transparent !important;
+              font: inherit;
+              color: inherit;
+              font-size: inherit;
+              font-family: inherit;
+              font-weight: inherit;
+              line-height: inherit;
+              text-align: inherit;
+              text-overflow: inherit;
 }
 
 .text-field-container.helper-text {

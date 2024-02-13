@@ -45,14 +45,26 @@
 }
 
 .select1-container>.select1-placeholder {
-  font: 400 1.2rem/1.6rem "Inter";
-  color: #c5c5c5;
+  font: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-overflow: inherit;
+  color: #c5c5c5 !important;
   flex: 1;
 }
 
 .select1-container>.select1-value-name {
-  font: 400 1.2rem/1.6rem "Inter";
-  color: #282c34;
+  font: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-overflow: inherit;
   flex: 1;
 }
 

@@ -23,39 +23,16 @@ interface TextFieldProps {
 
 export class TextField extends React.Component<TextFieldProps> {
               render(): React.ReactNode {
-                            let inputFont: CSSProperties | undefined = undefined
-                            if (this.props.style) {
-                                          const { font, fontSize, fontFamily, fontWeight, lineHeight, textAlign, textDecoration, textOverflow, color } = this.props.style
-                                          inputFont = {
-                                                        font: font,
-                                                        fontSize: fontSize,
-                                                        fontFamily: fontFamily,
-                                                        fontWeight: fontWeight,
-                                                        lineHeight: lineHeight,
-                                                        textAlign: textAlign,
-                                                        textDecoration: textDecoration,
-                                                        textOverflow: textOverflow,
-                                                        color: color
-                                          }
-                                          delete this.props.style.font
-                                          delete this.props.style.fontSize
-                                          delete this.props.style.fontFamily
-                                          delete this.props.style.fontWeight
-                                          delete this.props.style.lineHeight
-                                          delete this.props.style.textAlign
-                                          delete this.props.style.textDecoration
-                                          delete this.props.style.textOverflow
-                                          delete this.props.style.color
-                            }
+                            const padding = this.props.style?.padding
+                            delete this.props.style?.padding
                             return <div
-                                          className={`text-field-container row ${this.props.className ?? ''} ${this.props.helperText?.length && 'helper-text'}`}
+                                          className={`text-field-container row ${this.props.className ?? 'placeholder-2'} ${this.props.helperText?.length && 'helper-text'}`}
                                           style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
                             >
                                           {this.props.prefix}
                                           <input
                                                         // autoComplete={autoComplete ? 'on' : 'new-password'}
-                                                        className='placeholder-2'
-                                                        style={inputFont}
+                                                        style={{ padding: padding ?? '0.8rem 1.2rem' }}
                                                         maxLength={this.props.maxLength}
                                                         name={this.props.name}
                                                         type={this.props.type ?? 'text'}

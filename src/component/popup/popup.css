@@ -35,12 +35,6 @@
   border-radius: 0;
 }
 
-.popup-container button {
-  outline: none;
-  padding: 0;
-  border: none;
-}
-
 .popup-header {
   align-items: center;
   justify-content: start;

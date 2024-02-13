@@ -194,7 +194,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
       })
     }
     if (prevState.isOpen !== this.state.isOpen && this.state.isOpen) {
-      const thisPopupRect = document.body.querySelector('.date-picker-container')?.getBoundingClientRect()
+      const thisPopupRect = document.body.querySelector('.date-picker-popup')?.getBoundingClientRect()
       if (thisPopupRect) {
         let style: { top?: string, left?: string, right?: string, bottom?: string, width?: string, height?: string } | undefined;
         if (thisPopupRect.right > document.body.offsetWidth) {
@@ -496,15 +496,13 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
   }
 
   render() {
-    return <label className={`date-picker-container row input-border ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
+    return <label className={`date-picker-container row input-border ${this.props.className ?? 'regular1'} ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
       helper-text={this.props.helperText}
       style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
     >
       <div className='input-field-value row' style={{ height: '4rem' }}>
         <input
           autoComplete='off'
-          className='regular1'
-          style={{ fontSize: '1.2rem' }}
           value={this.state.value ?? ''}
           onChange={(ev) => this.setState({ ...this.state, value: ev.target.value })}
           placeholder={this.props.placeholder}

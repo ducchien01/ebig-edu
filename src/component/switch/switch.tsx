@@ -10,6 +10,8 @@ interface SwitchProps {
     dotColor?: string,
     onBackground?: string,
     offBackground?: string,
+    name?: string,
+    className?: string,
 }
 
 interface SwitchState {
@@ -45,8 +47,8 @@ export class Switch extends React.Component<SwitchProps, SwitchState> {
                 ...convertStyle,
             }
         }
-        return <label className="switch-container row" style={convertStyle} >
-            <input type="checkbox" checked={this.state.value} disabled={this.props.disabled}
+        return <label className={`switch-container row ${this.props.className ?? ''}`} style={convertStyle} >
+            <input type="checkbox" checked={this.state.value} name={this.props.name} disabled={this.props.disabled}
                 onChange={() => {
                     const newValue = !this.state.value
                     this.setState({ value: newValue })

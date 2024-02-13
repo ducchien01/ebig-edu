@@ -125,7 +125,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
   render() {
     const selectedValue: ObjWithKnownKeys | undefined = (this.props.options ?? []).find(e => e.id === this.state.value)
     return <div
-      className={`select1-container row ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
+      className={`select1-container row ${this.props.className ?? 'regular1'} ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
       helper-text={this.props.helperText}
       style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
       onClick={ev => {

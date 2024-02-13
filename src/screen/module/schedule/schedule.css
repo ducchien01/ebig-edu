@@ -113,3 +113,11 @@
               background-color: #ffffff;
               justify-content: center;
 }
+
+.submit-popup-note {
+              padding: 5px 1.2rem;
+              border: 1px solid #00358033;
+              border-radius: 24px;
+              background-color: #0035800A;
+              cursor: pointer;
+}

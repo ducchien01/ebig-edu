@@ -9,6 +9,7 @@ import { ProgressBar } from './progress-bar/progress-bar.tsx'
 import { ComponentStatus, getStatusIcon } from './component-status.tsx'
 import { Text } from './text/text.tsx'
 import { Pagination } from './pagination/pagination.tsx'
+import { Table, TbCell, TbHeader, TbRow, TbBody } from './table/table.tsx'
 
 export {
               ComponentStatus,
@@ -26,5 +27,6 @@ export {
               SelectMultiple,
               ProgressBar,
               Text,
-              Pagination
+              Pagination,
+              Table, TbCell, TbHeader, TbBody, TbRow,
 }

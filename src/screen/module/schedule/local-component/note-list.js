@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { FilledBell, FilledEdit, FilledSocialSharing, FilledTrashCan } from "../../../../assets/const/icon"
-import { Pagination, Popup, Text, showPopup } from "../../../../component/export-component"
+import { Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from "../../../../component/export-component"
 import { useNavigate } from "react-router-dom"
 
 export default function NoteList() {
@@ -83,7 +83,37 @@ function PopupFullNoteList() {
 
               return <div className="col" style={{ maxHeight: "100%", flex: 1 }}>
                             <div className="popup-body" style={{ width: '100%', height: '100%', flex: 1, overflow: 'auto' }}>
-                                          <table className='custom-table'>
+                                          <Table>
+                                                        <TbHeader>
+                                                                      <TbCell fixed={true} style={{ minWidth: 360 }}>Lời nhắc</TbCell>
+                                                                      <TbCell style={{ minWidth: 150, }} >Khóa học</TbCell>
+                                                                      <TbCell style={{ minWidth: 240, }} >Bài học</TbCell>
+                                                                      <TbCell style={{ minWidth: 80, }} >Thời gian nhắc nhở</TbCell>
+                                                                      <TbCell fixed={true} style={{ minWidth: 110, }} >Action</TbCell>
+                                                        </TbHeader>
+                                                        <TbBody>
+                                                                      {
+                                                                                    Array.from({ length: 10 }).map((_, index) => <TbRow key={index}>
+                                                                                                  <TbCell fixed={true} style={{ minWidth: 360, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
+                                                                                                  <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
+                                                                                                  <TbCell style={{ minWidth: 240, }} ><Text style={{ width: '100%' }}>The Complete 2023 Web Development Bootcamp</Text></TbCell>
+                                                                                                  <TbCell style={{ minWidth: 240, }} className='center'>15 tháng 10 2023 , 15:00</TbCell>
+                                                                                                  <TbCell fixed={true} style={{ minWidth: 110, }}>
+                                                                                                                <div className="row" style={{ gap: 8 }}>
+                                                                                                                              <button type="button" className="row" onClick={() => { navigate('') }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
+                                                                                                                                            <FilledEdit />
+                                                                                                                              </button>
+                                                                                                                              <button type="button" className="row" onClick={() => { confirmDelete() }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
+                                                                                                                                            <FilledTrashCan />
+                                                                                                                              </button>
+                                                                                                                </div>
+                                                                                                  </TbCell>
+                                                                                    </TbRow>
+                                                                                    )
+                                                                      }
+                                                        </TbBody>
+                                          </Table>
+                                          {/* <table className='custom-table'>
                                                         <thead>
                                                                       <tr>
                                                                                     <th style={{ minWidth: 360, }} className='fixed-first-column'>Lời nhắc</th>
@@ -115,7 +145,7 @@ function PopupFullNoteList() {
                                                                                     ))
                                                                       }
                                                         </tbody>
-                                          </table>
+                                          </table> */}
                             </div>
                             <div className="popup-footer row">
                                           <Pagination

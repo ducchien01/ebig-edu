@@ -1,95 +1,64 @@
-.view-container {
-    width: 100%;
-    max-height: 500px;
-
-    overflow: auto;
-}
-
 .custom-table {
     border: none;
     min-width: 100%;
     /* border-collapse: collapse; */
 }
 
-.custom-table thead {
+.custom-table>.tb-header {
     top: 0;
     z-index: 4;
     position: sticky;
 }
 
-.custom-table thead tr {
+.custom-table>.tb-header>tr {
     border-top: 1px solid #00358014;
     border-bottom: 1px solid #00358014;
 }
 
-.custom-table th,
 .custom-table td {
-    height: 40px;
+    height: 4rem;
     text-align: left;
     flex-shrink: 0 !important;
-
-    font-size: 14px;
-    line-height: 22px;
     padding: 0 24px;
+    font: 400 1.4rem/2.2rem 'Inter';
+    color: #00204DCC;
 }
 
-.custom-table thead>tr>th {
-    font-size: 12px;
-    line-height: 20px;
+.custom-table>.tb-header>tr>td {
+    font: 600 1.2rem/2rem 'Inter';
     white-space: nowrap;
-    color: #00204D99 !important;
-    background-color: #F9FAFB !important;
+    color: #00204D99;
+    background-color: #f9fafb !important;
 }
-
-/* .custom-table tr {
-    border: 1px solid;
-} */
 
 .custom-table tr>td {
-    color: #00204DCC !important;
-    height: 56px !important;
-    max-height: 56px !important;
+    height: 5rem !important;
+    max-height: 5rem !important;
     background-color: #ffffff !important;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 520px;
-}
-
-.custom-table tr:nth-child(even) {
-    background-color: #ffffff !important;
+    max-width: 52rem;
 }
 
 .custom-table tr.selected {
     background-color: #f5f7fa !important;
 }
 
-.custom-table tr.selected * {
+.custom-table tr.selected>td {
     background-color: #f5f7fa !important;
 }
 
-.custom-table button {
-    margin-right: 5px;
-}
-
-.clamp-two-lines {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    max-height: 3em;
-}
-
-.fixed-first-column {
+.tb-row>.tb-cell.tb-cell-fixed {
     z-index: 2;
-    left: 0;
     position: sticky;
     /* box-shadow: 1px 0px 6px 0px rgba(45, 50, 57, 0.06); */
+    background-color: #ffffff;
 }
 
-.fixed-last-column {
+.tb-header .tb-cell.tb-cell-fixed {
     z-index: 2;
-    right: 0;
     position: sticky;
-    /* box-shadow: -1px 0px 6px 0px rgba(45, 50, 57, 0.06); */
+    /* box-shadow: 1px 0px 6px 0px rgba(45, 50, 57, 0.06); */
+    background-color: #ffffff;
 }

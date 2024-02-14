@@ -5,7 +5,7 @@
               padding: 1.6rem 8.9rem;
 }
 
-.course-list {
+.course-process-list {
               gap: 4rem;
               flex-wrap: wrap;
               width: 100%;
@@ -13,38 +13,38 @@
               align-items: stretch;
 }
 
-.course-list>.card-view-course {
+.course-process-list>.card-process-course {
               --gutter: 4rem;
               row-gap: 2.4rem;
 }
 
-.course-list>.card-view-course>.course-img {
+.course-process-list>.card-process-course>.process-course-img {
               background-size: cover;
               height: 18rem;
               width: 100%;
               border-radius: 8px;
 }
 
-.course-list>.card-view-course>.course-infor {
+.course-process-list>.card-process-course>.process-course-infor {
               row-gap: 0.8rem;
               max-height: 148px;
               height: 100%;
               flex: 1;
 }
 
-.card-view-course>.course-infor>.heading-7 {
+.card-process-course>.process-course-infor>.heading-7 {
               max-height: 4.8rem;
               flex: 1;
 }
 
-.card-view-course>.course-infor .percent-tag {
+.card-process-course>.process-course-infor .percent-tag {
               border-radius: 10rem;
               background-color: var(--background);
               color: #00204D99 !important;
               padding: 4px 0.8rem;
 }
 
-.card-mentor-infor {
+.card-mentor-schedule {
               border-radius: 8px;
               padding: 2.4rem;
               flex-wrap: wrap;
@@ -54,36 +54,36 @@
               align-items: start;
 }
 
-.card-mentor-infor>div {
+.card-mentor-schedule>div {
               row-gap: 1.2rem;
               --gutter: 2.4rem;
 }
 
-.card-mentor-infor .prefix-avatar-user {
+.card-mentor-schedule .prefix-avatar-user {
               width: 2.4rem;
               height: 2.4rem;
               border-radius: 50%;
               background-size: contain;
 }
 
-.card-mentor-infor>.time-infor {
+.card-mentor-schedule>.time-infor {
               border-top: 1px solid #00358014;
               padding-top: 2.4rem;
 }
 
-.card-mentor-infor>.time-infor>.row {
-              gap: 0.8rem;
+.card-mentor-schedule>.time-infor>.row {
+              gap: 8px 0.6rem;
               flex-wrap: wrap;
               justify-content: center;
 }
 
-.card-mentor-infor .button-text-3 {
+.card-mentor-schedule .button-text-3 {
               padding: 5px 1.2rem;
               border-radius: 2.4rem;
               background-color: #ffffff;
 }
 
-.card-mentor-infor .button-text-3:first-child {
+.card-mentor-schedule .button-text-3:first-child {
               background-color: var(--primary-color);
               color: #ffffff;
 }

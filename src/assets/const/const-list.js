@@ -36,7 +36,7 @@ export const menuList = [
               {
                             id: 6,
                             parentId: 1,
-                            name: 'User',
+                            name: 'Tài khoản cá nhân',
                             link: 'user',
                             icon: <div style={{ width: 24, height: 24, backgroundImage: `url(${demoAvatar})` }}></div>,
                             selectedIcon: <div style={{ width: 24, height: 24, backgroundImage: `url(${demoAvatar})` }}></div>,
@@ -92,6 +92,24 @@ export const menuList = [
                             listId: [2, 9],
                             name: 'Curriculum',
                             link: 'edu-management/school/curriculum',
+              },
+              {
+                            id: 15,
+                            parentId: 6,
+                            name: 'Hồ sơ cá nhân',
+                            link: 'user/profile',
+              },
+              {
+                            id: 16,
+                            parentId: 6,
+                            name: 'Tài khoản liên kết',
+                            link: 'user/linked-account',
+              },
+              {
+                            id: 17,
+                            parentId: 6,
+                            name: 'Mật khẩu và bảo mật',
+                            link: 'user/security',
               },
 ]
 

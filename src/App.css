@@ -31,13 +31,13 @@ button {
   border: none;
 }
 
-.view-container>.view-header {
+.view-container .view-header {
   padding: 1.6rem 0;
   justify-content: space-between;
   border-bottom: 1px solid #00358014;
 }
 
-.view-container>.view-header>.suffix-btn {
+.view-container .view-header .suffix-btn {
   padding: 5px 1.2rem;
   column-gap: 8px;
   border-radius: 24px;
@@ -192,7 +192,7 @@ button {
   flex: 1;
   width: 100%;
   color: #00204D99;
-  transition: color, background-color ease-in-out 0.5s;
+  transition: color, background-color ease-in-out 0.4s;
   cursor: pointer;
 }
 
@@ -210,7 +210,7 @@ button {
 .tab-header-2>.tab-btn {
   padding: 8px 0;
   border-bottom: 2px solid transparent;
-  transition: border-bottom, color ease-in-out 0.7s;
+  transition: border-bottom, color ease-in-out 0.4s;
   cursor: pointer;
 }
 

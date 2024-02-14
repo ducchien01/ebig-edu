@@ -60,10 +60,10 @@ export default function TeachingProcessList() {
                                                         <div className={`tab-btn label-4 row ${activeProcessTab === 1 ? 'selected' : ''}`} onClick={() => setActiveProcessTab(1)}>Mentor</div>
                                           </div>
                                           <div className="tab-body-2 row">
-                                                        {activeProcessTab ? <div></div> : <div className="row course-list">
-                                                                      {list.map((e, i) => <div key={`card-img-${i}`} className='card-view-course col col6 col12-md col12-sm' >
-                                                                                    <div className='course-img' style={{ backgroundImage: `url(${e.img})` }}></div>
-                                                                                    <div className="col course-infor">
+                                                        {activeProcessTab ? <div></div> : <div className="row course-process-list">
+                                                                      {list.map((e, i) => <div key={`card-img-${i}`} className='card-process-course col col6 col12-md col12-sm' >
+                                                                                    <div className='process-course-img' style={{ backgroundImage: `url(${e.img})` }}></div>
+                                                                                    <div className="col process-course-infor">
                                                                                                   <div className="heading-7">{e.name}</div>
                                                                                                   <div className="row" style={{ columnGap: '0.8rem' }} >
                                                                                                                 <FilledBook width={16} height={16} />

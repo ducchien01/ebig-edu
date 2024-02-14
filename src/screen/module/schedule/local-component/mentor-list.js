@@ -43,7 +43,7 @@ export default function MeentorList() {
                                           <button type="button" className='button-text-3' onClick={showFullMentorList}>Xem tất cả</button>
                             </div>
                             <div className="row list-card-view">
-                                          {list.map((e, i) => <div key={`card-view-${i}`} className='card-mentor-infor row col12'>
+                                          {list.map((e, i) => <div key={`card-view-${i}`} className='card-mentor-schedule row col12'>
                                                         <div className="col col16-xxl col16-xl col24">
                                                                       <div className="col" style={{ rowGap: '1.2rem' }} >
                                                                                     <div className="col" style={{ rowGap: 4, paddingBottom: '1.2rem' }}>

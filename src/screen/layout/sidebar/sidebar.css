@@ -58,7 +58,7 @@
 }
 
 
-.sidebar[expand="true"] {
+.sidebar[expand="true"]:has(>.expand) {
               width: 24%;
               min-width: 40rem;
               transition: width, min-width ease-in-out 1s;

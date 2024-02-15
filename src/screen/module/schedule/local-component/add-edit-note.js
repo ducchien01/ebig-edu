@@ -1,6 +1,7 @@
 import { forwardRef } from "react"
 import { DatePicker, RadioButton, Select1, Text, TextField, closePopup } from "../../../../component/export-component"
 import { Controller, useForm } from "react-hook-form"
+import { RadioButtonForm, Select1Form, TextFieldForm } from "../../../../project-component/component-form"
 
 const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
               const methods = useForm({ shouldFocusError: false, defaultValues: { 'autoTimeUnit': 'phút', 'timeNote': 'auto' } })
@@ -11,27 +12,12 @@ const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
 
               return <form className="col" style={{ width: '52rem', flex: 1, maxHeight: '69rem' }}>
                             <div className="popup-body col" style={{ overflow: 'hidden auto', padding: '1.6rem 2.4rem', rowGap: '2rem' }}>
-                                          <div className="col" style={{ gap: 8 }}>
-                                                        <Text className="label-3">Lời nhắc nhở</Text>
-                                                        <TextField style={{ width: '100%' }} placeholder="Nhập lời nhắc" />
-                                          </div>
-                                          <div className="col" style={{ gap: 8 }}>
-                                                        <div className="row" style={{ gap: 4 }}>
-                                                                      <Text className="label-3">Khóa học</Text>
-                                                                      <Text className="label-4" style={{ color: '#E14337' }}>*</Text>
-                                                        </div>
-                                                        <Select1 style={{ width: '100%' }} placeholder="Chọn khóa học" options={[]} />
-                                          </div>
-                                          <div className="col" style={{ gap: 8 }}>
-                                                        <Text className="label-3">Bài học</Text>
-                                                        <Select1 style={{ width: '100%' }} placeholder="Chọn bài học" options={[]} />
-                                          </div>
+                                          <TextFieldForm label={'Tiêu đề lời nhắc'} required={true} control={methods.control} errors={methods.formState.errors} name={'name'} />
+                                          <Select1Form label={'Khóa học'} required={true} control={methods.control} errors={methods.formState.errors} name={'courseId'} />
+                                          <Select1Form label={'Bài học'} control={methods.control} name={'lesson'} />
                                           <div className="col" style={{ gap: 8 }}>
                                                         <Text className="label-3">Thời gian nhắc nhở</Text>
-                                                        <div className="row" style={{ gap: 4 }}>
-                                                                      <RadioButton name="timeNote" value={'auto'} defaultChecked size={'1.6rem'} onChange={() => { methods.setValue('timeNote', 'auto') }} />
-                                                                      <Text className="label-3">Tự động</Text>
-                                                        </div>
+                                                        <RadioButtonForm label={'Tự động'} control={methods.control} name="timeNote" value={'auto'} defaultChecked={methods.getValues('timeNote') === 'auto'} />
                                                         {methods.watch('timeNote') === 'auto' ? <div className="row" style={{ gap: '0.8rem' }}>
                                                                       <Select1
                                                                                     className="body-3"
@@ -50,10 +36,7 @@ const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
                                                                                     }}
                                                                       />
                                                         </div> : null}
-                                                        <div className="row" style={{ gap: 4 }}>
-                                                                      <RadioButton name="timeNote" value={'custom'} size={'1.6rem'} onChange={() => { methods.setValue('timeNote', 'custom') }} />
-                                                                      <Text className="label-3">Tự nhập thời gian</Text>
-                                                        </div>
+                                                        <RadioButtonForm label={'Tự nhập thời gian'} control={methods.control} name="timeNote" value={'custom'} defaultChecked={methods.getValues('timeNote') === 'custom'} />
                                                         {methods.watch('timeNote') === 'custom' ? <div className="row" style={{ gap: '0.8rem' }}>
                                                                       <TextField placeholder="hh:mm" className="body-3" />
                                                                       <DatePicker placeholder="Chọn ngày" />

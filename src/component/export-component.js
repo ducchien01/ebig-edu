@@ -12,6 +12,7 @@ import { Pagination } from './pagination/pagination.tsx'
 import { Table, TbCell, TbHeader, TbRow, TbBody, CellAlignItems } from './table/table.tsx'
 import { TextField } from './text-field/text-field.tsx'
 import { RadioButton } from './radio-button/radio-button.tsx'
+import { TextArea } from './text-area/text-area.tsx'
 
 export {
               ComponentStatus,
@@ -32,5 +33,6 @@ export {
               Pagination,
               Table, TbCell, TbHeader, TbBody, TbRow, CellAlignItems,
               TextField,
-              RadioButton
+              RadioButton,
+              TextArea
 }

@@ -37,12 +37,13 @@
     border-color: var(--active-color) !important;
 }
 
-.radio-btn-container.disabled {
+.radio-btn-container:has(input:disabled) {
     pointer-events: none !important;
     border-color: var(--off-color) !important;
+    background-color: #0035800A !important;
 }
 
-.radio-btn-container.disabled>input:checked~.checkmark {
+.radio-btn-container>input:disabled~.checkmark {
     display: block !important;
-    background-color: var(--off-color);
+    background-color: #00204D40;
 }

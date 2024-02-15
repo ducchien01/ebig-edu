@@ -21,7 +21,7 @@ interface Select1Props {
   helperText?: string,
   helperTextColor?: string,
   style?: CSSProperties,
-  searchPlaceholder?: string
+  searchPlaceholder?: string,
 };
 
 interface Select1State {

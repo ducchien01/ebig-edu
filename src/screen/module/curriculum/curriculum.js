@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './curriculum.css'
 import { faCloudArrowUp, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
 import ListCurriculum from './local-component/list-curriculum'
 import { Popup, Text, showPopup } from '../../../component/export-component'
 import { useRef } from 'react'

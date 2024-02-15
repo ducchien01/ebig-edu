@@ -13,6 +13,10 @@ export const getcomponentRouter = (moduleCode) => {
             return <EduSchedule />;
         case "edu-management/school/course":
             return <SchoolCourse />;
+        case "edu-management/school/course":
+            return <SchoolCourse />;
+        case "edu-management/school/course/overview/:id":
+            return <SchoolCourse />;
         case "edu-management/school/class":
             return <SchoolClass />;
         case "edu-management/school/mentor":

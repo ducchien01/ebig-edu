@@ -12,6 +12,10 @@
               pointer-events: none !important;
 }
 
+.text-field-container:has(> input:focus) {
+              border-color: #366AE2;
+}
+
 .text-field-container>input {
               flex: 1;
               width: 100%;

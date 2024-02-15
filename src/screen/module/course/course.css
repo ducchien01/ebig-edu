@@ -52,3 +52,27 @@
               border-top: 1px solid #00358014;
               justify-content: space-between;
 }
+
+.more-action-popup {
+              width: 20rem;
+              padding: 0.4rem 0;
+              border-radius: 8px;
+              background-color: #ffffff;
+}
+
+.more-action-popup>button {
+              gap: 1.2rem;
+              padding: 0.8rem 1.6rem;
+              width: 100%;
+}
+
+.more-action-popup>button:hover {
+              background-color: var(--primary-color);
+              transition: background-color ease-in-out 0.1s;
+}
+
+.more-action-popup>button:hover * {
+              color: #ffffff !important;
+              fill: #ffffff !important;
+              transition: color, fill ease-in-out 0.1s;
+}

@@ -83,3 +83,18 @@
   flex: 1;
   overflow: auto;
 }
+
+.popup-overlay.hidden-overlay {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+.popup-overlay.hidden-overlay>.popup-container {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  background-color: transparent;
+}
+
+.popup-overlay.hidden-overlay>.popup-container .popup-close-btn {
+  display: none !important;
+}

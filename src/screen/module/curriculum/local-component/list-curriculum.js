@@ -1,18 +1,48 @@
 import { faCloudArrowDown, faEllipsisV, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
-import { Text, TextField } from "../../../../component/export-component"
+import { useEffect, useRef, useState } from "react"
+import { Popup, Text, TextField, showPopup } from "../../../../component/export-component"
 import demoImage from '../../../../assets/demo-image5.png'
-import { FilledBook, FilledClock, FilledSetupPreferences } from "../../../../assets/const/icon"
+import { FilledBook, FilledClock, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledSetupPreferences, FilledTrashCan } from "../../../../assets/const/icon"
 
 export default function ListCurriculum({ data = [] }) {
               const [list, setList] = useState([])
+              const ref = useRef()
+
+              const showPopupListAction = (ev) => {
+                            const offset = ev.target.getBoundingClientRect()
+                            showPopup({
+                                          ref: ref,
+                                          clickOverlayClosePopup: true,
+                                          style: { left: `${offset.x + offset.width + 4}px`, top: `${offset.y}px` },
+                                          content: <div className="more-action-popup col">
+                                                        <button className="row" >
+                                                                      <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledEdit /></div>
+                                                                      <Text className="label-4">Chỉnh sửa</Text>
+                                                        </button>
+                                                        <button className="row" >
+                                                                      <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledFileCopy /></div>
+                                                                      <Text className="label-4">Nhân bản</Text>
+                                                        </button>
+                                                        <button className="row" >
+                                                                      <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledNetworkCommunication /></div>
+                                                                      <Text className="label-4">Chia sẻ</Text>
+                                                        </button>
+                                                        <button className="row" >
+                                                                      <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledTrashCan color="#E14337" /></div>
+                                                                      <Text className="label-4" style={{ color: '#E14337' }}>Xóa</Text>
+                                                        </button>
+                                          </div>
+                            })
+
+              }
 
               useEffect(() => {
                             setList(data)
               }, [data])
 
               return <div className="col" style={{ rowGap: '2.4rem' }}>
+                            <Popup ref={ref} />
                             <div className="row filter-header-container">
                                           <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.6rem', color: '#00204D99' }} />} />
                                           <div style={{ height: '1.6rem', width: 1, backgroundColor: '#00358033' }} ></div>
@@ -35,7 +65,7 @@ export default function ListCurriculum({ data = [] }) {
                                                                                                   {/* <Text className="row button-text-3" style={{ backgroundColor: '#FFF3EB', color: '#FC6B03' }}>Đã kết thúc</Text> */}
                                                                                                   <Text className="row button-text-3" style={{ backgroundColor: '#EDF2FD', color: '#366AE2' }}>Beginner</Text>
                                                                                     </div>
-                                                                                    <button type="button" className="row"><FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99' }} /></button>
+                                                                                    <button type="button" className="row" onClick={showPopupListAction}><FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99', pointerEvents: 'none' }} /></button>
                                                                       </div>
                                                         </div>
                                                         <div className="row bottom">

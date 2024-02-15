@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { CSSProperties, ReactNode } from 'react'
 import ReactDOM from 'react-dom'
 import './popup.css'
 
@@ -7,24 +7,24 @@ interface PopupState {
   heading?: ReactNode,
   content?: ReactNode,
   footer?: ReactNode,
-  onSubmit: Function,
   clickOverlayClosePopup?: boolean,
+  style?: CSSProperties
 }
 
-export const showPopup = ({ ref, heading, content, footer, onSubmit, clickOverlayClosePopup }: {
-  ref: React.MutableRefObject<Popup>, 
+export const showPopup = ({ ref, heading, content, footer, clickOverlayClosePopup, style }: {
+  ref: React.MutableRefObject<Popup>,
   heading?: ReactNode,
   content?: ReactNode,
   footer?: ReactNode,
-  onSubmit?: Function,
-  clickOverlayClosePopup?: boolean
+  clickOverlayClosePopup?: boolean,
+  style?: CSSProperties
 }) => {
   ref.current.onOpen({
     heading: heading,
     content: content,
     footer: footer,
-    onSubmit: onSubmit ?? (() => { }),
-    clickOverlayClosePopup: clickOverlayClosePopup
+    clickOverlayClosePopup: clickOverlayClosePopup,
+    style: style
   })
 }
 
@@ -35,7 +35,6 @@ export const closePopup = (ref: React.MutableRefObject<Popup>) => {
 export class Popup extends React.Component<Object, PopupState> {
   state: Readonly<PopupState> = {
     open: false,
-    onSubmit: () => { }
   }
 
   onOpen(data: PopupState) {
@@ -46,16 +45,40 @@ export class Popup extends React.Component<Object, PopupState> {
     this.setState({ open: false })
   }
 
+  componentDidUpdate(prevProps: Readonly<Object>, prevState: Readonly<PopupState>) {
+    if (prevState.open !== this.state.open && this.state.open && this.state.style) {
+      const thisPopupRect = document.body.querySelector('.popup-container')?.getBoundingClientRect()
+      if (thisPopupRect) {
+        let style: CSSProperties | undefined;
+        if (thisPopupRect.right > document.body.offsetWidth) {
+          style = { ...this.state.style, right: '0.4rem' }
+          delete style.left
+        }
+        if (thisPopupRect.bottom > document.body.offsetHeight) {
+          style = style ? {
+            ...style,
+            bottom: '0.4rem'
+          } : {
+            ...this.state.style,
+            bottom: '0.4rem'
+          }
+          delete style.top
+        }
+        if (style) this.setState({ ...this.state, style: style })
+      }
+    }
+  }
+
   render() {
     return (
       <>
         {this.state.open &&
           ReactDOM.createPortal(
-            <div className='popup-overlay' onClick={this.state.clickOverlayClosePopup ? (ev) => {
+            <div className={`popup-overlay ${this.state.clickOverlayClosePopup ? 'hidden-overlay' : ''}`} onClick={this.state.clickOverlayClosePopup ? (ev) => {
               if ((ev.target as HTMLElement).classList.contains('popup-overlay'))
                 this.onClose()
             } : undefined}>
-              <div className='popup-container col' onClick={e => e.stopPropagation()} >
+              <div className='popup-container col' onClick={e => e.stopPropagation()} style={this.state.style} >
                 {this.state.heading}
                 {this.state.content}
                 {this.state.footer}

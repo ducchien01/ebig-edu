@@ -38,8 +38,8 @@ export const menuList = [
                             parentId: 1,
                             name: 'Tài khoản cá nhân',
                             link: 'user',
-                            icon: <div style={{ width: 24, height: 24, backgroundImage: `url(${demoAvatar})` }}></div>,
-                            selectedIcon: <div style={{ width: 24, height: 24, backgroundImage: `url(${demoAvatar})` }}></div>,
+                            icon: <div style={{ width: '2.4rem', height: '2.4rem', backgroundImage: `url(${demoAvatar})` }}></div>,
+                            selectedIcon: <div style={{ width: '2.4rem', height: '2.4rem', backgroundImage: `url(${demoAvatar})` }}></div>,
               },
               {
                             id: 7,

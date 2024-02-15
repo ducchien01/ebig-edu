@@ -1,21 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './class.css'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import ListClass from './local-component/list-class'
+import { Popup, Text, showPopup } from '../../../component/export-component'
+import PopupAddNewClass from './local-component/popup-add-new-class'
 
 export default function SchoolClass() {
-              const navigate = useNavigate()
+              const ref = useRef()
               const [activeFilterTab, setActiveFilterTab] = useState(0)
 
+              const popupAddNewClass = () => {
+                            showPopup({
+                                          ref: ref,
+                                          heading: <div className='popup-header heading-7'>Tạo mới class</div>,
+                                          content: <PopupAddNewClass ref={ref} />,
+                            })
+              }
+
               return <div className='col school-class view-container'>
+                            <Popup ref={ref} />
                             <div className='col'>
                                           <div className="view-header row" style={{ border: 'none' }}>
                                                         <div className="heading-4">Danh sách Class</div>
-                                                        <button type="button" className="suffix-btn row" onClick={() => navigate()} style={{ backgroundColor: 'var(--primary-color)' }}>
+                                                        <button type="button" className="suffix-btn row" onClick={popupAddNewClass} style={{ backgroundColor: 'var(--primary-color)' }}>
                                                                       <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
-                                                                      <div className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</div>
+                                                                      <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
                                                         </button>
                                           </div>
                                           <div className="col tab-container">

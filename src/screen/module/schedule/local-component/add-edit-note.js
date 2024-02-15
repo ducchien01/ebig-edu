@@ -62,7 +62,7 @@ const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
                             </div>
                             <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
                                           <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
-                                          <button type="button" className="submit-popup-note button-text-3" onClick={methods.handleSubmit(onSubmit)}>Tạo nhắc nhở</button>
+                                          <button type="button" className="submit-popup-btn button-text-3" onClick={methods.handleSubmit(onSubmit)}>Tạo nhắc nhở</button>
                             </div>
               </form>
 })

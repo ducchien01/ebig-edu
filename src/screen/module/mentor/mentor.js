@@ -4,6 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import ListMentor from './local-component/list-mentor'
+import { Text } from '../../../component/export-component'
 
 export default function SchoolMentor() {
               const navigate = useNavigate()
@@ -15,7 +16,7 @@ export default function SchoolMentor() {
                                                         <div className="heading-4">Danh sách Mentor course</div>
                                                         <button type="button" className="suffix-btn row" onClick={() => navigate()} style={{ backgroundColor: 'var(--primary-color)' }}>
                                                                       <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
-                                                                      <div className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</div>
+                                                                      <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
                                                         </button>
                                           </div>
                                           <div className="col tab-container">

@@ -222,3 +222,19 @@ button {
 .tab-container {
   row-gap: 4rem;
 }
+
+.submit-popup-btn {
+  padding: 5px 1.2rem;
+  border: 1px inset #00358033;
+  border-radius: 24px;
+  background-color: #0035800A;
+  pointer-events: none;
+}
+
+.submit-popup-btn.active {
+  background-color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+  pointer-events: all;
+  color: #ffffff;
+}

@@ -1,114 +1,114 @@
 .sidebar {
-              height: 100%;
-              max-width: 44.8rem;
-              z-index: 1;
-              width: 8.1rem !important;
-              min-width: 8.1rem;
-              transition: width, min-width ease-in-out 1s;
+    height: 100%;
+    max-width: 44.8rem;
+    z-index: 1;
+    width: 8.1rem !important;
+    min-width: 8.1rem;
+    transition: width, min-width ease-in-out 1s;
 }
 
 .sidebar>.collapse {
-              background-color: #ffffff;
-              z-index: 1;
-              padding: 2.4rem 1.6rem;
-              row-gap: 2.4rem;
-              border-right: 1px solid #00358014;
-              box-sizing: border-box;
-              align-items: center;
-              height: 100%;
-              max-width: 8.1rem;
+    background-color: #ffffff;
+    z-index: 1;
+    padding: 2.4rem 1.6rem;
+    row-gap: 2.4rem;
+    border-right: 1px solid #00358014;
+    box-sizing: border-box;
+    align-items: center;
+    height: 100%;
+    max-width: 8.1rem;
 }
 
 .sidebar>.collapse>div {
-              flex: 1;
-              row-gap: 1.2rem;
+    flex: 1;
+    row-gap: 1.2rem;
 }
 
 .sidebar>.collapse .sidebar-item {
-              border-radius: 8px;
-              box-sizing: border-box;
-              padding: 1.2rem;
-              width: 4.8rem;
-              height: 4.8rem;
-              cursor: pointer;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 1.2rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    cursor: pointer;
 }
 
 .sidebar>.collapse .sidebar-item.selected {
-              background-color: #00358014;
+    background-color: #00358014;
 }
 
 .sidebar>.collapse>.log-out-icon {
-              width: 2.4rem;
-              height: 2.4rem;
+    width: 2.4rem;
+    height: 2.4rem;
 }
 
 
 .sidebar>.expand {
-              max-width: 38rem;
-              width: 100%;
-              flex: 1;
-              padding: 3.2rem 1.6rem 2.4rem 1.6rem;
-              border-right: 1px solid #00358014;
-              box-sizing: border-box;
-              row-gap: 2.4rem;
-              height: 100%;
-              background-color: #ffffff;
-              margin-left: -100%;
-              transition: margin-left ease-in-out 0.8s;
+    max-width: 38rem;
+    width: 100%;
+    flex: 1;
+    padding: 3.2rem 1.6rem 2.4rem 1.6rem;
+    border-right: 1px solid #00358014;
+    box-sizing: border-box;
+    row-gap: 2.4rem;
+    height: 100%;
+    background-color: #ffffff;
+    margin-left: -100%;
+    transition: margin-left ease-in-out 0.8s;
 }
 
 
 .sidebar[expand="true"]:has(>.expand) {
-              width: 24%;
-              min-width: 40rem;
-              transition: width, min-width ease-in-out 1s;
+    width: 24%;
+    min-width: 40rem;
+    transition: width, min-width ease-in-out 1s;
 }
 
 .sidebar[expand="true"]>.expand {
-              margin-left: 0;
-              transition: margin-left ease-in-out 0.8s;
+    margin-left: 0;
+    transition: margin-left ease-in-out 0.8s;
 }
 
 .sidebar>.expand>.module-menu {
-              flex: 1;
-              height: 100%;
-              overflow: hidden auto !important;
-              row-gap: 1.2rem;
+    flex: 1;
+    height: 100%;
+    overflow: hidden auto !important;
+    row-gap: 1.2rem;
 }
 
 .sidebar>.expand>.module-menu::-webkit-scrollbar {
-              display: none;
+    display: none;
 }
 
 .expand>.module-menu .col:has(> .sidebar-module-tile) {
-              display: none;
+    display: none;
 }
 
 .expand>.module-menu>.col {
-              display: flex !important;
+    display: flex !important;
 }
 
 .expand>.module-menu .sidebar-module-tile {
-              justify-content: space-between;
-              padding: 8px 1.6rem;
-              text-decoration: none;
-              box-sizing: border-box;
-              border-radius: 8px;
+    justify-content: space-between;
+    padding: 8px 1.6rem;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 8px;
 }
 
 .expand>.module-menu .sidebar-module-tile.selected {
-              background-color: #00358014;
+    background-color: #00358014;
 }
 
 .module-menu .sidebar-module-tile>.label-3 {
-              flex: 1;
+    flex: 1;
 }
 
 .module-menu .col:has(> .sidebar-module-tile > .fa-chevron-up)>.col {
-              display: flex !important;
+    display: flex !important;
 }
 
 .sidebar>.expand>.support-action {
-              flex-wrap: wrap;
-              gap: 1.6rem;
+    flex-wrap: wrap;
+    gap: 1.6rem;
 }

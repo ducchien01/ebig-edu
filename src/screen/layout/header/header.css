@@ -1,63 +1,53 @@
-.header {
-              padding: 0 3.2rem;
-              height: 5.6rem;
-              width: 100%;
-              background-color: #394960;
+.main-layout>.header {
+    padding: 0 3.2rem;
+    height: 5.6rem;
+    width: 100%;
+    background-color: #394960;
 }
 
-.header>.logo {
-              background-image: url("../../../assets/Logo.svg");
-              background-repeat: no-repeat;
-              background-size: contain;
-              background-position: center;
-              width: 11.261rem;
-              height: 2.8rem;
+.main-layout>.header>.logo {
+    background-image: url("../../../assets/Logo.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 11.261rem;
+    height: 2.8rem;
 }
 
-.header>.action {
-              flex: 1;
-              width: 100%;
-              justify-content: end;
-              column-gap: 1.6rem;
+.main-layout>.header>.action {
+    flex: 1;
+    width: 100%;
+    justify-content: end;
+    column-gap: 1.6rem;
 }
 
-.header>.action {
-              flex: 1;
-              width: 100%;
-              justify-content: end;
+.main-layout>.header>.action {
+    flex: 1;
+    width: 100%;
+    justify-content: end;
 }
 
-.header>.action>.search-ebig {
-              padding: 0.6rem 1.2rem;
-              border-radius: 10rem;
-              column-gap: 1.2rem;
-              background-color: #F2F5F8;
-              box-sizing: border-box;
+.main-layout>.header>.action>.search-ebig {
+    padding: 0.6rem 1.2rem;
+    border-radius: 10rem;
+    column-gap: 1.2rem;
+    background-color: #F2F5F8;
+    box-sizing: border-box;
+    max-width: 33.4rem;
 }
 
 .action>.search-ebig>.prefix-icon-search {
-              width: 1.6rem;
-              height: 1.6rem;
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
-.action>.search-ebig>input {
-              width: 100%;
-              flex: 1;
-              background-color: transparent;
+.main-layout>.header>.action>.action-icon {
+    width: 2.4rem;
+    height: 2.4rem;
 }
 
-input::placeholder {
-              line-height: normal;
-              opacity: 0.7;
-}
-
-.header>.action>.action-icon {
-              width: 2.4rem;
-              height: 2.4rem;
-}
-
-.header>.action>.user-infor {
-              width: 3.2rem;
-              height: 3.2rem;
-              border-radius: 50%;
+.main-layout>.header>.action>.user-infor {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
 }

@@ -1,78 +1,78 @@
 .import-file-container {
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .import-file-container input {
-  display: none;
+    display: none;
 }
 
 .import-file-container button {
-  outline: none;
-  border: none;
-  background-color: transparent;
-  padding: 0;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 0;
 }
 
 .import-file-container:not(.button-only) {
-  max-width: 57rem;
-  padding: 3.6rem;
-  column-gap: 1.6rem;
-  border-radius: 8px;
-  border: 1px solid #00358033;
+    max-width: 57rem;
+    padding: 3.6rem;
+    column-gap: 1.6rem;
+    border-radius: 8px;
+    border: 1px solid #00358033;
 }
 
 .import-file-container:not(.button-only):has(svg.preview-icon) {
-  border-style: dashed;
+    border-style: dashed;
 }
 
-.import-file-container > .import-file-prefix {
-  width: 5.6rem;
-  height: 5.6rem;
-  border-radius: 50%;
-  background-color: #edf2fd;
-  align-items: center;
-  justify-content: center;
+.import-file-container>.import-file-prefix {
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
+    background-color: #edf2fd;
+    align-items: center;
+    justify-content: center;
 }
 
-.import-file-container > .file-preview-content {
-  flex: 1;
-  row-gap: 4px;
-  align-items: start;
+.import-file-container>.file-preview-content {
+    flex: 1;
+    row-gap: 4px;
+    align-items: start;
 }
 
-.file-preview-content > .title-file {
-  font: 600 1.6rem/2.4rem "Inter";
-  color: #00204d;
+.file-preview-content>.title-file {
+    font: 600 1.6rem/2.4rem "Inter";
+    color: #00204d;
 }
 
-.file-preview-content > .subtitle-file {
-  font: 400 1.2rem/1.6rem "Inter";
-  color: #00204d99;
+.file-preview-content>.subtitle-file {
+    font: 400 1.2rem/1.6rem "Inter";
+    color: #00204d99;
 }
 
-.import-file-container > .import-file-suffix {
-  padding: 8px 1.6rem;
-  border-radius: 8px;
-  column-gap: 8px;
-  align-items: center;
-  justify-content: center;
-  background-color: #f2f5f8;
+.import-file-container>.import-file-suffix {
+    padding: 8px 1.6rem;
+    border-radius: 8px;
+    column-gap: 8px;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f5f8;
 }
 
-.import-file-container > .import-file-suffix > span {
-  padding: 0;
-  font: 500 1.4rem/2.2rem "Inter";
-  color: #00204d99;
+.import-file-container>.import-file-suffix>span {
+    padding: 0;
+    font: 500 1.4rem/2.2rem "Inter";
+    color: #00204d99;
 }
 
 .import-file-container .preview-file-link {
-  font: 500 1.2rem/1.6rem "Inter";
-  color: #366ae2;
+    font: 500 1.2rem/1.6rem "Inter";
+    color: #366ae2;
 }
 
 .remove-preview-file {
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-left: 6px;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-left: 6px;
 }

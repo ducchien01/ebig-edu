@@ -1,115 +1,115 @@
 .edu-schedule {
-              width: 100%;
-              height: max-content;
-              row-gap: 2.4rem;
-              padding: 1.6rem 8.9rem;
+    width: 100%;
+    height: max-content;
+    row-gap: 2.4rem;
+    padding: 1.6rem 8.9rem;
 }
 
 .course-process-list {
-              gap: 4rem;
-              flex-wrap: wrap;
-              width: 100%;
-              flex: 1;
-              align-items: stretch;
+    gap: 4rem;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1;
+    align-items: stretch;
 }
 
 .course-process-list>.card-process-course {
-              --gutter: 4rem;
-              row-gap: 2.4rem;
+    --gutter: 4rem;
+    row-gap: 2.4rem;
 }
 
 .course-process-list>.card-process-course>.process-course-img {
-              background-size: cover;
-              height: 18rem;
-              width: 100%;
-              border-radius: 8px;
+    background-size: cover;
+    height: 18rem;
+    width: 100%;
+    border-radius: 8px;
 }
 
 .course-process-list>.card-process-course>.process-course-infor {
-              row-gap: 0.8rem;
-              max-height: 148px;
-              height: 100%;
-              flex: 1;
+    row-gap: 0.8rem;
+    max-height: 148px;
+    height: 100%;
+    flex: 1;
 }
 
 .card-process-course>.process-course-infor>.heading-7 {
-              max-height: 4.8rem;
-              flex: 1;
+    max-height: 4.8rem;
+    flex: 1;
 }
 
 .card-process-course>.process-course-infor .percent-tag {
-              border-radius: 10rem;
-              background-color: var(--background);
-              color: #00204D99 !important;
-              padding: 4px 0.8rem;
+    border-radius: 10rem;
+    background-color: var(--background);
+    color: #00204D99 !important;
+    padding: 4px 0.8rem;
 }
 
 .card-mentor-schedule {
-              border-radius: 8px;
-              padding: 2.4rem;
-              flex-wrap: wrap;
-              gap: 2.4rem;
-              background-color: var(--background);
-              --gutter: 2.4rem;
-              align-items: start;
+    border-radius: 8px;
+    padding: 2.4rem;
+    flex-wrap: wrap;
+    gap: 2.4rem;
+    background-color: var(--background);
+    --gutter: 2.4rem;
+    align-items: start;
 }
 
 .card-mentor-schedule>div {
-              row-gap: 1.2rem;
-              --gutter: 2.4rem;
+    row-gap: 1.2rem;
+    --gutter: 2.4rem;
 }
 
 .card-mentor-schedule .prefix-avatar-user {
-              width: 2.4rem;
-              height: 2.4rem;
-              border-radius: 50%;
-              background-size: contain;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background-size: contain;
 }
 
 .card-mentor-schedule>.time-infor {
-              border-top: 1px solid #00358014;
-              padding-top: 2.4rem;
+    border-top: 1px solid #00358014;
+    padding-top: 2.4rem;
 }
 
 .card-mentor-schedule>.time-infor>.row {
-              gap: 8px 0.6rem;
-              flex-wrap: wrap;
-              justify-content: center;
+    gap: 8px 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .card-mentor-schedule .button-text-3 {
-              padding: 5px 1.2rem;
-              border-radius: 2.4rem;
-              background-color: #ffffff;
+    padding: 5px 1.2rem;
+    border-radius: 2.4rem;
+    background-color: #ffffff;
 }
 
 .card-mentor-schedule .button-text-3:first-child {
-              background-color: var(--primary-color);
-              color: #ffffff;
+    background-color: var(--primary-color);
+    color: #ffffff;
 }
 
 .card-note {
-              position: relative;
-              background-color: var(--background);
-              border-radius: 8px;
-              --gutter: 2.4rem;
-              column-gap: 4rem;
-              padding: 2.8rem 2.4rem;
+    position: relative;
+    background-color: var(--background);
+    border-radius: 8px;
+    --gutter: 2.4rem;
+    column-gap: 4rem;
+    padding: 2.8rem 2.4rem;
 }
 
 .card-note .note-content {
-              flex: 1;
-              width: 100%;
-              row-gap: 4px;
+    flex: 1;
+    width: 100%;
+    row-gap: 4px;
 }
 
 .card-note>.noti {
-              position: absolute;
-              top: 10px;
-              right: 10px;
-              width: 2.4rem;
-              height: 2.4rem;
-              border-radius: 50%;
-              background-color: #ffffff;
-              justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background-color: #ffffff;
+    justify-content: center;
 }

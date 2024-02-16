@@ -1,55 +1,57 @@
 .text-area-container {
-              height: 4rem;
-              position: relative;
-              flex: 1;
-              gap: 0.8rem;
-              border-radius: 4px;
-              border: 0.5px solid #00358033;
+    height: 4rem;
+    position: relative;
+    flex: 1;
+    gap: 0.8rem;
+    border-radius: 4px;
+    border: 0.5px solid #00358033;
+    padding: 1.6rem;
 }
 
 .text-area-container:has(> textarea:disabled) {
-              background-color: var(--disabled-background) !important;
-              pointer-events: none !important;
+    background-color: var(--disabled-background) !important;
+    pointer-events: none !important;
 }
 
 .text-area-container:has(> textarea:focus) {
-              border-color: #366AE2;
+    border-color: #366AE2;
 }
 
 .text-area-container>textarea {
-              flex: 1;
-              width: 100%;
-              height: 100%;
-              border: none;
-              outline: none;
-              background-color: transparent !important;
-              font: inherit;
-              color: inherit;
-              font-size: inherit;
-              font-family: inherit;
-              font-weight: inherit;
-              line-height: inherit;
-              text-align: inherit;
-              text-overflow: inherit;
+    flex: 1;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent !important;
+    font: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    text-overflow: inherit;
 }
 
 .text-area-container.helper-text {
-              overflow: visible !important;
-              border-color: var(--helper-text-color) !important;
+    overflow: visible !important;
+    border-color: var(--helper-text-color) !important;
 }
 
 .text-area-container.helper-text {
-              overflow: visible !important;
-              border-color: var(--helper-text-color) !important;
+    overflow: visible !important;
+    border-color: var(--helper-text-color) !important;
 }
 
 .text-area-container.helper-text::after {
-              content: attr(helper-text);
-              color: var(--helper-text-color);
-              position: absolute;
-              left: 0;
-              bottom: -0.4rem;
-              width: max-content;
-              font: inherit 1.2rem/1.6rem 'Inter';
-              transform: translate(-7.5%, 92.5%) scale(0.85);
+    content: attr(helper-text);
+    color: var(--helper-text-color);
+    position: absolute;
+    left: 0;
+    bottom: -0.4rem;
+    width: max-content;
+    font: inherit 1.2rem/1.6rem 'Inter';
+    transform: translate(-7.5%, 92.5%) scale(0.85);
 }

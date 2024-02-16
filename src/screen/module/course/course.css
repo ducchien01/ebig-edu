@@ -1,78 +1,78 @@
 .school-course {
-              width: 100%;
-              height: max-content;
-              padding: 2.4rem 3.2rem;
+    width: 100%;
+    height: max-content;
+    padding: 2.4rem 3.2rem;
 }
 
 .list-card-course-infor {
-              gap: 2.4rem;
-              flex-wrap: wrap;
-              width: 100%;
-              flex: 1;
-              align-items: stretch;
+    gap: 2.4rem;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1;
+    align-items: stretch;
 }
 
 .list-card-course-infor>.card-course-infor {
-              --gutter: 2.4rem;
-              row-gap: 2rem;
-              padding: 2rem;
-              border-radius: 8px;
-              border: 1px solid #00358014;
+    --gutter: 2.4rem;
+    row-gap: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #00358014;
 }
 
 .list-card-course-infor>.card-course-infor>.top {
-              column-gap: 2.4rem;
-              align-items: start;
+    column-gap: 2.4rem;
+    align-items: start;
 }
 
 .card-course-infor>.top>.demo-img {
-              overflow: hidden;
-              border-radius: 8px;
-              width: 20.6rem;
-              height: 12.2rem;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 20.6rem;
+    height: 12.2rem;
 }
 
 .card-course-infor>.top>.row {
-              column-gap: 1.6rem;
-              align-items: start;
-              width: 100%;
-              flex: 1;
-              justify-content: space-between;
+    column-gap: 1.6rem;
+    align-items: start;
+    width: 100%;
+    flex: 1;
+    justify-content: space-between;
 }
 
 .card-course-infor>.top .button-text-3 {
-              padding: 4px 8px;
-              width: fit-content;
-              border-radius: 10rem;
+    padding: 4px 8px;
+    width: fit-content;
+    border-radius: 10rem;
 }
 
 .list-card-course-infor>.card-course-infor>.bottom {
-              column-gap: 1.2rem;
-              padding-top: 1.6rem;
-              border-top: 1px solid #00358014;
-              justify-content: space-between;
+    column-gap: 1.2rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid #00358014;
+    justify-content: space-between;
 }
 
 .more-action-popup {
-              width: 20rem;
-              padding: 0.4rem 0;
-              border-radius: 8px;
-              background-color: #ffffff;
+    width: 20rem;
+    padding: 0.4rem 0;
+    border-radius: 8px;
+    background-color: #ffffff;
 }
 
 .more-action-popup>button {
-              gap: 1.2rem;
-              padding: 0.8rem 1.6rem;
-              width: 100%;
+    gap: 1.2rem;
+    padding: 0.8rem 1.6rem;
+    width: 100%;
 }
 
 .more-action-popup>button:hover {
-              background-color: var(--primary-color);
-              transition: background-color ease-in-out 0.1s;
+    background-color: var(--primary-color);
+    transition: background-color ease-in-out 0.1s;
 }
 
 .more-action-popup>button:hover * {
-              color: #ffffff !important;
-              fill: #ffffff !important;
-              transition: color, fill ease-in-out 0.1s;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    transition: color, fill ease-in-out 0.1s;
 }

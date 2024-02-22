@@ -1,4 +1,4 @@
-.component-text {
+.comp-text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: var(--max-line);

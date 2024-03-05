@@ -113,14 +113,45 @@ export const menuList = [
     },
 ]
 
+// react-router-dom use path params: exp with params id & type => ...link/:id/:type => make optional ...link/(/:id)(/:type)
 export const extendView = [
     {
+        name: 'Tổng quan',
+        slug: 'overview',
         path: 'edu-management/school/course/details/overview/:id',
-        link: 'edu-management/school/course/details/overview',
+        link: 'edu-management/school/course/details',
     },
     {
+        name: 'Lịch học và học phí',
+        slug: 'shedule-fees',   
         path: 'edu-management/school/course/details/shedule-fees/:id',
-        link: 'edu-management/school/course/details/shedule-fees',
+        link: 'edu-management/school/course/details',
+    },
+    {
+        name: 'Giáo trình',
+        slug: 'textbook',
+        path: 'edu-management/school/course/details/textbook/:id',
+        link: 'edu-management/school/course/details',
+    },
+    {
+        name: 'Danh sách bài học',
+        slug: 'lessons',
+        parentId: 'textbook',
+        path: 'edu-management/school/course/details/textbook/lessons/:id',
+        link: 'edu-management/school/course/details',
+    },
+    {
+        name: 'Tài liệu đính kèm',
+        slug: 'files',
+        parentId: 'textbook',
+        path: 'edu-management/school/course/details/textbook/files/:id',
+        link: 'edu-management/school/course/details',
+    },
+    {
+        name: 'Chứng chỉ',
+        slug: 'certificate',
+        path: 'edu-management/school/course/details/certificate/:id',
+        link: 'edu-management/school/course/details',
     },
 ]
 

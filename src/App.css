@@ -872,3 +872,15 @@ button * {
     pointer-events: all;
     color: #ffffff;
 }
+
+.header-breadcum {
+    gap: 0.8rem;
+}
+
+.header-breadcum .row:has(> .fa-chevron-right) * {
+    color: #00204D99;
+}
+
+.header-breadcum .button-text-6.selected {
+    color: var(--primary-color);
+}

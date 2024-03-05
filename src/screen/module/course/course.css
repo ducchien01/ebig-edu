@@ -77,9 +77,57 @@
     transition: color, fill ease-in-out 0.1s;
 }
 
-.overview-container {
+.details-view-container {
     width: 100%;
     flex: 1;
     height: 100%;
     padding: 0 3.2rem;
+}
+
+.details-view-container .details-view-header {
+    justify-content: space-between;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid #00358014;
+}
+
+.details-view-body .details-view-body-sidebar {
+    padding: 3.2rem 1.6rem 3.2rem 0;
+    border-right: 1px solid #00358014;
+    height: 100%;
+    width: 19.6%;
+    gap: 2.4rem;
+}
+
+.details-view-body-sidebar>.col {
+    overflow: hidden auto;
+    gap: 0.4rem;
+    height: 100%;
+    flex: 1;
+}
+
+.details-view-body-sidebar .details-sidebar-tile {
+    gap: 0.8rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+}
+.details-view-body-sidebar .details-sidebar-tile .checkbox-container:has(input:checked) {
+    background-color: #00204D99 !important;
+}
+.details-view-body-sidebar .details-sidebar-tile .checkbox-container:has(input:checked) > svg > path{
+    stroke: white !important;
+}
+
+.details-view-body-sidebar .details-sidebar-tile:hover {
+    background-color: var(--hover-background);
+}
+
+.details-view-body-sidebar .details-sidebar-tile.selected {
+    background-color: var(--background);
+}
+
+.col:has(> .details-sidebar-tile > .fa-chevron-down)>.details-sidebar-tile:not(*:first-child) {
+    display: none;
 }

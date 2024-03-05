@@ -1,6 +1,7 @@
 import { forwardRef } from "react"
-import { Text, TextField, closePopup } from "../../../../component/export-component"
+import { Text, closePopup } from "../../../../component/export-component"
 import { useForm } from "react-hook-form"
+import { TextFieldForm } from "../../../../project-component/component-form"
 
 const PopupAddNewClass = forwardRef(function PopupAddNewClass(data, ref) {
     const methods = useForm({ shouldFocusError: false, defaultValues: { name: '' } })
@@ -11,12 +12,13 @@ const PopupAddNewClass = forwardRef(function PopupAddNewClass(data, ref) {
 
     return <form className="col" style={{ width: '52rem', flex: 1 }}>
         <div className="popup-body col" style={{ padding: '1.6rem 2.4rem' }}>
-            <TextField
+            <TextFieldForm
+                required={true}
+                name={'name'}
+                control={methods.control}
+                errors={methods.formState.errors}
                 value={methods.watch('name')}
-                style={{ width: '100%' }}
-                onChange={(ev) => {
-                    methods.setValue('name', ev.target.value.trim())
-                }}
+                helperText={'Vui lòng nhập tên lớp học mới'}
                 placeholder="Nhập tên cho lớp học của bạn"
             />
         </div>

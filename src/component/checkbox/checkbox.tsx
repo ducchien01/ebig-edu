@@ -21,8 +21,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
     render() {
         let convertStyle: CSSProperties = {
-            width: this.props.size ?? 24,
-            height: this.props.size ?? 24,
+            width: this.props.size ?? '2.4rem',
+            height: this.props.size ?? '2.4rem',
         }
         if (this.props.style) {
             delete this.props.style.width

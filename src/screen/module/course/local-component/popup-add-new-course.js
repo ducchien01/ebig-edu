@@ -1,22 +1,24 @@
 import { forwardRef } from "react"
-import { Text, TextField, closePopup } from "../../../../component/export-component"
+import { Text, closePopup } from "../../../../component/export-component"
 import { useForm } from "react-hook-form"
+import { TextFieldForm } from "../../../../project-component/component-form"
+import { useNavigate } from "react-router-dom"
 
 const PopupAddNewCourse = forwardRef(function PopupAddNewCourse(data, ref) {
     const methods = useForm({ shouldFocusError: false, defaultValues: { name: '' } })
+    const navigate = useNavigate()
 
     const onSubmit = (ev) => {
         console.log(ev)
+        navigate('details/overview/' + ev.name)
     }
 
     return <form className="col" style={{ width: '52rem', flex: 1 }}>
         <div className="popup-body col" style={{ padding: '1.6rem 2.4rem' }}>
-            <TextField
+            <TextFieldForm
+                name={'name'}
+                control={methods.control}
                 value={methods.watch('name')}
-                style={{ width: '100%' }}
-                onChange={(ev) => {
-                    methods.setValue('name', ev.target.value.trim())
-                }}
                 placeholder="Nhập tên cho khóa học của bạn"
             />
         </div>

@@ -66,7 +66,7 @@ export default function TeachingProcessList() {
                         <div className="col process-course-infor">
                             <div className="heading-7">{e.name}</div>
                             <div className="row" style={{ columnGap: '0.8rem' }} >
-                                <FilledBook width={16} height={16} />
+                                <FilledBook />
                                 <div className='button-text-3'>Sắp diễn ra:</div>
                                 <div className='body-3'>{e.next}</div>
                             </div>

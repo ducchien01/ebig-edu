@@ -7,7 +7,8 @@ import ComingList from './local-component/coming-list';
 import NewStudentList from './local-component/new-student-list';
 import MothBusiness from './local-component/moth-business';
 import CurrentCourseList from './local-component/current-course-list';
-import { Text } from '../../../component/export-component';
+import { Checkbox, Text } from '../../../component/export-component';
+import { useState } from 'react';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
 export default function EduDashboard({ type = 0 }) {
@@ -31,6 +32,7 @@ export default function EduDashboard({ type = 0 }) {
 }
 
 function NewbieDashboard() {
+    const [v, setV] = useState(false)
     return <>
         <div className='block-view col'>
             <div className='block-title heading-6'>Thiết lập thông tin cơ bản</div>
@@ -61,6 +63,9 @@ function NewbieDashboard() {
 
             </div>
         </div>
+        <Checkbox value={v} size={'2rem'} onChange={(vl) => {
+            setV(vl)
+        }} />
         <div className='card-image-1 row'>
             <div className='prefix-img col8 col24-sm col24-min'></div>
             <div className='row card-content col16 col24-sm col24-min'>

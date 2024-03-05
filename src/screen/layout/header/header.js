@@ -8,9 +8,9 @@ export default function HeaderView() {
     return <div className="header row">
         <div className="logo"></div>
         <div className="action row">
-            <TextField prefix={<div className='prefix-icon-search row'><OutlineSearch /></div>} className='search-ebig placeholder-2' placeholder='Tìm kiếm trên eBig' />
-            <button type='button' className='action-icon'><FilledBell color='#ffffff' /></button>
-            <button type='button' className='action-icon'><FilledChat color='#ffffff' /></button>
+            <TextField prefix={<OutlineSearch />} className='search-ebig placeholder-2' placeholder='Tìm kiếm trên eBig' />
+            <button type='button' className='action-icon'><FilledBell color='#ffffff' width='2.4rem' height='2.4rem' /></button>
+            <button type='button' className='action-icon'><FilledChat color='#ffffff' width='2.4rem' height='2.4rem' /></button>
             <button type='button' className='user-infor' style={{ backgroundImage: `url(${demoAvatar})` }}></button>
         </div>
     </div>

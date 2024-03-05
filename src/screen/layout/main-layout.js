@@ -15,24 +15,20 @@ export default function MainLayout() {
             <SideBar />
             <div className="view col">
                 <Routes>
-                    {menuList.filter(e => menuList.every(el => e.id !== el.parentId)).map((prop, key) => {
-                        return (
-                            <Route
-                                path={prop.link}
-                                element={getcomponentRouter(prop.link)}
-                                key={key}
-                                exact
-                            />
-                        );
-                    })}
-                    {extendView.map((prop, key) => {
-                        <Route
-                            path={prop.path}
-                            element={getcomponentRouter(prop.link)}
-                            key={`extend-${key}`}
-                            exact
-                        />
-                    })}
+                    {menuList.filter(e => menuList.every(el => e.id !== el.parentId)).map((prop, key) => <Route
+                        path={prop.link}
+                        element={getcomponentRouter(prop.link)}
+                        key={key}
+                        exact
+                    />
+                    )}
+                    {extendView.map((prop, key) => <Route
+                        path={prop.path}
+                        element={getcomponentRouter(prop.link)}
+                        key={`extend-${key}`}
+                        exact
+                    />
+                    )}
                 </Routes>
             </div>
         </div>

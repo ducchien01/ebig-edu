@@ -17,19 +17,19 @@ export default function ListMentor({ data = [] }) {
             style: { left: `${offset.x + offset.width + 4}px`, top: `${offset.y}px` },
             content: <div className="more-action-popup col">
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledEdit /></div>
+                    <FilledEdit />
                     <Text className="label-4">Chỉnh sửa</Text>
                 </button>
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledFileCopy /></div>
+                    <FilledFileCopy />
                     <Text className="label-4">Nhân bản</Text>
                 </button>
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledNetworkCommunication /></div>
+                    <FilledNetworkCommunication />
                     <Text className="label-4">Chia sẻ</Text>
                 </button>
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledTrashCan color="#E14337" /></div>
+                    <FilledTrashCan color="#E14337" />
                     <Text className="label-4" style={{ color: '#E14337' }}>Xóa</Text>
                 </button>
             </div>
@@ -63,11 +63,11 @@ export default function ListMentor({ data = [] }) {
             <div className="row bottom">
                 <div className="row" style={{ columnGap: '2.4rem' }}>
                     <div className="row" style={{ columnGap: '0.8rem' }}>
-                        <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledPeople /></div>
+                        <FilledPeople />
                         <Text className="button-text-3" style={{ color: '#00204D99' }} >8/32 học viên</Text>
                     </div>
                     <div className="row" style={{ columnGap: '0.8rem' }}>
-                        <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledCoins /></div>
+                        <FilledCoins />
                         <Text className="button-text-3" style={{ color: '#00204D99' }} >Doanh thu 2.000.000</Text>
                     </div>
                 </div>

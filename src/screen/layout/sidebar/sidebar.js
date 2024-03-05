@@ -84,7 +84,7 @@ export default function SideBar() {
                     </div>
                 })}
             </div>
-            <button type='button' className='log-out-icon'><OutlineCircleArrowLeft /></button>
+            <button type='button' ><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button>
         </div>
         {selected.length === 1 || selected.every(e => e.link !== location.pathname.substring(1)) ? null : <div className="col expand"> {expandBody()} </div>}
     </div>

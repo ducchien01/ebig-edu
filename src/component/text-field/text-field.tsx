@@ -25,6 +25,7 @@ export class TextField extends React.Component<TextFieldProps> {
     render(): React.ReactNode {
         return <div
             className={`text-field-container row ${this.props.className ?? 'placeholder-2'} ${this.props.helperText?.length && 'helper-text'}`}
+            helper-text={this.props.helperText}
             style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
         >
             {this.props.prefix}

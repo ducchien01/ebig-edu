@@ -48,10 +48,10 @@ export default function ComingList() {
                             </div>
                         </div>
                         {i === 0 ? <NavLink className='card-button-2 row'>
-                            <div className='row' style={{ width: '1.6rem', height: '1.6rem' }}><FilledSocialSharing color='white' /></div>
+                            <FilledSocialSharing color='white' />
                             <div className='button-text-3'>Vào dạy</div>
                         </NavLink> : <div className='noti row'>
-                            <FilledBell width={15} height={15} color='#366AE2' />
+                            <FilledBell color='#366AE2' />
                         </div>}
                     </div>;
                 })

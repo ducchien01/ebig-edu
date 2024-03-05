@@ -28,7 +28,7 @@ export default function EduSchedule() {
         <div className="view-header row">
             <div className="heading-4">Giảng dạy</div>
             <button type="button" className="suffix-btn row" onClick={addNotePopup}>
-                <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledTimeAlarm /></div>
+                <FilledTimeAlarm />
                 <div className="button-text-3">Tạo nhắc nhở</div>
             </button>
         </div>

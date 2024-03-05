@@ -4,6 +4,7 @@ import SchoolCurriculum from "../screen/module/curriculum/curriculum";
 import EduDashboard from "../screen/module/dashboard/dashboard";
 import SchoolMentor from "../screen/module/mentor/mentor";
 import EduSchedule from "../screen/module/schedule/schedule";
+import CourseOverview from '../screen/module/course/local-component/overview'
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -13,10 +14,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <EduSchedule />;
         case "edu-management/school/course":
             return <SchoolCourse />;
-        case "edu-management/school/course":
-            return <SchoolCourse />;
-        case "edu-management/school/course/overview/:id":
-            return <SchoolCourse />;
+        case "edu-management/school/course/details/overview":
+            return <CourseOverview />;
         case "edu-management/school/class":
             return <SchoolClass />;
         case "edu-management/school/mentor":

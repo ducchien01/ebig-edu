@@ -40,7 +40,7 @@ export default function CurrentCourseList() {
                     <div className='col content-1'>
                         <div className='heading-7'>Xây dựng khóa học đầu tiên</div>
                         <div className='row' style={{ columnGap: 8 }}>
-                            <FilledBook width={16} height={16} />
+                            <FilledBook />
                             <div className='button-text-3'>Sắp tới:</div>
                             <div className='button-text-3' style={{ color: 'var(--primary-color)' }}>{e.next}</div>
                         </div>

@@ -17,19 +17,19 @@ export default function ListCurriculum({ data = [] }) {
             style: { left: `${offset.x + offset.width + 4}px`, top: `${offset.y}px` },
             content: <div className="more-action-popup col">
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledEdit /></div>
+                    <FilledEdit />
                     <Text className="label-4">Chỉnh sửa</Text>
                 </button>
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledFileCopy /></div>
+                    <FilledFileCopy />
                     <Text className="label-4">Nhân bản</Text>
                 </button>
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledNetworkCommunication /></div>
+                    <FilledNetworkCommunication />
                     <Text className="label-4">Chia sẻ</Text>
                 </button>
                 <button className="row" >
-                    <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledTrashCan color="#E14337" /></div>
+                    <FilledTrashCan color="#E14337" />
                     <Text className="label-4" style={{ color: '#E14337' }}>Xóa</Text>
                 </button>
             </div>
@@ -47,7 +47,7 @@ export default function ListCurriculum({ data = [] }) {
             <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.6rem', color: '#00204D99' }} />} />
             <div style={{ height: '1.6rem', width: 1, backgroundColor: '#00358033' }} ></div>
             <button type="button" className="row" style={{ gap: '0.8rem', cursor: 'pointer' }}>
-                <div style={{ width: '1.6rem', height: '1.6rem' }}><FilledSetupPreferences /></div>
+                <FilledSetupPreferences />
                 <Text className="button-text-3" style={{ color: '#00204D99' }}>Bộ lọc</Text>
             </button>
         </div>
@@ -71,11 +71,11 @@ export default function ListCurriculum({ data = [] }) {
                 <div className="row bottom">
                     <div className="row" style={{ columnGap: '2.4rem' }}>
                         <div className="row" style={{ columnGap: '0.8rem' }}>
-                            <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledBook /></div>
+                            <FilledBook />
                             <Text className="button-text-3" style={{ color: '#00204D99' }} >32 bài học</Text>
                         </div>
                         <div className="row" style={{ columnGap: '0.8rem' }}>
-                            <div className="row" style={{ width: '1.6rem', height: '1.6rem' }}><FilledClock /></div>
+                            <FilledClock />
                             <Text className="button-text-3" style={{ color: '#00204D99' }} >180h 20m 15s</Text>
                         </div>
                     </div>

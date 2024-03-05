@@ -194,7 +194,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
                         <div className='col select1-body'>
                             <div className='col select1-scroll-view'>
                                 {(this.state.search ?? this.props.options).map(item => (
-                                    <button type='button' key={item.id} className='select1-tile row' id={item.id} >
+                                    <button type='button' key={item.id} className='select1-tile regular1 row' id={item.id} >
                                         {item.title ?? item.name}
                                     </button>
                                 ))}

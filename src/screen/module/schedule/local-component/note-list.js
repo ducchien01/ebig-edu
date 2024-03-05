@@ -63,10 +63,10 @@ export default function NoteList() {
                             </div>
                         </div>
                         {i === 0 ? <button type="button" className='card-button-2 row'>
-                            <div className='row' style={{ width: '1.6rem', height: '1.6rem' }}><FilledSocialSharing color='white' /></div>
+                            <FilledSocialSharing color='white' />
                             <div className='button-text-3'>Vào dạy</div>
                         </button> : <div className='noti row'>
-                            <FilledBell width={15} height={15} color='#366AE2' />
+                            <FilledBell color='#366AE2' />
                         </div>}
                     </div>;
                 })
@@ -100,11 +100,11 @@ function PopupFullNoteList() {
                             <TbCell style={{ minWidth: 240, }} >15 tháng 10 2023 , 15:00</TbCell>
                             <TbCell fixed={true} style={{ minWidth: 110, }}>
                                 <div className="row" style={{ gap: 8 }}>
-                                    <button type="button" className="row" onClick={() => { navigate('') }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
-                                        <FilledEdit />
+                                    <button type="button" className="row" onClick={() => { navigate('') }} style={{ padding: '0.6rem' }}>
+                                        <FilledEdit width='2rem' height='2rem' />
                                     </button>
-                                    <button type="button" className="row" onClick={() => { confirmDelete() }} style={{ width: '3.2rem', height: '3.2rem', padding: '0.6rem' }}>
-                                        <FilledTrashCan />
+                                    <button type="button" className="row" onClick={() => { confirmDelete() }} style={{ padding: '0.6rem' }}>
+                                        <FilledTrashCan width='2rem' height='2rem' />
                                     </button>
                                 </div>
                             </TbCell>

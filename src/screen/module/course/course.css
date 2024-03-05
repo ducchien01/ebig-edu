@@ -76,3 +76,10 @@
     fill: #ffffff !important;
     transition: color, fill ease-in-out 0.1s;
 }
+
+.overview-container {
+    width: 100%;
+    flex: 1;
+    height: 100%;
+    padding: 0 3.2rem;
+}

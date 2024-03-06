@@ -16,9 +16,9 @@
 
 .import-file-container:not(.button-only) {
     max-width: 57rem;
-    padding: 3.6rem;
-    column-gap: 1.6rem;
-    border-radius: 8px;
+    padding: 2.4rem;
+    gap: 1.6rem;
+    border-radius: 0.8rem;
     border: 1px solid #00358033;
 }
 
@@ -26,35 +26,39 @@
     border-style: dashed;
 }
 
-.import-file-container>.import-file-prefix {
-    width: 5.6rem;
-    height: 5.6rem;
+.import-file-container>.import-file-prefix:not(*:has(>img)) {
+    width: 4.8rem;
+    height: 4.8rem;
     border-radius: 50%;
+}
+
+.import-file-container>.import-file-prefix {
     background-color: #edf2fd;
     align-items: center;
     justify-content: center;
 }
 
+.import-file-container>.import-file-prefix>img {
+    max-width: 14rem;
+    max-height: 8.8rem;
+    border-radius: 0.8rem;
+}
+
 .import-file-container>.file-preview-content {
+    max-width: 100%;
     flex: 1;
-    row-gap: 4px;
+    row-gap: 0.4rem;
     align-items: start;
 }
 
-.file-preview-content>.title-file {
-    font: 600 1.6rem/2.4rem "Inter";
-    color: #00204d;
-}
-
-.file-preview-content>.subtitle-file {
-    font: 400 1.2rem/1.6rem "Inter";
-    color: #00204d99;
+.import-file-container.col>.file-preview-content {
+    align-items: center;
 }
 
 .import-file-container>.import-file-suffix {
-    padding: 8px 1.6rem;
-    border-radius: 8px;
-    column-gap: 8px;
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.8rem;
+    column-gap: 0.8rem;
     align-items: center;
     justify-content: center;
     background-color: #f2f5f8;
@@ -74,5 +78,9 @@
 .remove-preview-file {
     width: 1.6rem;
     height: 1.6rem;
-    margin-left: 6px;
+    margin-left: 0.6rem;
+}
+
+.Toastify__toast-body>div:last-child {
+    font: 500 1.2rem/1.6rem "Inter";
 }

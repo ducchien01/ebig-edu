@@ -10,7 +10,8 @@ const listView = extendView.filter(e => e.link === 'edu-management/school/course
 export default function CourseDetails() {
     const { id } = useParams()
     const location = useLocation()
-    const [selectedView, setSelectedView] = useState(listView[0].slug)
+    const [selectedView, setSelectedView] = useState(listView[0])
+    const [data, setData] = useState()
 
     const onSelectView = (item, ev) => {
         const suffixIcon = ev.target.closest('.details-sidebar-tile').querySelector('.svg-inline--fa')
@@ -27,7 +28,10 @@ export default function CourseDetails() {
 
     useEffect(() => {
         const pathFragment = location.pathname.split("/")
-        setSelectedView(listView.find(e => pathFragment.includes(e.slug) && listView.every(el => el.parentId !== e.slug))?.slug ?? listView[0].slug)
+        setSelectedView(listView.find(e => pathFragment.includes(e.slug) && listView.every(el => el.parentId !== e.slug)))
+        if (id && !data) {
+            setData({})
+        }
     }, [location.pathname])
 
     return <div className="details-view-container col" >
@@ -51,16 +55,17 @@ export default function CourseDetails() {
                 <div className='col' >
                     {listView.filter(e => !e.parentId).map((item, index) => {
                         const children = listView.filter(e => e.parentId === item.slug)
-                        if (children.length && children.some(e => e.slug === selectedView)) item.isExpand = true
+                        if (children.length && children.some(e => e.slug === selectedView?.slug)) item.isExpand = true
                         return <div key={`sidebar-tile-${index}`} className='col' style={{ width: '100%' }}>
-                            <NavLink to={children.length ? null : `/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${selectedView === item.slug ? 'selected' : ''}`} onClick={(ev) => {
-                                onSelectView(item, ev, children.length)
+                            <NavLink to={children.length ? null : `/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${selectedView?.slug === item.slug ? 'selected' : ''}`} onClick={(ev) => {
+                                if (children.length)
+                                    onSelectView(item, ev)
                             }} >
-                                <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={selectedView === item.slug} />
+                                <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={false} />
                                 <div className='label-3' style={{ flex: 1 }}>{item.name}</div>
                                 {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.6rem', color: '#00204D' }} fillOpacity={0.6} /> : null}
                             </NavLink>
-                            {children.map((child, j) => <NavLink to={"/" + item.path.replace(':id', id)} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView === child.slug ? 'selected' : ''}`} >
+                            {children.map((child, j) => <NavLink to={`/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug ? 'selected' : ''}`} >
                                 <div className='label-3 comp-text' style={{ flex: 1, '--max-line': 1, width: '100%' }}>{child.name}</div>
                             </NavLink>)}
                         </div>
@@ -68,7 +73,7 @@ export default function CourseDetails() {
                 </div>
             </div>
             <div className='details-view-body-content col'>
-                { }
+                {selectedView?.element ? selectedView.element(data) : null}
             </div>
         </div>
     </div>

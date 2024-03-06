@@ -113,10 +113,12 @@
     cursor: pointer;
     text-decoration: none;
 }
+
 .details-view-body-sidebar .details-sidebar-tile .checkbox-container:has(input:checked) {
     background-color: #00204D99 !important;
 }
-.details-view-body-sidebar .details-sidebar-tile .checkbox-container:has(input:checked) > svg > path{
+
+.details-view-body-sidebar .details-sidebar-tile .checkbox-container:has(input:checked)>svg>path {
     stroke: white !important;
 }
 
@@ -130,4 +132,26 @@
 
 .col:has(> .details-sidebar-tile > .fa-chevron-down)>.details-sidebar-tile:not(*:first-child) {
     display: none;
+}
+
+.details-view-body-content {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 2.4rem;
+    overflow: hidden auto;
+}
+
+.course-overview-form {
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: stretch;
+    gap: 2rem 4rem;
+}
+
+@media only screen and (min-width: 992px) {
+    .course-overview-form>.col:last-child {
+        border-left: 1px solid #00358014;
+        padding-left: 4rem;
+    }
 }

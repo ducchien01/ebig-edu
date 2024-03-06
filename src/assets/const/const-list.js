@@ -1,5 +1,7 @@
 import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet } from './icon'
 import demoAvatar from '../demo-avatar.png';
+import Overview from '../../screen/module/course/local-component/overview';
+import ScheduleFee from '../../screen/module/course/local-component/schedule-fee';
 export const menuList = [
     {
         id: 2,
@@ -120,12 +122,14 @@ export const extendView = [
         slug: 'overview',
         path: 'edu-management/school/course/details/overview/:id',
         link: 'edu-management/school/course/details',
+        element: (data) => <Overview data={data} />
     },
     {
         name: 'Lịch học và học phí',
-        slug: 'shedule-fees',   
-        path: 'edu-management/school/course/details/shedule-fees/:id',
+        slug: 'shedule-fee',
+        path: 'edu-management/school/course/details/shedule-fee/:id',
         link: 'edu-management/school/course/details',
+        element: (data) => <ScheduleFee data={data} />
     },
     {
         name: 'Giáo trình',

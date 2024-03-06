@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-import { Checkbox, RadioButton, Select1, SelectMultiple, Switch, Text, TextArea, TextField } from "../component/export-component";
+import { Checkbox, ImportFile, RadioButton, Select1, SelectMultiple, Switch, Text, TextArea, TextField } from "../component/export-component";
 
 export function TextFieldForm({ value, label, control, required = false, name, type, placeholder, errors, maxLength, readOnly = false, disabled = false, suffix, prefix, onChange, onBlur, width = '100%', helperText }) {
     return <Controller
@@ -43,7 +43,7 @@ export function TextAreaForm({ value, label, control, required = false, name, pl
                 {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
             </div> : null}
             <TextArea
-                style={{ width: '100%' }}
+                style={{ width: '100%', minHeight: '9.8rem' }}
                 placeholder={placeholder ? placeholder : label ? `Nhập ${label.toLowerCase()}` : ''}
                 value={value}
                 disabled={disabled}
@@ -151,6 +151,24 @@ export function RadioButtonForm({ value, label, defaultChecked, control, name, d
                 if (onChange) onChange(ev.target.value)
             }} />
             {label ? <Text className="label-3" maxLine={1}>{label}</Text> : null}
+        </div>}
+    />
+}
+
+export function ImportFileForm({ name, label, control, maxSize, allowType, status, value, onChange, subTitle, width, required = false, direction = 'row' }) {
+    return <Controller
+        name={name}
+        control={control}
+        rules={{ required: required }}
+        render={({ field }) => <div className="col" style={{ gap: '0.8rem', width: width }}>
+            {label ? <div className="row" style={{ gap: 4 }}>
+                <Text className="label-3">{label}</Text>
+                {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
+            </div> : null}
+            <ImportFile maxSize={maxSize} subTitle={subTitle} allowType={allowType} status={status} value={value} onChange={(ev) => {
+                field.onChange(ev)
+                if (onChange) onChange(ev)
+            }} style={{ width: '100%', borderStyle: 'dashed' }} className={direction} />
         </div>}
     />
 }

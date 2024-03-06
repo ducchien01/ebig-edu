@@ -604,45 +604,13 @@ Array.prototype.filterAndMap = function (callbackfn) {
     return result;
 }
 
-
-const showPopupObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        let elementHTML = entry.target;
-        let elementRect = elementHTML.getBoundingClientRect();
-        let screenRect = document.body.getBoundingClientRect();
-        let transformX = 0;
-        let transformY = 0;
-        if (elementRect.x < screenRect.x) {
-            transformX = screenRect.x - elementRect.x;
-        }
-        if (elementRect.y < screenRect.y) {
-            transformY = screenRect.y - elementRect.y;
-        }
-        if (elementRect.x + elementRect.width > screenRect.x + screenRect.width) {
-            transformX = (screenRect.x + screenRect.width) - (elementRect.x + elementRect.width);
-        }
-        if (elementRect.y + elementRect.height > screenRect.y + screenRect.height) {
-            transformY = (screenRect.y + screenRect.height) - (elementRect.y + elementRect.height);
-        }
-        elementHTML.style.transform = `translate(${transformX}px, ${transformY}px)`;
-    })
-});
-
-function caclTextSize(text, font) {
-    let canvas = document.createElement("canvas");
-    let context = canvas.getContext("2d");
-    context.font = font;
-    let metrics = context.measureText(text);
-    return { width: metrics.width, height: metrics.height };
-}
-
 export function fortmatDate(date) {
     let dateFormat;
     if (date) dateFormat = format(new Date(date), "dd/MM/yyyy HH:mm");
     return dateFormat
 }
 
-export default function inputMoneyPattern(ev) {
+export function inputMoneyPattern(ev) {
     let num = ev.target.value.replaceAll(",", "").length % 3;
     if (num > 0) {
         let newV = ev.target.value.replaceAll(",", "").substring(num).split("");
@@ -653,3 +621,7 @@ export default function inputMoneyPattern(ev) {
     }
 }
 
+export const uuidv4 = () => ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+    (c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16))

@@ -4,7 +4,7 @@ import { FilledSendMessage } from '../../../../assets/const/icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { extendView } from '../../../../assets/const/const-list';
-import { Checkbox } from '../../../../component/export-component';
+import { Checkbox, Text } from '../../../../component/export-component';
 
 const listView = extendView.filter(e => e.link === 'edu-management/school/course/details')
 export default function CourseDetails() {
@@ -51,7 +51,7 @@ export default function CourseDetails() {
         </div>
         <div className='details-view-body row' style={{ width: '100%', height: '100%', flex: 1 }}>
             <div className='details-view-body-sidebar col'>
-                <div className='heading-7 comp-text'>UI/UX cho người mới bắt đầu</div>
+                <Text className='heading-7'>UI/UX cho người mới bắt đầu</Text>
                 <div className='col' >
                     {listView.filter(e => !e.parentId).map((item, index) => {
                         const children = listView.filter(e => e.parentId === item.slug)
@@ -62,11 +62,11 @@ export default function CourseDetails() {
                                     onSelectView(item, ev)
                             }} >
                                 <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={false} />
-                                <div className='label-3' style={{ flex: 1 }}>{item.name}</div>
+                                <Text className='label-3' style={{ flex: 1, '--max-line': 1, with: '100%' }}>{item.name}</Text>
                                 {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.6rem', color: '#00204D' }} fillOpacity={0.6} /> : null}
                             </NavLink>
                             {children.map((child, j) => <NavLink to={`/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug ? 'selected' : ''}`} >
-                                <div className='label-3 comp-text' style={{ flex: 1, '--max-line': 1, width: '100%' }}>{child.name}</div>
+                                <Text className='label-3' style={{ flex: 1, '--max-line': 1, width: '100%' }}>{child.name}</Text>
                             </NavLink>)}
                         </div>
                     })}

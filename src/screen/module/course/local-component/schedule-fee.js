@@ -20,7 +20,7 @@ export default function ScheduleFee({ data }) {
     const showPopupMentorPack = (item) => {
         showPopup({
             ref: ref,
-            style: { width: '78%', flex: 1, maxHeight: '84%' },
+            style: { width: '78%', maxHeight: '84%' },
             heading: <div className="heading-7 popup-header">{item ? 'Chỉnh sửa' : 'Thêm'} gói mentor</div>,
             content: <PopupAddNewMentorPack ref={ref} item={item} />
         })
@@ -79,7 +79,7 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
         console.log(ev)
     }
 
-    return <form className="col">
+    return <form className="col" style={{flex: 1, width: '100%', height: '100%'}}>
         <div className="popup-body row" style={{ padding: '1.6rem 2.4rem', gap: '5.6rem', height: '100%', alignItems: 'start' }} >
             <div className="col" style={{ flex: 1, gap: '2rem', overflow: 'hidden auto', height: '100%' }}>
                 <TextFieldForm
@@ -149,7 +149,7 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
-            <button type="button" className={`submit-popup-btn button-text-3 ${methods.watch('name')?.length && methods.watch('fee')?.length ? 'active' : ''}`} onClick={methods.handleSubmit(onSubmit)}>Tạo mới</button>
+            <button type="button" className={`submit-popup-btn button-text-3 ${methods.watch('name')?.length && methods.watch('fee')?.length ? 'active' : ''}`} onClick={methods.handleSubmit(onSubmit)}>{data?.item ? 'Lưu' : 'Tạo mới'}</button>
         </div>
     </form>
 })

@@ -155,3 +155,18 @@
         padding-left: 4rem;
     }
 }
+
+.course-curriculum-empty {
+    gap: 2.4rem;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: stretch;
+}
+
+.course-curriculum-empty button {
+    background-color: var(--background);
+    border-radius: 0.8rem;
+    padding: 2.4rem;
+    gap: 1.6rem;
+    --gutter: 2.4rem;
+}

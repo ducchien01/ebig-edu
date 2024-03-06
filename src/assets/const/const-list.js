@@ -2,6 +2,7 @@ import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, Outli
 import demoAvatar from '../demo-avatar.png';
 import Overview from '../../screen/module/course/local-component/overview';
 import ScheduleFee from '../../screen/module/course/local-component/schedule-fee';
+import CourseCurriculum from '../../screen/module/course/local-component/course-curriculum';
 export const menuList = [
     {
         id: 2,
@@ -143,6 +144,7 @@ export const extendView = [
         parentId: 'textbook',
         path: 'edu-management/school/course/details/textbook/lessons/:id',
         link: 'edu-management/school/course/details',
+        element: (data) => <CourseCurriculum data={data} />
     },
     {
         name: 'Tài liệu đính kèm',

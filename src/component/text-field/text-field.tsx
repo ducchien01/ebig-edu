@@ -19,6 +19,7 @@ interface TextFieldProps {
     helperTextColor?: string,
     style?: CSSProperties,
     type?: React.HTMLInputTypeAttribute,
+    autoFocus?: boolean
 }
 
 export class TextField extends React.Component<TextFieldProps> {
@@ -31,6 +32,7 @@ export class TextField extends React.Component<TextFieldProps> {
             {this.props.prefix}
             <input
                 // autoComplete={autoComplete ? 'on' : 'new-password'}
+                autoFocus={this.props.autoFocus}
                 maxLength={this.props.maxLength}
                 name={this.props.name}
                 type={this.props.type ?? 'text'}

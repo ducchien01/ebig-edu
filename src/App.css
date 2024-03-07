@@ -876,6 +876,8 @@ button * {
 
 .header-breadcum {
     gap: 0.8rem;
+    flex: 1;
+    width: 100%;
 }
 
 .header-breadcum .row:has(> .fa-chevron-right) * {
@@ -884,4 +886,60 @@ button * {
 
 .header-breadcum .button-text-6.selected {
     color: var(--primary-color);
+}
+
+.button-grey {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--background);
+    gap: 0.8rem;
+    border-radius: 2.4rem;
+}
+
+.button-grey * {
+    color: #00204D99;
+}
+
+.more-action-popup {
+    min-width: 20rem;
+    width: fit-content;
+    padding: 0.4rem 0;
+    border-radius: 0.8rem;
+    background-color: #ffffff;
+}
+
+.more-action-popup>button {
+    gap: 1.2rem;
+    padding: 0.8rem 1.6rem;
+    width: 100%;
+}
+
+.more-action-popup>button:hover {
+    background-color: var(--primary-color);
+    transition: background-color ease-in-out 0.1s;
+}
+
+.more-action-popup>button:hover * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    transition: color, fill ease-in-out 0.1s;
+}
+
+.ck.ck-reset.ck-editor.ck-rounded-corners {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.ck.ck-editor__main {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ck.ck-content.ck-editor__editable {
+    height: 100%;
+    flex: 1;
 }

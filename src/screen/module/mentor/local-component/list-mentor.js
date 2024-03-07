@@ -61,17 +61,17 @@ export default function ListMentor({ data = [] }) {
                 </div>
             </div>
             <div className="row bottom">
-                <div className="row" style={{ columnGap: '2.4rem' }}>
-                    <div className="row" style={{ columnGap: '0.8rem' }}>
+                <div className="row" style={{ gap: '2.4rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
                         <FilledPeople />
                         <Text className="button-text-3" style={{ color: '#00204D99' }} >8/32 học viên</Text>
                     </div>
-                    <div className="row" style={{ columnGap: '0.8rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
                         <FilledCoins />
                         <Text className="button-text-3" style={{ color: '#00204D99' }} >Doanh thu 2.000.000</Text>
                     </div>
                 </div>
-                <div className="row" style={{ columnGap: '0.8rem' }}>
+                <div className="row" style={{ gap: '0.8rem' }}>
                     <FontAwesomeIcon icon={faEye} style={{ color: 'var(--primary-color)', fontSize: '1.4rem' }} />
                     <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem trước</Text>
                 </div>

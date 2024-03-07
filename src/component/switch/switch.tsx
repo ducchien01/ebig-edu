@@ -28,11 +28,11 @@ export class Switch extends React.Component<SwitchProps, SwitchState> {
             '--off-bg': this.props.offBackground ?? 'var(--background)',
             '--on-bg': this.props.onBackground ?? 'var(--primary-color)',
             '--dot-color': this.props.dotColor ?? '#ffffff',
-            '--size': this.props.size ? (typeof this.props.size === 'number') ? `${this.props.size}px` : this.props.size : '20px'
+            '--size': this.props.size ? (typeof this.props.size === 'number') ? `${this.props.size}px` : this.props.size : '2rem'
         }
         let convertStyle: CSSProperties = {
-            height: this.props.size ?? 20,
-            width: `calc(${this.props.size ? (typeof this.props.size === 'number') ? `${this.props.size}px` : this.props.size : '20px'} * 9 / 5)`,
+            height: this.props.size ?? '2rem',
+            width: `calc(${this.props.size ? (typeof this.props.size === 'number') ? `${this.props.size}px` : this.props.size : '2rem'} * 9 / 5)`,
             ...propStyle
         }
         if (this.props.style) {

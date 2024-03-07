@@ -28,7 +28,7 @@ export default function CourseDetails() {
 
     useEffect(() => {
         const pathFragment = location.pathname.split("/")
-        setSelectedView(listView.find(e => pathFragment.includes(e.slug) && listView.every(el => el.parentId !== e.slug)))
+        setSelectedView(listView.find(e => pathFragment.includes(e.slug)))
         if (id && !data) {
             setData({})
         }
@@ -53,9 +53,12 @@ export default function CourseDetails() {
             <div className='details-view-body-sidebar col'>
                 <Text className='heading-7'>UI/UX cho người mới bắt đầu</Text>
                 <div className='col' >
-                    {listView.filter(e => !e.parentId).map((item, index) => {
+                    {listView.filter(e => {
+                        if (selectedView.parentId === e.slug) e.isExpand = true
+                        return !e.parentId;
+                    }).map((item, index) => {
                         const children = listView.filter(e => e.parentId === item.slug)
-                        if (children.length && children.some(e => e.slug === selectedView?.slug)) item.isExpand = true
+                        item.isExpand ??= children.some(e => e.isExpand)
                         return <div key={`sidebar-tile-${index}`} className='col' style={{ width: '100%' }}>
                             <NavLink to={children.length ? null : `/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${selectedView?.slug === item.slug ? 'selected' : ''}`} onClick={(ev) => {
                                 if (children.length)
@@ -63,9 +66,9 @@ export default function CourseDetails() {
                             }} >
                                 <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={false} />
                                 <Text className='label-3' style={{ flex: 1, '--max-line': 1, with: '100%' }}>{item.name}</Text>
-                                {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.6rem', color: '#00204D' }} fillOpacity={0.6} /> : null}
+                                {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D' }} fillOpacity={0.6} /> : null}
                             </NavLink>
-                            {children.map((child, j) => <NavLink to={`/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug ? 'selected' : ''}`} >
+                            {children.map((child, j) => <NavLink to={`/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug || child.isExpand ? 'selected' : ''}`} >
                                 <Text className='label-3' style={{ flex: 1, '--max-line': 1, width: '100%' }}>{child.name}</Text>
                             </NavLink>)}
                         </div>

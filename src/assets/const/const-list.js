@@ -3,6 +3,8 @@ import demoAvatar from '../demo-avatar.png';
 import Overview from '../../screen/module/course/local-component/overview';
 import ScheduleFee from '../../screen/module/course/local-component/schedule-fee';
 import CourseCurriculum from '../../screen/module/course/local-component/course-curriculum';
+import FormEditLesson from '../../screen/module/course/local-component/edit-lesson';
+import MyUploadAdapter from '../../component/ckeditor/ckeditor';
 export const menuList = [
     {
         id: 2,
@@ -119,6 +121,29 @@ export const menuList = [
 // react-router-dom use path params: exp with params id & type => ...link/:id/:type => make optional ...link/(/:id)(/:type)
 export const extendView = [
     {
+        name: 'Chỉnh sửa bài học',
+        slug: 'lesson-content',
+        parentId: 'lessons',
+        path: 'edu-management/school/course/details/textbook/lesson-content/:id',
+        link: 'edu-management/school/course/details',
+        element: () => <FormEditLesson />
+    },
+    {
+        name: 'Danh sách bài học',
+        slug: 'lessons',
+        parentId: 'textbook',
+        path: 'edu-management/school/course/details/textbook/lessons/:id',
+        link: 'edu-management/school/course/details',
+        element: (data) => <CourseCurriculum data={data} />
+    },
+    {
+        name: 'Tài liệu đính kèm',
+        slug: 'files',
+        parentId: 'textbook',
+        path: 'edu-management/school/course/details/textbook/files/:id',
+        link: 'edu-management/school/course/details',
+    },
+    {
         name: 'Tổng quan',
         slug: 'overview',
         path: 'edu-management/school/course/details/overview/:id',
@@ -139,25 +164,16 @@ export const extendView = [
         link: 'edu-management/school/course/details',
     },
     {
-        name: 'Danh sách bài học',
-        slug: 'lessons',
-        parentId: 'textbook',
-        path: 'edu-management/school/course/details/textbook/lessons/:id',
-        link: 'edu-management/school/course/details',
-        element: (data) => <CourseCurriculum data={data} />
-    },
-    {
-        name: 'Tài liệu đính kèm',
-        slug: 'files',
-        parentId: 'textbook',
-        path: 'edu-management/school/course/details/textbook/files/:id',
-        link: 'edu-management/school/course/details',
-    },
-    {
         name: 'Chứng chỉ',
         slug: 'certificate',
         path: 'edu-management/school/course/details/certificate/:id',
         link: 'edu-management/school/course/details',
+    },
+    {
+        name: 'Xem trước khóa học',
+        // slug: 'certificate',
+        path: 'edu-management/school/course/prevew/:id',
+        link: 'edu-management/school/course/preview',
     },
 ]
 
@@ -208,3 +224,55 @@ export const supportModule = [
         link: ''
     },
 ]
+
+export const editorConfiguration = {
+    htmlSupport: {
+        allow: [
+            {
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true
+            }
+        ]
+    },
+    extraPlugins: [function (editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader);
+        };
+    }],
+
+    toolbar: {
+        items: [
+            'undo', 'redo',
+            '|', 'imageUpload',
+            '|', 'heading',
+            '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', 'wordBreak',
+            '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+            '|', 'link', 'blockQuote', 'codeBlock',
+            '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
+            '|', 'ckbox'
+        ],
+        shouldNotGroupWhenFull: false
+    },
+    fontSize: {
+        options: [10, 12, 14, 'default', 18, 20, 22],
+        supportAllValues: false
+    },
+    ckbox: {
+        tokenUrl: "https://file-mamager.wini.vn/",
+        serviceOrigin: "https://file-mamager.wini.vn/"
+    },
+    // simpleUpload: {
+    //   uploadUrl: '/upload-endpoint', // Replace with your server upload endpoint
+    // },
+};
+
+export class LessonType {
+    static video = 1
+    static text = 2
+    static task = 3
+
+    static list = [this.video, this.text, this.task]
+}
+

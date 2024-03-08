@@ -1,4 +1,4 @@
-import ConfigAPI from '../../config/configApi.js';
+import ConfigAPI from '../config/configApi.js';
 // MyUploadAdapter.js
 export default class MyUploadAdapter {
 
@@ -32,7 +32,7 @@ export default class MyUploadAdapter {
         // integration to choose the right communication channel. This example uses
         // a POST request with JSON as a data structure but your configuration
         // could be different.
-        xhr.open('POST', `${ConfigAPI.baseUrl}admin/upload`, true);
+        xhr.open('POST', `${ConfigAPI.fileUrl}admin/upload`, true);
         xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("token"));
         xhr.responseType = 'json';
     }

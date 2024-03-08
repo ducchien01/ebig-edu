@@ -15,6 +15,7 @@ import { RadioButton } from './radio-button/radio-button.tsx'
 import { TextArea } from './text-area/text-area.tsx'
 import { ImportFile } from './import-file/import-file.tsx'
 import { ToastMessage } from './toast-noti/toast-noti.tsx'
+import { CustomCKEditor } from './ckeditor/ck-editor.tsx'
 
 export {
     ComponentStatus,
@@ -38,5 +39,6 @@ export {
     RadioButton,
     TextArea,
     ImportFile,
-    ToastMessage
+    ToastMessage,
+    CustomCKEditor
 }

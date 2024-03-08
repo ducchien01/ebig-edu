@@ -1,0 +1,23 @@
+.ck-editor-container {
+    --ck-font-size-base: 1.4rem;
+}
+
+.ck-editor-container .ck.ck-reset.ck-editor.ck-rounded-corners {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.ck-editor-container .ck.ck-editor__main {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ck-editor-container .ck.ck-content.ck-editor__editable {
+    height: 100%;
+    flex: 1;
+}

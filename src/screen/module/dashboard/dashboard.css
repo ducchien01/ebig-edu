@@ -103,7 +103,7 @@
 .card-current-course {
     padding: 2.4rem;
     border-radius: 8px;
-    border: 1px solid #00358014;
+    border: var(--border-grey1);
     gap: 2.4rem;
     flex-wrap: wrap;
 }
@@ -124,7 +124,7 @@
 .card-current-course>.course-content>.content-1 {
     row-gap: 8px;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid #00358014;
+    border-bottom: var(--border-grey1);
 }
 
 .card-current-course>.course-content>.content-2 {

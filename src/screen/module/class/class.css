@@ -17,7 +17,7 @@
     row-gap: 2rem;
     padding: 2rem;
     border-radius: 8px;
-    border: 1px solid #00358014;
+    border: var(--border-grey1);
 }
 
 .list-card-class-infor>.card-class-infor>.top {
@@ -49,6 +49,6 @@
 .list-card-class-infor>.card-class-infor>.bottom {
     column-gap: 1.2rem;
     padding-top: 1.6rem;
-    border-top: 1px solid #00358014;
+    border-top: var(--border-grey1);
     justify-content: space-between;
 }

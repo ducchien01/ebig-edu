@@ -4,7 +4,7 @@ import Overview from '../../screen/module/course/local-component/overview';
 import ScheduleFee from '../../screen/module/course/local-component/schedule-fee';
 import CourseCurriculum from '../../screen/module/course/local-component/course-curriculum';
 import FormEditLesson from '../../screen/module/course/local-component/edit-lesson';
-import MyUploadAdapter from '../../component/ckeditor/ckeditor';
+import MyUploadAdapter from '../../project-component/ckeditor';
 export const menuList = [
     {
         id: 2,

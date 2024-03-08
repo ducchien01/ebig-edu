@@ -1,3 +1,7 @@
+@import url('./assets/skin/color-border.css');
+@import url('./assets/skin/typography.css');
+@import url('./assets/skin/effect.css');
+
 html,
 body,
 #root {
@@ -669,7 +673,7 @@ button * {
 .view-container .view-header {
     padding: 1.6rem 0;
     justify-content: space-between;
-    border-bottom: 1px solid #00358014;
+    border-bottom: var(--border-grey1);
 }
 
 .view-container .view-header .suffix-btn {
@@ -922,24 +926,4 @@ button * {
     color: #ffffff !important;
     fill: #ffffff !important;
     transition: color, fill ease-in-out 0.1s;
-}
-
-.ck.ck-reset.ck-editor.ck-rounded-corners {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-}
-
-.ck.ck-editor__main {
-    height: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.ck.ck-content.ck-editor__editable {
-    height: 100%;
-    flex: 1;
 }

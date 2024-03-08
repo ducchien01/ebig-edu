@@ -1,6 +1,4 @@
 import React from 'react';
-import './assets/skin/color.css';
-import './assets/skin/typography.css';
 import './App.css';
 import './assets/skin/layout.css';
 

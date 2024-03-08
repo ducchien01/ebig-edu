@@ -67,7 +67,7 @@
 }
 
 .card-mentor-schedule>.time-infor {
-    border-top: 1px solid #00358014;
+    border-top: var(--border-grey1);
     padding-top: 2.4rem;
 }
 

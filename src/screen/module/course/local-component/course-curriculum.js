@@ -36,16 +36,15 @@ export default function CourseCurriculum({ data }) {
                 break;
         }
         return <div key={keyValue} className="row edit-title-action-tile" >
-            <div className="row" style={{ paddingRight: '1rem' }}><FilledIndicator /></div>
-            {item.isEditing ? [
+            <div className="row btn-sort"><FilledIndicator /></div>
+            {item.isEditing ? <>
                 <TextField
-                    key={'input-field'}
                     autoFocus
                     defaultValue={item.name}
                     placeholder={placeholder}
                     onChange={(ev) => { item.name = ev.target.value.trim() }}
-                />,
-                <button key={'suffix-action-btn1'} type="button" onClick={() => {
+                />
+                <button type="button" onClick={() => {
                     setLessons([...lessons.map(e => {
                         if (e.id === item.id) e.isEditing = false
                         return e
@@ -53,27 +52,27 @@ export default function CourseCurriculum({ data }) {
                 }}
                 >
                     <FontAwesomeIcon icon={faCheck} style={{ fontSize: '1.6rem', color: '#39AC6D' }} />
-                </button>,
-                <button key={'suffix-action-btn2'} type="button" onClick={() => {
+                </button>
+                <button type="button" onClick={() => {
                     setLessons(lessons.filter(e => e.id !== item.id))
                 }}>
                     <FontAwesomeIcon icon={faCircleXmark} style={{ fontSize: '1.6rem', color: '#E14337' }} />
                 </button>
-            ] : [
-                prefixIcon ?? null,
-                <Text key={'title-field'} className={item.parentId ? 'button-text-3' : "highlight-6"}>{item.name}</Text>,
-                item.parentId ? <NavLink key={'suffix-action-link'} to={`/edu-management/school/course/details/textbook/lesson-content/${item.id}`}>
+            </> : <>
+                {prefixIcon ?? null}
+                <Text className={item.parentId ? 'button-text-3' : "highlight-6"}>{item.name}</Text>,
+                {item.parentId ? <NavLink to={`/edu-management/school/course/details/textbook/lesson-content/${item.id}`}>
                     <FilledOpenLink />
-                </NavLink> : null,
-                <button key={'suffix-action-btn3'} type="button" onClick={() => {
+                </NavLink> : null}
+                <button type="button" onClick={() => {
                     setLessons([...lessons.map(e => {
                         if (e === item) e.isEditing = true
                         return e
                     })])
                 }}>
                     <FilledEdit />
-                </button>,
-                <button key={'suffix-action-btn4'} type="button" onClick={(ev) => {
+                </button>
+                <button type="button" onClick={(ev) => {
                     const offset = ev.target.getBoundingClientRect()
                     showPopup({
                         ref: ref,
@@ -96,7 +95,7 @@ export default function CourseCurriculum({ data }) {
                 }}>
                     <FontAwesomeIcon icon={faEllipsisVertical} style={{ fontSize: '1.6rem', color: '#667994', width: '1.6rem' }} />
                 </button>
-            ]}
+            </>}
         </div>
     }
 

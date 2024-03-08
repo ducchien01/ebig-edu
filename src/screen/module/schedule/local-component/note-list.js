@@ -62,7 +62,7 @@ export default function NoteList() {
                                 {i === 0 ? null : <div className='body-3' style={{ marginTop: 4 }}>{e.note}</div>}
                             </div>
                         </div>
-                        {i === 0 ? <button type="button" className='card-button-2 row'>
+                        {i === 0 ? <button type="button" className='button-primary row'>
                             <FilledSocialSharing color='white' />
                             <div className='button-text-3'>Vào dạy</div>
                         </button> : <div className='noti row'>

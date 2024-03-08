@@ -1,10 +1,13 @@
 :root {
     --primary-color: #366AE2;
+    --primary-background: #EDF2FD;
+    --success-color: #39AC6D;
+    --success-background: #E8F7EF;
     --background: #F2F5F8;
     --hover-background: #f1f1f1;
     --disabled-background: #f5f7fa;
     --primary-border-color: #00358033;
     --primary-placeholder-color: #00204D66;
     --disable-input-color: rgba(0, 53, 128, 0.04);
-    --border-grey1: 1px solid #00358014; 
+    --border-grey1: 1px solid #00358014;
 }

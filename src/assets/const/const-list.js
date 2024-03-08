@@ -1,4 +1,4 @@
-import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet } from './icon'
+import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm } from './icon'
 import demoAvatar from '../demo-avatar.png';
 import Overview from '../../screen/module/course/local-component/overview';
 import ScheduleFee from '../../screen/module/course/local-component/schedule-fee';
@@ -172,7 +172,7 @@ export const extendView = [
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',
-        path: 'edu-management/school/course/prevew/:id',
+        path: 'edu-management/school/course/school-mn-export-view/:id',
         link: 'edu-management/school/course/preview',
     },
 ]
@@ -276,3 +276,40 @@ export class LessonType {
     static list = [this.video, this.text, this.task]
 }
 
+export const listCommonInfor = [
+    {
+        name: 'students',
+        title: 'học viên',
+        icon: <OutlineUserProfile />
+    },
+    {
+        name: 'rate',
+        title: '',
+        icon: <OutlineStar />
+    },
+    {
+        name: 'lesons',
+        title: 'lessons',
+        icon: <OutlineVideoPlaylist />
+    },
+    {
+        name: 'files',
+        title: 'tài liệu đính kèm',
+        icon: <OutlineBooks />
+    },
+    {
+        name: 'level',
+        title: '',
+        icon: <OutlineGChart />
+    },
+    {
+        name: 'certificate',
+        title: 'Chứng chỉ tốt nghiệp',
+        icon: <OutlineVerified />
+    },
+    {
+        name: 'duration',
+        title: 'truy cập khóa học',
+        icon: <OutlineTimeAlarm />
+    },
+]

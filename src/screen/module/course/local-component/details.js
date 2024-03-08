@@ -44,10 +44,10 @@ export default function CourseDetails() {
                 </div>
                 <div className='heading-6'>Tạo mới Course</div>
             </div>
-            <button type='button' className='card-button-2 row' style={{ padding: '0.6rem 1.2rem' }}>
+            <NavLink type='button' to={`/edu-management/school/course/school-mn-export-view/${id}`} className='button-primary row' style={{ padding: '0.6rem 1.2rem' }}>
                 <FilledSendMessage color='white' />
                 <div className='button-text-3'>Xuất bản khóa học</div>
-            </button>
+            </NavLink>
         </div>
         <div className='details-view-body row' style={{ width: '100%', height: '100%', flex: 1 }}>
             <div className='details-view-body-sidebar col'>

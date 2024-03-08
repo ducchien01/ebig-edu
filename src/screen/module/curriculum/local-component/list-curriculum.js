@@ -44,7 +44,7 @@ export default function ListCurriculum({ data = [] }) {
     return <div className="col" style={{ rowGap: '2.4rem' }}>
         <Popup ref={ref} />
         <div className="row filter-header-container">
-            <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.6rem', color: '#00204D99' }} />} />
+            <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#00204D99' }} />} />
             <div style={{ height: '1.6rem', width: 1, backgroundColor: '#00358033' }} ></div>
             <button type="button" className="row" style={{ gap: '0.8rem', cursor: 'pointer' }}>
                 <FilledSetupPreferences />

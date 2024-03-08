@@ -131,13 +131,13 @@
     column-gap: 8px;
 }
 
-.card-current-course .list-avatar {
+.list-avatar {
     position: relative;
     width: 12.8rem;
     height: 3.2rem;
 }
 
-.card-current-course .list-avatar>.avatar-circle {
+.list-avatar>.avatar-circle {
     position: absolute;
     top: 0;
     background-color: var(--background);

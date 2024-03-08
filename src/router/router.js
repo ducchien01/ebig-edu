@@ -6,6 +6,7 @@ import SchoolMentor from "../screen/module/mentor/mentor";
 import EduSchedule from "../screen/module/schedule/schedule";
 import CourseDetails from '../screen/module/course/local-component/details'
 import Preview from "../screen/module/school-mn-export-view/preview";
+import EduStudent from "../screen/module/student/student";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -25,6 +26,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <Preview />;
         case "edu-management/school/curriculum":
             return <SchoolCurriculum />;
+        case "edu-management/student":
+            return <EduStudent />;
         default:
             break;
     }

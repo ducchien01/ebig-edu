@@ -172,7 +172,7 @@ export const extendView = [
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',
-        path: 'edu-management/school/course/school-mn-export-view/:id',
+        path: 'edu-management/school/course/preview/:id',
         link: 'edu-management/school/course/preview',
     },
 ]

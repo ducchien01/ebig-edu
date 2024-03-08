@@ -4,6 +4,7 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import demoImg5 from '../../../../assets/demo-image5.png';
 import demoImg6 from '../../../../assets/demo-image6.png';
 import avatarDemo2 from '../../../../assets/demo-avatar2.png';
+import { Text } from "../../../../component/export-component";
 
 export default function CurrentCourseList() {
     const list = [
@@ -54,8 +55,8 @@ export default function CurrentCourseList() {
                             </div>
                         </div>
                         <div className='col course-time'>
-                            <div className='heading-6'>{e.time}</div>
-                            <div className='subtitle-4'>{e.schedule}</div>
+                            <Text className='heading-6' style={{ '--max-line': 1 }}>{e.time}</Text>
+                            <Text className='subtitle-4' style={{ '--max-line': 1 }}>{e.schedule}</Text>
                         </div>
                     </div>
                 </div>

@@ -7,18 +7,33 @@ import ComingList from './local-component/coming-list';
 import NewStudentList from './local-component/new-student-list';
 import MothBusiness from './local-component/moth-business';
 import CurrentCourseList from './local-component/current-course-list';
-import { Checkbox, Text } from '../../../component/export-component';
-import { useState } from 'react';
+import { Popup, Text, showPopup } from '../../../component/export-component';
+import { useEffect, useRef, useState } from 'react';
+import { AccountController } from '../account/controller';
+import PopupLogin from '../account/local-component/popup-login';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
 export default function EduDashboard({ type = 1 }) {
+    const ref = useRef()
+    const checkType = AccountController.token() ? type : 0
+
+    useEffect(() => {
+        if (!AccountController.token()) {
+            showPopup({
+                ref: ref,
+                content: <PopupLogin ref={ref} />
+            })
+        }
+    }, [])
+
     return <div className="edu-dashboard col">
+        <Popup ref={ref} />
         <div className="banner-container col">
             <div className="col" style={{ rowGap: 8 }}>
                 <div className="heading-3">eBig is a community of <br /> spreading the knowledge</div>
                 <div className="body-3">Learn from expert professionals and join <br /> the largest online community for creatives.</div>
             </div>
-            {type ? <div className='row' style={{ columnGap: 8 }}>
+            {checkType ? <div className='row' style={{ columnGap: 8 }}>
                 <button className="banner-btn button-text-3">Lịch dạy</button>
                 <button className="banner-btn-2 button-text-3">Quản lý khóa học</button>
             </div> :
@@ -26,7 +41,7 @@ export default function EduDashboard({ type = 1 }) {
             }
         </div>
         <div className='dashboard-content col' >
-            {type ? <OldUserDashboard /> : <NewbieDashboard />}
+            {checkType ? <OldUserDashboard /> : <NewbieDashboard />}
         </div>
     </div>
 }

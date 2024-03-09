@@ -1,0 +1,24 @@
+.popup-login-google-fb {
+    width: 40rem;
+    flex: 1;
+    padding: 4.8rem 3.2rem;
+    gap: 1.6rem;
+}
+
+.popup-login-google-fb .login-btn {
+    gap: 2.4rem;
+    padding: 1.2rem 2rem;
+    border-radius: 2.4rem;
+    border: var(--border-grey1);
+}
+
+.popup-login-google-fb .or-spacing {
+    gap: 1.6rem;
+}
+
+.popup-login-google-fb .or-spacing>div:not(.comp-text) {
+    height: 1px;
+    width: 100%;
+    flex: 1;
+    background-color: #00358014;
+}

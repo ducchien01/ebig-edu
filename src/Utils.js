@@ -322,6 +322,9 @@ export class Ultis {
     static setStorage(key, value) {
         localStorage.setItem(key, value);
     }
+    static clearStorage() {
+        localStorage.clear();
+    }
     static getStorage(key) {
         return localStorage.getItem(key);
     }

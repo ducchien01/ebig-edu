@@ -1,73 +1,67 @@
-const base_headers = () => {
-    return {
-        "accept": "*/*",
-        "token": localStorage.getItem("token"),
-        "Authorization": `Bearer ${localStorage.getItem("token")}` ?? "",
-        "Content-Type": 'application/json',
-    }
-}
-const file_headers = () => {
-    return {
-        "accept": "*/*",
-        "token": localStorage.getItem('token') ?? '',
-        "Authorization": `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'multipart/form-data',
-        // "language": "vi"
-    };
+interface ObjWithKnownKeys {
+    [k: string]: any;
 }
 
-export const uploadFile = async (url: string, { data }: { data: FormData }) => {
-    try {
-        const requestOptions: RequestInit = {
-            method: "POST",
-            headers: file_headers(),
-            body: data
-        };
-        const response = await fetch(url, requestOptions)
-
-        if (response.status === 200) {
-            const responseJson = await response.json()
-            return responseJson;
-        } else {
-            console.error("occur error: ", response.statusText);
+export class BaseDA {
+    static post = async (url: string, { headers, body }: { headers?: ObjWithKnownKeys, body?: any }) => {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: headers ?? { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            })
+            if (response.status === 200) {
+                const jsonData = await response.json()
+                return jsonData
+            } else {
+                const txt = await response.text()
+                console.error("Failed to POST data:", txt);
+            }
+        } catch (error) {
+            console.error("Failed to POST data:", error);
+            throw error;
         }
-    } catch (error) {
-        console.error("Failed to upload file:", error);
-        throw error;
     }
-};
 
-export const postData = async (url: string, { headers, obj }: { headers: HeadersInit, obj: any }) => {
-    try {
-        const requestOptions: RequestInit = {
-            method: "POST",
-            headers: headers || base_headers(),
-            body: JSON.stringify(obj)
-        };
-        const response = await fetch(url, requestOptions);
-        if (response.status === 200) {
-            const responseJson = await response.json()
-            return responseJson;
-        } else {
-            console.error("occur error: ", response.statusText);
+    static postFile = async (url: string, { headers, body }: { headers?: ObjWithKnownKeys, body?: FormData }) => {
+        try {
+            if (headers) {
+                delete headers["Content-Type"]
+            }
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: body,
+            })
+            if (response.status === 200) {
+                const jsonData = await response.json()
+                return jsonData
+            } else {
+                const txt = await response.text()
+                console.error("Failed to POST data:", txt);
+            }
+        } catch (error) {
+            console.error("Failed to POST data:", error);
+            throw error;
         }
-    } catch (error) {
-        console.error("Failed to POST data:", error);
-        throw error;
     }
-};
 
-export const getData = async (url: string) => {
-    try {
-        const requestOptions: RequestInit = {
-            method: "GET",
-            headers: file_headers(),
-        };
-        const response = await fetch(url, requestOptions);
-        const responseJson = await response.json()
-        return responseJson
-    } catch (error) {
-        console.error("Failed to fetch data:", error);
-        throw error;
+    static get = async (url: string, { headers }: { headers?: ObjWithKnownKeys }) => {
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: headers,
+            })
+            if (response.status === 200) {
+                const jsonData = await response.json()
+                return jsonData
+            } else {
+                const txt = await response.text()
+                console.error("Failed to POST data:", txt);
+            }
+        } catch (error) {
+            console.error("Failed to POST data:", error);
+            throw error;
+        }
     }
-};
+}

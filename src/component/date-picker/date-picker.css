@@ -1,5 +1,5 @@
 .date-picker-container {
-    border-radius: 4px;
+    border-radius: 0.4rem;
     justify-content: start;
     width: 100%;
     height: 4rem;
@@ -37,7 +37,7 @@
     border-color: var(--helper-text-color) !important;
 }
 
-:is(.date-picker-container, .upload-file-field).helper-text::after {
+.date-picker-container.helper-text::after {
     content: attr(helper-text);
     color: red;
     position: absolute;
@@ -75,191 +75,28 @@
     text-overflow: inherit;
 }
 
-.date-picker-container .input-field-value+.suffix-btn-txtfd {
-    width: var(--suffix-size);
-    height: var(--suffix-size);
-    position: relative;
-    box-sizing: border-box;
-    --suffix-size: 1.8rem;
-    margin: 0.8rem;
-}
-
-.date-picker-container .input-field-value+.suffix-btn-txtfd>* {
+.date-picker-popup-container {
     position: absolute;
-    box-sizing: border-box;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
-body:has(> .date-picker-popup) {
-    position: relative;
-}
-
-.date-picker-popup {
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 8px;
-    height: fit-content;
-    box-shadow: 0 0 12px 0 #00204d1f;
-    align-items: center;
-}
-
-.date-picker-popup * {
-    cursor: context-menu;
-}
-
-.date-picker-popup>.header {
-    display: flex;
-    align-items: center;
-    padding: 1.2rem 1.6rem;
-    background-color: transparent !important;
-}
-
-.date-picker-popup>.header>span {
-    width: 100%;
-    flex: 1;
-    margin: 0 2.4rem;
-    text-align: center;
-    font-size: 1.6rem;
-    line-height: 2.4rem;
-    font-weight: bold;
-}
-
-.date-picker-popup>.header>* {
-    font-size: 1.6rem;
-    color: #4b6281;
-    cursor: pointer;
-}
-
-.date-picker-popup>.header>button {
-    width: 3.2rem;
-    height: 3.2rem;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    background-color: transparent;
-}
-
-.date-picker-popup>.header>button * {
-    pointer-events: none;
-}
-
-.date-picker-popup>.body {
-    display: flex;
-    flex-direction: column;
-    padding: 1.2rem 1.6rem;
-    border-top: var(--border-grey1);
-}
-
-.date-picker-popup>.body:has(div:nth-child(5)) {
-    border-bottom: var(--border-grey1);
-}
-
-.date-picker-popup>.body>div {
-    display: flex;
-    justify-content: space-between;
-}
-
-.date-picker-circle {
-    width: 3.2rem;
-    height: 3.2rem;
-    margin: 4px;
-    display: flex;
-    align-items: center;
+.date-picker-popup-container .picker-popup-footer {
     justify-content: center;
-    font-size: 1.4rem;
-    line-height: 2.2rem;
-    font-weight: 400;
-    border-radius: 50%;
-    color: #00204de5;
+    gap: 0.8rem;
+    padding: 1.6rem;
 }
 
-.month-picker-circle,
-.year-picker-circle {
-    width: 5.6rem;
-    height: 3.2rem;
-    margin: 0.8rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    line-height: 2.2rem;
-    font-weight: 400;
-    border-radius: 24px;
-    color: #00204de5;
-    cursor: pointer;
-}
-
-.date-picker-popup div:not(div:first-child)>.date-picker-circle {
-    cursor: pointer;
-}
-
-:is(.date-picker-circle,
-    .month-picker-circle,
-    .year-picker-circle)[is-select="true"] {
-    background-color: #366ae2;
-    color: white;
-}
-
-.date-picker-circle[in-range="false"] {
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
-.date-picker-popup>.footer {
+.date-picker-popup-container .reset-value-button {
+    color: #00204D99;
+    background-color: #F2F5F8;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2.4rem;
     width: fit-content;
-    display: none;
-    padding: 1.6rem 2.4rem;
-    cursor: pointer;
-    text-align: center;
-    font-size: 1.4rem;
-    line-height: 2.2rem;
-    color: #366ae2;
-    font-weight: 500;
-    align-items: center;
 }
 
-.date-picker-popup>.body:has(div:nth-child(5))+.footer {
-    display: block;
-}
-
-.auto-complete-body {
-    position: absolute;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    max-height: 40rem;
-    height: fit-content;
-    overflow: hidden auto;
-    background-color: white;
-    border-radius: 2px;
-}
-
-.auto-complete-body>.option {
-    width: 100%;
-    padding: 6px 1rem;
-    box-sizing: border-box;
-    font: var(--font-style-label-label-2-400-body);
-    color: black;
-    cursor: pointer;
-}
-
-.auto-complete-body>.option>* {
-    pointer-events: none;
-}
-
-.auto-complete-body:has(> *:first-child) {
-    border: 0.5px solid #c5c5c5;
-}
-
-.auto-complete-body>.option:not(.option:last-child) {
-    border-bottom: 1px solid #c5c5c5;
-}
-
-.auto-complete-body>.option:hover {
-    background-color: var(--background-color-background-grey-light-2);
+.date-picker-popup-container .apply-value-button {
+    color: #ffffff;
+    background-color: var(--primary-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 2.4rem;
+    width: fit-content;
 }

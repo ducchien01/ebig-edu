@@ -3,7 +3,7 @@ import { Select1 } from './select1/select1.tsx'
 import { Switch } from './switch/switch.tsx'
 import { showPopup, closePopup, Popup } from './popup/popup.tsx'
 import { showDialog, Dialog } from './dialog/dialog.tsx'
-import { DatePicker, DatePickerType } from './date-picker/date-picker.tsx'
+import { DatePicker } from './date-picker/date-picker.tsx'
 import { SelectMultiple } from './input-multi-select/input-multi-select.tsx'
 import { ProgressBar } from './progress-bar/progress-bar.tsx'
 import { ComponentStatus, getStatusIcon } from './component-status.tsx'
@@ -16,8 +16,10 @@ import { TextArea } from './text-area/text-area.tsx'
 import { ImportFile } from './import-file/import-file.tsx'
 import { ToastMessage } from './toast-noti/toast-noti.tsx'
 import { CustomCKEditor } from './ckeditor/ck-editor.tsx'
+import { Calendar, CalendarType } from './calendar/calendar.tsx'
 
 export {
+    Calendar, CalendarType,
     ComponentStatus,
     getStatusIcon,
     Checkbox,
@@ -29,7 +31,6 @@ export {
     showDialog,
     Dialog,
     DatePicker,
-    DatePickerType,
     SelectMultiple,
     ProgressBar,
     Text,
@@ -40,5 +41,5 @@ export {
     TextArea,
     ImportFile,
     ToastMessage,
-    CustomCKEditor
+    CustomCKEditor,
 }

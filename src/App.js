@@ -15,7 +15,7 @@ function App() {
             <ToastContainer />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/*" element={<MainLayout />} />
+                    <Route path="/*" element={<MainLayout />}/>
                     <Route path="/" element={<Navigate to={"/edu-management/dashboard"} replace />} />
                 </Routes>
             </BrowserRouter>

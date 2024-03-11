@@ -7,27 +7,15 @@ import ComingList from './local-component/coming-list';
 import NewStudentList from './local-component/new-student-list';
 import MothBusiness from './local-component/moth-business';
 import CurrentCourseList from './local-component/current-course-list';
-import { Popup, Text, showPopup } from '../../../component/export-component';
-import { useEffect, useRef, useState } from 'react';
+import { Text } from '../../../component/export-component';
+import { useState } from 'react';
 import { AccountController } from '../account/controller';
-import PopupLogin from '../account/local-component/popup-login';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
 export default function EduDashboard({ type = 1 }) {
-    const ref = useRef()
     const checkType = AccountController.token() ? type : 0
 
-    useEffect(() => {
-        if (!AccountController.token()) {
-            showPopup({
-                ref: ref,
-                content: <PopupLogin ref={ref} />
-            })
-        }
-    }, [])
-
     return <div className="edu-dashboard col">
-        <Popup ref={ref} />
         <div className="banner-container col">
             <div className="col" style={{ rowGap: 8 }}>
                 <div className="heading-3">eBig is a community of <br /> spreading the knowledge</div>

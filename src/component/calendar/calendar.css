@@ -1,0 +1,132 @@
+.calendar-container {
+    background-color: #ffffff;
+    border-radius: 0.8rem;
+    align-items: stretch;
+    border: var(--border-grey1);
+    width: fit-content;
+}
+
+.calendar-container button {
+    outline: none;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.calendar-container>.calendar-body:has(*:nth-child(2))>.row:first-child {
+    border-bottom: var(--border-grey1);
+}
+
+.calendar-sidebar-options {
+    padding: 0.8rem 2.4rem 0.8rem 0;
+    border-right: var(--border-grey1);
+}
+
+.calendar-sidebar-options>.calendar-sidebar-option-buttton {
+    color: #00204DE5;
+    padding: 0.8rem 1.6rem;
+}
+
+.picker-time-container {
+    border-left: var(--border-grey1);
+    height: 34.2rem;
+}
+
+.picker-time-container>.heading-7 {
+    padding: 1.2rem 1.6rem;
+    border-bottom: var(--border-grey1);
+    text-align: center;
+}
+
+.picker-time-container div[class*="scroll-picker-"] {
+    flex: 1;
+    height: 100%;
+    gap: 0.4rem;
+    padding: 0.4rem 0;
+    overflow: hidden auto;
+    scrollbar-width: thin;
+}
+
+.picker-time-container .scroll-picker-minutes {
+    border-left: var(--border-grey1);
+    border-right: var(--border-grey1);
+}
+
+.picker-time-container div[class*="scroll-picker-"]>button {
+    width: 5.6rem;
+    padding: 0.4rem 0;
+}
+
+.picker-time-container div[class*="scroll-picker-"]>button.selected {
+    background-color: var(--primary-background);
+    color: var(--primary-color);
+}
+
+.picker-date-header {
+    padding: 1.2rem 1.6rem;
+    gap: 1.2rem;
+    background-color: transparent !important;
+    border-bottom: var(--border-grey1);
+}
+
+.picker-date-header>span {
+    width: 100%;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    ;
+}
+
+.picker-date-header>button {
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.picker-date-header>button>svg {
+    font-size: 1.4rem;
+    color: #00204D99;
+    pointer-events: none;
+}
+
+.date-picker-circle {
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.month-picker-circle,
+.year-picker-circle {
+    width: 5.6rem;
+    height: 3.2rem;
+    margin: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    font-weight: 400;
+    border-radius: 24px;
+    color: #00204de5;
+    cursor: pointer;
+}
+
+button[class*="-picker-circle"] {
+    border: 1px solid transparent;
+}
+
+button[class*="-picker-circle"].selected {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+button[class*="-picker-circle"][in-range="false"] {
+    opacity: 0.24 !important;
+    pointer-events: none !important;
+}

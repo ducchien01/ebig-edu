@@ -12,6 +12,10 @@ interface TextProps {
 
 export class Text extends React.Component<TextProps> {
     render(): React.ReactNode {
-        return <div onMouseOver={this.props.onHover} onClick={this.props.onClick} className={`comp-text ${this.props.className ?? ''}`} style={this.props.style ? { ...({ '--max-line': this.props.maxLine ?? 2 } as CSSProperties), ...this.props.style } : ({ '--max-line': this.props.maxLine ?? 2 } as CSSProperties)}>{this.props.children}</div>
+        let convertStyle: CSSProperties = this.props.style ?? {}
+        if (this.props.maxLine) {
+            convertStyle = { ...convertStyle, '--max-line': this.props.maxLine } as CSSProperties
+        }
+        return <div onMouseOver={this.props.onHover} onClick={this.props.onClick} className={`comp-text ${this.props.onClick ? 'type-button' : ''} ${this.props.className ?? ''}`} style={convertStyle}>{this.props.children}</div>
     }
 }

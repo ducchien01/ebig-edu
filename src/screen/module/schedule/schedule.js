@@ -8,7 +8,7 @@ import TeachingProcessList from './local-component/teaching-process-list'
 import MeentorList from "./local-component/mentor-list";
 import NoteList from "./local-component/note-list";
 import PopupAddEditNote from "./local-component/add-edit-note";
-import TeachinhCalendar from "./local-component/filter-teaching-calendar";
+import Teachingcalendar from "./local-component/filter-teaching-calendar";
 
 export default function EduSchedule() {
     const ref = useRef()
@@ -31,7 +31,7 @@ export default function EduSchedule() {
             </button>
         </div>
         <NoteList />
-        <TeachinhCalendar/>
+        <Teachingcalendar/>
         <MeentorList />
         <TeachingProcessList />
 

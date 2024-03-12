@@ -68,188 +68,179 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
     showDateInMonth() {
         let firstDayOfMonth = new Date(this.state.selectYear, this.state.selectMonth, 1)
         return <>
-            <div className="row">
-                {Array.from({ length: 7 }).map((_, i) => {
-                    switch (i) {
-                        case 0:
-                            var weekdayTitle = 'Su'
-                            break
-                        case 1:
-                            weekdayTitle = 'Mo'
-                            break
-                        case 2:
-                            weekdayTitle = 'Tu'
-                            break
-                        case 3:
-                            weekdayTitle = 'We'
-                            break
-                        case 4:
-                            weekdayTitle = 'Th'
-                            break
-                        case 5:
-                            weekdayTitle = 'Fr'
-                            break
-                        case 6:
-                            weekdayTitle = 'Sa'
-                            break
-                        default:
-                            weekdayTitle = ''
-                            break
+            {Array.from({ length: 7 }).map((_, i) => {
+                switch (i) {
+                    case 0:
+                        var weekdayTitle = 'Su'
+                        break
+                    case 1:
+                        weekdayTitle = 'Mo'
+                        break
+                    case 2:
+                        weekdayTitle = 'Tu'
+                        break
+                    case 3:
+                        weekdayTitle = 'We'
+                        break
+                    case 4:
+                        weekdayTitle = 'Th'
+                        break
+                    case 5:
+                        weekdayTitle = 'Fr'
+                        break
+                    case 6:
+                        weekdayTitle = 'Sa'
+                        break
+                    default:
+                        weekdayTitle = ''
+                        break
+                }
+                return <div key={'dtwk-' + i} className='date-picker-circle label-4' style={{ color: '#00204D99' }}>
+                    {weekdayTitle}
+                </div>
+            })}
+            {Array.from({ length: 42 }).map((_, i) => {
+                let dateNumber = (i % 7) + (Math.floor(i / 7) * 7) - firstDayOfMonth.getDay()
+                const timeValue = new Date(this.state.selectYear, this.state.selectMonth, dateNumber + 1)
+                let style = {}
+                let additionProps = {}
+                let selected = false
+                if (dateNumber + 1 === today.getDate() && this.state.selectMonth === today.getMonth() && this.state.selectYear === today.getFullYear()) {
+                    style = { borderColor: 'var(--primary-color)' }
+                }
+                if (!inRangeTime(timeValue, startDate, endDate)) {
+                    additionProps = { 'in-range': 'false' }
+                } else if (!inRangeTime(timeValue, this.props.min ?? startDate, this.props.min ?? endDate)) {
+                    style = {
+                        ...style,
+                        color: 'var(--disabled-font-color)',
+                        pointerEvents: 'none'
                     }
-                    return <div key={'dtwk-' + i} className='date-picker-circle label-4' style={{ color: '#00204D99' }}>
-                        {weekdayTitle}
-                    </div>
-                })}
-            </div>
-            {Array.from({ length: 6 }).map((_, j) => <div key={'weekline' + j} className="row">
-                {Array.from({ length: 7 }).map((_, i) => {
-                    let dateNumber = i + j + j * 6 - firstDayOfMonth.getDay()
-                    const timeValue = new Date(this.state.selectYear, this.state.selectMonth, dateNumber + 1)
-                    let style = {}
-                    let additionProps = {}
-                    let selected = false
-                    if (dateNumber + 1 === today.getDate() && this.state.selectMonth === today.getMonth() && this.state.selectYear === today.getFullYear()) {
-                        style = { borderColor: 'var(--primary-color)' }
-                    }
-                    if (!inRangeTime(timeValue, startDate, endDate)) {
-                        additionProps = { 'in-range': 'false' }
-                    } else if (!inRangeTime(timeValue, this.props.min ?? startDate, this.props.min ?? endDate)) {
-                        style = {
-                            ...style,
-                            color: 'var(--disabled-font-color)',
-                            pointerEvents: 'none'
-                        }
-                    } else if (this.state.value.valueOf() === timeValue.valueOf()) {
-                        additionProps = { ...additionProps }
-                        selected = true
-                    } else if (timeValue.getMonth() !== this.state.selectMonth) {
-                        style = { ...style, color: '#9fb0c7' }
-                    }
-                    return <button type="button" key={timeValue.toString()} className={`date-picker-circle body-3 ${selected ? 'selected' : ''}`} style={style} {...additionProps}
-                        onClick={() => {
-                            this.setState({ ...this.state, value: timeValue })
-                            if (this.props.onSelect) this.props.onSelect(timeValue)
-                        }} >
-                        {timeValue.getDate()}
-                    </button>
-                })}
-            </div>)}
+                } else if (this.state.value.valueOf() === timeValue.valueOf()) {
+                    additionProps = { ...additionProps }
+                    selected = true
+                } else if (timeValue.getMonth() !== this.state.selectMonth) {
+                    style = { ...style, color: '#9fb0c7' }
+                }
+                return <button type="button" key={timeValue.toString()} className={`date-picker-circle body-3 ${selected ? 'selected' : ''}`} style={style} {...additionProps}
+                    onClick={() => {
+                        this.setState({ ...this.state, value: timeValue })
+                        if (this.props.onSelect) this.props.onSelect(timeValue)
+                    }} >
+                    {timeValue.getDate()}
+                </button>
+            })}
         </>
     }
 
     showMonthInYear() {
         return <>
-            {Array.from({ length: 4 }).map((_, i) => <div key={'month-line' + i} className="row">
-                {Array.from({ length: 3 }).map((_, j) => {
-                    let monthNumber: number = i * 3 + j
-                    let monthTitle: string = ''
-                    switch (monthNumber) {
-                        case 0:
-                            monthTitle = 'Jan'
-                            break
-                        case 1:
-                            monthTitle = 'Feb'
-                            break
-                        case 2:
-                            monthTitle = 'Mar'
-                            break
-                        case 3:
-                            monthTitle = 'Apr'
-                            break
-                        case 4:
-                            monthTitle = 'May'
-                            break
-                        case 5:
-                            monthTitle = 'Jun'
-                            break
-                        case 6:
-                            monthTitle = 'Jul'
-                            break
-                        case 7:
-                            monthTitle = 'Aug'
-                            break
-                        case 8:
-                            monthTitle = 'Sep'
-                            break
-                        case 9:
-                            monthTitle = 'Oct'
-                            break
-                        case 10:
-                            monthTitle = 'Nov'
-                            break
-                        case 11:
-                            monthTitle = 'Dec'
-                            break
-                        default:
-                            break
-                    }
-                    const timeValue = new Date(this.state.selectYear, monthNumber, today.getDate())
-                    let additionProps = {}
-                    let style = {}
-                    let selected = false
-                    if (this.state.selectYear === today.getFullYear() && today.getMonth() === monthNumber) {
-                        style = { borderColor: 'var(--primary-color)' }
-                    } if (!inRangeTime(timeValue, startDate, endDate)) {
-                        additionProps = { 'in-range': 'false' }
-                    } else if (!inRangeTime(new Date(this.state.selectYear, this.state.selectMonth), this.props.min ?? startDate, this.props.min ?? endDate)) {
-                        if (this.state.selectYear === this.state.selectDate?.getFullYear() && this.state.selectDate.getMonth() === monthNumber) {
-                            style = {
-                                color: 'var(--disabled-font-color)',
-                                pointerEvents: 'none'
-                            }
+            {Array.from({ length: 12 }).map((_, i) => {
+                let monthTitle: string = ''
+                switch (i) {
+                    case 0:
+                        monthTitle = 'Jan'
+                        break
+                    case 1:
+                        monthTitle = 'Feb'
+                        break
+                    case 2:
+                        monthTitle = 'Mar'
+                        break
+                    case 3:
+                        monthTitle = 'Apr'
+                        break
+                    case 4:
+                        monthTitle = 'May'
+                        break
+                    case 5:
+                        monthTitle = 'Jun'
+                        break
+                    case 6:
+                        monthTitle = 'Jul'
+                        break
+                    case 7:
+                        monthTitle = 'Aug'
+                        break
+                    case 8:
+                        monthTitle = 'Sep'
+                        break
+                    case 9:
+                        monthTitle = 'Oct'
+                        break
+                    case 10:
+                        monthTitle = 'Nov'
+                        break
+                    case 11:
+                        monthTitle = 'Dec'
+                        break
+                    default:
+                        break
+                }
+                const timeValue = new Date(this.state.selectYear, i, today.getDate())
+                let additionProps = {}
+                let style = {}
+                let selected = false
+                if (this.state.selectYear === today.getFullYear() && today.getMonth() === i) {
+                    style = { borderColor: 'var(--primary-color)' }
+                } if (!inRangeTime(timeValue, startDate, endDate)) {
+                    additionProps = { 'in-range': 'false' }
+                } else if (!inRangeTime(new Date(this.state.selectYear, this.state.selectMonth), this.props.min ?? startDate, this.props.min ?? endDate)) {
+                    if (this.state.selectYear === this.state.selectDate?.getFullYear() && this.state.selectDate.getMonth() === i) {
+                        style = {
+                            color: 'var(--disabled-font-color)',
+                            pointerEvents: 'none'
                         }
                     }
-                    if (this.state.selectYear === this.state.value.getFullYear() && monthNumber === this.state.value.getMonth()) {
-                        selected = true
-                    }
-                    return <button type="button" key={timeValue.toString()} className={`month-picker-circle row ${selected ? 'selected' : ''}`} style={style} {...additionProps}
-                        onClick={() => {
-                            if (this.props.type === CalendarType.MONTH) {
-                                this.setState({ ...this.state, value: timeValue })
-                                if (this.props.onSelect) this.props.onSelect(timeValue)
-                            } else {
-                                this.setState({ ...this.state, selectMonth: monthNumber, type: CalendarType.DATE })
-                            }
-                        }}
-                    >
-                        {monthTitle}
-                    </button>
-                })}
-            </div>)}
+                }
+                if (this.state.selectYear === this.state.value.getFullYear() && i === this.state.value.getMonth()) {
+                    selected = true
+                }
+                return <button type="button" key={timeValue.toString()} className={`month-picker-circle body-3 row ${selected ? 'selected' : ''}`} style={style} {...additionProps}
+                    onClick={() => {
+                        if (this.props.type === CalendarType.MONTH) {
+                            this.setState({ ...this.state, value: timeValue })
+                            if (this.props.onSelect) this.props.onSelect(timeValue)
+                        } else {
+                            this.setState({ ...this.state, selectMonth: i, type: CalendarType.DATE })
+                        }
+                    }}
+                >
+                    {monthTitle}
+                </button>
+            })}
         </>
     }
 
     showYearInRange() {
         return <>
-            {Array.from({ length: 4 }).map((_, i) => <div key={'year-picker-line' + i} className="row">
-                {Array.from({ length: 3 }).map((_, j) => {
-                    let firstYearInTable = this.state.selectYear - ((this.state.selectYear - startDate.getFullYear()) % 12)
-                    let yearNumber = i * 3 + j + firstYearInTable
-                    let additionProps = {}
-                    let style = {}
-                    let selected = false
-                    if (yearNumber === today.getFullYear()) {
-                        style = { borderColor: 'var(--primary-color)' }
-                    } else if (yearNumber < ((this.props.min ?? startDate).getFullYear()) || yearNumber > ((this.props.min ?? endDate).getFullYear())) {
-                        additionProps = { 'in-range': 'false' }
-                    }
-                    if (yearNumber === this.state.value.getFullYear()) {
-                        selected = true
-                    }
-                    return <button type="button" key={yearNumber.toString()} className={`year-picker-circle row ${selected ? 'selected' : ''}`} style={style} {...additionProps}
-                        onClick={() => {
-                            if (this.props.type === CalendarType.YEAR) {
-                                this.setState({ ...this.state, value: new Date(yearNumber) })
-                                if (this.props.onSelect) this.props.onSelect(new Date(yearNumber))
-                            } else {
-                                this.setState({ ...this.state, type: CalendarType.MONTH, selectYear: yearNumber })
-                            }
-                        }}
-                    >
-                        {yearNumber}
-                    </button>
-                })}
-            </div>)}
+            {Array.from({ length: 12 }).map((_, i) => {
+                let firstYearInTable = this.state.selectYear - ((this.state.selectYear - startDate.getFullYear()) % 12)
+                let yearNumber = i + firstYearInTable
+                let additionProps = {}
+                let style = {}
+                let selected = false
+                if (yearNumber === today.getFullYear()) {
+                    style = { borderColor: 'var(--primary-color)' }
+                } else if (yearNumber < ((this.props.min ?? startDate).getFullYear()) || yearNumber > ((this.props.min ?? endDate).getFullYear())) {
+                    additionProps = { 'in-range': 'false' }
+                }
+                if (yearNumber === this.state.value.getFullYear()) {
+                    selected = true
+                }
+                return <button type="button" key={yearNumber.toString()} className={`year-picker-circle body-3 row ${selected ? 'selected' : ''}`} style={style} {...additionProps}
+                    onClick={() => {
+                        if (this.props.type === CalendarType.YEAR) {
+                            this.setState({ ...this.state, value: new Date(yearNumber) })
+                            if (this.props.onSelect) this.props.onSelect(new Date(yearNumber))
+                        } else {
+                            this.setState({ ...this.state, type: CalendarType.MONTH, selectYear: yearNumber })
+                        }
+                    }}
+                >
+                    {yearNumber}
+                </button>
+            })}
         </>
     }
 
@@ -423,7 +414,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                                 <FontAwesomeIcon icon={faAngleDoubleRight} />
                             </button>
                         </div>
-                        <div className='picker-date-body col' style={{ padding: '1.2rem 1.6rem' }}>
+                        <div className='picker-date-body row' >
                             {this.state.type === CalendarType.YEAR ? this.showYearInRange() : this.state.type === CalendarType.MONTH ? this.showMonthInYear() : this.showDateInMonth()}
                         </div>
                     </div>

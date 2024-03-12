@@ -54,12 +54,12 @@ export default function SideBar() {
 
     useEffect(() => {
         // if (AccountController.token()) {
-            const pathFragment = location.pathname.split("/")
-            const newSelectedList = menuList.filter(e => {
-                if (e.parentId === 1) e.isExpand ??= true
-                return pathFragment.some(p => e.link.split('/').some(m => m === p));
-            })
-            setSelected(newSelectedList)
+        const pathFragment = location.pathname.split("/")
+        const newSelectedList = menuList.filter(e => {
+            if (e.parentId === 1) e.isExpand ??= true
+            return pathFragment.some(p => e.link.split('/').some(m => m === p));
+        })
+        setSelected(newSelectedList)
         // } else {
         //     if (location.pathname !== '/edu-management/dashboard') {
         //         navigate('/edu-management/dashboard')

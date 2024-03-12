@@ -2,7 +2,7 @@
     width: 100%;
     height: max-content;
     row-gap: 2.4rem;
-    padding: 1.6rem 8.9rem;
+    padding: 1.6rem 8rem;
 }
 
 .course-process-list {
@@ -112,4 +112,57 @@
     border-radius: 50%;
     background-color: #ffffff;
     justify-content: center;
+}
+
+.teaching-class-in-date-container {
+    border: var(--border-grey1);
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.teaching-class-in-date {
+    width: calc(100% / 7);
+    height: 13.2rem;
+    justify-content: start;
+    align-items: end;
+    padding: 0.8rem;
+    gap: 0.4rem;
+}
+
+.teaching-class-in-date>.label-3 {
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+}
+
+.teaching-class-in-date.today {
+    color: var(--primary-color);
+}
+
+.teaching-class-in-date.today>.label-3 {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.teaching-class-in-date-container>.teaching-class-in-date {
+    border-bottom: var(--border-grey1);
+}
+
+.teaching-class-in-date-container>.teaching-class-in-date:not(*:nth-child(7n)) {
+    border-right: var(--border-grey1);
+}
+
+.teaching-class-in-date>.class-title-tile {
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.4rem;
+    width: 100%;
+    --max-line: 1;
+}
+
+.hours-time-range-container {
+    height: 100%;
+    border-right: var(--border-grey1);
+    width: calc(100%/7);
+    position: relative;
 }

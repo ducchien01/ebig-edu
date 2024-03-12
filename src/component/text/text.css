@@ -10,3 +10,7 @@
 .comp-text[class*="subtitle"] {
     color: #00204D99;
 }
+
+.comp-text.type-button {
+    cursor: pointer;
+}

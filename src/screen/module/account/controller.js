@@ -37,7 +37,7 @@ export class AccountController {
     }
 
     static login = async (ggToken) => {
-        const res = await postData(ConfigAPI.ebigUrl + 'Account/extend-login', {
+        const res = await postData(ConfigAPI.ebigUrl + 'Account/LoginAccessAsync', {
             data: {
                 type: 'google',
                 code: ggToken,

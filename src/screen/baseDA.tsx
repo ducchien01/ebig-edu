@@ -5,7 +5,7 @@ interface ObjWithKnownKeys {
     [k: string]: any;
 }
 
-const headers = async () => {
+const getHeaders = async () => {
     const timeRefresh = AccountController.timeRefresh()
     const now = Date.now() / 1000
     let headersObj
@@ -13,30 +13,30 @@ const headers = async () => {
         await AccountController.refreshNewToken()
         headersObj = {
             refreshToken: AccountController.refreshToken(),
-            token: AccountController.token(),
+            Authorization: `Bearer ${AccountController.token()}`,
             'Content-Type': 'application/json'
         }
     } else if (AccountController.token()) {
         headersObj = {
-            token: AccountController.token(),
+            Authorization: `Bearer ${AccountController.token()}`,
             'Content-Type': 'application/json'
         }
     }
     return headersObj
 }
-export const postData = async (url: string, { data, headersParams }: { data: any, headersParams: ObjWithKnownKeys }) => {
-    const headersObj: any = await headers()
+export const postData = async (url: string, { data, headers }: { data?: any, headers?: ObjWithKnownKeys } = {}) => {
+    const headersObj: any = await getHeaders()
     const response = await BaseDA.post(url, {
-        headers: headersParams ? { ...headersObj, ...headersParams } : headersObj,
+        headers: headers ? { ...headersObj, ...headers } : headersObj,
         body: data
     })
     return response
 }
 
-export const getData = async (url: string, { headersParams }: { headersParams: ObjWithKnownKeys }) => {
-    const headersObj: any = await headers()
+export const getData = async (url: string, { headers }: { headers?: ObjWithKnownKeys } = {}) => {
+    const headersObj: any = await getHeaders()
     const response = await BaseDA.get(url, {
-        headers: headersParams ? { ...headersObj, ...headersParams } : headersObj,
+        headers: headers ? { ...headersObj, ...headers } : headersObj,
     })
     return response
 }

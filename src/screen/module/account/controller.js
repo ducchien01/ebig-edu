@@ -3,6 +3,7 @@ import ConfigAPI from "../../../config/configApi";
 import { decryptData, encryptData } from "../../base-controller";
 import { postData } from "../../baseDA";
 import { ToastMessage } from "../../../component/export-component";
+import { CustomerController } from "../customer/controller";
 
 const setToken = (txt) => Ultis.setStorage('token', txt)
 const setTimeRefresh = () => {
@@ -44,14 +45,16 @@ export class AccountController {
                 mode: 0
             }
         })
-        debugger
         if (res) {
-            if (res.code === 200)
-                return res.data
-            else
+            if (res.code === 200) {
+                setTimeRefresh()
+                setToken(res.data.token)
+                setRefreshToken(res.data.refreshToken)
+                await CustomerController.getInfor()
+                window.location.href = '/'
+            } else
                 ToastMessage.errors(res.message)
 
         }
-        return null
     }
 }

@@ -7,7 +7,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
 import { menuList, supportModule } from '../../../assets/const/const-list';
 import { AccountController } from '../../module/account/controller';
-import PopupLogin from '../../module/account/local-component/popup-login';
+import PopupLogin from '../../module/account/popup-login';
 import { Popup, showPopup } from '../../../component/export-component';
 export default function SideBar() {
     const ref = useRef()
@@ -53,24 +53,24 @@ export default function SideBar() {
     }
 
     useEffect(() => {
-        // if (AccountController.token()) {
-        const pathFragment = location.pathname.split("/")
-        const newSelectedList = menuList.filter(e => {
-            if (e.parentId === 1) e.isExpand ??= true
-            return pathFragment.some(p => e.link.split('/').some(m => m === p));
-        })
-        setSelected(newSelectedList)
-        // } else {
-        //     if (location.pathname !== '/edu-management/dashboard') {
-        //         navigate('/edu-management/dashboard')
-        //     } else {
-        //         showPopup({
-        //             ref: ref,
-        //             hideButtonClose: true,
-        //             content: <PopupLogin ref={ref} />
-        //         })
-        //     }
-        // }
+        if (AccountController.token()) {
+            const pathFragment = location.pathname.split("/")
+            const newSelectedList = menuList.filter(e => {
+                if (e.parentId === 1) e.isExpand ??= true
+                return pathFragment.some(p => e.link.split('/').some(m => m === p));
+            })
+            setSelected(newSelectedList)
+        } else {
+            if (location.pathname !== '/edu-management/dashboard') {
+                navigate('/edu-management/dashboard')
+            } else {
+                showPopup({
+                    ref: ref,
+                    hideButtonClose: true,
+                    content: <PopupLogin ref={ref} />
+                })
+            }
+        }
     }, [location.pathname])
 
     return <div className="row sidebar" expand={`${selected.find(e => e.parentId === 1)?.isExpand}`} >

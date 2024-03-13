@@ -1,0 +1,46 @@
+.profile-view {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+}
+
+.profile-view>img {
+    width: 100%;
+}
+
+.profile-view>.profile-infor-container {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    bottom: 30%;
+    transform: translate(-50%, 100%);
+    min-width: 69.2rem;
+    gap: 2.4rem;
+}
+
+.profile-infor-container>.common-infor-container {
+    gap: 1.6rem;
+    padding-bottom: 1.6rem;
+    align-items: end;
+    border-bottom: var(--border-grey1);
+}
+
+.common-infor-container>img {
+    width: 16.4rem;
+    height: 16.4rem;
+    border-radius: 50%;
+    border: 0.4rem solid #ffffff;
+    box-sizing: border-box;
+}
+
+.action-option-block {
+    padding: 1.6rem 2rem;
+    border-radius: 0.8rem;
+    gap: 1.2rem;
+    width: 100%;
+}
+
+.action-option-block>.heading-6 {
+    padding-bottom: 1.6rem;
+    border-bottom: var(--border-grey1);
+}

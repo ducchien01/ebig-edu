@@ -1,10 +1,10 @@
 import { forwardRef } from "react"
-import '../account.css';
-import eBigLogo from '../../../../assets/eBig-logo.svg'
-import ggICon from '../../../../assets/Google-Icon.svg'
-import fbIcon from '../../../../assets/Faceebook-Icon.svg'
-import { Text, ToastMessage } from "../../../../component/export-component";
-import { AccountController } from "../controller";
+import './account.css';
+import eBigLogo from '../../../assets/eBig-logo.svg'
+import ggICon from '../../../assets/Google-Icon.svg'
+import fbIcon from '../../../assets/Faceebook-Icon.svg'
+import { Text, ToastMessage } from "../../../component/export-component";
+import { AccountController } from "./controller";
 import { useGoogleLogin } from "@react-oauth/google";
 
 const PopupLogin = forwardRef(function PopupLogin(data, ref) {

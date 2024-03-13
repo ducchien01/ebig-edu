@@ -9,10 +9,10 @@ import { NavLink } from 'react-router-dom'
 export default function ProfileView() {
     const userInfor = CustomerController.userInfor()
     return <div className="profile-view">
-        <img src={banner} />
+        <img src={banner} alt='' />
         <div className='col profile-infor-container'>
             <div className='row common-infor-container'>
-                <img src={userInfor.avatarUrl} />
+                <img src={userInfor.avatarUrl} alt='' />
                 <div className='col' style={{ gap: '0.4rem', paddingBottom: '0.8rem', flex: 1 }}>
                     <Text className='heading-5'>{userInfor.name}</Text>
                     <Text className='subtitle-2'>{userInfor.email}</Text>

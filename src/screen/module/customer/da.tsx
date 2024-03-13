@@ -1,8 +1,4 @@
-interface ObjWithKnownKeys {
-    [k: string]: any;
-}
-
-interface UserInforItem {
+export interface UserInforItem {
     /* uuid4 */
     id?: string,
     name?: string,
@@ -28,13 +24,4 @@ interface UserInforItem {
     branchname?: string,
     bankName?: string,
     bankId?: number,
-}
-
-export const parseUserInfor = ({ json }: { json?: ObjWithKnownKeys | null }) => {
-    if (json) {
-        let data: UserInforItem = { ...json }
-        return data
-    } else {
-        return null
-    }
 }

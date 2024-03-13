@@ -13,7 +13,7 @@ interface PopupState {
 }
 
 export const showPopup = ({ ref, heading, content, footer, clickOverlayClosePopup, style, hideButtonClose }: {
-    ref: React.MutableRefObject<Popup>,
+    ref: React.MutableRefObject<Popup | undefined>,
     heading?: ReactNode,
     content?: ReactNode,
     footer?: ReactNode,
@@ -21,7 +21,7 @@ export const showPopup = ({ ref, heading, content, footer, clickOverlayClosePopu
     style?: CSSProperties,
     hideButtonClose?: boolean
 }) => {
-    ref.current.onOpen({
+    ref?.current?.onOpen({
         heading: heading,
         content: content,
         footer: footer,

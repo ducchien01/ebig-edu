@@ -35,7 +35,7 @@ export default function SchoolCourse() {
                     <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Bản nháp (04)</div>
                 </div>
                 <div className="tab-body-2 row">
-                    <ListCourse data={Array.from({ length: activeFilterTab === 0 ? 6 : activeFilterTab === 1 ? 2 : 4 })} />
+                    <ListCourse />
                 </div>
             </div>
         </div>

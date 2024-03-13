@@ -1,4 +1,4 @@
-interface ObjWithKnownKeys {
+export interface ObjWithKnownKeys {
     [k: string]: any;
 }
 

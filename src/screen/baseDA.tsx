@@ -1,9 +1,5 @@
-import { BaseDA } from "../da/baseDA"
+import { BaseDA, ObjWithKnownKeys } from "../da/baseDA"
 import { AccountController } from "./module/account/controller"
-
-interface ObjWithKnownKeys {
-    [k: string]: any;
-}
 
 const getHeaders = async () => {
     const timeRefresh = AccountController.timeRefresh()

@@ -4,17 +4,17 @@ import { useEffect, useRef, useState } from "react"
 import { Popup, Text, showPopup } from "../../../../component/export-component"
 import demoImage from '../../../../assets/demo-image5.png'
 import { FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledTrashCan } from "../../../../assets/const/icon"
+import { CourseController } from "../controller"
 
 export default function ListCourse({ data = [] }) {
     const [list, setList] = useState([])
     const ref = useRef()
 
     const showPopupListAction = (ev) => {
-        const offset = ev.target.getBoundingClientRect()
         showPopup({
             ref: ref,
             clickOverlayClosePopup: true,
-            style: { left: `${offset.x + offset.width + 4}px`, top: `${offset.y}px` },
+            style: { left: `${ev.pageX + 4}px`, top: `${ev.pageY}px` },
             content: <div className="more-action-popup col">
                 <button className="row" >
                     <FilledEdit />
@@ -37,8 +37,10 @@ export default function ListCourse({ data = [] }) {
     }
 
     useEffect(() => {
-        setList(data)
-    }, [data])
+        CourseController.getAll().then(res => {
+            if (res) setList(res)
+        })
+    }, [])
 
     return <div className="row list-card-course-infor">
         <Popup ref={ref} />
@@ -48,7 +50,7 @@ export default function ListCourse({ data = [] }) {
                 <div className="row">
                     <div className="col" style={{ rowGap: '2.4rem', flex: 1, width: '100%' }}>
                         <div className="col" style={{ rowGap: 4 }}>
-                            <Text className="heading-7">Giáo trình của khóa UI/UX cho người mới bắt đầu</Text>
+                            <Text className="heading-7">{e.name}</Text>
                             <Text className="subtitle-4">23/10/2023 13:10</Text>
                         </div>
                         {/* <Text className="row button-text-3" style={{ backgroundColor: '#F2F5F8', color: '#00204D99' }}>Bản nháp</Text> */}

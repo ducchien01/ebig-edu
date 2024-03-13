@@ -4,6 +4,7 @@ import { decryptData, encryptData } from "../../base-controller";
 import { postData } from "../../baseDA";
 import { ToastMessage } from "../../../component/export-component";
 import { CustomerController } from "../customer/controller";
+import { BaseDA } from "../../../da/baseDA";
 
 const setToken = (txt) => Ultis.setStorage('token', txt)
 const setTimeRefresh = () => {
@@ -19,16 +20,13 @@ export class AccountController {
     static refreshToken = () => decryptData(Ultis.getStorage('refreshToken'))
 
     static refreshNewToken = async () => {
-        const response = await postData(ConfigAPI.ebigUrl + 'Account/refresh-token', {
-            headers: {
-                'Content-Type': 'application/json',
-                token: this.refreshToken()
-            }
+        const response = await BaseDA.post(ConfigAPI.ebigUrl + `Account/refresh-token?token=${this.refreshToken()}`, {
+            headers: { 'Content-Type': 'application/json' }
         })
-        if (response.data.code === 200) {
-            setToken(response.data.data)
+        if (response.code === 200) {
+            setToken(response.data)
             setTimeRefresh()
-        } else if (response.data.code === 404) {
+        } else if (response.code === 404) {
             ToastMessage.errors('Phiên đăng nhập của bạn đã hết hạn')
             Ultis.clearStorage()
             window.location.href = '/'

@@ -77,7 +77,7 @@ const CalendarShowDate = () => {
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="col" style={{ gap: '0.8rem' }}>
                     <div className="heading-8" style={{ opacity: 0.6 }}>Lịch dạy đang chọn</div>
-                    <img src={demoBanner5} style={{ width: '100%', borderRadius: '0.4rem' }} />
+                    <img src={demoBanner5} alt="" style={{ width: '100%', borderRadius: '0.4rem' }} />
                 </div>
                 <div className="heading-4">19:00 - 20:00</div>
                 <div className="col" style={{ gap: '0.8rem' }}>

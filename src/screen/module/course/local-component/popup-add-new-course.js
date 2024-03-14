@@ -3,6 +3,9 @@ import { Text, closePopup } from "../../../../component/export-component"
 import { useForm } from "react-hook-form"
 import { TextFieldForm } from "../../../../project-component/component-form"
 import { useNavigate } from "react-router-dom"
+import { CourseController } from "../controller"
+import { uuidv4 } from "../../../../Utils"
+import { CourseStatus } from "../da"
 
 const PopupAddNewCourse = forwardRef(function PopupAddNewCourse(data, ref) {
     const methods = useForm({ shouldFocusError: false, defaultValues: { name: '' } })
@@ -10,7 +13,9 @@ const PopupAddNewCourse = forwardRef(function PopupAddNewCourse(data, ref) {
 
     const onSubmit = (ev) => {
         console.log(ev)
-        navigate('details/overview/' + ev.name)
+        CourseController.add({ id: uuidv4(), name: ev.name.trim(), status: CourseStatus.draft }).then(id => {
+            navigate('details/overview/' + id)
+        })
     }
 
     return <form className="col" style={{ width: '52rem', flex: 1 }}>
@@ -24,7 +29,7 @@ const PopupAddNewCourse = forwardRef(function PopupAddNewCourse(data, ref) {
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
-            <button type="button" className={`submit-popup-btn button-text-3 ${methods.watch('name')?.length ? 'active' : ''}`} onClick={methods.handleSubmit(onSubmit)}>Tạo mới</button>
+            <button type="button" className={`submit-popup-btn button-text-3 ${methods.watch('name').trim().length ? 'active' : ''}`} onClick={methods.handleSubmit(onSubmit)}>Tạo mới</button>
         </div>
     </form>
 })

@@ -1,4 +1,4 @@
-import { ObjWithKnownKeys } from "../../../da/baseDA"
+import { TagItem } from "../tag/da"
 
 interface CourseCateItem {
     id?: string,
@@ -8,14 +8,6 @@ interface CourseCateItem {
     courseId?: string
 }
 
-interface CourseTagItem {
-    id?: string,
-    name?: string,
-    dateCreated?: number,
-    tagId?: string,
-    courceId?: string
-}
-
 interface CourseLessonItem {
     id?: string,
     name?: string,
@@ -23,6 +15,12 @@ interface CourseLessonItem {
     lessonId?: string,
     courseId?: string,
     sort?: number,
+}
+
+export enum CourseStatus {
+    draft = 0,
+    published = 1,
+    end = 2,
 }
 
 export interface CourseItem {
@@ -36,14 +34,16 @@ export interface CourseItem {
     level?: number,
     tools?: string,
     suitable?: string,
-    isComment?: true,
-    isCertificate?: true,
-    isContent?: true,
+    isComment?: boolean,
+    isCertificate?: boolean,
+    isContent?: boolean,
     customerId?: string,
     status?: number,
     price?: number,
     pictureId?: string,
+    thumbnailId?: string, // BE đang thiếu
+    shortIntro?: string, // BE đang thiếu
     courseCates?: Array<CourseCateItem>,
-    courseTags?: Array<CourseTagItem>
+    courseTags?: Array<TagItem>
     courseLessons?: Array<CourseLessonItem>
 }

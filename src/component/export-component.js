@@ -2,7 +2,7 @@ import { Checkbox } from './checkbox/checkbox.tsx'
 import { Select1 } from './select1/select1.tsx'
 import { Switch } from './switch/switch.tsx'
 import { showPopup, closePopup, Popup } from './popup/popup.tsx'
-import { showDialog, Dialog } from './dialog/dialog.tsx'
+import { showDialog, Dialog, DialogAlignment } from './dialog/dialog.tsx'
 import { DatePicker } from './date-picker/date-picker.tsx'
 import { SelectMultiple } from './input-multi-select/input-multi-select.tsx'
 import { ProgressBar } from './progress-bar/progress-bar.tsx'
@@ -25,11 +25,8 @@ export {
     Checkbox,
     Select1,
     Switch,
-    showPopup,
-    closePopup,
-    Popup,
-    showDialog,
-    Dialog,
+    Popup, showPopup, closePopup,
+    Dialog, showDialog, DialogAlignment,
     DatePicker,
     SelectMultiple,
     ProgressBar,

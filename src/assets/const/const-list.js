@@ -1,9 +1,5 @@
 import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm } from './icon'
 import demoAvatar from '../demo-avatar.png';
-import Overview from '../../screen/module/course/local-component/overview';
-import ScheduleFee from '../../screen/module/course/local-component/schedule-fee';
-import CourseCurriculum from '../../screen/module/course/local-component/course-curriculum';
-import FormEditLesson from '../../screen/module/course/local-component/edit-lesson';
 import MyUploadAdapter from '../../project-component/ckeditor';
 export const menuList = [
     {
@@ -126,7 +122,6 @@ export const extendView = [
         parentId: 'lessons',
         path: 'edu-management/school/course/details/textbook/lesson-content/:id',
         link: 'edu-management/school/course/details',
-        element: () => <FormEditLesson />
     },
     {
         name: 'Danh sách bài học',
@@ -134,7 +129,6 @@ export const extendView = [
         parentId: 'textbook',
         path: 'edu-management/school/course/details/textbook/lessons/:id',
         link: 'edu-management/school/course/details',
-        element: (data) => <CourseCurriculum data={data} />
     },
     {
         name: 'Tài liệu đính kèm',
@@ -148,14 +142,12 @@ export const extendView = [
         slug: 'overview',
         path: 'edu-management/school/course/details/overview/:id',
         link: 'edu-management/school/course/details',
-        element: (data) => <Overview data={data} />
     },
     {
         name: 'Lịch học và học phí',
         slug: 'shedule-fee',
         path: 'edu-management/school/course/details/shedule-fee/:id',
         link: 'edu-management/school/course/details',
-        element: (data) => <ScheduleFee data={data} />
     },
     {
         name: 'Giáo trình',
@@ -311,5 +303,24 @@ export const listCommonInfor = [
         name: 'duration',
         title: 'truy cập khóa học',
         icon: <OutlineTimeAlarm />
+    },
+]
+
+export const studentLevelList = [
+    {
+        id: 0,
+        name: 'Beginner'
+    },
+    {
+        id: 1,
+        name: 'Junior'
+    },
+    {
+        id: 2,
+        name: 'Mid-level'
+    },
+    {
+        id: 3,
+        name: 'Senior'
     },
 ]

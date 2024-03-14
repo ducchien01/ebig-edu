@@ -1,10 +1,10 @@
 import React from "react"
 
 export const enum ComponentStatus {
-    INFOR,
-    ERROR,
-    WARNING,
-    SUCCSESS,
+    INFOR = 1,
+    ERROR = 2,
+    WARNING = 3,
+    SUCCSESS = 4,
 }
 
 export const getStatusIcon = (status: ComponentStatus) => {

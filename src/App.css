@@ -908,3 +908,7 @@ button * {
     transition: color, fill ease-in-out 0.1s;
 }
 
+.footer-form {
+    padding: 1.2rem 2.4rem;
+    justify-content: space-between;
+}

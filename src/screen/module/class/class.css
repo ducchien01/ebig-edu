@@ -27,7 +27,7 @@
 
 .card-class-infor>.top>.demo-img {
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     width: 20.6rem;
     height: 12.2rem;
 }

@@ -15,7 +15,7 @@ interface ObjWithKnownKeys {
 }
 
 interface SelectMultipleProps {
-    value?: any,
+    value?: Array<any>,
     options: Required<Array<ObjWithKnownKeys>>,
     onChange?: Function,
     placeholder?: string,
@@ -37,7 +37,7 @@ interface SelectMultipleState {
 
 export class SelectMultiple extends React.Component<SelectMultipleProps, SelectMultipleState> {
     state: SelectMultipleState = {
-        value: this.props.value,
+        value: this.props.value ?? [],
         offset: {
             x: 0,
             y: 0,
@@ -72,7 +72,7 @@ export class SelectMultiple extends React.Component<SelectMultipleProps, SelectM
         if (prevProps.value !== this.props.value) {
             this.setState({
                 ...this.state,
-                value: this.props.value
+                value: this.props.value??[]
             })
         }
         if (prevState.isOpen !== this.state.isOpen && this.state.isOpen) {

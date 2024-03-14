@@ -50,14 +50,14 @@
 }
 
 .dialog-footer {
-    column-gap: 8px;
+    gap: 0.8rem;
     justify-content: end;
 }
 
 .dialog-footer>.dialog-action {
     height: 4rem;
     padding: 0 1.6rem;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     background-color: #F2F5F8;
     align-items: center;
     font: 500 1.4rem/2.2rem 'Inter';

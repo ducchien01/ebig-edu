@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom'
 import './dialog.css'
 import { ComponentStatus, getStatusIcon } from '../export-component'
 
+
+export enum DialogAlignment {
+    start = 'start',
+    center = 'center',
+    end = 'end'
+}
+
 interface DialogState {
     readonly open?: boolean,
     title: string,
@@ -10,22 +17,25 @@ interface DialogState {
     content: string,
     onSubmit: Function,
     submitTitle?: string,
+    alignment?: DialogAlignment,
 }
 
-export const showDialog = ({ ref, title, status, content, onSubmit, submitTitle }: {
+export const showDialog = ({ ref, title, status, content, onSubmit, submitTitle, alignment }: {
     ref: React.MutableRefObject<Dialog>,
     title?: string,
     status?: ComponentStatus,
     content?: string,
     onSubmit?: Function,
     submitTitle?: string,
+    alignment?: DialogAlignment
 }) => {
     ref.current.showDialogNoti({
         title: title ?? '',
         status: status ?? ComponentStatus.INFOR,
         content: content ?? '',
         onSubmit: onSubmit ?? (() => { }),
-        submitTitle: submitTitle
+        submitTitle: submitTitle,
+        alignment: alignment
     })
 }
 
@@ -47,23 +57,22 @@ export class Dialog extends React.Component<Object, DialogState> {
 
     render() {
         return (
-            <div>
+            <>
                 {this.state.open &&
                     ReactDOM.createPortal(
                         <div className='dialog-overlay'>
-                            <div className='dialog-container col' style={{ width: '414rem' }}
-                                dialog-type={this.state.status} onClick={e => e.stopPropagation()} >
+                            <div className='dialog-container col' style={{ width: '41.4rem', justifyContent: this.state.alignment }} dialog-type={this.state.status} onClick={e => e.stopPropagation()} >
                                 <div key={'dialog-body'} className='dialog-body col'>
                                     <div className='dialog-status row'>{getStatusIcon(this.state.status)}</div>
                                     <div className='dialog-title'>{this.state.title}</div>
                                     <div className='dialog-content'>{this.state.content}</div>
                                 </div>,
                                 <div key={'dialog-footer'} className='dialog-footer row'>
-                                    <button type='button' onClick={() => this.setState({ open: false })} className='dialog-action'>Quay lại</button>
-                                    <button onClick={() => {
+                                    <button type='button' style={this.state.alignment === DialogAlignment.center ? { flex: 1, width: '100%' } : undefined} onClick={() => this.setState({ open: false })} className='dialog-action'>Quay lại</button>
+                                    <button type='button' style={this.state.alignment === DialogAlignment.center ? { flex: 1, width: '100%' } : undefined} onClick={() => {
                                         this.state.onSubmit();
                                         this.setState({ open: false });
-                                    }} type='button' className='dialog-action dialog-submit' >
+                                    }} className='dialog-action dialog-submit' >
                                         {this.state.submitTitle ?? 'Xác nhận'}
                                     </button>
                                 </div>
@@ -76,7 +85,7 @@ export class Dialog extends React.Component<Object, DialogState> {
                         </div>,
                         document.body
                     )}
-            </div>
+            </>
         )
     }
 }

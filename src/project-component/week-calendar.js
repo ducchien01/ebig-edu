@@ -11,6 +11,7 @@ const WeekCalendar = ({
     listData = [],
     initDate = now,
     style,
+    titleOnlyWeekDay,
     renderUIInTime = () => <div></div>
 }) => {
     const getDayTitle = (i) => {
@@ -49,11 +50,11 @@ const WeekCalendar = ({
         <div className="col event-time-infor-container" style={{ width: '100%' }}>
             <div className="row">
                 {onlyDate ?
-                    <div className="col date-time-col label-3" style={{ height: 'fit-content' }}>{`${getDayTitle(initDate.getDay())} ngày ${initDate.getDate()}`}</div>
+                    <div className="col date-time-col label-3" style={{ height: 'fit-content' }}>{`${getDayTitle(initDate.getDay())}${titleOnlyWeekDay ? '' : ` ngày ${initDate.getDate()}`}`}</div>
                     : Array.from({ length: 7 }).map((_, i) => {
                         const timeValue = new Date(initDate.getFullYear(), initDate.getMonth(), i - initDate.getDay() + initDate.getDate())
                         return <div key={'dtwk-' + i} className={`col date-time-col label-3 ${timeValue.getDay() === now.getDay() ? 'today' : ''}`} style={{ height: 'fit-content' }}>
-                            {getDayTitle(i) + ` ngày ${timeValue.getDate() < 10 ? `0${timeValue.getDate()}` : timeValue.getDate()}/${(timeValue.getMonth() + 1) < 10 ? `0${(timeValue.getMonth() + 1)}` : (timeValue.getMonth() + 1)}`}
+                            {getDayTitle(i) + (titleOnlyWeekDay ? '' : ` ngày ${timeValue.getDate() < 10 ? `0${timeValue.getDate()}` : timeValue.getDate()}/${(timeValue.getMonth() + 1) < 10 ? `0${(timeValue.getMonth() + 1)}` : (timeValue.getMonth() + 1)}`)}
                         </div>
                     })}
             </div>

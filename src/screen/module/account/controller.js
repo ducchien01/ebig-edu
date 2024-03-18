@@ -50,9 +50,14 @@ export class AccountController {
                 setRefreshToken(res.data.refreshToken)
                 await CustomerController.getInfor()
                 window.location.href = '/'
-            } else
+            } else {
                 ToastMessage.errors(res.message)
-
+            }
         }
+    }
+    
+    static logout = () => {
+        Ultis.clearStorage()
+        window.location.href = '/'
     }
 }

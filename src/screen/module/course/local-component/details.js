@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useHref, useLocation, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { FilledSendMessage } from '../../../../assets/const/icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -15,8 +15,36 @@ export default function CourseDetails() {
     const { id } = useParams()
     const location = useLocation()
     const [selectedView, setSelectedView] = useState({ slug: 'overview' })
-    const [listView, setListView] = useState(extendView.filter(e => e.link === 'edu-management/school/course/details'))
+    const [listView, setListView] = useState(extendView.filter(e => e.link === 'edu-management/school/course/details').map(e => JSON.parse(JSON.stringify(e))))
     const [data, setData] = useState()
+
+    const checkValidInforToExport = (courseItem) => {
+        let needUpdate = false
+        const updateListView = listView.map(e => {
+            if (!e.valid) {
+                switch (e.slug) {
+                    case 'overview':
+                        const checkProps = ['name', 'topicId', 'level', 'targets'] // thumbnailId chờ BE thêm trường
+                        e.valid = checkProps.every(props => courseItem[props] != null)
+                        needUpdate = true
+                        break;
+                    case 'lessons':
+                        e.valid = courseItem.courseLessons?.length ? true : false
+                        needUpdate = true
+                        break;
+                    case 'shedule-fee':
+                        e.valid = courseItem.price?.length ? true : false
+                        needUpdate = true
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return e
+        })
+        if (needUpdate) setListView(updateListView)
+
+    }
 
     useEffect(() => {
         const pathFragment = location.pathname.split("/")
@@ -24,6 +52,7 @@ export default function CourseDetails() {
         if (id) {
             CourseController.getById(id).then(res => {
                 if (res) setData(res)
+                checkValidInforToExport(res)
             })
         }
     }, [location.pathname])
@@ -62,7 +91,7 @@ export default function CourseDetails() {
                                     }
                                 }}
                             >
-                                <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={false} />
+                                <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={item.valid} />
                                 <Text className='label-3' style={{ flex: 1, '--max-line': 1, with: '100%' }}>{item.name}</Text>
                                 {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} /> : null}
                             </NavLink>
@@ -86,13 +115,13 @@ export default function CourseDetails() {
                     },
                     {
                         slug: 'overview',
-                        element: <Overview data={data} />
+                        element: <Overview data={data} onChangeRequired={checkValidInforToExport} />
                     },
                     {
                         slug: 'shedule-fee',
-                        element: <ScheduleFee data={data} />
+                        element: <ScheduleFee data={data} onChangeRequired={checkValidInforToExport} />
                     },
-                ].find(e => e.slug === selectedView.slug).element}
+                ].find(e => e.slug === selectedView.slug)?.element}
             </div>
         </div>
     </div>

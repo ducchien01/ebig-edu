@@ -16,7 +16,7 @@
     --gutter: 2.4rem;
     row-gap: 2rem;
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     border: var(--border-grey1);
 }
 
@@ -41,7 +41,7 @@
 }
 
 .card-class-infor>.top .button-text-3 {
-    padding: 4px 8px;
+    padding: 0.4rem 0.8rem;
     width: fit-content;
     border-radius: 10rem;
 }

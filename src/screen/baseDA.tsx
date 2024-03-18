@@ -20,6 +20,7 @@ const getHeaders = async () => {
     }
     return headersObj
 }
+
 export const postData = async (url: string, { data, headers }: { data?: any, headers?: ObjWithKnownKeys } = {}) => {
     const headersObj: any = await getHeaders()
     const response = await BaseDA.post(url, {

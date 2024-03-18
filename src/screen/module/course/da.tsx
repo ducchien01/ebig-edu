@@ -43,7 +43,9 @@ export interface CourseItem {
     pictureId?: string,
     thumbnailId?: string, // BE đang thiếu
     shortIntro?: string, // BE đang thiếu
+    studentNumber?: number, // BE đang thiếu
+    income?: number, // BE đang thiếu
     courseCates?: Array<CourseCateItem>,
     courseTags?: Array<TagItem>
-    courseLessons?: Array<CourseLessonItem>
+    courseLessons?: Array<CourseLessonItem>,
 }

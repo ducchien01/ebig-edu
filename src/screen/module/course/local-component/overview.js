@@ -4,24 +4,27 @@ import { Text } from "../../../../component/export-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { uuidv4 } from "../../../../Utils";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TopicController } from "../../topic/controller";
 import { TagController } from "../../tag/controller";
 import { studentLevelList } from "../../../../assets/const/const-list";
 import { CourseController } from "../controller";
 
-export default function Overview({ data }) {
+export default function Overview({ data, onChangeRequired }) {
     const { control, formState: { errors }, watch, setValue, getValues } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }] } })
     const [listTopic, setListTopic] = useState([])
     const [listTag, setListTag] = useState([])
 
     const onChangeData = () => {
         let courseData = { ...data, ...getValues() }
-        courseData.targets = JSON.stringify(courseData.targets.filter(e => e.value?.trim()?.length))
+        let newTargetList = courseData.targets.filter(e => e.value?.trim()?.length)
+        if (newTargetList.length) {
+            courseData.targets = JSON.stringify(newTargetList)
+        } else {
+            delete courseData.targets
+        }
         CourseController.edit(courseData).then(res => {
-            if (res) {
-                
-            }
+            if (res && onChangeRequired) onChangeRequired(courseData)
         })
     }
 
@@ -36,7 +39,9 @@ export default function Overview({ data }) {
             Object.keys(data).forEach(props => {
                 if (data[props] != null) {
                     if (props === 'targets') {
-                        setValue(props, JSON.parse(data[props]))
+                        let targetList = JSON.parse(data[props])
+                        if (targetList.length)
+                            setValue(props, targetList)
                     } else if (props === 'pictureId') {
                         setValue('pictureFile', {})
                     } else if (props === 'thumbnailId') {

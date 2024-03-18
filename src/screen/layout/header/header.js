@@ -9,9 +9,9 @@ export default function HeaderView() {
         <div className="logo"></div>
         <div className="action row">
             <TextField prefix={<OutlineSearch />} className='search-ebig placeholder-2' placeholder='Tìm kiếm trên eBig' />
-            <button type='button' className='action-icon'><FilledBell color='#ffffff' width='2.4rem' height='2.4rem' /></button>
-            <button type='button' className='action-icon'><FilledChat color='#ffffff' width='2.4rem' height='2.4rem' /></button>
-            <button type='button' className='user-infor' style={{ backgroundImage: `url(${CustomerController.userInfor().avatarUrl})` }}></button>
+            <button type='button' className='row' style={{ justifyContent: 'center' }}><FilledBell color='#ffffff' width='2.4rem' height='2.4rem' /></button>
+            <button type='button' className='row' style={{ justifyContent: 'center' }}><FilledChat color='#ffffff' width='2.4rem' height='2.4rem' /></button>
+            <button type='button' className='user-infor' style={{ backgroundImage: `url(${CustomerController.userInfor()?.avatarUrl})` }}></button>
         </div>
     </div>
 }

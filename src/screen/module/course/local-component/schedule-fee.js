@@ -4,18 +4,17 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { CheckboxForm, TextFieldForm } from "../../../../project-component/component-form"
 import { FilledEdit, FilledTrashCan } from "../../../../assets/const/icon"
-import { uuidv4 } from "../../../../Utils"
-import { forwardRef, useRef } from "react"
+import { forwardRef, useEffect, useRef, useState } from "react"
+import WeekCalendar from "../../../../project-component/week-calendar"
+import { Ultis } from "../../../../Utils"
+import { MentorController } from "../../mentor/controller"
 
-export default function ScheduleFee({ data }) {
+export default function ScheduleFee({ data, onChangeRequired }) {
     const ref = useRef()
-    const { control, formState: { errors }, watch, setValue, getValues, handleSubmit, } = useForm({
-        shouldFocusError: false, defaultValues: {
-            mentorList: [
-                { id: uuidv4(), name: 'Gói học kèm mentor', fee: '500.000đ', schedule: 'Thứ Ba, 19:00 - 21:00\nThứ Năm, 19:00 - 21:00\nChủ Nhật, 19:00 - 21:00' }
-            ]
-        }
+    const { control, formState: { errors }, watch, setValue, } = useForm({
+        shouldFocusError: false, defaultValues: {}
     })
+    const [mentorList, setMentorList] = useState([])
 
     const showPopupMentorPack = (item) => {
         showPopup({
@@ -26,60 +25,95 @@ export default function ScheduleFee({ data }) {
         })
     }
 
-    return <div className="col" style={{ gap: '2.4rem', width: '44.4rem' }}>
+    useEffect(() => {
+        if (data) {
+            MentorController.getListSimple({ take: 100, filter: [{ key: 'courseId', value: data.id }] }).then(res => {
+                if (res) setMentorList(res)
+            })
+            if (data.price != null) {
+                setValue('price', Ultis.money(data.price))
+            }
+        }
+    }, [data])
+
+    return <div className="col" style={{ width: '100%', height: '100%', flex: 1 }}>
         <Popup ref={ref} />
-        <div className="row" style={{ gap: '1.6rem' }}>
+        <div className="row" style={{ gap: '1.6rem', padding: '2.4rem' }}>
             <Text className="heading-5">Lịch học và học phí</Text>
-            <button type="button" className="row"
-                style={{ backgroundColor: 'var(--background)', borderRadius: '2.4rem', padding: '0.6rem 1.2rem', gap: '0.8rem', width: 'fit-content' }}
-                onClick={() => { showPopupMentorPack() }}
-            >
-                <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.6rem', color: '#00204D99' }} />
-                <div className="button-text-3" style={{ color: '#00204D99' }} >Thêm mục tiêu</div>
+            <button type="button" className="row button-grey" onClick={showPopupMentorPack}>
+                <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                <div className="button-text-3">Thêm gói mentor</div>
             </button>
         </div>
-        <TextFieldForm
-            required
-            control={control}
-            errors={errors}
-            name={'fee'}
-            value={watch('fee')}
-            label={'Học phí'}
-            placeholder={'Nhập giá'}
-            suffix={<div className="row"
-                style={{ padding: '0 1.6rem', height: '100%', background: 'var(--background)', position: 'absolute', right: 0, borderLeft: '1px solid #00358033' }}
-            ><Text className="button-text-3">VND</Text></div>}
-        />
-        {watch('mentorList').map((e, i) => {
-            return <div key={e.id} className="row" style={{ padding: '1.6rem', borderRadius: '0.8rem', backgroundColor: '#F9FAFB', alignItems: 'start' }}>
-                <div className="col" style={{ flex: 1, width: '100%', gap: '2.4rem' }}>
-                    <Text className="heading-7">{e.name}</Text>
-                    <div className="col">
-                        <div className="label-5">Phí mentor</div>
-                        <Text className="heading-6" style={{ '--max-line': 1 }}>{e.fee}</Text>
+        <div className="col fee-schedule-view" >
+            <TextFieldForm
+                required
+                control={control}
+                errors={errors}
+                name={'price'}
+                value={watch('price')}
+                label={'Học phí'}
+                placeholder={'Nhập giá'}
+                onBlur={(ev) => {
+                    if (ev.target.value?.trim()?.length) {
+                        onChangeRequired({
+                            ...data,
+                            price: parseFloat(ev.target.value)
+                        })
+                    }
+                }}
+                suffix={
+                    <div className="row" style={{ padding: '0 1.6rem', height: '100%', background: 'var(--background)', position: 'absolute', right: 0, borderLeft: 'var(--border-grey1)' }} >
+                        <Text className="button-text-3">VND</Text>
                     </div>
-                    <div className="col">
-                        <div className="label-5">Lịch mentor</div>
-                        <div className="heading-8" >{e.schedule}</div>
+                }
+            />
+            {mentorList.map((e, i) => {
+                return <div key={e.id} className="row" style={{ padding: '1.6rem', borderRadius: '0.8rem', backgroundColor: '#F9FAFB', alignItems: 'start' }}>
+                    <div className="col" style={{ flex: 1, width: '100%', gap: '2.4rem' }}>
+                        <Text className="heading-7">{e.name}</Text>
+                        <div className="col">
+                            <div className="label-5">Phí mentor</div>
+                            <Text className="heading-6" style={{ '--max-line': 1 }}>{Ultis.money(e.price)}</Text>
+                        </div>
+                        <div className="col">
+                            <div className="label-5">Lịch mentor</div>
+                            <div className="heading-8" >{e.schedule}</div>
+                        </div>
+                    </div>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <button type="button"><FilledEdit /></button>
+                        <button type="button"><FilledTrashCan /></button>
                     </div>
                 </div>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <button type="button"><FilledEdit /></button>
-                    <button type="button"><FilledTrashCan /></button>
-                </div>
-            </div>
-        })}
+            })}
+        </div>
     </div>
 }
 
 const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, ref) {
-    const methods = useForm({ shouldFocusError: false, defaultValues: { name: data?.item?.name ?? '', fee: data?.item?.fee } })
+    const methods = useForm({ shouldFocusError: false })
+    const [mentorSchedule, setMentorSchedule] = useState([])
 
     const onSubmit = (ev) => {
         console.log(ev)
     }
 
-    return <form className="col" style={{flex: 1, width: '100%', height: '100%'}}>
+    useEffect(() => {
+        if (data.mentorItem) {
+            Object.keys(data.mentorItem).forEach(props => {
+                if (data.mentorItem[props]) {
+                    if (props === 'schedule') {
+                        setMentorSchedule(data.mentorItem[props])
+                    } else {
+                        methods.setValue(props, data.mentorItem[props])
+                    }
+                }
+            })
+        }
+    }, [])
+
+    return <form className="col" style={{ flex: 1, width: '100%', height: '100%' }}>
         <div className="popup-body row" style={{ padding: '1.6rem 2.4rem', gap: '5.6rem', height: '100%', alignItems: 'start' }} >
             <div className="col" style={{ flex: 1, gap: '2rem', overflow: 'hidden auto', height: '100%' }}>
                 <TextFieldForm
@@ -95,40 +129,42 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
                     required
                     control={methods.control}
                     errors={methods.errors}
-                    name={'fee'}
-                    value={methods.watch('fee')}
+                    name={'price'}
+                    value={methods.watch('price')}
                     label={'Phí mentor'}
                     placeholder={'Nhập mức phí'}
-                    suffix={<div className="row"
-                        style={{ padding: '0 1.6rem', height: '100%', background: 'var(--background)', position: 'absolute', right: 0, borderLeft: '1px solid #00358033' }}
-                    ><Text className="button-text-3">VND</Text></div>}
+                    suffix={
+                        <div className="row" style={{ padding: '0 1.6rem', height: '100%', background: 'var(--background)', position: 'absolute', right: 0, borderLeft: '1px solid #00358033' }} >
+                            <Text className="button-text-3">VND</Text>
+                        </div>
+                    }
                 />
                 <Text className="label-3">Thời gian bạn có thể mentor cho course này</Text>
                 <div className="col" style={{ gap: '0.8rem' }}>
                     {Array.from({ length: 7 }).map((e, i) => {
                         switch (i) {
                             case 0:
-                                var weekDay = 'Thứ 2'
-                                break;
+                                weekDay = 'Chủ nhật'
                             case 1:
-                                weekDay = 'Thứ 3'
+                                var weekDay = 'Thứ 2'
                                 break;
                             case 2:
                                 weekDay = 'Thứ 3'
                                 break;
                             case 3:
-                                weekDay = 'Thứ 4'
+                                weekDay = 'Thứ 3'
                                 break;
                             case 4:
-                                weekDay = 'Thứ 5'
+                                weekDay = 'Thứ 4'
                                 break;
                             case 5:
-                                weekDay = 'Thứ 6'
+                                weekDay = 'Thứ 5'
                                 break;
                             case 6:
-                                weekDay = 'Thứ 7'
+                                weekDay = 'Thứ 6'
+                                break;
                             case 7:
-                                weekDay = 'Chủ nhật'
+                                weekDay = 'Thứ 7'
                                 break;
                             default:
                                 break;
@@ -137,15 +173,19 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
                             <CheckboxForm
                                 size={'1.6rem'}
                                 label={weekDay}
-                                value={true}
+                                value={mentorSchedule.some(e => (new Date(e.time).getDay() === i))}
                                 control={methods.control}
                                 name={`weekday${i}`}
                             />
+                            <div>
+                            </div>
                         </div>
                     })}
                 </div>
             </div>
-            <div className="col" style={{ flex: 2, height: '100rem', overflow: 'hidden auto' }}></div>
+            <div className="col" style={{ flex: 2, width: '100%' }}>
+                <WeekCalendar titleOnlyWeekDay={true} />
+            </div>
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>

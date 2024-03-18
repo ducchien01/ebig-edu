@@ -19,6 +19,12 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
         value: this.props.value ?? false
     }
 
+    componentDidUpdate(prevProps: Readonly<CheckboxProps>, prevState: Readonly<CheckboxState>, snapshot?: any): void {
+        if(prevProps.value !== this.props.value) {
+            this.setState({...this.state, value: this.props.value})
+        }
+    }
+
     render() {
         let convertStyle: CSSProperties = {
             width: this.props.size ?? '2.4rem',

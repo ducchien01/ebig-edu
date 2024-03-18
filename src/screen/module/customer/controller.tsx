@@ -4,7 +4,7 @@ import { postData } from "../../baseDA"
 import { UserInforItem } from "./da"
 
 export class CustomerController {
-    static userInfor = () => JSON.parse(Ultis.getStorage('userInfor') ?? '') as UserInforItem
+    static userInfor = () => JSON.parse(Ultis.getStorage('userInfor') ?? '{}') as UserInforItem
     static getInfor = async () => {
         const response = await postData(ConfigAPI.ebigUrl + 'CustomerAuth/GetInfo')
         if (response) {

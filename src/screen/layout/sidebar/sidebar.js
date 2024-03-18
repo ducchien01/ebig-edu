@@ -8,9 +8,10 @@ import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
 import { menuList, supportModule } from '../../../assets/const/const-list';
 import { AccountController } from '../../module/account/controller';
 import PopupLogin from '../../module/account/popup-login';
-import { Popup, showPopup } from '../../../component/export-component';
+import { ComponentStatus, Dialog, DialogAlignment, Popup, showDialog, showPopup } from '../../../component/export-component';
 export default function SideBar() {
     const ref = useRef()
+    const dialogRef = useRef()
     const navigate = useNavigate()
     const location = useLocation()
     const [moduleList, setModuleList] = useState(menuList)
@@ -52,6 +53,16 @@ export default function SideBar() {
         ]
     }
 
+    const dialogLogout = () => {
+        showDialog({
+            ref: dialogRef,
+            alignment: DialogAlignment.center,
+            status: ComponentStatus.WARNING,
+            title: 'Bạn chắc chắn muốn đăng xuất',
+            onSubmit: AccountController.logout,
+        })
+    }
+
     useEffect(() => {
         if (AccountController.token()) {
             const pathFragment = location.pathname.split("/")
@@ -75,6 +86,7 @@ export default function SideBar() {
 
     return <div className="row sidebar" expand={`${selected.find(e => e.parentId === 1)?.isExpand}`} >
         <Popup ref={ref} />
+        <Dialog ref={dialogRef} />
         <div className="col collapse" >
             <div className='col' >
                 {moduleList.filter(e => e.parentId === 1).map((item, index) => {
@@ -101,7 +113,7 @@ export default function SideBar() {
                     </div>
                 })}
             </div>
-            <button type='button' ><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button>
+            <button type='button' onClick={dialogLogout}><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button>
         </div>
         {selected.length === 1 || selected.every(e => e.link !== location.pathname.substring(1)) ? null : <div className="col expand"> {expandBody()} </div>}
     </div>

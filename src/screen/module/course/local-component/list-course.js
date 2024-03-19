@@ -63,7 +63,7 @@ export default function ListCourse({ status }) {
     }
 
     useEffect(() => {
-        CourseController.getAll().then(res => {
+        CourseController.getListSimple({ take: 10, page: 1 }).then(res => {
             if (res) setList(res)
         })
     }, [status])

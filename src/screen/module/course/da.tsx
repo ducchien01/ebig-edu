@@ -1,20 +1,12 @@
+import { CourseLessonItem } from "../lesson/da"
 import { TagItem } from "../tag/da"
 
-interface CourseCateItem {
+export interface CourseCateItem {
     id?: string,
     name?: string,
     dateCreated?: number,
     cateId?: string,
     courseId?: string
-}
-
-interface CourseLessonItem {
-    id?: string,
-    name?: string,
-    dateCreated?: number,
-    lessonId?: string,
-    courseId?: string,
-    sort?: number,
 }
 
 export enum CourseStatus {
@@ -42,7 +34,7 @@ export interface CourseItem {
     price?: number,
     pictureId?: string,
     thumbnailId?: string, // BE đang thiếu
-    studentNumber?: number, // BE đang thiếu
+    quantity?: number, // BE đang thiếu
     income?: number, // BE đang thiếu
     courseCates?: Array<CourseCateItem>,
     courseTags?: Array<TagItem>

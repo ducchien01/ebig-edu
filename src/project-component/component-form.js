@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { Checkbox, ImportFile, RadioButton, Select1, SelectMultiple, Switch, Text, TextArea, TextField } from "../component/export-component";
 
-export function TextFieldForm({ value, label, control, required = false, name, type, placeholder, errors, maxLength, readOnly = false, disabled = false, suffix, prefix, onChange, onBlur, width = '100%', helperText }) {
+export function TextFieldForm({ value, label, control, required = false, name, type, placeholder, errors, maxLength, readOnly = false, disabled = false, suffix, prefix, onChange, onBlur, onFocus,width = '100%', helperText }) {
     return <Controller
         name={name}
         control={control}
@@ -20,6 +20,7 @@ export function TextFieldForm({ value, label, control, required = false, name, t
                 disabled={disabled}
                 readOnly={readOnly}
                 type={type}
+                onFocus={onFocus}
                 onChange={(ev) => {
                     field.onChange(ev.target.value)
                     if (onChange) onChange(ev)

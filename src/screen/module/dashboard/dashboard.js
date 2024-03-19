@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { AccountController } from '../account/controller';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
-export default function EduDashboard({ type = 1 }) {
+export default function EduDashboard({ type = 0 }) {
     const checkType = AccountController.token() ? type : 0
 
     return <div className="edu-dashboard col">

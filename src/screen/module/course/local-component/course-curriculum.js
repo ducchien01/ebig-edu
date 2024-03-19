@@ -45,9 +45,15 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
                     autoFocus
                     defaultValue={item.name}
                     placeholder={placeholder}
-                    onChange={(ev) => { item.name = ev.target.value.trim() }}
+                    onBlur={(ev) => {
+                        setLessons([...lessons.map(e => {
+                            if (e.id === item.id) e.name = ev.target.value.trim()
+                            return e
+                        })])
+                    }}
                 />
                 <button type="button" onClick={() => {
+                    LessonController.editCourseLesson(item)
                     setLessons([...lessons.map(e => {
                         if (e.id === item.id) e.isEditing = false
                         return e
@@ -57,6 +63,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
                     <FontAwesomeIcon icon={faCheck} style={{ fontSize: '1.6rem', color: '#39AC6D' }} />
                 </button>
                 <button type="button" onClick={() => {
+                    LessonController.deleteCourseLesson([item.id])
                     setLessons(lessons.filter(e => e.id !== item.id))
                 }}>
                     <FontAwesomeIcon icon={faCircleXmark} style={{ fontSize: '1.6rem', color: '#E14337' }} />

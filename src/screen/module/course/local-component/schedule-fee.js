@@ -9,6 +9,7 @@ import WeekCalendar from "../../../../project-component/week-calendar"
 import { Ultis, uuidv4 } from "../../../../Utils"
 import { MentorController } from "../../mentor/controller"
 import InputTime from "../../../../project-component/input-time"
+import { CourseController } from "../controller"
 
 export default function ScheduleFee({ data, onChangeRequired }) {
     const ref = useRef()
@@ -55,12 +56,18 @@ export default function ScheduleFee({ data, onChangeRequired }) {
                 value={watch('price')}
                 label={'Học phí'}
                 placeholder={'Nhập giá'}
+                onFocus={(ev) => {
+                    setValue('price', ev.target.value.replaceAll(",", ''))
+                }}
                 onBlur={(ev) => {
-                    if (ev.target.value?.trim()?.length) {
-                        onChangeRequired({
-                            ...data,
-                            price: parseFloat(ev.target.value)
-                        })
+                    let newPrice = ev.target.value.trim().replaceAll(',', '')
+                    if (!isNaN(parseFloat(newPrice))) {
+                        data.price = parseFloat(newPrice)
+                        onChangeRequired(data)
+                        CourseController.edit(data)
+                        setValue('price', Ultis.money(newPrice))
+                    } else {
+                        setValue('price', data.price != null ? Ultis.money(data.price) : '')
                     }
                 }}
                 suffix={

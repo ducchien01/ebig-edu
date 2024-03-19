@@ -220,7 +220,6 @@
     flex-wrap: wrap;
     align-items: stretch;
     align-content: start;
-    height: 100%;
 }
 
 .content-edit-action-block:has(>div:nth-child(2))>.group-action-edit {

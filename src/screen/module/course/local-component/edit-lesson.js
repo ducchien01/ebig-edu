@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { editorConfiguration } from "../../../../assets/const/const-list"
-import { FilledChat, FilledCircleQuestion, FilledEdit, FilledHtmlCssCode, FilledHyperlink, FilledIndicator, FilledLogoYoutube, FilledResizeV, FilledText, FilledTrashCan } from "../../../../assets/const/icon"
+import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledIndicator, FilledLogoYoutube, FilledResizeV, FilledText, FilledTrashCan } from "../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars, faChevronDown, faChevronRight, faEllipsisVertical, faEye, faGear, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { Checkbox, CustomCKEditor, Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
@@ -60,6 +60,32 @@ export default function FormEditLesson({ courseData }) {
         }
     }
 
+    const getPrefixIcon = (type) => {
+        switch (type) {
+            case LessonType.video:
+                return <FilledLogoYoutube />
+            case LessonType.text:
+                return <FilledFileText />
+            case LessonType.task:
+                return <FilledCircleQuestion />
+            default:
+                return <div></div>;
+        }
+    }
+
+    const getTitleText = (type) => {
+        switch (type) {
+            case LessonType.video:
+                return 'Video bài giảng'
+            case LessonType.text:
+                return 'Bài viết'
+            case LessonType.task:
+                return 'Bài kiểm tra'
+            default:
+                return ''
+        }
+    }
+
     return <div className="form-edit-lesson-content row" >
         <Popup ref={ref} />
         <div className="col details-content-block col16 col20-md col20-sm" style={{ gap: '3.2rem', }}>
@@ -72,8 +98,8 @@ export default function FormEditLesson({ courseData }) {
                     </div>
                     <Text className='heading-5'>{data?.name}</Text>
                     <button type="button" className="row" style={{ gap: '0.8rem' }}>
-                        <FilledLogoYoutube />
-                        <div className="button-text-3">Video bài giảng</div>
+                        {getPrefixIcon(data?.type)}
+                        <div className="button-text-3">{getTitleText(data?.type)}</div>
                         <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.2rem', color: '#00204D99' }} />
                     </button>
                 </div>
@@ -93,8 +119,8 @@ export default function FormEditLesson({ courseData }) {
                 {renderUI()}
             </div>
         </div>
-        <div className="col content-edit-action-block col8 col4-md col4-sm" style={{ borderLeft: 'var(--border-grey1)', gap: '2.4rem' }}>
-            <div className="row group-action-edit">
+        <div className="col content-edit-action-block col8 col4-md col4-sm" style={{ borderLeft: 'var(--border-grey1)', gap: '2.4rem', paddingRight: 0 }}>
+            <div className="row group-action-edit" style={{ paddingRight: '0.8rem' }}>
                 {data?.type === LessonType.video ? <button type="button" className="col col6 col8-xxl col8-xl col12-lg col24-md col24-sm" >
                     <FilledText width="2.4rem" height="2.4rem" />
                     <div className="subtitle-3">Text editor</div>
@@ -117,11 +143,19 @@ export default function FormEditLesson({ courseData }) {
                 <div className="col" style={{ overflow: 'hidden auto', flex: 1, height: '100%' }}>
                     {(courseData.courseLessons ?? []).filter(e => !e.parentId).map((item, i) => {
                         let children = courseData.courseLessons.filter(e => e.parentId === item.id)
-                        return <div key={item.id} className="col">
+                        return <div key={item.id} className="col" style={{ gap: '1.2rem' }}>
                             <div className="row" style={{ gap: '1.4rem' }}>
                                 <div className="row label-2" style={{ width: '3.6rem', height: '3.6rem', borderRadius: '50%', backgroundColor: 'var(--background)', justifyContent: 'center' }}>{`U${i + 1}`}</div>
                                 <Text maxLine={1} className="heading-7" style={{ width: '100%', flex: 1 }}>{item.name}</Text>
                                 <Text maxLine={1} className="body-3">{`${i + 1}/${courseData.courseLessons.filter(e => !e.parentId).length}`}</Text>
+                            </div>
+                            <div className="col" style={{ paddingLeft: '4rem' }}>
+                                {children.map(childItem => {
+                                    return <div key={childItem.id} className="row" style={{ padding: '0.8rem 1rem', gap: '0.8rem', borderRadius: '0.8rem', backgroundColor: childItem.lessonId === lessonid ? 'var(--background)' : null }}>
+                                        {getPrefixIcon(childItem.type)}
+                                        <Text className="label-4" maxLine={1} style={{ flex: 1, width: '100%' }}>{childItem.name}</Text>
+                                    </div>
+                                })}
                             </div>
                         </div>
                     })}

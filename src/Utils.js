@@ -133,8 +133,6 @@ export class Ultis {
         }
     }
 
-
-
     static set_timeRefreshToken() {
         var result = new Date(Date.now());
         result.setDate(result.getDate() + 30);
@@ -148,11 +146,18 @@ export class Ultis {
         return time;
     }
     static differenceInDays(date1, date2) {
-
         const differenceInDaysValue = (date1 - date2) / (1000 * 60 * 60 * 24);
         return parseInt(differenceInDaysValue);
 
     }
+
+    static differenceInMinutes(date1, date2) {
+        let diff = (date2.getTime() - date1.getTime()) / 1000;
+        diff /= 60;
+        return Math.abs(Math.round(diff));
+
+    }
+
     static calculateAge = (birthdate) => {
         const parsedBirthdate = parse(birthdate, 'dd/MM/yyyy', new Date());
         if (!isNaN(parsedBirthdate.getTime())) {

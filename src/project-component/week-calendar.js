@@ -61,27 +61,29 @@ const WeekCalendar = ({
             {onlyDate ?
                 <div className="col date-time-col" style={{ height: `${(maxTime - minTime) * 6 * 0.8}rem` }}>
                     {listData.filter(e => e.time.getDay() === initDate.getDay()).map((e, j) => {
-                        let endMinutes = e.time.getMinutes() + (e.duration % 60)
-                        let endTime = e.time.getHours() + Math.floor(e.duration / 60)
+                        let convertTime = typeof e.time === "number" ? (new Date(e.time)) : e.time
+                        let endMinutes = convertTime.getMinutes() + ((e.duration ?? 0) % 60)
+                        let endTime = convertTime.getHours() + Math.floor((e.duration ?? 0) / 60)
                         if (endMinutes >= 60) {
                             endTime++
                             endMinutes -= 60
                         }
-                        return <div key={'block-event-' + j} className="col block-event" style={{ top: `${((e.time.getHours() - minTime) * 60 + e.time.getMinutes()) * 0.08}rem`, height: `${e.duration * 0.08}rem` }}>
+                        return <div key={'block-event-' + j} className="col block-event" style={{ top: `${((convertTime.getHours() - minTime) * 60 + convertTime.getMinutes()) * 0.08}rem`, height: `${(e.duration ?? 0) * 0.08}rem` }}>
                             {renderUIInTime(e)}
                         </div>
                     })}
                 </div>
                 : <div className="row" style={{ height: `${(maxTime - minTime) * 6 * 0.8}rem` }}>
                     {Array.from({ length: 7 }).map((_, i) => <div key={'time-range-' + i} className="col date-time-col" style={{ height: '100%' }}>
-                        {listData.filter(e => e.time.getDay() === i).map((e, j) => {
-                            let endMinutes = e.time.getMinutes() + (e.duration % 60)
-                            let endTime = e.time.getHours() + Math.floor(e.duration / 60)
+                        {listData.filter(e => (typeof e.time === "number" ? (new Date(e.time)) : e.time).getDay() === i).map((e, j) => {
+                            let convertTime = typeof e.time === "number" ? (new Date(e.time)) : e.time
+                            let endMinutes = convertTime.getMinutes() + ((e.duration ?? 0) % 60)
+                            let endTime = convertTime.getHours() + Math.floor((e.duration ?? 0) / 60)
                             if (endMinutes >= 60) {
                                 endTime++
                                 endMinutes -= 60
                             }
-                            return <div key={'block-event-' + j} className="col block-event" style={{ top: `${((e.time.getHours() - minTime) * 60 + e.time.getMinutes()) * 0.08}rem`, height: `${e.duration * 0.08}rem` }}>
+                            return <div key={'block-event-' + j} className="col block-event" style={{ top: `${((convertTime.getHours() - minTime) * 60 + convertTime.getMinutes()) * 0.08}rem`, height: `${(e.duration ?? 0) * 0.08}rem` }}>
                                 {renderUIInTime(e)}
                             </div>
                         })}

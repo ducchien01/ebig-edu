@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form"
 import { Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight, faPlus, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { CheckboxForm, TextFieldForm } from "../../../../project-component/component-form"
 import { FilledEdit, FilledTrashCan } from "../../../../assets/const/icon"
 import { forwardRef, useEffect, useRef, useState } from "react"
 import WeekCalendar from "../../../../project-component/week-calendar"
-import { Ultis } from "../../../../Utils"
+import { Ultis, uuidv4 } from "../../../../Utils"
 import { MentorController } from "../../mentor/controller"
+import InputTime from "../../../../project-component/input-time"
 
 export default function ScheduleFee({ data, onChangeRequired }) {
     const ref = useRef()
@@ -21,7 +22,7 @@ export default function ScheduleFee({ data, onChangeRequired }) {
             ref: ref,
             style: { width: '78%', maxHeight: '84%' },
             heading: <div className="heading-7 popup-header">{item ? 'Chỉnh sửa' : 'Thêm'} gói mentor</div>,
-            content: <PopupAddNewMentorPack ref={ref} item={item} />
+            content: <PopupAddNewMentorPack ref={ref} mentorItem={item} />
         })
     }
 
@@ -74,7 +75,7 @@ export default function ScheduleFee({ data, onChangeRequired }) {
                         <Text className="heading-7">{e.name}</Text>
                         <div className="col">
                             <div className="label-5">Phí mentor</div>
-                            <Text className="heading-6" style={{ '--max-line': 1 }}>{Ultis.money(e.price)}</Text>
+                            <Text className="heading-6" maxLine={1}>{Ultis.money(e.price)}</Text>
                         </div>
                         <div className="col">
                             <div className="label-5">Lịch mentor</div>
@@ -82,7 +83,7 @@ export default function ScheduleFee({ data, onChangeRequired }) {
                         </div>
                     </div>
                     <div className="row" style={{ gap: '0.8rem' }}>
-                        <button type="button"><FilledEdit /></button>
+                        <button type="button" onClick={() => showPopupMentorPack(e)}><FilledEdit /></button>
                         <button type="button"><FilledTrashCan /></button>
                     </div>
                 </div>
@@ -95,8 +96,15 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
     const methods = useForm({ shouldFocusError: false })
     const [mentorSchedule, setMentorSchedule] = useState([])
 
-    const onSubmit = (ev) => {
-        console.log(ev)
+    const onSubmit = async (ev) => {
+        let mentorCourseItem = data.mentorItem ? { ...data.mentorItem, ...ev } : ev
+        mentorCourseItem.schedule = JSON.stringify(mentorSchedule)
+        if (data.mentorItem) {
+            await MentorController.edit(mentorCourseItem)
+        } else {
+            await MentorController.add(mentorCourseItem)
+        }
+        closePopup(ref)
     }
 
     useEffect(() => {
@@ -104,7 +112,7 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
             Object.keys(data.mentorItem).forEach(props => {
                 if (data.mentorItem[props]) {
                     if (props === 'schedule') {
-                        setMentorSchedule(data.mentorItem[props])
+                        setMentorSchedule(JSON.parse(data.mentorItem[props]))
                     } else {
                         methods.setValue(props, data.mentorItem[props])
                     }
@@ -141,50 +149,128 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
                 />
                 <Text className="label-3">Thời gian bạn có thể mentor cho course này</Text>
                 <div className="col" style={{ gap: '0.8rem' }}>
-                    {Array.from({ length: 7 }).map((e, i) => {
+                    {Array.from({ length: 7 }).map((_, i) => {
                         switch (i) {
                             case 0:
-                                weekDay = 'Chủ nhật'
+                                var weekDay = 'Chủ nhật'
+                                break;
                             case 1:
-                                var weekDay = 'Thứ 2'
+                                weekDay = 'Thứ 2'
                                 break;
                             case 2:
                                 weekDay = 'Thứ 3'
                                 break;
                             case 3:
-                                weekDay = 'Thứ 3'
-                                break;
-                            case 4:
                                 weekDay = 'Thứ 4'
                                 break;
-                            case 5:
+                            case 4:
                                 weekDay = 'Thứ 5'
                                 break;
-                            case 6:
+                            case 5:
                                 weekDay = 'Thứ 6'
                                 break;
-                            case 7:
+                            case 6:
                                 weekDay = 'Thứ 7'
                                 break;
                             default:
                                 break;
                         }
-                        return <div key={i} className="row" style={{ padding: '1.2rem 1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--background)' }}>
+                        const daySchedule = mentorSchedule.filter(e => (new Date(e.time)).getDay() === i)
+                        return <div key={i} className="row" style={{ padding: '1.2rem 1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--background)', gap: '0.8rem', alignItems: 'start' }}>
                             <CheckboxForm
                                 size={'1.6rem'}
                                 label={weekDay}
-                                value={mentorSchedule.some(e => (new Date(e.time).getDay() === i))}
+                                value={daySchedule.length > 0}
                                 control={methods.control}
                                 name={`weekday${i}`}
+                                onChange={(ev) => {
+                                    let updateSchedule = mentorSchedule
+                                    if (ev) {
+                                        if (data.mentorItem?.schedule) {
+                                            var initData = JSON.parse(data.mentorItem.schedule).filter(e => (new Date(e.time)).getDay() === i)
+                                        } else {
+                                            var newTime = new Date()
+                                            newTime.setDate(newTime.getDate() + i - newTime.getDay())
+                                        }
+                                        updateSchedule.push(...(initData ?? [{ time: newTime.getTime() }]))
+                                    } else {
+                                        updateSchedule = updateSchedule.filter(e => (new Date(e.time)).getDay() !== i)
+                                    }
+                                    setMentorSchedule([...updateSchedule])
+                                }}
                             />
-                            <div>
-                            </div>
+                            {daySchedule.length ? <div className="col list-lesson-time-range" >
+                                {daySchedule.map((lesson, j) => {
+                                    let startTime = new Date(lesson.time)
+                                    if (lesson.duration) {
+                                        var endTime = new Date(lesson.time)
+                                        endTime.setMinutes(endTime.getMinutes() + lesson.duration)
+                                    } else if (lesson.duration === 0) {
+                                        var helperText = 'Thời gian kết thúc phải sau thời gian bắt đầu'
+                                    }
+                                    return <div key={uuidv4()} className="row lesson-time-range-container">
+                                        <InputTime
+                                            style={{ flex: 1 }}
+                                            defaultValue={startTime ? `${startTime.getHours() < 10 ? `0${startTime.getHours()}` : startTime.getHours()}:${startTime.getMinutes() < 10 ? `0${startTime.getMinutes()}` : startTime.getMinutes()}` : ''}
+                                            onChange={(hValue, mValue) => {
+                                                startTime.setHours(hValue)
+                                                startTime.setMinutes(mValue)
+                                                lesson.time = startTime.getTime()
+                                                if (lesson.time >= endTime.getTime()) {
+                                                    lesson.duration = 0
+                                                } else {
+                                                    lesson.duration = Ultis.differenceInMinutes(startTime, endTime)
+                                                }
+                                                setMentorSchedule([...mentorSchedule])
+                                            }}
+                                        />
+                                        <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '1.2rem', color: '#00204D99' }} />
+                                        <InputTime
+                                            style={{ flex: 1 }}
+                                            helperText={helperText}
+                                            defaultValue={endTime ? `${endTime.getHours() < 10 ? `0${endTime.getHours()}` : endTime.getHours()}:${endTime.getMinutes() < 10 ? `0${endTime.getMinutes()}` : endTime.getMinutes()}` : ''}
+                                            onChange={(hValue, mValue) => {
+                                                endTime ??= new Date(lesson.time)
+                                                endTime.setHours(hValue)
+                                                endTime.setMinutes(mValue)
+                                                if (lesson.time >= endTime.getTime()) {
+                                                    lesson.duration = 0
+                                                } else {
+                                                    lesson.duration = Ultis.differenceInMinutes(startTime, endTime)
+                                                }
+                                                setMentorSchedule([...mentorSchedule])
+                                            }}
+                                        />
+                                        {j > 0 ? <button type="button" onClick={() => {
+                                            setMentorSchedule(mentorSchedule.filter(e => e.time !== lesson.time))
+                                        }} className="delete-tim-range row"><FontAwesomeIcon icon={faXmark} style={{ color: "#00204D99", fontSize: '1.4rem' }} /></button> : null}
+                                    </div>
+                                })}
+                                <button type="button" onClick={() => {
+                                    let newTime = new Date()
+                                    newTime.setDate(newTime.getDate() + i - newTime.getDay())
+                                    setMentorSchedule([...mentorSchedule, { time: newTime.getTime() }])
+                                }} className="row button-grey" style={{ padding: '0.4rem 0.8rem', backgroundColor: '#ffffff' }}>
+                                    <FontAwesomeIcon icon={faPlusCircle} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                                    <Text className="button-text-3">Thêm khung giờ</Text>
+                                </button>
+                            </div> : null}
                         </div>
                     })}
                 </div>
             </div>
             <div className="col" style={{ flex: 2, width: '100%' }}>
-                <WeekCalendar titleOnlyWeekDay={true} />
+                <WeekCalendar titleOnlyWeekDay={true} listData={mentorSchedule} renderUIInTime={(element) => {
+                    if (!element.duration) return <div></div>
+                    let convertTime = typeof element.time === 'number' ? (new Date(element.time)) : element.time
+                    let endTime = new Date(convertTime.getTime())
+                    endTime.setMinutes(endTime.getMinutes() + element.duration)
+                    return <div className="col display-mentor-time-container" >
+                        <Text className="heading-9" >
+                            {`${convertTime.getHours() < 10 ? `0${convertTime.getHours()}` : convertTime.getHours()}:${convertTime.getMinutes() < 10 ? `0${convertTime.getMinutes()}` : convertTime.getMinutes()}-${endTime.getHours() < 10 ? `0${endTime.getHours()}` : endTime.getHours()}:${endTime.getMinutes() < 10 ? `0${endTime.getMinutes()}` : endTime.getMinutes()}`}
+                        </Text>
+                    </div>
+                }} />
             </div>
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>

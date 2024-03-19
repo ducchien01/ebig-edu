@@ -92,8 +92,8 @@ export default function Overview({ data, onChangeRequired }) {
                     errors={errors}
                     label={'Giới thiệu tổng quan'}
                     placeholder={'Giới thiệu ngắn gọn về khóa học'}
-                    name={'shortIntro'}
-                    value={watch('shortIntro')}
+                    name={'description'}
+                    value={watch('description')}
                     onBlur={onChangeData}
                 />
                 <Select1Form
@@ -133,8 +133,8 @@ export default function Overview({ data, onChangeRequired }) {
                     errors={errors}
                     label={'Khóa học phù hợp với ai?'}
                     placeholder={'Mô tả chi tiết hơn về đối tượng khóa học nhắm đến'}
-                    name={'description'}
-                    value={watch('description')}
+                    name={'suitable'}
+                    value={watch('suitable')}
                     onBlur={onChangeData}
                 />
                 <div className="col" style={{ padding: '1.2rem 0', gap: '2rem' }}>

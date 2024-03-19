@@ -28,12 +28,12 @@ export default function CourseDetails() {
                         e.valid = checkProps.every(props => courseItem[props] != null)
                         needUpdate = true
                         break;
-                    case 'lessons':
+                    case 'textbook':
                         e.valid = courseItem.courseLessons?.length ? true : false
                         needUpdate = true
                         break;
                     case 'shedule-fee':
-                        e.valid = courseItem.price?.length ? true : false
+                        e.valid = courseItem.price != null
                         needUpdate = true
                         break;
                     default:
@@ -48,7 +48,8 @@ export default function CourseDetails() {
 
     useEffect(() => {
         const pathFragment = location.pathname.split("/")
-        setSelectedView(listView.find(e => pathFragment.includes(e.slug)))
+        let newSelectedView = listView.find(e => pathFragment.includes(e.slug))
+        setSelectedView(newSelectedView)
         if (id) {
             CourseController.getById(id).then(res => {
                 if (res) setData(res)
@@ -67,8 +68,8 @@ export default function CourseDetails() {
                 </div>
                 <div className='heading-6'>Thông tin chi tiết Course</div>
             </div>
-            <NavLink type='button' to={`/edu-management/school/course/school-mn-export-view/${id}`} className='button-primary row' style={{ padding: '0.6rem 1.2rem' }}>
-                <FilledSendMessage color='white' />
+            <NavLink to={`/edu-management/school/course/school-mn-export-view/${id}`} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-grey'} row`} style={{ padding: '0.6rem 1.2rem' }}>
+                <FilledSendMessage color={listView.filter(e => !e.parentId).every(e => e.valid) ? 'white' : undefined} />
                 <div className='button-text-3'>Xuất bản khóa học</div>
             </NavLink>
         </div>
@@ -92,11 +93,11 @@ export default function CourseDetails() {
                                 }}
                             >
                                 <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={item.valid} />
-                                <Text className='label-3' style={{ flex: 1, '--max-line': 1, with: '100%' }}>{item.name}</Text>
+                                <Text className='label-3' maxLine={1} style={{ flex: 1, with: '100%' }}>{item.name}</Text>
                                 {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} /> : null}
                             </NavLink>
                             {children.map((child, j) => <NavLink to={`/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug || child.isExpand ? 'selected' : ''}`}>
-                                <Text className='label-3' style={{ flex: 1, '--max-line': 1, width: '100%' }}>{child.name}</Text>
+                                <Text className='label-3' maxLine={1} style={{ flex: 1, width: '100%' }}>{child.name}</Text>
                             </NavLink>
                             )}
                         </div>
@@ -107,11 +108,11 @@ export default function CourseDetails() {
                 {[
                     {
                         slug: 'lesson-content',
-                        element: <FormEditLesson />
+                        element: <FormEditLesson courseData={data} />
                     },
                     {
                         slug: 'lessons',
-                        element: <CourseCurriculum data={data} />
+                        element: <CourseCurriculum data={data} onChangeRequired={checkValidInforToExport} />
                     },
                     {
                         slug: 'overview',

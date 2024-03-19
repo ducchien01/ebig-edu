@@ -52,3 +52,17 @@
     border-top: var(--border-grey1);
     justify-content: space-between;
 }
+
+.display-mentor-time-container {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-left: 0.4rem solid var(--primary-color);
+    background-color: #366AE226;
+    border-radius: 0.4rem;
+}
+
+.display-mentor-time-container * {
+    color: var(--primary-color);
+}

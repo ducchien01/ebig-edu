@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import './checkbox.css';
 
 interface CheckboxProps {
-    onChange?: Function,
+    onChange?: (value: boolean) => {},
     value?: boolean,
     checkColor?: string,
     disabled: false,
@@ -20,8 +20,8 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
     }
 
     componentDidUpdate(prevProps: Readonly<CheckboxProps>, prevState: Readonly<CheckboxState>, snapshot?: any): void {
-        if(prevProps.value !== this.props.value) {
-            this.setState({...this.state, value: this.props.value})
+        if (prevProps.value !== this.props.value) {
+            this.setState({ ...this.state, value: this.props.value })
         }
     }
 

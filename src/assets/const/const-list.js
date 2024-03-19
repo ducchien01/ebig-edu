@@ -120,7 +120,7 @@ export const extendView = [
         name: 'Chỉnh sửa bài học',
         slug: 'lesson-content',
         parentId: 'lessons',
-        path: 'edu-management/school/course/details/textbook/lesson-content/:id',
+        path: 'edu-management/school/course/details/textbook/lesson-content/:id/:lessonid',
         link: 'edu-management/school/course/details',
     },
     {
@@ -155,12 +155,12 @@ export const extendView = [
         path: 'edu-management/school/course/details/textbook/:id',
         link: 'edu-management/school/course/details',
     },
-    {
-        name: 'Chứng chỉ',
-        slug: 'certificate',
-        path: 'edu-management/school/course/details/certificate/:id',
-        link: 'edu-management/school/course/details',
-    },
+    // {
+    //     name: 'Chứng chỉ',
+    //     slug: 'certificate',
+    //     path: 'edu-management/school/course/details/certificate/:id',
+    //     link: 'edu-management/school/course/details',
+    // },
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',
@@ -259,14 +259,6 @@ export const editorConfiguration = {
     //   uploadUrl: '/upload-endpoint', // Replace with your server upload endpoint
     // },
 };
-
-export class LessonType {
-    static video = 1
-    static text = 2
-    static task = 3
-
-    static list = [this.video, this.text, this.task]
-}
 
 export const listCommonInfor = [
     {

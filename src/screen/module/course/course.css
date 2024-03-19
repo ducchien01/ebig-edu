@@ -66,6 +66,11 @@
     border-bottom: var(--border-grey1);
 }
 
+.details-view-container .details-view-header>a.button-grey {
+    text-decoration: none;
+    pointer-events: none;
+}
+
 .details-view-body .details-view-body-sidebar {
     padding: 3.2rem 1.6rem 3.2rem 0;
     border-right: var(--border-grey1);
@@ -257,6 +262,30 @@
     gap: 2.4rem
 }
 
-.fee-schedule-view  > *{
+.fee-schedule-view>* {
     max-width: 44.2rem;
+}
+
+.list-lesson-time-range {
+    gap: 1.2rem;
+    flex: 1;
+    overflow: visible;
+}
+
+.lesson-time-range-container {
+    gap: 1.2rem;
+    overflow: visible;
+    position: relative;
+}
+
+.lesson-time-range-container>.delete-tim-range {
+    position: absolute;
+    left: -0.8rem;
+    top: 50%;
+    transform: translate(-100%, -50%);
+    border-radius: 50%;
+    justify-content: center;
+    background-color: #ffffff;
+    width: 2.4rem;
+    height: 2.4rem;
 }

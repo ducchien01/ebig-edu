@@ -12,7 +12,7 @@ const PopupAddNewCurriculumn = forwardRef(function PopupAddNewCurriculumn(data, 
 
     return <form className="col" style={{ width: '52rem', flex: 1 }}>
         <div className="popup-body col" style={{ padding: '1.6rem 2.4rem', gap: '2rem' }}>
-            <TextFieldForm label={'Tên giáo trình'} control={methods.control} placeholder={'Đặt tên cho giáo trình của bạn'} name={'name'} />
+            <TextFieldForm label={'Tên giáo trình'} register={methods.register} placeholder={'Đặt tên cho giáo trình của bạn'} name={'name'} />
             <Select1Form label={'Phân loại chủ đề'} control={methods.control} placeholder={'Chọn chủ đề'} name={'category'} />
             <Select1Form label={'Tag chủ đề (Tối đa 5)'} control={methods.control} placeholder={'Chọn chủ đề được gán thẻ'} name={'top'} />
             <Select1Form label={'Trình độ'} control={methods.control} name={'level'} />

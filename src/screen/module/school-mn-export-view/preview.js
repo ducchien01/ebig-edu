@@ -8,11 +8,15 @@ import { useEffect, useState } from "react";
 import { listCommonInfor } from "../../../assets/const/const-list";
 import { NavLink, useParams } from "react-router-dom";
 import { FilledSocialSharing, OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from "../../../assets/const/icon";
+import { CourseController } from "../course/controller";
+import { CustomerController } from "../customer/controller";
+import { Ultis } from "../../../Utils";
 
 export default function Preview() {
     const { id } = useParams()
     const [data, setData] = useState()
     const [activeFilterTab, setActiveFilterTab] = useState(0)
+    const user = CustomerController.userInfor()
 
     const renderTabView = () => {
         switch (activeFilterTab) {
@@ -25,100 +29,103 @@ export default function Preview() {
 
     useEffect(() => {
         if (id) {
-            setData({ students: '1,2K', rate: '4.7 (1,1K)', lessons: 18, files: 24, level: 'Beginner', certificate: true, duration: '12 tháng' })
+            CourseController.getById(id).then(res => {
+                if (res) setData(res)
+            })
         }//getById
     }, [])
 
     return <div className="col preview-container" style={{ gap: '4rem' }}>
-        <div className="hero-header col" style={{ backgroundImage: 'url(https://s3-alpha-sig.figma.com/img/5e9e/7215/c4594de91c554c2467dc1f692b9c0649?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iQXTyBLcoXLDPVGmd9QCyNJxnNHLhq3n-Ikcbq~rflTaXs5E8tZX4i75fyiouVh0OY4Yt~eRh~gVV-6A~UAEdReZBRg4OKLEoN7t~oo7n~oPv-xScZ~PfyTbGbyV4kK420TLy9Jw3wYtMJnPROctNOC5MesvqyZAsFGsuAfY-DqHow7CsxlDqCNSf7hwD-OolZ6Tw1W-9ActAQr6eW5wcT~zcyfjnDWJHtBI1FxnZlwNCrgf5ppW~VTssMP~57SDsbil0T1ZdWJvDI6I68Yxu0RBp7AHxTNIj-KAmmI~ypFpeUaQHKPOIxNsahyp4R4GYAMACjAtnsYYC72Qch~rLA__)' }}>
-            <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
-                <Text className="heading-3">Thiết kế UI/UX dành cho người mới bắt đầu</Text>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <img src={demoAvatar} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-                    <Text className="label-2">Phan Minh Anh</Text>
-                    <div className="label-4">.</div>
-                    <div className="row tag-infor">Course</div>
-                </div>
-            </div>
-        </div>
-        <div className="row" >
-            <div className="details-block col">
-                <div className="col tab-container">
-                    <div className="tab-header-2 row">
-                        <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(0)}>Tổng quan</div>
-                        <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Nội dung khóa học</div>
-                        <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Đánh giá</div>
-                    </div>
-                    <div className="tab-body-2 col" style={{ flex: 1, width: '100%', height: '100%', overflow: 'hidden auto', padding: '1.2rem 3.2rem' }}>
-                        {renderTabView()}
+        {data ? <>
+            <div className="hero-header col" style={{ backgroundImage: 'url(https://s3-alpha-sig.figma.com/img/5e9e/7215/c4594de91c554c2467dc1f692b9c0649?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=d6tK6oiJl4eCUDyBPuYG~C3t07hmZ4EvkLaPuIl-y472PTR8dx5K-w~o9FK5U5uMKj0RVt2PFbfyygJup6F6Q9XWBCN39Rp8H5RT4p5nixS~VAWbqS0abQGsMH0Rhs87mEMkuuD-aaw~Ebody-q5vKzDnU3i~1HRdq9uBL9QKUKYT-e1zY95iws9ll50zhgGr0G~Exfa4l7MuVR7x6-U84LPOGYjXzIdxHsMXnXRjoJY9O8k6i-~e3uVBNOlhOtUmYTwz3T-C2Y0YVYKyPJ3~xG~NxnqG~4TvIf1nKSUVdbuVYAWot9bxoJekAp4~dQxaILiCIIlkfQI-8JIHV9WsQ__)' }}>
+                <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
+                    <Text className="heading-3">{data.name}</Text>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <img src={user.avatarUrl} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                        <Text className="label-2">{user.name ?? user.userName}</Text>
+                        <div className="label-4">.</div>
+                        <div className="row tag-infor">Course</div>
                     </div>
                 </div>
             </div>
-            <div className="more-infor-block col">
-                <div className="col" style={{ gap: '1.6rem' }}>
-                    <Text className="heading-4" style={{ '--max-line': 1 }}>235.000đ</Text>
-                    <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem' }}>
-                        <div className="button-text-3">Mua khóa học</div>
-                    </button>
-                </div>
-                <div className="row" style={{ gap: '1.6rem', padding: '1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--background)', border: 'var(--border-grey1)' }}>
-                    <div className="col" style={{ flex: 1, width: '100%', gap: '0.8rem' }}>
-                        <Text className="heading-7">Mua cùng khóa dạy kèm trực tuyến với chuyên gia.</Text>
-                        <div className="row" style={{ gap: '0.8rem' }}>
-                            <div className="tag-infor row button-text-3" >Course</div>
-                            <div className="body-3">+</div>
-                            <div className="tag-success row button-text-3" >Mentor</div>
+            <div className="row" >
+                <div className="details-block col">
+                    <div className="col tab-container">
+                        <div className="tab-header-2 row">
+                            <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(0)}>Tổng quan</div>
+                            <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Nội dung khóa học</div>
+                            <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Đánh giá</div>
                         </div>
-                        <div className="body-3">Tiết kiệm hơn 30%</div>
-                    </div>
-                    <div className="tag-infor row button-text-3 border">Chỉ từ 500.000đ</div>
-                </div>
-                <div className="col" style={{ gap: '1.6rem' }}>
-                    <img src={demoAvatar} alt="" style={{ width: '8rem', height: '8rem', borderRadius: '50%' }} />
-                    <div className="col" style={{ gap: '0.4rem' }}>
-                        <Text className="heading-7">Phan Minh Anh</Text>
-                        <div className="row" style={{ paddingBottom: '0.4rem', gap: '0.4rem' }}>
-                            <div className="subtitle-4">200 bài viết</div>
-                            <div className="subtitle-4">.</div>
-                            <div className="subtitle-4">12 khóa học</div>
-                            <div className="subtitle-4">.</div>
-                            <div className="subtitle-4">334 người theo dõi </div>
-                        </div>
-                        <Text className="body-3" style={{ '--max-line': 4 }}>
-                            Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.
-                        </Text>
-                    </div>
-                    <button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
-                        <div className="button-text-3">Theo dõi</div>
-                    </button>
-                </div>
-                <div className="col" style={{ margin: '1.2rem 0', width: '100%', height: 1, backgroundColor: 'var(--background)' }}></div>
-                <div className="col" style={{ gap: '3.2rem' }}>
-                    <div className="col" style={{ gap: '0.8rem' }}>
-                        <Text className="heading-7">Các khóa học khác từ chuyên gia</Text>
-                        <Text className="body-3">Tìm hiểu thêm các khóa học khác từ chuyên gia</Text>
-                        <div className="col">
-                            {Array.from({ length: 4 }).map((item, i) => <div key={'other-course-' + i} className="row" style={{ padding: '1.2rem 0', gap: '1.6rem' }}>
-                                <img src={mediaImg} alt="" style={{ width: '5.6rem', height: '5.6rem' }} />
-                                <Text className="heading-7" style={{ flex: 1, width: '100%' }}>Thiết kế UI/UX cho người mới bắt đầu</Text>
-                                <div className="row button-text-3 border tag-disabled">250.000đ</div>
-                            </div>)}
+                        <div className="tab-body-2 col" style={{ flex: 1, width: '100%', height: '100%', overflow: 'hidden auto', padding: '1.2rem 3.2rem' }}>
+                            {renderTabView()}
                         </div>
                     </div>
-                    <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem 15.6rem 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
-                        <Text className="heading-7" style={{ color: '#ffffff', }}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
-                        <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
+                </div>
+                <div className="more-infor-block col">
+                    <div className="col" style={{ gap: '1.6rem' }}>
+                        <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
+                        <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem' }}>
+                            <div className="button-text-3">Mua khóa học</div>
+                        </button>
                     </div>
-                    <div className="col" style={{ gap: '2rem' }}>
-                        <div className="heading-7">Danh mục liên quan</div>
-                        <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
-                            {['Programming', 'Data Science', 'Self Improvement', 'Writing', 'Relationships', 'Machine Learning', 'Productivity'].map((e, i) => <div key={'relate-tag-' + i} className="row button-text-3 tag-disabled">{e}</div>)}
+                    <div className="row" style={{ gap: '1.6rem', padding: '1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--background)', border: 'var(--border-grey1)' }}>
+                        <div className="col" style={{ flex: 1, width: '100%', gap: '0.8rem' }}>
+                            <Text className="heading-7">Mua cùng khóa dạy kèm trực tuyến với chuyên gia.</Text>
+                            <div className="row" style={{ gap: '0.8rem' }}>
+                                <div className="tag-infor row button-text-3" >Course</div>
+                                <div className="body-3">+</div>
+                                <div className="tag-success row button-text-3" >Mentor</div>
+                            </div>
+                            <div className="body-3">Tiết kiệm hơn 30%</div>
                         </div>
-                        <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm các chủ đề</Text>
+                        <div className="tag-infor row button-text-3 border">Chỉ từ 500.000đ</div>
+                    </div>
+                    <div className="col" style={{ gap: '1.6rem' }}>
+                        <img src={demoAvatar} alt="" style={{ width: '8rem', height: '8rem', borderRadius: '50%' }} />
+                        <div className="col" style={{ gap: '0.4rem' }}>
+                            <Text className="heading-7">Phan Minh Anh</Text>
+                            <div className="row" style={{ paddingBottom: '0.4rem', gap: '0.4rem' }}>
+                                <div className="subtitle-4">200 bài viết</div>
+                                <div className="subtitle-4">.</div>
+                                <div className="subtitle-4">12 khóa học</div>
+                                <div className="subtitle-4">.</div>
+                                <div className="subtitle-4">334 người theo dõi </div>
+                            </div>
+                            <Text className="body-3" style={{ '--max-line': 4 }}>
+                                Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.
+                            </Text>
+                        </div>
+                        <button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
+                            <div className="button-text-3">Theo dõi</div>
+                        </button>
+                    </div>
+                    <div className="col" style={{ margin: '1.2rem 0', width: '100%', height: 1, backgroundColor: 'var(--background)' }}></div>
+                    <div className="col" style={{ gap: '3.2rem' }}>
+                        <div className="col" style={{ gap: '0.8rem' }}>
+                            <Text className="heading-7">Các khóa học khác từ chuyên gia</Text>
+                            <Text className="body-3">Tìm hiểu thêm các khóa học khác từ chuyên gia</Text>
+                            <div className="col">
+                                {Array.from({ length: 4 }).map((item, i) => <div key={'other-course-' + i} className="row" style={{ padding: '1.2rem 0', gap: '1.6rem' }}>
+                                    <img src={mediaImg} alt="" style={{ width: '5.6rem', height: '5.6rem' }} />
+                                    <Text className="heading-7" style={{ flex: 1, width: '100%' }}>Thiết kế UI/UX cho người mới bắt đầu</Text>
+                                    <div className="row button-text-3 border tag-disabled">250.000đ</div>
+                                </div>)}
+                            </div>
+                        </div>
+                        <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem 15.6rem 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
+                            <Text className="heading-7" style={{ color: '#ffffff', }}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
+                            <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
+                        </div>
+                        <div className="col" style={{ gap: '2rem' }}>
+                            <div className="heading-7">Danh mục liên quan</div>
+                            <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
+                                {['Programming', 'Data Science', 'Self Improvement', 'Writing', 'Relationships', 'Machine Learning', 'Productivity'].map((e, i) => <div key={'relate-tag-' + i} className="row button-text-3 tag-disabled">{e}</div>)}
+                            </div>
+                            <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm các chủ đề</Text>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div></> : null}
     </div>
 }
 
@@ -147,22 +154,19 @@ const OverallTab = ({ data }) => {
         <div className="col" style={{ gap: '4rem', padding: '2rem 0' }}>
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="heading-5">Giới thiệu tổng quan</div>
-                <div className="body-2">
-                    AIGPE™ is the Official Authorized Training Partner (ATP) of the globally recognized Project Management Institute (PMI®) (Provider No. 5573). The PMI® Authorized Training Partner seal is a registered mark of the Project Management Institute, Inc. This Lean Six Sigma Yellow Belt Training Program and the Lean Six Sigma Yellow Belt Certification you receive is accredited by the globally renowned CPD Certification Service (Provider No: 14627, Certificate No: A029014-02). Plus, 8.0 official PDUs/CPDs/CEUs are available upon request by completing this Six Sigma Yellow Belt Certification Course.
-                    This Lean Six Sigma Yellow Belt Training and Certification Course provides you with a practical perspective on learning Six Sigma tools. This is one of the Best Six Sigma Certification programs available online that not only helps you understand Six Sigma principles, Six Sigma tools, and Six Sigma examples but also helps you do a realistic Lean Six Sigma Yellow Belt project in a step-by-step manner.
-                </div>
+                <div className="body-2">{data.description}</div>
             </div>
             <div className="col" style={{ padding: '2.4rem', gap: '1.6rem', border: 'var(--border-grey1)', borderRadius: '0.8rem' }}>
                 <div className="heading-5">Mục tiêu cuối khoá</div>
-                <div className="body-1">You will create a finished painting using watercolor and pen
-                    Which depicts a beautiful building
-                    Leaping off the page with light and shadow
-                    You will create a finished painting using watercolor and pen
-                    Which depicts a beautiful building</div>
+                <ul>
+                    {(data.targets ? JSON.parse(data.targets) : []).map(e => {
+                        return <li key={e.id} className="body-1" style={{marginLeft: '2.4rem'}}>{e.value}</li>
+                    })}
+                </ul>
             </div>
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="heading-5">Khóa học phù hợp với ai?</div>
-                <div className="body-2">This course is for watercolor artists, urban sketchers, professional illustrators, and anyone who would like to improve their architectural sketching and watercolor techniques.</div>
+                <div className="body-2">{data.suitable}</div>
             </div>
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="heading-5">Thời gian truy cập khóa học?</div>
@@ -170,10 +174,7 @@ const OverallTab = ({ data }) => {
             </div>
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="heading-5">Công cụ cần chuẩn bị?</div>
-                <div className="body-2">Sketchbook/ Notebook
-                    Pencils
-                    PC/Laptop
-                </div>
+                <div className="body-2">{data.tools}</div>
             </div>
             <div className="row" style={{ padding: '2.4rem', gap: '2.4rem', backgroundColor: '#F9FAFB', borderRadius: '0.8rem', alignItems: 'start' }}>
                 <img style={{ width: '10.4rem', height: '10.4rem', borderRadius: '50%' }} src={demoAvatar2} alt="" />

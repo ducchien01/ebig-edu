@@ -68,7 +68,7 @@ export default function CourseDetails() {
                 </div>
                 <div className='heading-6'>Thông tin chi tiết Course</div>
             </div>
-            <NavLink to={`/edu-management/school/course/school-mn-export-view/${id}`} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-grey'} row`} style={{ padding: '0.6rem 1.2rem' }}>
+            <NavLink to={`/edu-management/school/course/preview/${id}`} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-grey'} row`} style={{ padding: '0.6rem 1.2rem' }}>
                 <FilledSendMessage color={listView.filter(e => !e.parentId).every(e => e.valid) ? 'white' : undefined} />
                 <div className='button-text-3'>Xuất bản khóa học</div>
             </NavLink>

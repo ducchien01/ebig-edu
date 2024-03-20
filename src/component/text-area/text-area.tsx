@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import './text-area.css'
+import { UseFormRegister } from "react-hook-form";
 
 interface TextAreaProps {
     value?: string,
@@ -16,6 +17,7 @@ interface TextAreaProps {
     name?: string,
     helperTextColor?: string,
     style?: CSSProperties,
+    register?: UseFormRegister<{}>,
 }
 
 export class TextArea extends React.Component<TextAreaProps> {
@@ -24,19 +26,27 @@ export class TextArea extends React.Component<TextAreaProps> {
             className={`text-area-container row ${this.props.className ?? 'placeholder-2'} ${this.props.helperText?.length && 'helper-text'}`}
             style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
         >
-            <textarea
-                // autoComplete={autoComplete ? 'on' : 'new-password'}
-                maxLength={this.props.maxLength}
-                name={this.props.name}
-                defaultValue={this.props.defaultValue}
-                value={this.props.value}
-                placeholder={this.props.placeholder}
-                readOnly={this.props.readOnly}
-                disabled={this.props.disabled}
-                onChange={this.props.onChange}
-                onFocus={this.props.onFocus}
-                onBlur={this.props.onBlur}
-            />
+            {this.props.register ?
+                <textarea
+                    {...this.props.register}
+                    maxLength={this.props.maxLength}
+                    name={this.props.name}
+                    placeholder={this.props.placeholder}
+                    readOnly={this.props.readOnly}
+                    disabled={this.props.disabled}
+                    onFocus={this.props.onFocus}
+                /> : <textarea
+                    maxLength={this.props.maxLength}
+                    name={this.props.name}
+                    defaultValue={this.props.defaultValue}
+                    value={this.props.value}
+                    placeholder={this.props.placeholder}
+                    readOnly={this.props.readOnly}
+                    disabled={this.props.disabled}
+                    onChange={this.props.onChange}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
+                />}
         </div>
     }
 }

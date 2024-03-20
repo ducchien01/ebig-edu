@@ -13,7 +13,7 @@ import { CourseController } from "../controller"
 
 export default function ScheduleFee({ data, onChangeRequired }) {
     const ref = useRef()
-    const { control, formState: { errors }, watch, setValue, } = useForm({
+    const { control, formState: { errors }, watch, setValue, register} = useForm({
         shouldFocusError: false, defaultValues: {}
     })
     const [mentorList, setMentorList] = useState([])
@@ -35,6 +35,7 @@ export default function ScheduleFee({ data, onChangeRequired }) {
             if (data.price != null) {
                 setValue('price', Ultis.money(data.price))
             }
+            setValue('test', 'sdugfiugdsufig')
         }
     }, [data])
 
@@ -50,10 +51,9 @@ export default function ScheduleFee({ data, onChangeRequired }) {
         <div className="col fee-schedule-view" >
             <TextFieldForm
                 required
-                control={control}
+                register={register}
                 errors={errors}
                 name={'price'}
-                value={watch('price')}
                 label={'Học phí'}
                 placeholder={'Nhập giá'}
                 onFocus={(ev) => {
@@ -135,17 +135,15 @@ const PopupAddNewMentorPack = forwardRef(function PopupAddNewMentorPack(data, re
                     required
                     name={'name'}
                     label={'Tên gói mentor'}
-                    control={methods.control}
+                    register={methods.register}
                     errors={methods.errors}
-                    value={methods.watch('name')}
                     placeholder="Nhập tên gói mentor"
                 />
                 <TextFieldForm
                     required
-                    control={methods.control}
+                    register={methods.register}
                     errors={methods.errors}
                     name={'price'}
-                    value={methods.watch('price')}
                     label={'Phí mentor'}
                     placeholder={'Nhập mức phí'}
                     suffix={

@@ -15,9 +15,8 @@ const PopupAddNewClass = forwardRef(function PopupAddNewClass(data, ref) {
             <TextFieldForm
                 required={true}
                 name={'name'}
-                control={methods.control}
+                register={methods.register}
                 errors={methods.formState.errors}
-                value={methods.watch('name')}
                 helperText={'Vui lòng nhập tên lớp học mới'}
                 placeholder="Nhập tên cho lớp học của bạn"
             />

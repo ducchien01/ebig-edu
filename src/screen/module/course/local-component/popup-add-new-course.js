@@ -22,7 +22,7 @@ const PopupAddNewCourse = forwardRef(function PopupAddNewCourse(data, ref) {
         <div className="popup-body col" style={{ padding: '1.6rem 2.4rem' }}>
             <TextFieldForm
                 name={'name'}
-                control={methods.control}
+                register={methods.register}
                 value={methods.watch('name')}
                 placeholder="Nhập tên cho khóa học của bạn"
             />

@@ -11,7 +11,7 @@ import { studentLevelList } from "../../../../assets/const/const-list";
 import { CourseController } from "../controller";
 
 export default function Overview({ data, onChangeRequired }) {
-    const { control, formState: { errors }, watch, setValue, getValues } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }] } })
+    const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }], test: 'hjdsgfyds' } })
     const [listTopic, setListTopic] = useState([])
     const [listTag, setListTag] = useState([])
 
@@ -80,20 +80,18 @@ export default function Overview({ data, onChangeRequired }) {
                 />
                 <TextFieldForm
                     required
-                    control={control}
+                    register={register}
                     errors={errors}
                     label={'Tên khóa học'}
                     name={'name'}
-                    value={watch('name')}
                     onBlur={onChangeData}
                 />
                 <TextAreaForm
-                    control={control}
+                    register={register}
+                    name={'description'}
                     errors={errors}
                     label={'Giới thiệu tổng quan'}
                     placeholder={'Giới thiệu ngắn gọn về khóa học'}
-                    name={'description'}
-                    value={watch('description')}
                     onBlur={onChangeData}
                 />
                 <Select1Form
@@ -129,12 +127,11 @@ export default function Overview({ data, onChangeRequired }) {
                     onChange={onChangeData}
                 />
                 <TextAreaForm
-                    control={control}
+                    register={register}
+                    name={'suitable'}
                     errors={errors}
                     label={'Khóa học phù hợp với ai?'}
                     placeholder={'Mô tả chi tiết hơn về đối tượng khóa học nhắm đến'}
-                    name={'suitable'}
-                    value={watch('suitable')}
                     onBlur={onChangeData}
                 />
                 <div className="col" style={{ padding: '1.2rem 0', gap: '2rem' }}>
@@ -143,13 +140,11 @@ export default function Overview({ data, onChangeRequired }) {
                     <SwitchForm control={control} label={'Xem trước nội dung khóa học trước khi mua'} value={watch('isContent')} name={'isContent'} onChange={onChangeData} />
                 </div>
                 <TextFieldForm
-                    control={control}
+                    register={register}
                     errors={errors}
                     label={'Công cụ cần chuẩn bị'}
                     placeholder={'Học viên cần chuẩn bị gì trước khi bắt đầu khóa học?'}
                     name={'tools'}
-                    value={watch('tools')}
-                    onBlur={onChangeData}
                 />
                 <div className="col" style={{ gap: 4 }}>
                     <div className="row" style={{ gap: 4 }}>
@@ -161,7 +156,7 @@ export default function Overview({ data, onChangeRequired }) {
                 <div className="col" style={{ gap: '1.2rem' }}>
                     {watch('targets').map((e, i) => <div key={e.id} className="row" style={{ width: '100%', gap: '1.2rem' }}>
                         <div style={{ flex: 1, width: '100%' }}>
-                            <TextFieldForm placeholder={'Mục tiêu ' + (i + 1)} value={watch(`targets[${i}].value`) ?? ''} control={control} errors={errors} name={`targets[${i}].value`} onBlur={onChangeData} />
+                            <TextFieldForm placeholder={'Mục tiêu ' + (i + 1)} register={register} errors={errors} name={`targets[${i}].value`} onBlur={onChangeData} />
                         </div>
                         <button type="button" style={{ visibility: watch('targets').length > 1 ? 'visible' : 'hidden' }} onClick={() => {
                             let listTarget = getValues('targets')

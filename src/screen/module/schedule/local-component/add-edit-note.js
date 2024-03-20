@@ -12,7 +12,7 @@ const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
 
     return <form className="col" style={{ width: '52rem', flex: 1, maxHeight: '69rem' }}>
         <div className="popup-body col" style={{ overflow: 'hidden auto', padding: '1.6rem 2.4rem', rowGap: '2rem' }}>
-            <TextFieldForm label={'Tiêu đề lời nhắc'} required={true} control={methods.control} errors={methods.formState.errors} name={'name'} />
+            <TextFieldForm label={'Tiêu đề lời nhắc'} required={true} register={methods.register} errors={methods.formState.errors} name={'name'} />
             <Select1Form label={'Khóa học'} required={true} control={methods.control} errors={methods.formState.errors} name={'courseId'} />
             <Select1Form label={'Bài học'} control={methods.control} name={'lesson'} />
             <div className="col" style={{ gap: 8 }}>

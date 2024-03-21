@@ -1,5 +1,7 @@
 import CryptoJS from 'crypto-js';
 import { postData } from './baseDA';
+import ConfigAPI from '../config/configApi';
+import { ToastMessage } from '../component/export-component';
 const secretPass = "lkjhgndsa123!@#";
 
 export const encryptData = (text: string) => {
@@ -52,4 +54,14 @@ export const getListSimpleBase = async (url: string, params?: FilterListSimpleBo
         }
     })
     return response
+}
+
+export const getFilesByIds = async (listId: Array<string>) => {
+    let res = await postData(ConfigAPI.ebigUrl + 'SystemFileAuth/GetListByIds', { data: listId })
+    if(res.code === 200) {
+        return res.data
+    } else  {
+        ToastMessage.errors(res.message)
+    }
+    return null
 }

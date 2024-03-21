@@ -1,14 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './course.css'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ListCourse from './local-component/list-course'
 import { Popup, Text, showPopup } from '../../../component/export-component'
 import PopupAddNewCourse from './local-component/popup-add-new-course'
+import { CourseController } from './controller'
 
 export default function SchoolCourse() {
     const ref = useRef()
     const [activeFilterTab, setActiveFilterTab] = useState(0)
+    const [data, setData] = useState()
 
     const popupAddNewCourse = () => {
         showPopup({
@@ -17,6 +19,20 @@ export default function SchoolCourse() {
             content: <PopupAddNewCourse ref={ref} />,
         })
     }
+
+    const getData = (status) => {
+        status ??= activeFilterTab
+        if (status > 0) {
+            var filter = [{ key: 'status', value: status }]
+        }
+        CourseController.getListSimple({ take: 10, page: 1, filter: filter }).then(res => {
+            if (res) setData(res)
+        })
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     return <div className='col school-course view-container'>
         <Popup ref={ref} />
@@ -30,12 +46,21 @@ export default function SchoolCourse() {
             </div>
             <div className="col tab-container">
                 <div className="tab-header-2 row">
-                    <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(0)}>Tất cả (06)</div>
-                    <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Đã xuất bản (02)</div>
-                    <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Bản nháp (04)</div>
+                    <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => {
+                        setActiveFilterTab(0)
+                        getData(0)
+                    }}>Tất cả</div>
+                    <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => {
+                        setActiveFilterTab(1)
+                        getData(1)
+                    }}>Đã xuất bản</div>
+                    <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => {
+                        setActiveFilterTab(2)
+                        getData(2)
+                    }}>Bản nháp</div>
                 </div>
                 <div className="tab-body-2 row">
-                    <ListCourse status={activeFilterTab}/>
+                    <ListCourse data={data} />
                 </div>
             </div>
         </div>

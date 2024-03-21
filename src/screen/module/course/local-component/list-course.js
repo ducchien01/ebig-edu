@@ -7,9 +7,9 @@ import { FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, Fi
 import { CourseController } from "../controller"
 import { Ultis } from "../../../../Utils"
 import { CourseStatus } from "../da"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
-export default function ListCourse({ status }) {
+export default function ListCourse({ data }) {
     const ref = useRef()
     const navigate = useNavigate()
     const [list, setList] = useState([])
@@ -63,10 +63,8 @@ export default function ListCourse({ status }) {
     }
 
     useEffect(() => {
-        CourseController.getListSimple({ take: 10, page: 1 }).then(res => {
-            if (res) setList(res)
-        })
-    }, [status])
+        if(data) setList(data)
+    }, [data])
 
     return <div className="row list-card-course-infor">
         <Popup ref={ref} />
@@ -81,24 +79,26 @@ export default function ListCourse({ status }) {
                         </div>
                         {statusTag(item.status)}
                     </div>
-                    <button type="button" className="row" onClick={(ev) => { showPopupListAction(ev, item) }}><FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99', pointerEvents: 'none' }} /></button>
+                    <button type="button" className="row" onClick={(ev) => { showPopupListAction(ev, item) }}>
+                        <FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99', pointerEvents: 'none' }} />
+                    </button>
                 </div>
             </div>
             <div className="row bottom">
                 <div className="row" style={{ gap: '2.4rem' }}>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <FilledPeople />
-                        <Text className="button-text-3" style={{ color: '#00204D99' }} >32 học viên</Text>
+                        <Text className="button-text-3" style={{ color: '#00204D99' }} >{item.quantity ?? 0} học viên</Text>
                     </div>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <FilledCoins />
                         <Text className="button-text-3" style={{ color: '#00204D99' }} >Doanh thu 2.000.000</Text>
                     </div>
                 </div>
-                <button type="button" className="row" style={{ gap: '0.8rem' }}>
+                <NavLink to={`/edu-management/school/course/preview/${item.id}`} className="row" style={{ gap: '0.8rem' }}>
                     <FontAwesomeIcon icon={faEye} style={{ color: 'var(--primary-color)', fontSize: '1.4rem' }} />
                     <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem trước</Text>
-                </button>
+                </NavLink>
             </div>
         </div>)}
     </div>

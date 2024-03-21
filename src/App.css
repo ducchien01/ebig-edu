@@ -653,20 +653,22 @@ body * {
 }
 
 body * {
-    border: none;
     background-color: transparent;
     outline: none;
     padding: 0;
     scrollbar-width: thin;
 }
 
-button {
+button,
+input,
+a {
+    text-decoration: none;
     outline: none;
     padding: 0;
     border: none;
-    cursor: pointer;
 }
 
+button,
 button * {
     cursor: pointer;
 }

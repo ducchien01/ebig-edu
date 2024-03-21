@@ -151,7 +151,7 @@ export function RadioButtonForm({ value, label, defaultChecked, control, name, d
     />
 }
 
-export function ImportFileForm({ name, label, control, maxSize, allowType, status, value, onChange, subTitle, width, required = false, direction = 'row' }) {
+export function ImportFileForm({ name, label, control, maxSize, allowType, status, value, onChange, subTitle, width, required = false, direction = 'row', multiple = false }) {
     return <Controller
         name={name}
         control={control}

@@ -1,3 +1,5 @@
+import { ToastMessage } from "../component/export-component"
+import ConfigAPI from "../config/configApi"
 import { BaseDA, ObjWithKnownKeys } from "../da/baseDA"
 import { AccountController } from "./module/account/controller"
 
@@ -38,31 +40,32 @@ export const getData = async (url: string, { headers }: { headers?: ObjWithKnown
     return response
 }
 
-// export const uploadFile = async ({ listFile, docId }) => {
-//     listFile = [...listFile];
-//     const now = new Date();
-//     let headersObj: any = await headers();
-//     headersObj.folder = UserService.user().id;
-//     headersObj.collectionId = docId;
-//     headersObj.code = ProjectDA.obj.Code;
-//     headersObj.datee = `${now.getFullYear()}${now.getMonth()}${now.getDate()}`; // datee chư sko phải date
-//     let listFileResult = [];
-//     for (let i = 0; i < Math.ceil(listFile.length / 5); i++) {
-//         const formData = new FormData();
-//         let endIndex = i * 5 + 5;
-//         if (listFile.length < endIndex) {
-//             endIndex = listFile.length;
-//         }
-//         let sliceList = listFile.slice(i * 5, endIndex);
-//         for (let j = 0; j < sliceList.length; j++) {
-//             formData.append("files", sliceList[j]);
-//         }
-//         let result = await BaseDA.postFile(ConfigApi.socketWiniFile + '/uploadfile', {
-//             headers: headers,
-//             formData: formData,
-//         })
-//         listFileResult.push(...result);
-//     }
-//     return listFileResult;
-// }
-
+export const uploadFiles = async (listFile: Array<File>) => {
+    listFile = [...listFile];
+    const headersObj: any = await getHeaders()
+    let listFileResult = [];
+    const formData = new FormData();
+    // for (let i = 0; i < Math.ceil(listFile.length / 5); i++) {
+    //     let endIndex = i * 5 + 5;
+    //     if (listFile.length < endIndex) {
+    //         endIndex = listFile.length;
+    //     }
+    //     let sliceList = listFile.slice(i * 5, endIndex);
+    //     for (let j = 0; j < sliceList.length; j++) {
+    listFile.forEach(e => {
+        formData.append("files", e);
+    })
+    //     }
+    const response = await BaseDA.postFile(ConfigAPI.ebigUrl + 'UploadFileAuth/MulFile', {
+        headers: headersObj,
+        body: formData,
+    })
+    if (response.code === 200) {
+        return response.data
+    } else {
+        ToastMessage.errors(response.message)
+    }
+    // listFileResult.push(...result);
+    // }
+    return null;
+}

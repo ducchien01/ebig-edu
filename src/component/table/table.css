@@ -1,14 +1,14 @@
 .custom-table {
     border: none;
     min-width: 100%;
-    /* border-collapse: collapse; */
+    border-collapse: collapse;
 }
 
 .custom-table>.tb-header {
     top: 0;
     z-index: 4;
     position: sticky;
-    background-color: #f9fafb !important;
+    background-color: #f9fafb;
 }
 
 .custom-table>.tb-header>tr {

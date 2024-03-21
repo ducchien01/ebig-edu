@@ -14,7 +14,7 @@ export const menuList = [
         id: 3,
         parentId: 1,
         name: 'Cart Management',
-        link: 'cart-management',
+        link: 'product-management',
         icon: <OutlineShoppingBag width='2.4rem' height='2.4rem' />,
         selectedIcon: <FilledShoppingBag width='2.4rem' height='2.4rem' />,
     },
@@ -233,31 +233,21 @@ export const editorConfiguration = {
             return new MyUploadAdapter(loader);
         };
     }],
-
     toolbar: {
         items: [
             'undo', 'redo',
             '|', 'imageUpload',
             '|', 'heading',
-            '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', 'wordBreak',
-            '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+            '|', 'bold', 'italic',
             '|', 'link', 'blockQuote', 'codeBlock',
-            '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
             '|', 'ckbox'
         ],
         shouldNotGroupWhenFull: false
-    },
-    fontSize: {
-        options: [10, 12, 14, 'default', 18, 20, 22],
-        supportAllValues: false
     },
     ckbox: {
         tokenUrl: "https://file-mamager.wini.vn/",
         serviceOrigin: "https://file-mamager.wini.vn/"
     },
-    // simpleUpload: {
-    //   uploadUrl: '/upload-endpoint', // Replace with your server upload endpoint
-    // },
 };
 
 export const listCommonInfor = [

@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { AccountController } from '../account/controller';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
-export default function EduDashboard({ type = 0 }) {
+export default function EduDashboard({ type = 1 }) {
     const checkType = AccountController.token() ? type : 0
 
     return <div className="edu-dashboard col">
@@ -22,10 +22,10 @@ export default function EduDashboard({ type = 0 }) {
                 <div className="body-3">Learn from expert professionals and join <br /> the largest online community for creatives.</div>
             </div>
             {checkType ? <div className='row' style={{ columnGap: 8 }}>
-                <button className="banner-btn button-text-3">Lịch dạy</button>
-                <button className="banner-btn-2 button-text-3">Quản lý khóa học</button>
+                <NavLink to={'/edu-management/schedule'} className="button-primary row"><div className='button-text-3'>Lịch dạy</div></NavLink>
+                <NavLink to={'/edu-management/school/course'} className="button-infor row border"><div className='button-text-3'>Quản lý khóa học</div></NavLink>
             </div> :
-                <button className="banner-btn button-text-3">Xác thực hồ sơ giáo viên</button>
+                <button className="button-primary row"><div className='button-text-3'>Xác thực hồ sơ giáo viên</div></button>
             }
         </div>
         <div className='dashboard-content col' >

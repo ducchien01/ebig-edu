@@ -8,6 +8,7 @@ import CourseDetails from '../screen/module/course/local-component/details'
 import Preview from "../screen/module/school-mn-export-view/preview";
 import EduStudent from "../screen/module/student/student";
 import ProfileView from "../screen/module/customer/profile-view";
+import ProductView from "../screen/module/product/product";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -31,6 +32,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <EduStudent />;
         case "user/profile":
             return <ProfileView />;
+        case "product-management":
+            return <ProductView />;
         default:
             break;
     }

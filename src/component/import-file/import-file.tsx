@@ -111,7 +111,7 @@ export class ImportFile extends React.Component<ImportFileProps, ImportFileState
                 ? null
                 : [
                     <div key={'import-file-prefix'} className='import-file-prefix row'>
-                        {this.state.preview ? this.state.preview.type.includes('image') ? <img src={this.state.preview instanceof File ? URL.createObjectURL(this.state.preview) : this.state.preview.url} /> : fileSvg : cloudSvg}
+                        {this.state.preview ? this.state.preview.type?.includes('image') ? <img src={this.state.preview instanceof File ? URL.createObjectURL(this.state.preview) : this.state.preview.url} /> : fileSvg : cloudSvg}
                     </div>,
                     <div key={'file-preview-content'} className='file-preview-content col' >
                         <Text className='title-file heading-8' style={{ maxWidth: '100%' }}>

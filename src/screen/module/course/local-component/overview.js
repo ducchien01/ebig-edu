@@ -9,6 +9,9 @@ import { TopicController } from "../../topic/controller";
 import { TagController } from "../../tag/controller";
 import { studentLevelList } from "../../../../assets/const/const-list";
 import { CourseController } from "../controller";
+import { getFilesByIds } from "../../../base-controller";
+import ConfigAPI from "../../../../config/configApi";
+import { uploadFiles } from "../../../baseDA";
 
 export default function Overview({ data, onChangeRequired }) {
     const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }], test: 'hjdsgfyds' } })
@@ -36,21 +39,31 @@ export default function Overview({ data, onChangeRequired }) {
             TagController.getAll().then(res => {
                 if (res) setListTag(res)
             })
+            let listFile = []
             Object.keys(data).forEach(props => {
                 if (data[props] != null) {
                     if (props === 'targets') {
                         let targetList = JSON.parse(data[props])
                         if (targetList.length)
                             setValue(props, targetList)
-                    } else if (props === 'pictureId') {
-                        setValue('pictureFile', {})
-                    } else if (props === 'thumbnailId') {
-                        setValue('thumbnailFile', {})
+                    } else if (['pictureId', 'thumbnailId'].includes(props)) {
+                        listFile.push({ key: props, id: data[props] })
                     } else {
                         setValue(props, data[props])
                     }
                 }
             })
+            if (listFile.length) {
+                getFilesByIds(listFile.map(e => e.id)).then(res => {
+                    if (res) {
+                        res.forEach(fileItem => {
+                            const props = listFile.find(e => e.id === fileItem.id)
+                            if (props)
+                                setValue(props.key, { name: fileItem.name, url: ConfigAPI.ebigUrl + fileItem.url, size: fileItem.size, type: 'image' })
+                        })
+                    }
+                })
+            }
         }
     }, [data])
 
@@ -66,6 +79,14 @@ export default function Overview({ data, onChangeRequired }) {
                     allowType={['image/jpg', 'image/png', 'image/jpeg']}
                     subTitle={'1840x380 pixels (PNG, JPG)'}
                     width={'100%'}
+                    onChange={(newFile) => {
+                        uploadFiles([newFile]).then(res => {
+                            if (res) {
+                                setValue('pictureId', res[0].id)
+                                setValue('pictureFile', { name: newFile.name, url: ConfigAPI.ebigUrl + res[0].url, size: newFile.size, type: 'image' })
+                            }
+                        })
+                    }}
                 />
                 <ImportFileForm
                     required
@@ -77,6 +98,14 @@ export default function Overview({ data, onChangeRequired }) {
                     subTitle={'3840 x 2160 hoặc 1920 x 1080 pixels (PNG, JPG)'}
                     width={'100%'}
                     direction="col"
+                    onChange={(newFile) => {
+                        uploadFiles([newFile]).then(res => {
+                            if (res) {
+                                setValue('thumbnailId', res[0].id)
+                                setValue('thumbnailFile', { name: newFile.name, url: ConfigAPI.ebigUrl + res[0].url, size: newFile.size, type: 'image' })
+                            }
+                        })
+                    }}
                 />
                 <TextFieldForm
                     required

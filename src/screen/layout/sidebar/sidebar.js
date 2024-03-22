@@ -5,16 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './sidebar.css'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
-import { menuList, supportModule } from '../../../assets/const/const-list';
+import { supportModule } from '../../../assets/const/const-list';
 import { AccountController } from '../../module/account/controller';
-import PopupLogin from '../../module/account/popup-login';
-import { ComponentStatus, Dialog, DialogAlignment, Popup, showDialog, showPopup } from '../../../component/export-component';
-export default function SideBar() {
-    const ref = useRef()
+import { ComponentStatus, Dialog, DialogAlignment, Popup, showDialog } from '../../../component/export-component';
+export default function SideBar({ menu }) {
     const dialogRef = useRef()
     const navigate = useNavigate()
     const location = useLocation()
-    const [moduleList, setModuleList] = useState(menuList)
+    const [moduleList, setModuleList] = useState(menu)
     const [selected, setSelected] = useState([])
 
     const moduleTile = (item) => {
@@ -23,7 +21,7 @@ export default function SideBar() {
         return <div key={`module-tile-${item.id}`} className='col'>
             <NavLink className={`sidebar-module-tile row ${location.pathname.includes(item.link) && !children.length ? 'selected' : ''}`}
                 style={{ paddingLeft: 16 * (item.listId?.length ?? 1) }}
-                to={children.length ? null : item.link}
+                to={children.length ? null : item.path}
                 onClick={children.length ? () => {
                     setModuleList(moduleList.map(e => {
                         return {
@@ -64,28 +62,14 @@ export default function SideBar() {
     }
 
     useEffect(() => {
-        if (AccountController.token()) {
-            const pathFragment = location.pathname.split("/")
-            const newSelectedList = menuList.filter(e => {
-                if (e.parentId === 1) e.isExpand ??= true
-                return pathFragment.some(p => e.link.split('/').some(m => m === p));
-            })
-            setSelected(newSelectedList)
-        } else {
-            if (location.pathname !== '/edu-management/dashboard') {
-                navigate('/edu-management/dashboard')
-            } else {
-                showPopup({
-                    ref: ref,
-                    hideButtonClose: true,
-                    content: <PopupLogin ref={ref} />
-                })
-            }
-        }
+        const newSelectedList = menu.filter(e => {
+            if (e.parentId === 1) e.isExpand ??= true
+            return location.pathname.startsWith('/' + e.link);
+        })
+        setSelected(newSelectedList)
     }, [location.pathname])
 
     return <div className="row sidebar" expand={`${selected.find(e => e.parentId === 1)?.isExpand}`} >
-        <Popup ref={ref} />
         <Dialog ref={dialogRef} />
         <div className="col collapse" >
             <div className='col' >

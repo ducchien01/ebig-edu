@@ -1,3 +1,25 @@
+.icon-button24 {
+    width: 2.4rem;
+    height: 2.4rem;
+    justify-content: center;
+}
+
+.icon-button24>* {
+    font-size: 1.4rem;
+    color: #00204D99;
+}
+
+.icon-button16 {
+    width: 1.6rem;
+    height: 1.6rem;
+    justify-content: center;
+}
+
+.icon-button16>* {
+    font-size: 1.2rem;
+    color: #00204D99;
+}
+
 .button-grey {
     padding: 0.6rem 1.2rem;
     background-color: var(--background);
@@ -172,6 +194,4 @@
     border-radius: 0.4rem
 }
 
-.picker-hm-container {
-
-}
+.picker-hm-container {}

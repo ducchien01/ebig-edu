@@ -1,12 +1,12 @@
 .main-layout>.header {
-    padding: 0 3.2rem;
-    height: 5.6rem;
+    padding: 2rem 3.2rem;
     width: 100%;
-    background-color: #394960;
+    /* background-color: #394960; */
+    border-bottom: var(--border-grey1);
 }
 
 .main-layout>.header>.logo {
-    background-image: url("../../../assets/Logo.svg");
+    background-image: url("../../../assets/eBig-logo.svg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -18,19 +18,20 @@
     flex: 1;
     width: 100%;
     justify-content: end;
-    column-gap: 1.6rem;
+    gap: 1.6rem;
 }
 
 .main-layout>.header>.action {
     flex: 1;
     width: 100%;
+    gap: 2.4rem;
     justify-content: end;
 }
 
 .main-layout>.header>.action>.search-ebig {
     padding: 0.6rem 1.2rem;
     border-radius: 10rem;
-    column-gap: 1.2rem;
+    gap: 1.2rem;
     background-color: #F2F5F8;
     box-sizing: border-box;
     max-width: 33.4rem;

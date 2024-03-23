@@ -40,15 +40,15 @@ export default function SideBar({ menu }) {
 
     const expandBody = () => {
         const topicModule = selected.find(e => e.parentId === 1)
-        return [
-            <div key={'topic-module-name'} className='title heading-6'>{topicModule?.name}</div>,
-            <div key={'module-menu'} className='module-menu col'>
+        return <>
+            <div className='title heading-6'>{topicModule?.name}</div>
+            <div className='module-menu col'>
                 {moduleList.filter(e => e.parentId === topicModule?.id).map(item => moduleTile(item))}
-            </div>,
-            <div key={'support-action'} className='support-action row'>
+            </div>
+            <div className='support-action row'>
                 {supportModule.map((e, i) => <div key={`support-module-${i}`} className='button-text-6'>{e.name}</div>)}
             </div>
-        ]
+        </>
     }
 
     const dialogLogout = () => {
@@ -87,9 +87,9 @@ export default function SideBar({ menu }) {
                                     return e.parentId === item.id || e.listId?.includes(item.id);
                                 }))
                             } else if (children.length) {
-                                navigate(children[0].link)
+                                navigate(children[0].path)
                             } else {
-                                navigate(item.link)
+                                navigate(item.path)
                             }
                         }}
                     >

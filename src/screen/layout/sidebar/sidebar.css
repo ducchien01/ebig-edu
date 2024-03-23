@@ -101,7 +101,7 @@
     display: flex !important;
 }
 
-.sidebar>.expand>.support-action {
+.support-action {
     flex-wrap: wrap;
     gap: 1.6rem;
 }

@@ -74,6 +74,12 @@
     flex: 0 calc((100% * 16 / 24) - var(--gutter) * 2 / 3) !important;
 }
 
+.row>.col16 {
+    width: auto !important;
+    min-width: auto !important;
+    flex: 0 calc((100% * 18 / 24) - var(--gutter) * 3 / 4) !important;
+}
+
 .row>.col20 {
     width: auto !important;
     min-width: auto !important;

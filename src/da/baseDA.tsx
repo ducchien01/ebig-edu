@@ -1,3 +1,7 @@
+import { Ultis } from "../Utils";
+import { ToastMessage } from "../component/export-component";
+import { AccountController } from "../screen/module/account/controller";
+
 export interface ObjWithKnownKeys {
     [k: string]: any;
 }
@@ -13,6 +17,9 @@ export class BaseDA {
             if (response.status === 200) {
                 const jsonData = await response.json()
                 return jsonData
+            } else if (response.status === 401) {
+                ToastMessage.errors('Không có quyền truy cập')
+                setTimeout(AccountController.logout, 1000)
             } else {
                 const txt = await response.text()
                 console.error("Failed to POST data:", txt);
@@ -36,6 +43,9 @@ export class BaseDA {
             if (response.status === 200) {
                 const jsonData = await response.json()
                 return jsonData
+            } else if (response.status === 401) {
+                ToastMessage.errors('Không có quyền truy cập')
+                setTimeout(AccountController.logout, 1000)
             } else {
                 const txt = await response.text()
                 console.error("Failed to POST data:", txt);
@@ -55,6 +65,9 @@ export class BaseDA {
             if (response.status === 200) {
                 const jsonData = await response.json()
                 return jsonData
+            } else if (response.status === 401) {
+                ToastMessage.errors('Không có quyền truy cập')
+                setTimeout(AccountController.logout, 1000)
             } else {
                 const txt = await response.text()
                 console.error("Failed to POST data:", txt);

@@ -17,19 +17,22 @@ export default function HeaderView() {
         <Popup ref={ref} />
         <div className="logo"></div>
         <div className="action row">
-            {search ?
-                <TextField
-                    style={{ height: '4rem' }}
-                    className='search-ebig placeholder-2'
-                    placeholder='Tìm kiếm trên eBig'
-                    prefix={<OutlineSearch />}
-                    suffix={<button type='button' className='row icon-button24'><FontAwesomeIcon icon={faXmark} /></button>}
-                /> :
-                <button type='button' className='row icon-button24'><FontAwesomeIcon icon={faSearch} /></button>
-            }
-            <button type='button' className='row icon-button24'><OutlineShoppingCart width='2rem' height='2rem' /></button>
+
             {isLogin ?
-                <button type='button' className='user-infor' style={{ backgroundImage: `url(${CustomerController.userInfor()?.avatarUrl})` }}></button> :
+                <>
+                    {search ?
+                        <TextField
+                            style={{ height: '4rem' }}
+                            className='search-ebig placeholder-2'
+                            placeholder='Tìm kiếm trên eBig'
+                            prefix={<OutlineSearch />}
+                            suffix={<button type='button' className='row icon-button24'><FontAwesomeIcon icon={faXmark} /></button>}
+                        /> :
+                        <button type='button' className='row icon-button24'><FontAwesomeIcon icon={faSearch} /></button>
+                    }
+                    <button type='button' className='row icon-button24'><OutlineShoppingCart width='2.4rem' height='2.4rem' /></button>
+                    <button type='button' className='user-infor' style={{ backgroundImage: `url(${CustomerController.userInfor()?.avatarUrl})` }}></button>
+                </> :
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <button type='button' onClick={() => {
                         showPopup({

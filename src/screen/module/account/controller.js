@@ -29,7 +29,7 @@ export class AccountController {
         } else if (response.code === 404) {
             ToastMessage.errors('Phiên đăng nhập của bạn đã hết hạn')
             Ultis.clearStorage()
-            window.location.href = '/'
+            window.location.href = '/' + window.location.pathname.split('/')[1]
         } else {
             ToastMessage.errors(response.message)
         }
@@ -49,15 +49,15 @@ export class AccountController {
                 setToken(res.data.token)
                 setRefreshToken(res.data.refreshToken)
                 await CustomerController.getInfor()
-                window.location.href = '/'
+                window.location.href = '/' + window.location.pathname.split('/')[1]
             } else {
                 ToastMessage.errors(res.message)
             }
         }
     }
-    
+
     static logout = () => {
         Ultis.clearStorage()
-        window.location.href = '/'
+        window.location.href = '/' + window.location.pathname.split('/')[1]
     }
 }

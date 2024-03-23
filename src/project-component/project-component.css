@@ -1,3 +1,14 @@
+.icon-button32 {
+    width: 3.2rem;
+    height: 3.2rem;
+    justify-content: center;
+}
+
+.icon-button32>* {
+    font-size: 2rem;
+    color: #00204D99;
+}
+
 .icon-button24 {
     width: 2.4rem;
     height: 2.4rem;

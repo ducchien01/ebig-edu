@@ -43,19 +43,10 @@ export const getData = async (url: string, { headers }: { headers?: ObjWithKnown
 export const uploadFiles = async (listFile: Array<File>) => {
     listFile = [...listFile];
     const headersObj: any = await getHeaders()
-    let listFileResult = [];
     const formData = new FormData();
-    // for (let i = 0; i < Math.ceil(listFile.length / 5); i++) {
-    //     let endIndex = i * 5 + 5;
-    //     if (listFile.length < endIndex) {
-    //         endIndex = listFile.length;
-    //     }
-    //     let sliceList = listFile.slice(i * 5, endIndex);
-    //     for (let j = 0; j < sliceList.length; j++) {
     listFile.forEach(e => {
         formData.append("files", e);
     })
-    //     }
     const response = await BaseDA.postFile(ConfigAPI.ebigUrl + 'UploadFileAuth/MulFile', {
         headers: headersObj,
         body: formData,
@@ -65,7 +56,5 @@ export const uploadFiles = async (listFile: Array<File>) => {
     } else {
         ToastMessage.errors(response.message)
     }
-    // listFileResult.push(...result);
-    // }
     return null;
 }

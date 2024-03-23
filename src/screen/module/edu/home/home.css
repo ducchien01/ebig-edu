@@ -1,0 +1,54 @@
+.school-class {
+    width: 100%;
+    height: max-content;
+    padding: 2.4rem 3.2rem;
+}
+
+.list-card-class-infor {
+    gap: 2.4rem;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1;
+    align-items: stretch;
+}
+
+.list-card-class-infor>.card-class-infor {
+    --gutter: 2.4rem;
+    row-gap: 2rem;
+    padding: 2rem;
+    border-radius: 0.8rem;
+    border: var(--border-grey1);
+}
+
+.list-card-class-infor>.card-class-infor>.top {
+    column-gap: 2.4rem;
+    align-items: start;
+}
+
+.card-class-infor>.top>.demo-img {
+    overflow: hidden;
+    border-radius: 0.8rem;
+    width: 20.6rem;
+    height: 12.2rem;
+}
+
+.card-class-infor>.top>.row {
+    column-gap: 1.6rem;
+    align-items: start;
+    width: 100%;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.card-class-infor>.top .button-text-3 {
+    padding: 0.4rem 0.8rem;
+    width: fit-content;
+    border-radius: 10rem;
+}
+
+.list-card-class-infor>.card-class-infor>.bottom {
+    column-gap: 1.2rem;
+    padding-top: 1.6rem;
+    border-top: var(--border-grey1);
+    justify-content: space-between;
+}

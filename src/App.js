@@ -19,8 +19,7 @@ function App() {
                     <Route path="/social/*" element={<MainLayout menu={socialModules} />} />
                     <Route path="/ecomerce/*" element={<MainLayout menu={[]} />} />
                     <Route path="/edu/*" element={<MainLayout menu={eduModules} />} />
-                    <Route path="/edu" element={<Navigate to={"/edu/home/dashboard"} replace />} />
-                    <Route path="/edu/home" element={<Navigate to={"/edu/home/dashboard"} replace />} />
+                    <Route path="/edu" element={<Navigate to={"/edu/home"} replace />} />
                     <Route path="/ecomerce" element={<Navigate to={"/ecomerce/home"} replace />} />
                     <Route path="/social" element={<Navigate to={"/social/home"} replace />} />
                     <Route path="/" element={<Navigate to={"/social/home"} replace />} />

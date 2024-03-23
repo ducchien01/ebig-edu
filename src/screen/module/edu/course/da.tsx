@@ -1,13 +1,6 @@
 import { CourseLessonItem } from "../lesson/da"
 import { TagItem } from "../../tag/da"
-
-export interface CourseCateItem {
-    id?: string,
-    name?: string,
-    dateCreated?: number,
-    cateId?: string,
-    courseId?: string
-}
+import { CateItem } from "../../category/da"
 
 export enum CourseStatus {
     draft = 0,
@@ -36,7 +29,7 @@ export interface CourseItem {
     thumbnailId?: string, // BE đang thiếu
     quantity?: number, // BE đang thiếu
     income?: number, // BE đang thiếu
-    courseCates?: Array<CourseCateItem>,
+    courseCates?: Array<CateItem>,
     courseTags?: Array<TagItem>
     courseLessons?: Array<CourseLessonItem>,
 }

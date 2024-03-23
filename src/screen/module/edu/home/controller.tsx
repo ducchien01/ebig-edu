@@ -2,15 +2,14 @@ import { ToastMessage } from "../../../../component/export-component"
 import ConfigAPI from "../../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"
-import { AccountController } from "../../account/controller"
-import { CourseItem } from "./da"
+import { ClassItem } from "./da"
 
-export class CourseController {
+export class ClassController {
     static getAll = async () => {
-        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'CourseAuth' : 'Course') + '/GetAll')
+        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/GetAll')
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<CourseItem>
+                return response.data as Array<ClassItem>
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -19,10 +18,10 @@ export class CourseController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
-        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'CourseAuth/GetListSimpleByRequestBase', params)
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ClassAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<CourseItem>
+                return response.data as Array<ClassItem>
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -31,10 +30,10 @@ export class CourseController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'CourseAuth' : 'Course') + `/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + `ClassAuth/GetById?Id=${id}`)
         if (response) {
             if (response.code === 200) {
-                return response.data as CourseItem
+                return response.data as ClassItem
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -42,9 +41,9 @@ export class CourseController {
         return null
     }
 
-    static add = async (courseItem: CourseItem) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'CourseAuth/Action?action=add', {
-            data: { data: courseItem }
+    static add = async (classItem: ClassItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=add', {
+            data: { data: classItem }
         })
         if (response) {
             if (response.code === 200) {
@@ -56,16 +55,16 @@ export class CourseController {
         return null
     }
 
-    static edit = async (courseItem: CourseItem) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'CourseAuth/Action?action=edit', {
+    static edit = async (classItem: ClassItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=edit', {
             data: {
-                id: courseItem.id,
-                data: courseItem
+                id: classItem.id,
+                data: classItem
             }
         })
         if (response) {
             if (response.code === 200) {
-                return response.data as CourseItem
+                return response.data as ClassItem
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -74,7 +73,7 @@ export class CourseController {
     }
 
     static delete = async (listCourseId: Array<string>) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'CourseAuth/Action?action=delete', {
+        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=delete', {
             data: { ids: listCourseId }
         })
         if (response) {

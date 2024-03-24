@@ -1,22 +1,22 @@
-import { FilledSEdit, FilledTrendUp, OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
+import { FilledSEdit, FilledTrendUp } from "../../../../assets/const/icon"
 import { Text, TextField } from "../../../../component/export-component"
 import { AccountController } from "../../account/controller"
 import avatarDemo from '../../../../assets/demo-avatar.png'
-import thumbnailDemo from '../../../../assets/demo-image3.png'
 import { NavLink } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
+import { faChevronRight, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { useEffect, useState } from "react"
 import './home.css'
 import { supportModule } from "../../../../assets/const/const-list"
+import ListNews from "./local-component/list-news"
 
 export default function SocialHome() {
     const isLogin = AccountController.token()
 
-    return isLogin ? <NewAuthView /> : <NewView />
+    return isLogin ? <NewsAuthView /> : <NewsView />
 }
 
-const NewView = () => {
+const NewsView = () => {
     return <div className="col" style={{ gap: '2.4rem', flex: 1 }}>
         <div className="row" style={{ width: '100%', backgroundColor: 'var(--background)', justifyContent: 'center' }}>
             <div className="col col18 col20-md col24-sm" style={{ width: '72%', gap: '2.4rem', padding: '3.2rem', '--gutter': '0px' }}>
@@ -47,41 +47,7 @@ const NewView = () => {
                 <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
                     <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
                         <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
-                            {Array.from({ length: 6 }).map((item, i) => {
-                                return <div key={'new-' + i} className="row" style={{ gap: '4.8rem' }}>
-                                    <div className="col" style={{ gap: '2.4rem', flex: 1, width: '100%' }}>
-                                        <div className="col" style={{ gap: '0.4rem ' }}>
-                                            <div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
-                                                <img src={avatarDemo} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
-                                                <div className="label-3">Phan Minh Anh</div>
-                                                <Text className="subtitle-3">trong</Text>
-                                                <Text maxLine={1} className="button-text-3" style={{ flex: 1, maxWidth: '100%', width: 'fit-content' }}>“UIUX cho người mới bắt đầu vào người mới bắt đầu”</Text>
-                                                <div className="label-4">.</div>
-                                                <Text className="subtitle-3">12 tháng 09</Text>
-                                            </div>
-                                            <Text className="heading-6" maxLine={2} style={{ width: '100%' }}>Dishonest fonts, sustainable design, how to be strategic, color with gen AI</Text>
-                                            <Text className="body-2" maxLine={4} style={{ width: '100%', marginTop: '0.4rem' }}>“I couldn’t stop thinking about the thought process of turning to social media, emphasis on the social, and asking no one to talk to you. This idea — that we can safely expect to insulate ourselves from responses to our posts is indicative of how rapidly the social media environment has changed in the just three years.”</Text>
-                                        </div>
-                                        <div className="row" style={{ gap: '1.2rem', width: '100%' }}>
-                                            <div className="tag-disabled row"><div className="button-text-3">UI/UX design</div></div>
-                                            <div className="row" style={{ flex: 1, width: '100%' }}>
-                                                <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
-                                                    <OutlineThumbUp width="1.6rem" height="1.6rem" />
-                                                    <div className="button-text-3">1,2k</div>
-                                                </div>
-                                                <div className="label-4">.</div>
-                                                <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
-                                                    <OutlineChat width="1.6rem" height="1.6rem" />
-                                                    <div className="button-text-3">1,2k</div>
-                                                </div>
-                                            </div>
-                                            <button type="button" className="row icon-button32"><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
-                                            <button type="button" className="row icon-button32"><OutlineSharing width="2rem" height="2rem" /></button>
-                                        </div>
-                                    </div>
-                                    <img src={thumbnailDemo} alt="" style={{ width: '16.2rem', height: '16.2rem', borderRadius: '0.8rem' }} />
-                                </div>
-                            })}
+                            <ListNews />
                         </div>
                     </div>
                 </div>
@@ -99,8 +65,9 @@ const NewView = () => {
     </div>
 }
 
-const NewAuthView = () => {
+const NewsAuthView = () => {
     const [selectedTab, setSelectedTab] = useState(0)
+    const [filterTab, setFilterTab] = useState(0)
 
     return <div className="row" style={{ flex: 1 }}>
         <div className="col news-sidebar-social" >
@@ -130,42 +97,27 @@ const NewAuthView = () => {
         </div>
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-                <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
-                    {Array.from({ length: 6 }).map((item, i) => {
-                        return <div key={'new-' + i} className="row" style={{ gap: '4.8rem' }}>
-                            <div className="col" style={{ gap: '2.4rem', flex: 1, width: '100%' }}>
-                                <div className="col" style={{ gap: '0.4rem ' }}>
-                                    <div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
-                                        <img src={avatarDemo} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
-                                        <div className="label-3">Phan Minh Anh</div>
-                                        <Text className="subtitle-3">trong</Text>
-                                        <Text maxLine={1} className="button-text-3" style={{ flex: 1, maxWidth: '100%', width: 'fit-content' }}>“UIUX cho người mới bắt đầu vào người mới bắt đầu”</Text>
-                                        <div className="label-4">.</div>
-                                        <Text className="subtitle-3">12 tháng 09</Text>
-                                    </div>
-                                    <Text className="heading-6" maxLine={2} style={{ width: '100%' }}>Dishonest fonts, sustainable design, how to be strategic, color with gen AI</Text>
-                                    <Text className="body-2" maxLine={4} style={{ width: '100%', marginTop: '0.4rem' }}>“I couldn’t stop thinking about the thought process of turning to social media, emphasis on the social, and asking no one to talk to you. This idea — that we can safely expect to insulate ourselves from responses to our posts is indicative of how rapidly the social media environment has changed in the just three years.”</Text>
+                <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '4rem', '--gutter': '0px' }}>
+                    <div className="row filter-news-container">
+                        <button type="button" className="row">
+                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
+                        </button>
+                        <div className="row">
+                            {Array.from({ length: 10 }).map((e, i) => {
+                                return <div key={'tab-' + i} className={`filter-news-tab ${filterTab === i ? 'selected' : ''}`} onClick={() => {
+                                    setFilterTab(i)
+                                }}>
+                                    <Text className="label-4">Bài viết xu hướng</Text>
                                 </div>
-                                <div className="row" style={{ gap: '1.2rem', width: '100%' }}>
-                                    <div className="tag-disabled row"><div className="button-text-3">UI/UX design</div></div>
-                                    <div className="row" style={{ flex: 1, width: '100%' }}>
-                                        <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
-                                            <OutlineThumbUp width="1.6rem" height="1.6rem" />
-                                            <div className="button-text-3">1,2k</div>
-                                        </div>
-                                        <div className="label-4">.</div>
-                                        <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
-                                            <OutlineChat width="1.6rem" height="1.6rem" />
-                                            <div className="button-text-3">1,2k</div>
-                                        </div>
-                                    </div>
-                                    <button type="button" className="row icon-button32"><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
-                                    <button type="button" className="row icon-button32"><OutlineSharing width="2rem" height="2rem" /></button>
-                                </div>
-                            </div>
-                            <img src={thumbnailDemo} alt="" style={{ width: '16.2rem', height: '16.2rem', borderRadius: '0.8rem' }} />
+                            })}
                         </div>
-                    })}
+                        <button type="button" className="row">
+                            <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                        </button>
+                    </div>
+                    <div className="col" style={{ gap: '3.2rem' }}>
+                        <ListNews />
+                    </div>
                 </div>
             </div>
         </div>

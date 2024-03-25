@@ -9,12 +9,18 @@ import EduSchedule from "../screen/module/edu/schedule/schedule";
 import Preview from "../screen/module/edu/school-mn-export-view/preview";
 import EduStudent from "../screen/module/edu/student/student";
 import ProductView from "../screen/module/product/product";
+import SocialDiscoveryView from "../screen/module/social/discovery/discovery";
+import DiscoverTopicDetails from "../screen/module/social/discovery/local-component/topic-details";
 import SocialHome from "../screen/module/social/home/home";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
         case 'social/home':
             return <SocialHome />
+        case 'social/discovery':
+            return <SocialDiscoveryView />
+        case 'social/discovery/topic':
+            return <DiscoverTopicDetails />
         case "edu/home/dashboard":
             return <EduDashboard />;
         case "edu/home/schedule":

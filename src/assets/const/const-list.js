@@ -154,9 +154,9 @@ export const socialModules = [
     {
         id: 5,
         parentId: 1,
-        name: 'Discover',
-        link: 'social/discover',
-        path: 'discover',
+        name: 'Discovery',
+        link: 'social/discovery',
+        path: 'discovery',
         icon: <OutlineCompass width='2.4rem' height='2.4rem' />,
         selectedIcon: <OutlineCompass width='2.4rem' height='2.4rem' />,
     },
@@ -186,39 +186,39 @@ export const extendView = [
         name: 'Chỉnh sửa bài học',
         slug: 'lesson-content',
         parentId: 'lessons',
-        path: 'edu/school/course/details/textbook/lesson-content/:id/:lessonid',
+        path: 'school/course/details/textbook/lesson-content/:id/:lessonid',
         link: 'edu/school/course/details',
     },
     {
         name: 'Danh sách bài học',
         slug: 'lessons',
         parentId: 'textbook',
-        path: 'edu/school/course/details/textbook/lessons/:id',
+        path: 'school/course/details/textbook/lessons/:id',
         link: 'edu/school/course/details',
     },
     {
         name: 'Tài liệu đính kèm',
         slug: 'files',
         parentId: 'textbook',
-        path: 'edu/school/course/details/textbook/files/:id',
+        path: 'school/course/details/textbook/files/:id',
         link: 'edu/school/course/details',
     },
     {
         name: 'Tổng quan',
         slug: 'overview',
-        path: 'edu/school/course/details/overview/:id',
+        path: 'school/course/details/overview/:id',
         link: 'edu/school/course/details',
     },
     {
         name: 'Lịch học và học phí',
         slug: 'shedule-fee',
-        path: 'edu/school/course/details/shedule-fee/:id',
+        path: 'school/course/details/shedule-fee/:id',
         link: 'edu/school/course/details',
     },
     {
         name: 'Giáo trình',
         slug: 'textbook',
-        path: 'edu/school/course/details/textbook/:id',
+        path: 'school/course/details/textbook/:id',
         link: 'edu/school/course/details',
     },
     // {
@@ -230,8 +230,13 @@ export const extendView = [
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',
-        path: 'edu/school/course/preview/:id',
+        path: 'school/course/preview/:id',
         link: 'edu/school/course/preview',
+    },
+    {
+        name: 'topic details',
+        path: 'discovery/topic/:id',
+        link: 'social/discovery/topic',
     },
 ]
 

@@ -105,3 +105,30 @@
     flex-wrap: wrap;
     gap: 1.6rem;
 }
+
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+
+    /* more config responsive */
+    .sidebar {
+        position: relative;
+        overflow: visible !important;
+        min-width: fit-content !important;
+        width: fit-content !important;
+    }
+
+    .sidebar .expand {
+        /* row-gap: 16px !important; */
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translateX(calc(-100% + 8.1rem)) !important;
+        transition: transform ease-in-out 1.2s !important;
+        min-width: 32rem !important;
+        box-shadow: 0 0 12px 0 #00204d1f;
+    }
+
+    .sidebar[expand="true"] .expand {
+        transform: translateX(8.2rem) !important;
+        transition: transform ease-in-out 1.2s !important;
+    }
+}

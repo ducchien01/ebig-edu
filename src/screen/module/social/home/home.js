@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import './home.css'
 import { supportModule } from "../../../../assets/const/const-list"
 import ListNews from "./local-component/list-news"
+import { InforCard } from "../../../../project-component/card"
 
 export default function SocialHome() {
     const isLogin = AccountController.token()
@@ -84,10 +85,10 @@ const NewsAuthView = () => {
                 </button>
             </div>
             <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto', gap: '1.2rem' }}>
-                <button type="button" className={`tab-news ${selectedTab === 0 ? 'selected' : ''}`}>
+                <button type="button" className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
                     <div className="label-3">Bảng tin</div>
                 </button>
-                <button type="button" className={`tab-news ${selectedTab === 1 ? 'selected' : ''}`}>
+                <button type="button" className={`news-bookmark-tab ${selectedTab === 1 ? 'selected' : ''}`}>
                     <div className="label-3">Đã lưu</div>
                 </button>
             </div>
@@ -152,16 +153,18 @@ const NewsAuthView = () => {
                 <Text className="heading-7" maxLine={2} style={{ width: '100%' }}>Các chuyên gia trong các chủ đề bạn quan tâm</Text>
                 <div className="col" style={{ gap: '2.4rem' }}>
                     {Array.from({ length: 3 }).map((item, i) => {
-                        return <div key={'expert-' + i} className="row" style={{ gap: '1.6rem' }}>
-                            <img src={avatarDemo} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-                            <div className="col" style={{ flex: 1, width: '100%', gap: '0.4rem' }}>
-                                <Text className="heading-8" maxLine={1} style={{ width: '100%' }}>Zulie Rane</Text>
-                                <Text className="subtitle-4" maxLine={3} style={{ width: '100%' }}>I am a History Educator and a Lifelong Learner with a</Text>
-                            </div>
-                            <button type="button" className="row button-primary">
+                        return <InforCard
+                            key={'expert-' + i}
+                            className="row"
+                            avatar={avatarDemo}
+                            style={{ padding: 0, border: 'none' }}
+                            avatarSize="4rem"
+                            title={<Text className="heading-8" maxLine={1}>Zulie Rane</Text>}
+                            subTitle={'I am a History Educator and a Lifelong Learner with a'}
+                            actions={<button type="button" className="row button-primary">
                                 <div className="button-text-3">Theo dõi</div>
-                            </button>
-                        </div>
+                            </button>}
+                        />
                     })}
                 </div>
                 <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem thêm</NavLink>

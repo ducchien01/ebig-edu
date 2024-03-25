@@ -44,13 +44,13 @@
     scrollbar-width: none;
 }
 
-.filter-news-container>div::-webkit-scrollbar {
+.filter-news-container>div.row::-webkit-scrollbar {
     display: none !important;
 }
 
 .filter-news-container>div>.filter-news-tab {
     padding: 0.8rem;
-    border-bottom: 2px solid transparent;
+    border-bottom: 0.2rem solid transparent;
     cursor: pointer;
 }
 
@@ -58,6 +58,16 @@
     border-color: var(--primary-color);
 }
 
-.filter-news-container>div>.filter-news-tab.selected>* {
-    color: var(--primary-color);
+.expert-intro-container {
+    gap: 0.4rem;
+    width: 24%;
+    background-size: cover;
+    height: 48rem;
+    justify-content: end;
+    padding: 1.6rem;
+    background-image: url(https://s3-alpha-sig.figma.com/img/219d/62b5/fd9e0419e55fa8b8089e9423a87dd1a3?Expires=1712534400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JpK0eNThVW00es~MBCaVp~7scbj0nNfWcwtoiy1Q0w11AapqwEtUHDuJ~sT8cFUeloSh1sUEOiBynY1jYNYbX2iULg9i5AiBPIvWP~p-AfH~YVbAF8kVpahZ3MKA9twNqhVpXsQI0SjUCMCwIF7cN0hQhlAx0CZ~wMqPnzJqPa8Ttg~hiAv9XcBv4z4JtKqPX4GOJytazVk0PxQWKUgYWEohqUr-qf5hd1i8Ydjm1hwC-bsIC9cFLdYEy-IDiTj9WXUqZ6tZ2cmKl8kIyp9EEs8cxla~cgd930aKS~FaA1eYMQfnOha4p-NgzBZHkLLyRdcUaaKnghqUwTQT-fVBzw__)
+}
+
+.expert-intro-container * {
+    color: #ffffff;
 }

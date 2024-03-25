@@ -234,6 +234,11 @@ export const extendView = [
         link: 'edu/school/course/preview',
     },
     {
+        name: 'news details',
+        path: 'home/news/:id',
+        link: 'social/home/news',
+    },
+    {
         name: 'topic details',
         path: 'discovery/topic/:id',
         link: 'social/discovery/topic',

@@ -7,6 +7,7 @@ export default function ListTrendingNews() {
     return <div className='row' style={{ flexWrap: 'wrap', gap: '5.6rem 4rem', width: '100%' }}>
         {Array.from({ length: 5 }).map((item, i) => {
             return <PostCard
+                key={'news-' + i}
                 className={`col ${i < 2 ? 'col12' : 'col8'}`}
                 style={{ '--gutter': '4rem' }}
                 imgUrl={'https://s3-alpha-sig.figma.com/img/cd66/9c35/7b4ec9ec6a9a536b02a40a189dd7dcb3?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lwDPIbxnKJnTuEUkJJNf2PAnNw8MM2k1J8ceG-hkaLpCR~tujNtx9fV9idHEWqKSpbV8~dspHalqXqYo6FHFuuuSjmteB~fnxb1LN7woucAyu8eaPUk41Sv5~OgFmh5UnCEgrmtt24GUMqDYga1YiFA~vPizPwl3jF0T2YCf8gAYTF9zJOLrF5mPF1tQQYzKONBWfq4-0bU2lqB6YVLTE42LeoWcIbWj1XCOXJWI7CbsKQvwk0NDqUuktreSo7FqHYDitIT6n0DJTWyqVO25XTIowbuz66CG21vKQj7m5wXcAVoFX~a8aYMv9Hu~cPm0JhCaPSkICn-GaQt9EzyvWg__'}

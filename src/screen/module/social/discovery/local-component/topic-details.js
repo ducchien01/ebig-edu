@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Text, TextField } from "../../../../../component/export-component"
+import { Text } from "../../../../../component/export-component"
 import topicThumnailDemo from '../../../../../assets/demo-image3.png'
 import { PostCard } from "../../../../../project-component/card"
 import { NavLink, useParams } from "react-router-dom"
@@ -7,6 +7,7 @@ import { TopicController } from "../../../topic/controller"
 import ListTrendingNews from "./list-trending-news"
 import ListTopicNews from "./list-topic-news"
 import ListTopicExpert from "./list-topic-expert"
+import ListCourse from "./list-course"
 
 export default function DiscoverTopicDetails() {
     const { id } = useParams()
@@ -71,6 +72,15 @@ export default function DiscoverTopicDetails() {
                 <NavLink type='button' className='row button-infor border' style={{ backgroundColor: 'transparent' }}>
                     <div className='button-text-3'>Xem thêm</div>
                 </NavLink>
+            </div>
+        </div>
+        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 1.2rem' }}>
+            <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+                <div className='row' style={{ width: '100%', justifyContent: 'space-between' }}>
+                    <Text className='heading-5'>Học tập cùng chuyên gia</Text>
+                    <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
+                </div>
+                <ListCourse />
             </div>
         </div>
     </div> : <></>

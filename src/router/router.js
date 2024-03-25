@@ -17,6 +17,8 @@ export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
         case 'social/home':
             return <SocialHome />
+        case 'social/home/news':
+            return <SocialHome />
         case 'social/discovery':
             return <SocialDiscoveryView />
         case 'social/discovery/topic':

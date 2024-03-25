@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
 import { Popup, Text, showPopup } from "../../../../../component/export-component"
 import avatarDemo from '../../../../../assets/demo-avatar.png'
@@ -6,6 +6,11 @@ import thumbnailDemo from '../../../../../assets/demo-image3.png'
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
 import { TopicController } from "../../../topic/controller"
 import { PostCard } from "../../../../../project-component/card"
+import { CheckboxForm } from "../../../../../project-component/component-form"
+import { useForm } from "react-hook-form"
+import { uuidv4 } from "../../../../../Utils"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 export default function ListNews() {
     const ref = useRef()
@@ -30,6 +35,15 @@ export default function ListNews() {
         })
     }
 
+    const showAddBookmark = (ev) => {
+        showPopup({
+            ref: ref,
+            clickOverlayClosePopup: true,
+            style: { left: `${ev.pageX}px`, top: `${ev.pageY}px` },
+            content: <PopupSelectBookmark ref={ref} />
+        })
+    }
+
     useEffect(() => {
         NewController.getAll().then(res => {
             if (res)
@@ -48,6 +62,7 @@ export default function ListNews() {
                 key={'new-' + i}
                 className="row"
                 style={{ gap: '4.8rem' }}
+                to={`/social/home/news/${item.id}`}
                 imgUrl={thumbnailDemo}
                 imgStyle={{ width: '16.2rem', height: '16.2rem' }}
                 heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
@@ -75,7 +90,7 @@ export default function ListNews() {
                             <div className="button-text-3">1,2k</div>
                         </div>
                     </div>
-                    <button type="button" className="row icon-button32"><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
+                    <button type="button" className="row icon-button32" onClick={showAddBookmark}><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
                     <button type="button" className="row icon-button32" onClick={showShareOptions} >
                         <OutlineSharing width="2rem" height="2rem" />
                     </button>
@@ -84,3 +99,30 @@ export default function ListNews() {
         })}
     </>
 }
+
+const PopupSelectBookmark = forwardRef(function PopupSelectBookmark(data, ref) {
+    const methods = useForm({ defaultValues: { list: data.list ?? [{ name: 'Bài viết đã lưu', id: uuidv4() }, { name: 'Danh sách tự tạo 1', id: uuidv4() }, { name: 'Danh sách tự tạo 2', id: uuidv4() },] } })
+
+    return <form className="col" style={{ backgroundColor: '#ffffff', borderRadius: '0.8rem', width: '32rem' }}>
+        <div className="col" >
+            {methods.watch('list').map((item, i) => {
+                return <div className="row" style={{ padding: '1rem 1.6rem' }}>
+                    <CheckboxForm
+                        key={item.id}
+                        label={item.name}
+                        control={methods.control}
+                        name={`list[${i}].check`}
+                        value={item.check}
+                        size={'2rem'}
+                    />
+                </div>
+            })}
+        </div>
+        <div className="row" style={{ width: '100%', borderTop: 'var(--border-grey1)' }}>
+            <button type="button" className="row button-infor" style={{ padding: '1.2rem 1.6rem', backgroundColor: 'transparent' }}>
+                <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem' }} />
+                <div className="button-text-3">Tạo danh sách mới</div>
+            </button>
+        </div>
+    </form>
+})

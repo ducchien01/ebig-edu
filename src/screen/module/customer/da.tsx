@@ -25,3 +25,8 @@ export interface UserInforItem {
     bankName?: string,
     bankId?: number,
 }
+
+export enum CustomerType {
+    student = 0,
+    expert = 1,
+}

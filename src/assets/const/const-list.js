@@ -139,6 +139,7 @@ export const socialModules = [
         name: 'Education',
         link: 'social/education',
         path: 'education',
+        expertPath: '/edu/home/dashboard',
         icon: <OutlineBooks width='2.4rem' height='2.4rem' />,
         selectedIcon: <FilledBooks width='2.4rem' height='2.4rem' />,
     },
@@ -242,6 +243,11 @@ export const extendView = [
         name: 'topic details',
         path: 'discovery/topic/:id',
         link: 'social/discovery/topic',
+    },
+    {
+        name: 'course details',
+        path: 'education/course/:id',
+        link: 'social/education/course',
     },
 ]
 
@@ -382,3 +388,4 @@ export const studentLevelList = [
         name: 'Senior'
     },
 ]
+

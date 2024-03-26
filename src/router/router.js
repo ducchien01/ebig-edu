@@ -4,9 +4,10 @@ import SchoolCourse from "../screen/module/edu/course/course";
 import CourseDetails from "../screen/module/edu/course/course-details";
 import SchoolCurriculum from "../screen/module/edu/curriculum/curriculum";
 import EduDashboard from "../screen/module/edu/dashboard/dashboard";
+import EduHome from "../screen/module/edu/home/home";
 import SchoolMentor from "../screen/module/edu/mentor/mentor";
 import EduSchedule from "../screen/module/edu/schedule/schedule";
-import Preview from "../screen/module/edu/school-mn-export-view/preview";
+import Preview from "../screen/module/edu/preview/preview";
 import EduStudent from "../screen/module/edu/student/student";
 import ProductView from "../screen/module/product/product";
 import SocialDiscoveryView from "../screen/module/social/discovery/discovery";
@@ -23,6 +24,10 @@ export const getcomponentRouter = (moduleCode) => {
             return <SocialDiscoveryView />
         case 'social/discovery/topic':
             return <DiscoverTopicDetails />
+        case 'social/education':
+            return <EduHome />
+        case "social/education/course":
+            return <Preview />;
         case "edu/home/dashboard":
             return <EduDashboard />;
         case "edu/home/schedule":

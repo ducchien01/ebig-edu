@@ -7,8 +7,12 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
 import { supportModule } from '../../../assets/const/const-list';
 import { AccountController } from '../../module/account/controller';
-import { ComponentStatus, Dialog, DialogAlignment, Popup, showDialog } from '../../../component/export-component';
+import { ComponentStatus, Dialog, DialogAlignment, showDialog } from '../../../component/export-component';
+import { CustomerController } from '../../module/customer/controller';
+import { CustomerType } from '../../module/customer/da';
+
 export default function SideBar({ menu }) {
+    const expertRole = CustomerController.userInfor()?.type === CustomerType.expert
     const dialogRef = useRef()
     const navigate = useNavigate()
     const location = useLocation()
@@ -89,7 +93,7 @@ export default function SideBar({ menu }) {
                             } else if (children.length) {
                                 navigate(children[0].path)
                             } else {
-                                navigate(item.path)
+                                navigate((expertRole && item.expertPath) || item.path)
                             }
                         }}
                     >

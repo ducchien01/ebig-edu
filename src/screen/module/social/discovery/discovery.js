@@ -22,7 +22,12 @@ export default function SocialDiscoveryView() {
                 {['Design', 'UIUX', 'Data analyst', 'Product'].map((e, i) => <Text key={'topic-' + i} className='subtitle-4'>{e}</Text>)}
             </div>
         </div>
-        <ListTopic />
+        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 2rem' }}>
+            <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem' }}>
+                <Text className='heading-5'>Topic được quan tâm nhiều</Text>
+                <ListTopic />
+            </div>
+        </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 2rem' }}>
             <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem', alignItems: 'center' }}>
                 <Text className='heading-5' style={{ width: '100%' }}>Bài viết xu hướng</Text>

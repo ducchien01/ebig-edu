@@ -9,8 +9,11 @@ import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ConfigAPI from './config/configApi';
 import { eduModules, socialModules } from './assets/const/const-list';
+import { CustomerController } from './screen/module/customer/controller';
+import { CustomerType } from './screen/module/customer/da';
 
 function App() {
+    const expertRole = CustomerController.userInfor()?.type === CustomerType.expert
     return (
         <GoogleOAuthProvider clientId={ConfigAPI.ggClientId}>
             <ToastContainer />
@@ -18,8 +21,8 @@ function App() {
                 <Routes>
                     <Route path="/social/*" element={<MainLayout menu={socialModules} />} />
                     <Route path="/ecomerce/*" element={<MainLayout menu={[]} />} />
-                    <Route path="/edu/*" element={<MainLayout menu={eduModules} />} />
-                    <Route path="/edu" element={<Navigate to={"/edu/home"} replace />} />
+                    {expertRole ? <Route path="/edu/*" element={<MainLayout menu={eduModules} />} /> : null}
+                    {expertRole ? <Route path="/edu" element={<Navigate to={"/edu/home"} replace />} /> : null}
                     <Route path="/ecomerce" element={<Navigate to={"/ecomerce/home"} replace />} />
                     <Route path="/social" element={<Navigate to={"/social/home"} replace />} />
                     <Route path="/" element={<Navigate to={"/social/home"} replace />} />

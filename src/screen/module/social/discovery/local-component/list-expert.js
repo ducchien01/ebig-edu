@@ -2,19 +2,24 @@ import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import { Text } from "../../../../../component/export-component"
+import { CustomerController } from "../../../customer/controller"
+import { CustomerType } from "../../../customer/da"
 
 export default function ListExpert() {
     const [data, setData] = useState([])
 
     useEffect(() => {
+        CustomerController.getListSimple(CustomerType.expert).then(res => {
+            if (res) setData(res)
+        })
     }, [])
 
     return <div style={{ position: 'relative', width: '100%', height: '48rem' }}>
         <div className="row" style={{ gap: '4rem', overflow: 'auto hidden', width: '100%' }}>
-            {Array.from({ length: 6 }).map((item, i) => {
-                return <div key={'new-' + i} className="col expert-intro-container">
-                    <Text maxLine={2} className="heading-6" >Lê Minh</Text>
-                    <Text maxLine={2} className="body-2" >Nhiếp ảnh gia</Text>
+            {data.map((item, i) => {
+                return <div key={'expert-' + i} className="col expert-intro-container" style={{ '--img-url': `url(${item.avatarUrl})` }}>
+                    <Text maxLine={2} className="heading-6" >{item.name}</Text>
+                    <Text maxLine={2} className="body-2" >Đấng tạo hóa</Text>
                 </div>
             })}
         </div>

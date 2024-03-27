@@ -5,6 +5,7 @@ import { Text } from '../../../../../component/export-component'
 import { OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from '../../../../../assets/const/icon'
 import { useEffect, useState } from 'react'
 import { CourseController } from '../../course/controller'
+import { Ultis } from '../../../../../Utils'
 
 export default function ListCommonCourse() {
     const [data, setData] = useState([])
@@ -15,7 +16,7 @@ export default function ListCommonCourse() {
         })
     }, [])
 
-    return <div className="row" style={{ gap: '4rem' }}>
+    return <div className="row" style={{ gap: '4rem', alignItems: 'stretch' }}>
         {data.map((item, i) => {
             return <PostCard
                 key={'discount-course-' + i}
@@ -30,7 +31,7 @@ export default function ListCommonCourse() {
                 </div>}
                 title={item.name}
                 content={'Create a CD cover by photographing day-to-day objects'}
-                actions={<div className='col' style={{ gap: '2.4rem' }}>
+                actions={<div className='col' style={{ gap: '2.4rem', flex: 1, justifyContent: 'end', height: '100%' }}>
                     <div className='row' style={{ gap: '0.8rem' }}>
                         <OutlineUserProfile />
                         <Text className='button-text-3'>1k2</Text>
@@ -39,7 +40,7 @@ export default function ListCommonCourse() {
                         <Text className='button-text-3'>4.7 (1k1)</Text>
                     </div>
                     <div className='row'>
-                        <Text className='heading-7' style={{ flex: 1, width: '96%' }}>235,000 - 2,500,000</Text>
+                        <Text className='heading-7' style={{ flex: 1, width: '96%' }}>{item.price ? Ultis.money(item.price) : ''}</Text>
                         <button type='button' className='row icon-button32'><OutlineHeart width='2rem' height='2rem' /></button>
                         <button type='button' className='row icon-button32'><OutlineShoppingCart width='2rem' height='2rem' /></button>
                     </div>

@@ -1,16 +1,15 @@
-import { Text } from "../../../../component/export-component";
-import './preview.css'
-import demoAvatar from '../../../../assets/demo-avatar1.png'
-import demoAvatar2 from '../../../../assets/demo-avatar.png'
-import mediaImg from '../../../../assets/media.png'
-import banner from '../../../../assets/banner1.png'
+import { Text } from "../../../../../component/export-component";
+import demoAvatar from '../../../../../assets/demo-avatar1.png'
+import demoAvatar2 from '../../../../../assets/demo-avatar.png'
+import mediaImg from '../../../../../assets/media.png'
+import banner from '../../../../../assets/banner1.png'
 import { useEffect, useState } from "react";
-import { listCommonInfor } from "../../../../assets/const/const-list";
+import { listCommonInfor } from "../../../../../assets/const/const-list";
 import { NavLink, useParams } from "react-router-dom";
-import { FilledSocialSharing, OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from "../../../../assets/const/icon";
-import { CourseController } from "../course/controller";
-import { CustomerController } from "../../customer/controller";
-import { Ultis } from "../../../../Utils";
+import { FilledSocialSharing, OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from "../../../../../assets/const/icon";
+import { CourseController } from "../controller";
+import { CustomerController } from "../../../customer/controller";
+import { Ultis } from "../../../../../Utils";
 
 export default function Preview() {
     const { id } = useParams()

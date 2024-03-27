@@ -1,17 +1,17 @@
 import { useForm } from "react-hook-form";
-import { ImportFileForm, Select1Form, SelectMultipleForm, SwitchForm, TextAreaForm, TextFieldForm } from "../../../../project-component/component-form";
-import { Text } from "../../../../component/export-component";
+import { ImportFileForm, Select1Form, SelectMultipleForm, SwitchForm, TextAreaForm, TextFieldForm } from "../../../../../project-component/component-form";
+import { Text } from "../../../../../component/export-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { uuidv4 } from "../../../../Utils";
+import { uuidv4 } from "../../../../../Utils";
 import { useEffect, useState } from "react";
-import { TopicController } from "../../topic/controller";
-import { TagController } from "../../tag/controller";
-import { studentLevelList } from "../../../../assets/const/const-list";
+import { TopicController } from "../../../topic/controller";
+import { TagController } from "../../../tag/controller";
+import { studentLevelList } from "../../../../../assets/const/const-list";
 import { CourseController } from "../controller";
-import { getFilesByIds } from "../../../base-controller";
-import ConfigAPI from "../../../../config/configApi";
-import { uploadFiles } from "../../../baseDA";
+import { getFilesByIds } from "../../../../base-controller";
+import ConfigAPI from "../../../../../config/configApi";
+import { uploadFiles } from "../../../../baseDA";
 
 export default function Overview({ data, onChangeRequired }) {
     const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }], test: 'hjdsgfyds' } })

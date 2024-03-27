@@ -6,7 +6,7 @@ export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, 
         <NavLink to={to} className="row thumbnail" style={imgStyle}>
             <img src={imgUrl} style={{ width: '100%', height: '100%' }} alt="" />
         </NavLink>
-        <div className="col" style={{ gap: '0.8rem' }}>
+        <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
             {heading}
             {title && typeof title === 'string' ? <NavLink to={to}>
                 <Text maxLine={2} className="heading-6" style={{ width: '100%' }}>{title}</Text>

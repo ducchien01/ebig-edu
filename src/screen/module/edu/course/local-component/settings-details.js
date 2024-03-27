@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { FilledSendMessage } from '../../../../assets/const/icon';
+import { FilledSendMessage } from '../../../../../assets/const/icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { extendView } from '../../../../assets/const/const-list';
-import { Checkbox, Text } from '../../../../component/export-component';
+import { extendView } from '../../../../../assets/const/const-list';
+import { Checkbox, Text } from '../../../../../component/export-component';
 import { CourseController } from '../controller';
 import FormEditLesson from './edit-lesson';
 import CourseCurriculum from './course-curriculum';
@@ -84,7 +84,7 @@ export default function CourseDetails() {
                         const children = listView.filter(e => e.parentId === item.slug)
                         item.isExpand ??= children.some(e => e.isExpand)
                         return <div key={`sidebar-tile-${index}`} className='col' style={{ width: '100%' }}>
-                            <NavLink to={children.length ? null : `/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${selectedView?.slug === item.slug ? 'selected' : ''}`}
+                            <NavLink to={children.length ? null : `/edu/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${selectedView?.slug === item.slug ? 'selected' : ''}`}
                                 onClick={() => {
                                     if (children.length) {
                                         item.isExpand = !item.isExpand
@@ -96,7 +96,7 @@ export default function CourseDetails() {
                                 <Text className='label-3' maxLine={1} style={{ flex: 1, with: '100%' }}>{item.name}</Text>
                                 {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} /> : null}
                             </NavLink>
-                            {children.map((child, j) => <NavLink to={`/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug || child.isExpand ? 'selected' : ''}`}>
+                            {children.map((child, j) => <NavLink to={`/edu/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug || child.isExpand ? 'selected' : ''}`}>
                                 <Text className='label-3' maxLine={1} style={{ flex: 1, width: '100%' }}>{child.name}</Text>
                             </NavLink>
                             )}

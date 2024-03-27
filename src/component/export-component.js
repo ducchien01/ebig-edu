@@ -17,6 +17,7 @@ import { ImportFile } from './import-file/import-file.tsx'
 import { ToastMessage } from './toast-noti/toast-noti.tsx'
 import { CustomCKEditor } from './ckeditor/ck-editor.tsx'
 import { Calendar, CalendarType } from './calendar/calendar.tsx'
+import { InfiniteScroll } from './infinite-scroll/infinite-scroll.tsx'
 
 export {
     Calendar, CalendarType,
@@ -39,4 +40,5 @@ export {
     ImportFile,
     ToastMessage,
     CustomCKEditor,
+    InfiniteScroll
 }

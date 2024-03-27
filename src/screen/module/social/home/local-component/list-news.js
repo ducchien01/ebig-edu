@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
-import { Popup, Text, showPopup } from "../../../../../component/export-component"
+import { InfiniteScroll, Popup, Text, showPopup } from "../../../../../component/export-component"
 import avatarDemo from '../../../../../assets/demo-avatar.png'
 import thumbnailDemo from '../../../../../assets/demo-image3.png'
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
@@ -10,12 +10,13 @@ import { CheckboxForm } from "../../../../../project-component/component-form"
 import { useForm } from "react-hook-form"
 import { uuidv4 } from "../../../../../Utils"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons"
 
-export default function ListNews() {
+export default function ListNews({ isLogin = false }) {
     const ref = useRef()
     const [newsData, setNewsData] = useState([])
     const [topicList, setTopicList] = useState([])
+    const [filterTab, setFilterTab] = useState(0)
 
     const showShareOptions = (ev) => {
         showPopup({
@@ -57,46 +58,75 @@ export default function ListNews() {
 
     return <>
         <Popup ref={ref} />
-        {newsData.map((item, i) => {
-            return <PostCard
-                key={'new-' + i}
-                className="row"
-                style={{ gap: '4.8rem' }}
-                to={`/social/home/news/${item.id}`}
-                imgUrl={thumbnailDemo}
-                imgStyle={{ width: '16.2rem', height: '16.2rem' }}
-                heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
-                    <img src={avatarDemo} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
-                    <div className="label-3">Phan Minh Anh</div>
-                    <Text className="subtitle-3">trong</Text>
-                    <Text maxLine={1} className="button-text-3" style={{ flex: 1, maxWidth: '100%', width: 'fit-content' }}>“UIUX cho người mới bắt đầu vào người mới bắt đầu”</Text>
-                    <div className="label-4">.</div>
-                    <Text className="subtitle-3">12 tháng 09</Text>
-                </div>}
-                title={'Dishonest fonts, sustainable design, how to be strategic, color with gen AI'}
-                content={`“I couldn't stop thinking about the thought process of turning to social media, emphasis on the social, and asking no one to talk to you. This idea — that we can safely expect to insulate ourselves from responses to our posts is indicative of how rapidly the social media environment has changed in the just three years.”`}
-                actions={<div className="row" style={{ gap: '1.2rem', width: '100%' }}>
-                    <div className="tag-disabled row">
-                        <div className="button-text-3">{topicList.find(e => e.id === item.topicId)?.name ?? ''}</div>
-                    </div>
-                    <div className="row" style={{ flex: 1, width: '100%' }}>
-                        <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
-                            <OutlineThumbUp width="1.6rem" height="1.6rem" />
-                            <div className="button-text-3">1,2k</div>
+        <InfiniteScroll handleScroll={() => {
+            // NewController.getAll().then(res => {
+            //     setNewsData([...newsData, ...res])
+            // })
+        }} className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+            <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
+                <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '4rem', '--gutter': '0px' }}>
+                    {isLogin && <div className="row filter-news-container">
+                        <button type="button" className="row">
+                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
+                        </button>
+                        <div className="row">
+                            {Array.from({ length: 10 }).map((e, i) => {
+                                return <div key={'tab-' + i} className={`filter-news-tab ${filterTab === i ? 'selected' : ''}`} onClick={() => {
+                                    setFilterTab(i)
+                                }}>
+                                    <Text className="label-4">Bài viết xu hướng</Text>
+                                </div>
+                            })}
                         </div>
-                        <div className="label-4">.</div>
-                        <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
-                            <OutlineChat width="1.6rem" height="1.6rem" />
-                            <div className="button-text-3">1,2k</div>
-                        </div>
+                        <button type="button" className="row">
+                            <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                        </button>
+                    </div>}
+                    <div className="col" style={{ gap: '3.2rem' }}>
+                        {newsData.map((item, i) => {
+                            return <PostCard
+                                key={'new-' + i}
+                                className="row"
+                                style={{ gap: '4.8rem' }}
+                                to={`/social/home/news/${item.id}`}
+                                imgUrl={thumbnailDemo}
+                                imgStyle={{ width: '16.2rem', height: '16.2rem' }}
+                                heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
+                                    <img src={avatarDemo} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
+                                    <div className="label-3">Phan Minh Anh</div>
+                                    <Text className="subtitle-3">trong</Text>
+                                    <Text maxLine={1} className="button-text-3" style={{ flex: 1, maxWidth: '100%', width: 'fit-content' }}>“UIUX cho người mới bắt đầu vào người mới bắt đầu”</Text>
+                                    <div className="label-4">.</div>
+                                    <Text className="subtitle-3">12 tháng 09</Text>
+                                </div>}
+                                title={'Dishonest fonts, sustainable design, how to be strategic, color with gen AI'}
+                                content={`“I couldn't stop thinking about the thought process of turning to social media, emphasis on the social, and asking no one to talk to you. This idea — that we can safely expect to insulate ourselves from responses to our posts is indicative of how rapidly the social media environment has changed in the just three years.”`}
+                                actions={<div className="row" style={{ gap: '1.2rem', width: '100%' }}>
+                                    <div className="tag-disabled row">
+                                        <div className="button-text-3">{topicList.find(e => e.id === item.topicId)?.name ?? ''}</div>
+                                    </div>
+                                    <div className="row" style={{ flex: 1, width: '100%' }}>
+                                        <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
+                                            <OutlineThumbUp width="1.6rem" height="1.6rem" />
+                                            <div className="button-text-3">1,2k</div>
+                                        </div>
+                                        <div className="label-4">.</div>
+                                        <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
+                                            <OutlineChat width="1.6rem" height="1.6rem" />
+                                            <div className="button-text-3">1,2k</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" className="row icon-button32" onClick={showAddBookmark}><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
+                                    <button type="button" className="row icon-button32" onClick={showShareOptions} >
+                                        <OutlineSharing width="2rem" height="2rem" />
+                                    </button>
+                                </div>}
+                            />
+                        })}
                     </div>
-                    <button type="button" className="row icon-button32" onClick={showAddBookmark}><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
-                    <button type="button" className="row icon-button32" onClick={showShareOptions} >
-                        <OutlineSharing width="2rem" height="2rem" />
-                    </button>
-                </div>}
-            />
-        })}
+                </div>
+            </div>
+        </InfiniteScroll>
     </>
 }
 

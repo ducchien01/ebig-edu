@@ -1,52 +1,26 @@
 import { useForm } from "react-hook-form"
-import { Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
-import { faArrowRight, faPlus, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { Text, closePopup } from "../../../../../component/export-component"
+import { faArrowRight, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { CheckboxForm, TextFieldForm } from "../../../../project-component/component-form"
-import { FilledEdit, FilledTrashCan } from "../../../../assets/const/icon"
-import { forwardRef, useEffect, useRef, useState } from "react"
-import WeekCalendar from "../../../../project-component/week-calendar"
-import { Ultis, uuidv4 } from "../../../../Utils"
+import { CheckboxForm, TextFieldForm } from "../../../../../project-component/component-form"
+import { forwardRef, useEffect, useState } from "react"
+import WeekCalendar from "../../../../../project-component/week-calendar"
+import { Ultis, uuidv4 } from "../../../../../Utils"
 import { MentorController } from "../../mentor/controller"
-import InputTime from "../../../../project-component/input-time"
+import InputTime from "../../../../../project-component/input-time"
 import { CourseController } from "../controller"
 
 export default function ScheduleFee({ data, onChangeRequired }) {
-    const ref = useRef()
-    const { control, formState: { errors }, watch, setValue, register} = useForm({
+    const { formState: { errors }, setValue, register} = useForm({
         shouldFocusError: false, defaultValues: {}
     })
-    const [mentorList, setMentorList] = useState([])
-
-    const showPopupMentorPack = (item) => {
-        showPopup({
-            ref: ref,
-            style: { width: '78%', maxHeight: '84%' },
-            heading: <div className="heading-7 popup-header">{item ? 'Chỉnh sửa' : 'Thêm'} gói mentor</div>,
-            content: <PopupAddNewMentorPack ref={ref} mentorItem={item} />
-        })
-    }
 
     useEffect(() => {
-        if (data) {
-            MentorController.getListSimple({ take: 100, filter: [{ key: 'courseId', value: data.id }] }).then(res => {
-                if (res) setMentorList(res)
-            })
-            if (data.price != null) {
-                setValue('price', Ultis.money(data.price))
-            }
-            setValue('test', 'sdugfiugdsufig')
-        }
     }, [data])
 
     return <div className="col" style={{ width: '100%', height: '100%', flex: 1 }}>
-        <Popup ref={ref} />
         <div className="row" style={{ gap: '1.6rem', padding: '2.4rem' }}>
             <Text className="heading-5">Lịch học và học phí</Text>
-            <button type="button" className="row button-grey" onClick={showPopupMentorPack}>
-                <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
-                <div className="button-text-3">Thêm gói mentor</div>
-            </button>
         </div>
         <div className="col fee-schedule-view" >
             <TextFieldForm
@@ -76,25 +50,6 @@ export default function ScheduleFee({ data, onChangeRequired }) {
                     </div>
                 }
             />
-            {mentorList.map((e, i) => {
-                return <div key={e.id} className="row" style={{ padding: '1.6rem', borderRadius: '0.8rem', backgroundColor: '#F9FAFB', alignItems: 'start' }}>
-                    <div className="col" style={{ flex: 1, width: '100%', gap: '2.4rem' }}>
-                        <Text className="heading-7">{e.name}</Text>
-                        <div className="col">
-                            <div className="label-5">Phí mentor</div>
-                            <Text className="heading-6" maxLine={1}>{Ultis.money(e.price)}</Text>
-                        </div>
-                        <div className="col">
-                            <div className="label-5">Lịch mentor</div>
-                            <div className="heading-8" >{e.schedule}</div>
-                        </div>
-                    </div>
-                    <div className="row" style={{ gap: '0.8rem' }}>
-                        <button type="button" onClick={() => showPopupMentorPack(e)}><FilledEdit /></button>
-                        <button type="button"><FilledTrashCan /></button>
-                    </div>
-                </div>
-            })}
         </div>
     </div>
 }

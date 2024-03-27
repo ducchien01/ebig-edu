@@ -21,8 +21,9 @@ function App() {
                 <Routes>
                     <Route path="/social/*" element={<MainLayout menu={socialModules} />} />
                     <Route path="/ecomerce/*" element={<MainLayout menu={[]} />} />
+                    {/* <Route path="/edu/*" element={<MainLayout menu={eduModules} />} /> */}
                     {expertRole ? <Route path="/edu/*" element={<MainLayout menu={eduModules} />} /> : null}
-                    {expertRole ? <Route path="/edu" element={<Navigate to={"/edu/home"} replace />} /> : null}
+                    {expertRole ? <Route path="/edu" element={<Navigate to={"/edu/dashboard"} replace />} /> : null}
                     <Route path="/ecomerce" element={<Navigate to={"/ecomerce/home"} replace />} />
                     <Route path="/social" element={<Navigate to={"/social/home"} replace />} />
                     <Route path="/" element={<Navigate to={"/social/home"} replace />} />

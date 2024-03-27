@@ -1,15 +1,15 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { FilledBook, FilledCircleQuestion, FilledCloudUpload, FilledCompanyAdd, FilledEdit, FilledFileCopy, FilledFileText, FilledIndicator, FilledLogoYoutube, FilledOpenLink, FilledTrashCan } from "../../../../assets/const/icon";
-import { ComponentStatus, Dialog, DialogAlignment, ImportFile, Popup, Text, TextField, closePopup, showDialog, showPopup } from "../../../../component/export-component";
-import { uuidv4 } from "../../../../Utils";
-import { SwitchForm, TextFieldForm } from "../../../../project-component/component-form";
+import { FilledBook, FilledCircleQuestion, FilledCloudUpload, FilledCompanyAdd, FilledEdit, FilledFileCopy, FilledFileText, FilledIndicator, FilledLogoYoutube, FilledOpenLink, FilledTrashCan } from "../../../../../assets/const/icon";
+import { ComponentStatus, Dialog, DialogAlignment, ImportFile, Popup, Text, TextField, closePopup, showDialog, showPopup } from "../../../../../component/export-component";
+import { uuidv4 } from "../../../../../Utils";
+import { SwitchForm, TextFieldForm } from "../../../../../project-component/component-form";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCirclePlus, faCircleXmark, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LessonController } from "../../lesson/controller";
 import { LessonType } from "../../lesson/da";
-import { CustomerController } from "../../customer/controller";
+import { CustomerController } from "../../../customer/controller";
 
 export default function CourseCurriculum({ data, onChangeRequired }) {
     const ref = useRef()

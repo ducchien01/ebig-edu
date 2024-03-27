@@ -5,7 +5,7 @@ import { Text } from '../../../../../component/export-component'
 import { OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from '../../../../../assets/const/icon'
 
 export default function ListDiscountCourse() {
-    return <div className="row" style={{ gap: '4rem' }}>
+    return <div className="row" style={{ gap: '4rem', alignItems: 'stretch' }}>
         {Array.from({ length: 4 }).map((item, i) => {
             return <PostCard
                 key={'discount-course-' + i}

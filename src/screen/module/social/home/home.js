@@ -4,7 +4,7 @@ import { AccountController } from "../../account/controller"
 import avatarDemo from '../../../../assets/demo-avatar.png'
 import { NavLink, useLocation, useParams } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronRight, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import './home.css'
 import { supportModule } from "../../../../assets/const/const-list"
@@ -53,34 +53,8 @@ export default function SocialHome() {
 }
 
 const HomeNewsInfor = ({ isLogin = false }) => {
-    const [filterTab, setFilterTab] = useState(0)
     return <>
-        <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
-            <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-                <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '4rem', '--gutter': '0px' }}>
-                    {isLogin && <div className="row filter-news-container">
-                        <button type="button" className="row">
-                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
-                        </button>
-                        <div className="row">
-                            {Array.from({ length: 10 }).map((e, i) => {
-                                return <div key={'tab-' + i} className={`filter-news-tab ${filterTab === i ? 'selected' : ''}`} onClick={() => {
-                                    setFilterTab(i)
-                                }}>
-                                    <Text className="label-4">Bài viết xu hướng</Text>
-                                </div>
-                            })}
-                        </div>
-                        <button type="button" className="row">
-                            <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
-                        </button>
-                    </div>}
-                    <div className="col" style={{ gap: '3.2rem' }}>
-                        <ListNews />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ListNews isLogin={isLogin} />
         <div className="additional-infor-view col">
             <div className="col" style={{ gap: '1.6rem' }}>
                 <Text className="heading-7" >Top bài viết trong tuần</Text>

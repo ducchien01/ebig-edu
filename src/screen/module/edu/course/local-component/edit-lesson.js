@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
-import { editorConfiguration } from "../../../../assets/const/const-list"
-import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledIndicator, FilledLogoYoutube, FilledResizeV, FilledText, FilledTrashCan } from "../../../../assets/const/icon"
+import { editorConfiguration } from "../../../../../assets/const/const-list"
+import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledIndicator, FilledLogoYoutube, FilledResizeV, FilledText, FilledTrashCan } from "../../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars, faChevronDown, faChevronRight, faEllipsisVertical, faEye, faGear, faXmark } from "@fortawesome/free-solid-svg-icons"
-import { Checkbox, CustomCKEditor, Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
+import { Checkbox, CustomCKEditor, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
 import { LessonType } from "../../lesson/da"
 import { LessonController } from "../../lesson/controller"
 

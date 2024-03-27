@@ -43,7 +43,7 @@ export function TextAreaForm({ label, register, required = false, name, placehol
                 onChange: onChange,
             })}
             onFocus={onFocus}
-            style={{ width: '100%', minHeight: '9.8rem' }}
+            style={{ width: '100%', minHeight: '12rem' }}
             placeholder={placeholder ? placeholder : label ? `Nhập ${label.toLowerCase()}` : ''}
             disabled={disabled}
             readOnly={readOnly}

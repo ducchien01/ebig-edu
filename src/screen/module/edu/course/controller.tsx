@@ -7,7 +7,19 @@ import { CourseItem } from "./da"
 
 export class CourseController {
     static getAll = async () => {
-        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'CourseAuth' : 'Course') + '/GetAll')
+        const response = await postData(ConfigAPI.ebigUrl + 'Course/GetAll')
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<CourseItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getAllAuth = async () => {
+        const response = await postData(ConfigAPI.ebigUrl + 'CourseAuth/GetAll')
         if (response) {
             if (response.code === 200) {
                 return response.data as Array<CourseItem>
@@ -19,6 +31,18 @@ export class CourseController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'Course/GetListSimpleByRequestBase', params)
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<CourseItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getListSimpleAuth = async (params?: FilterListSimpleBody) => {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'CourseAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {

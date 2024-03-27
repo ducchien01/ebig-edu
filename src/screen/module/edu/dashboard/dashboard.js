@@ -10,10 +10,11 @@ import CurrentCourseList from './local-component/current-course-list';
 import { Text } from '../../../../component/export-component';
 import { useState } from 'react';
 import { AccountController } from '../../account/controller';
+import { CustomerController } from '../../customer/controller';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
-export default function EduDashboard({ type = 1 }) {
-    const checkType = AccountController.token() ? type : 0
+export default function EduDashboard() {
+    const user = CustomerController.userInfor()
 
     return <div className="edu-dashboard col">
         <div className="banner-container col">
@@ -21,7 +22,7 @@ export default function EduDashboard({ type = 1 }) {
                 <div className="heading-3">eBig is a community of <br /> spreading the knowledge</div>
                 <div className="body-3">Learn from expert professionals and join <br /> the largest online community for creatives.</div>
             </div>
-            {checkType ? <div className='row' style={{ columnGap: 8 }}>
+            {user.isActive ? <div className='row' style={{ columnGap: 8 }}>
                 <NavLink to={'/edu/schedule'} className="button-primary row"><div className='button-text-3'>Lịch dạy</div></NavLink>
                 <NavLink to={'/edu/school/course'} className="button-infor row border"><div className='button-text-3'>Quản lý khóa học</div></NavLink>
             </div> :
@@ -29,7 +30,7 @@ export default function EduDashboard({ type = 1 }) {
             }
         </div>
         <div className='dashboard-content col' >
-            {checkType ? <OldUserDashboard /> : <NewbieDashboard />}
+            {user.isActive ? <OldUserDashboard /> : <NewbieDashboard />}
         </div>
     </div>
 }

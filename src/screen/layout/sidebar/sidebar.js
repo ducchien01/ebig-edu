@@ -92,8 +92,10 @@ export default function SideBar({ menu }) {
                                 }))
                             } else if (children.length) {
                                 navigate(children[0].path)
+                            } else if (expertRole && item.expertPath) {
+                                window.location.href = item.expertPath
                             } else {
-                                navigate((expertRole && item.expertPath) || item.path)
+                                navigate(item.path)
                             }
                         }}
                     >

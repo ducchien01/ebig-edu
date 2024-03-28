@@ -10,7 +10,7 @@ import FormEditLesson from './edit-lesson';
 import CourseCurriculum from './course-curriculum';
 import Overview from './overview';
 
-export default function CourseDetails() {
+export default function ClassDetails() {
     const { id } = useParams()
     const location = useLocation()
     const [selectedView, setSelectedView] = useState({ slug: 'overview' })

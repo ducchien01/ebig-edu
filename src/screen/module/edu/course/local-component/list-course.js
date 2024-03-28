@@ -8,6 +8,7 @@ import { CourseController } from "../controller"
 import { CourseStatus } from "../da"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Ultis } from "../../../../../Utils"
+import { CourseCard } from "../../../../../project-component/card"
 
 export default function ListCourse({ data }) {
     const ref = useRef()
@@ -52,54 +53,53 @@ export default function ListCourse({ data }) {
     const statusTag = (courseStatus) => {
         switch (courseStatus) {
             case CourseStatus.draft:
-                return <Text className="row button-text-3" style={{ backgroundColor: '#F2F5F8', color: '#00204D99' }}>Bản nháp</Text>
+                return <div className="row tag-disabled"><Text className="button-text-3">Bản nháp</Text></div>
             case CourseStatus.published:
-                return <Text className="row button-text-3" style={{ backgroundColor: '#EDF2FD', color: '#366AE2' }}>Đã xuất bản</Text>
+                return <div className="row tag-infor"><Text className="button-text-3">Đã xuất bản</Text></div>
             case CourseStatus.end:
-                return <Text className="row button-text-3" style={{ backgroundColor: '#FFF3EB', color: '#FC6B03' }}>Đã kết thúc</Text>
+                return <div className="row tag-warning"><Text className="button-text-3">Đã kết thúc</Text></div>
             default:
-                return <Text className="row button-text-3" style={{ backgroundColor: '#F2F5F8', color: '#00204D99' }}>Bản nháp</Text>
+                return <div className="row tag-disabled"><Text className="button-text-3">Bản nháp</Text></div>
         }
     }
 
     useEffect(() => {
-        if(data) setList(data)
+        if (data) setList(data)
     }, [data])
 
     return <div className="row list-card-course-infor">
         <Popup ref={ref} />
-        {list.map((item, i) => <div key={`card-${i}`} className='card-course-infor col col12'>
-            <div className="row top">
-                <div className="demo-img" style={{ backgroundImage: `url(${demoImage})` }}></div>
-                <div className="row">
-                    <div className="col" style={{ rowGap: '2.4rem', flex: 1, width: '100%' }}>
-                        <div className="col" style={{ rowGap: '0.4rem' }}>
-                            <Text className="heading-7">{item.name}</Text>
-                            <Text className="subtitle-4">{Ultis.datetoString(new Date(item.dateCreated), 'dd/mm/yyyy hh:mm')}</Text>
+        {list.map((item, i) => {
+            return <CourseCard
+                key={`card-${i}`}
+                to={'details/overview/' + item.id}
+                style={{ '--gutter': '2.4rem' }}
+                className='col col12'
+                imgUrl={demoImage}
+                imgStyle={{ width: '20.6rem' }}
+                title={item.name}
+                subtitle={Ultis.datetoString(new Date(item.dateCreated), 'dd/mm/yyyy hh:mm')}
+                content={<div className="row" style={{ paddingTop: '2.4rem' }}>{statusTag(item.status)}</div>}
+                actions={<button type="button" className="row" onClick={(ev) => { showPopupListAction(ev, item) }}>
+                    <FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99', pointerEvents: 'none' }} />
+                </button>}
+                bottom={<div className="row" style={{ borderTop: 'var(--border-grey1)', padding: '1.6rem' }}>
+                    <div className="row" style={{ gap: '2.4rem', flex: 1 }}>
+                        <div className="tag-disabled row" style={{ padding: 0, backgroundColor: 'transparent' }}>
+                            <FilledPeople />
+                            <Text className="button-text-3">{item.quantity ?? '-'} học viên</Text>
                         </div>
-                        {statusTag(item.status)}
+                        <div className="tag-disabled row" style={{ padding: 0, backgroundColor: 'transparent' }}>
+                            <FilledCoins />
+                            <Text className="button-text-3">Doanh thu -</Text>
+                        </div>
                     </div>
-                    <button type="button" className="row" onClick={(ev) => { showPopupListAction(ev, item) }}>
-                        <FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99', pointerEvents: 'none' }} />
-                    </button>
-                </div>
-            </div>
-            <div className="row bottom">
-                <div className="row" style={{ gap: '2.4rem' }}>
-                    <div className="row" style={{ gap: '0.8rem' }}>
-                        <FilledPeople />
-                        <Text className="button-text-3" style={{ color: '#00204D99' }} >{item.quantity ?? 0} học viên</Text>
-                    </div>
-                    <div className="row" style={{ gap: '0.8rem' }}>
-                        <FilledCoins />
-                        <Text className="button-text-3" style={{ color: '#00204D99' }} >Doanh thu 2.000.000</Text>
-                    </div>
-                </div>
-                <NavLink to={`/edu/school/course/preview/${item.id}`} className="row" style={{ gap: '0.8rem' }}>
-                    <FontAwesomeIcon icon={faEye} style={{ color: 'var(--primary-color)', fontSize: '1.4rem' }} />
-                    <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem trước</Text>
-                </NavLink>
-            </div>
-        </div>)}
+                    <NavLink to={`/edu/school/course/preview/${item.id}`} className="row" style={{ gap: '0.8rem' }}>
+                        <FontAwesomeIcon icon={faEye} style={{ color: 'var(--primary-color)', fontSize: '1.4rem' }} />
+                        <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem trước</Text>
+                    </NavLink>
+                </div>}
+            />
+        })}
     </div>
 }

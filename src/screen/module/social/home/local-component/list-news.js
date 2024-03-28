@@ -47,12 +47,10 @@ export default function ListNews({ isLogin = false }) {
 
     useEffect(() => {
         NewController.getAll().then(res => {
-            if (res)
-                setNewsData(res)
+            if (res) setNewsData(res)
         })
         TopicController.getAll().then(res => {
-            if (res)
-                setTopicList(res)
+            if (res) setTopicList(res)
         })
     }, [])
 

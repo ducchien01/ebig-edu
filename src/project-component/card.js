@@ -28,3 +28,24 @@ export const InforCard = ({ className = 'col', style, avatar, avatarSize = '6.4r
         {actions}
     </div>
 }
+
+export const CourseCard = ({ className = 'col', imgUrl, imgStyle, title, content, subtitle, bottom, actions, style, to }) => {
+    return <div className={`${className} course-card-container`} style={style}>
+        <div className="row main-content-container">
+            <NavLink to={to} className="row thumbnail" style={imgStyle}>
+                <img src={imgUrl} style={{ width: '100%', height: '100%' }} alt="" />
+            </NavLink>
+            <div className="row" style={{ flex: 1, gap: '1.6rem', alignItems: 'start' }}>
+                <div className="col" style={{ gap: '0.4rem', flex: 1 }}>
+                    {title && typeof title === 'string' ? <NavLink to={to}>
+                        <Text maxLine={2} className="heading-6" style={{ width: '100%' }}>{title}</Text>
+                    </NavLink> : title}
+                    {subtitle && typeof subtitle === 'string' ? <Text maxLine={2} className="subtitle-4" style={{ width: '100%' }}>{subtitle}</Text> : subtitle}
+                    {content}
+                </div>
+                {actions}
+            </div>
+        </div>
+        {bottom}
+    </div>
+}

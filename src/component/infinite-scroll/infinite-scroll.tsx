@@ -9,9 +9,6 @@ interface InfiniteScrollProps {
 }
 
 export class InfiniteScroll extends React.Component<InfiniteScrollProps> {
-    constructor(props: InfiniteScrollProps | Readonly<InfiniteScrollProps>) {
-        super(props);
-    }
     render() {
         return <div onScroll={(ev) => {
             let scrollElement = ev.target as HTMLDivElement

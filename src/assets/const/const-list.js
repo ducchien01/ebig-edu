@@ -211,12 +211,6 @@ export const extendView = [
         link: 'edu/school/course/details',
     },
     {
-        name: 'Lịch học và học phí',
-        slug: 'shedule-fee',
-        path: 'school/course/details/shedule-fee/:id',
-        link: 'edu/school/course/details',
-    },
-    {
         name: 'Giáo trình',
         slug: 'textbook',
         path: 'school/course/details/textbook/:id',

@@ -8,13 +8,13 @@ import SchoolMentor from "../screen/module/edu/mentor/mentor";
 import EduSchedule from "../screen/module/edu/schedule/schedule";
 import Preview from "../screen/module/edu/course/local-component/preview";
 import EduStudent from "../screen/module/edu/student/student";
-import ProductView from "../screen/module/product/product";
 import SocialDiscoveryView from "../screen/module/social/discovery/discovery";
 import DiscoverTopicDetails from "../screen/module/social/discovery/local-component/topic-details";
 import SocialHome from "../screen/module/social/home/home";
 import ViewCourseDetails from "../screen/module/edu/course/local-component/view-course-details";
 import CourseDetails from "../screen/module/edu/course/local-component/settings-details";
 import ListAllCourse from "../screen/module/edu/home/local-component/list-all-course";
+import EcomHome from "../screen/module/ecom/product/home";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -32,6 +32,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <ListAllCourse />
         case "social/education/course":
             return <ViewCourseDetails />;
+        case 'social/ecomerce':
+            return <EcomHome />
         case "edu/dashboard":
             return <EduDashboard />;
         case "edu/schedule":
@@ -53,7 +55,7 @@ export const getcomponentRouter = (moduleCode) => {
         case "edu/user/profile":
             return <ProfileView />;
         case "product-management":
-            return <ProductView />;
+            // return <ProductView />;
         default:
             break;
     }

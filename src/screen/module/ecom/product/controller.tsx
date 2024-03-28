@@ -1,8 +1,4 @@
-import { ToastMessage } from "../../../component/export-component"
-import ConfigAPI from "../../../config/configApi"
-import { postData } from "../../baseDA"
-
-export class CartController {
+export class ProductController {
     // static getAll = async () => {
     //     const response = await postData(ConfigAPI.ebigUrl + 'TopicAuth/GetAll')
     //     if (response) {

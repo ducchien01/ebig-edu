@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text } from "../../../../component/export-component";
+import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, } from "../../../../../component/export-component";
 import { NavLink } from "react-router-dom";
-import { FilledEdit } from "../../../../assets/const/icon";
+import { FilledEdit } from "../../../../../assets/const/icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 

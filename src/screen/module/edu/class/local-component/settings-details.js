@@ -38,7 +38,6 @@ export default function ClassDetails() {
             return e
         })
         if (needUpdate) setListView(updateListView)
-
     }
 
     useEffect(() => {

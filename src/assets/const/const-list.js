@@ -1,4 +1,4 @@
-import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat } from './icon'
+import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat, FilledShop } from './icon'
 import demoAvatar from '../demo-avatar.png';
 import MyUploadAdapter from '../../project-component/ckeditor';
 export const eduModules = [
@@ -150,7 +150,7 @@ export const socialModules = [
         link: 'social/ecomerce',
         path: 'ecomerce',
         icon: <OutlineShop width='2.4rem' height='2.4rem' />,
-        selectedIcon: <OutlineShop width='2.4rem' height='2.4rem' />,
+        selectedIcon: <FilledShop width='2.4rem' height='2.4rem' />,
     },
     {
         id: 5,

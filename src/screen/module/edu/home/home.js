@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Text } from '../../../../component/export-component'
+import { Checkbox, Text, TextField } from '../../../../component/export-component'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
 import ListExpert from '../../social/discovery/local-component/list-expert'
@@ -9,8 +9,21 @@ import classThumbnail from '../../../../assets/demo-image3.png'
 import mentorThumbnail from '../../../../assets/demo-image4.png'
 import ListDiscountCourse from './local-component/list-discount-course'
 import ListCommonCourse from './local-component/list-common-course'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AccountController } from '../../account/controller'
+import { faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from 'react'
+import { TopicController } from '../../topic/controller'
+import SidebarActions from '../../../layout/sidebar/sidebar-actions'
+import ListAllCourse from './local-component/list-all-course'
 
 export default function EduHome() {
+    const isLogin = AccountController.token()
+
+    return isLogin ? <HomeAuth /> : <HomeGuest />
+}
+
+const HomeGuest = () => {
     return <div className='col'>
         <div className="row" style={{ width: '100%', justifyContent: 'center', backgroundColor: 'var(--main-color)' }}>
             <div className="col col24 col20-xxl col20-xl" style={{ padding: '6.4rem 3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
@@ -88,6 +101,54 @@ export default function EduHome() {
                     <NavLink to={'courses'} className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
                 </div>
                 <ListCommonCourse />
+            </div>
+        </div>
+    </div>
+}
+
+const HomeAuth = () => {
+    const [topicList, setTopicList] = useState([])
+    const [openAll, setOpenAll] = useState(false)
+
+    useEffect(() => {
+        TopicController.getAll().then(res => {
+            if (res) setTopicList(res)
+        })
+    }, [])
+
+    return <div className='row' style={{ flex: 1 }}>
+        <div className='col' style={{ padding: '2.4rem 0', gap: '2.4rem', borderRight: 'var(--border-grey1)', height: '100%', width: '36.6rem' }}>
+            <div className='row' style={{ padding: '0.4rem 1.6rem' }}>
+                <TextField
+                    className='search-default placeholder-2'
+                    style={{ flex: 1, width: '100%', }}
+                    placeholder='Tìm kiếm khóa học'
+                    prefix={<FontAwesomeIcon icon={faSearch} />}
+                />
+            </div>
+            <div className='col' style={{ flex: 1, gap: '2.4rem' }}>
+                <div className='row' style={{ padding: '0 1.6rem' }}>
+                    <Text className='heading-6'>Khoá học theo chủ đề</Text>
+                </div>
+                <div className='col' style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+                    {topicList.slice(0, openAll ? topicList.length : 6).map((item, i) => {
+                        return <div key={'filter-topic-' + i} className='row' style={{ gap: '0.8rem', padding: '1rem 1.6rem' }}>
+                            <Checkbox size='2rem' />
+                            <Text style={{ flex: 1, width: '100%' }} className='label-4' maxLine={1}>{item.name}</Text>
+                        </div>
+                    })}
+                    <button type='button' className='row button-infor' style={{ backgroundColor: 'transparent', padding: '1rem 1.6rem' }} onClick={() => setOpenAll(!openAll)}>
+                        <Text className='button-text-3'>Xem thêm</Text>
+                        <FontAwesomeIcon icon={openAll ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem' }} />
+                    </button>
+                </div>
+                <div className='col' style={{ padding: '0 1.6rem' }}><SidebarActions /></div>
+            </div>
+        </div>
+        <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', justifyContent: 'center' }}>
+            <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', height: '100%', padding: '0 1.6rem' }}>
+                {/* <div className='col' style={{ height: '30.8rem' }}></div> */}
+                <ListAllCourse />
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 import { faEllipsisV, faEye } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useRef, useState } from "react"
-import { Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
+import { InfiniteScroll, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
 import demoImage from '../../../../../assets/demo-image5.png'
 import { FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledTrashCan } from "../../../../../assets/const/icon"
 import { CourseController } from "../controller"
@@ -10,7 +10,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { Ultis } from "../../../../../Utils"
 import { CourseCard } from "../../../../../project-component/card"
 
-export default function ListCourse({ data }) {
+export default function ListCourse({ data, getData }) {
     const ref = useRef()
     const navigate = useNavigate()
     const [list, setList] = useState([])
@@ -67,7 +67,7 @@ export default function ListCourse({ data }) {
         if (data) setList(data)
     }, [data])
 
-    return <div className="row list-card-course-infor">
+    return <InfiniteScroll handleScroll={getData} className="row list-card-course-infor" >
         <Popup ref={ref} />
         {list.map((item, i) => {
             return <CourseCard
@@ -75,8 +75,8 @@ export default function ListCourse({ data }) {
                 to={'details/overview/' + item.id}
                 style={{ '--gutter': '2.4rem' }}
                 className='col col12'
-                imgUrl={demoImage}
-                imgStyle={{ width: '20.6rem' }}
+                imgUrl={item.thumbnailUrl}
+                imgStyle={{ width: '20rem' }}
                 title={item.name}
                 subtitle={Ultis.datetoString(new Date(item.dateCreated), 'dd/mm/yyyy hh:mm')}
                 content={<div className="row" style={{ paddingTop: '2.4rem' }}>{statusTag(item.status)}</div>}
@@ -101,5 +101,5 @@ export default function ListCourse({ data }) {
                 </div>}
             />
         })}
-    </div>
+    </InfiniteScroll>
 }

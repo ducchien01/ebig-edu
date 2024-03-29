@@ -138,6 +138,16 @@
     border: 1px solid var(--success-color);
 }
 
+.search-default {
+    background-color: var(--background);
+    border-radius: 2.4rem !important;
+    border: none !important;
+}
+
+.search-default > svg {
+    font-size: 1.2rem; color: #00204D99
+}
+
 .week-calendar {
     width: 100%;
     padding-left: 7.2rem;

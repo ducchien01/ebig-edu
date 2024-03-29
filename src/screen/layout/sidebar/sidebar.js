@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './sidebar.css'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
-import { supportModule } from '../../../assets/const/const-list';
 import { AccountController } from '../../module/account/controller';
 import { ComponentStatus, Dialog, DialogAlignment, showDialog } from '../../../component/export-component';
 import { CustomerController } from '../../module/customer/controller';
 import { CustomerType } from '../../module/customer/da';
+import SidebarActions from './sidebar-actions';
 
 export default function SideBar({ menu }) {
     const expertRole = CustomerController.userInfor()?.type === CustomerType.expert
@@ -49,9 +49,7 @@ export default function SideBar({ menu }) {
             <div className='module-menu col'>
                 {moduleList.filter(e => e.parentId === topicModule?.id).map(item => moduleTile(item))}
             </div>
-            <div className='support-action row'>
-                {supportModule.map((e, i) => <div key={`support-module-${i}`} className='button-text-6'>{e.name}</div>)}
-            </div>
+            <SidebarActions/>
         </>
     }
 

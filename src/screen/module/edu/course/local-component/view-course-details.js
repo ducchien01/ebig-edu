@@ -10,6 +10,8 @@ import { FilledSocialSharing, OutlineHeart, OutlineShoppingCart, OutlineStar, Ou
 import { CourseController } from "../controller";
 import { CustomerController } from "../../../customer/controller";
 import { Ultis } from "../../../../../Utils";
+import ConfigAPI from "../../../../../config/configApi";
+import { getFilesByIds } from "../../../../base-controller";
 
 export default function ViewCourseDetails() {
     const { id } = useParams()
@@ -28,20 +30,34 @@ export default function ViewCourseDetails() {
 
     useEffect(() => {
         if (id) {
-            CourseController.getById(id).then(res => {
+            CourseController.getById(id).then(async res => {
                 if (res) {
-                    setData(res)
+
                     CustomerController.getById(res.customerId).then(cusRes => {
                         if (cusRes) setExpert(cusRes)
                     })
+                    let imgIds = []
+                    if (res.pictureId) imgIds.push(res.pictureId)
+                    if (res.thumbnailId) imgIds.push(res.thumbnailId)
+                    if (imgIds) {
+                        const imgRes = await getFilesByIds(imgIds)
+                        if (imgRes) {
+                            var newData = {
+                                ...res,
+                                pictureUrl: imgRes.find(e => e.id === res.pictureId).url,
+                                thumbnailUrl: imgRes.find(e => e.id === res.thumbnailId).url
+                            }
+                        }
+                    }
+                    setData(newData ?? res)
                 }
             })
-        }//getById
+        }
     }, [])
 
     return <div className="col preview-container" style={{ gap: '4rem' }}>
         {data ? <>
-            <div className="hero-header col" style={{ backgroundImage: 'url(https://s3-alpha-sig.figma.com/img/5e9e/7215/c4594de91c554c2467dc1f692b9c0649?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=d6tK6oiJl4eCUDyBPuYG~C3t07hmZ4EvkLaPuIl-y472PTR8dx5K-w~o9FK5U5uMKj0RVt2PFbfyygJup6F6Q9XWBCN39Rp8H5RT4p5nixS~VAWbqS0abQGsMH0Rhs87mEMkuuD-aaw~Ebody-q5vKzDnU3i~1HRdq9uBL9QKUKYT-e1zY95iws9ll50zhgGr0G~Exfa4l7MuVR7x6-U84LPOGYjXzIdxHsMXnXRjoJY9O8k6i-~e3uVBNOlhOtUmYTwz3T-C2Y0YVYKyPJ3~xG~NxnqG~4TvIf1nKSUVdbuVYAWot9bxoJekAp4~dQxaILiCIIlkfQI-8JIHV9WsQ__)' }}>
+            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.fileUrl + data.pictureUrl})` }}>
                 <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                     <Text className="heading-3">{data.name}</Text>
                     <div className="row" style={{ gap: '0.8rem' }}>

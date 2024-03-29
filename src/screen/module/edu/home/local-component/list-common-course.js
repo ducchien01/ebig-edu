@@ -12,7 +12,7 @@ export default function ListCommonCourse() {
 
     useEffect(() => {
         CourseController.getListSimple({ page: 1, take: 4 }).then(res => {
-            if (res) setData(res)
+            if (res) setData(res.data)
         })
     }, [])
 

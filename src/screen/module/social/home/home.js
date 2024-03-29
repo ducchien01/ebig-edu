@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import './home.css'
-import { supportModule } from "../../../../assets/const/const-list"
 import ListNews from "./local-component/list-news"
 import ListExpertByTopic from "./local-component/list-expert"
 import NewsDetails from "./local-component/news-details"
+import SidebarActions from "../../../layout/sidebar/sidebar-actions"
 
 export default function SocialHome() {
     const { id } = useParams()
@@ -25,8 +25,9 @@ export default function SocialHome() {
     return <div className="row" style={{ flex: 1 }}>
         <div className="col news-sidebar-social" >
             <TextField
-                prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#00204D99' }} />}
-                style={{ backgroundColor: 'var(--background)', borderRadius: '2.4rem', height: '4rem', padding: '0.8rem 1.6rem', border: 'none' }}
+                prefix={<FontAwesomeIcon icon={faSearch} />}
+                style={{ height: '4rem', padding: '0.8rem 1.6rem' }}
+                className="search-default placeholder-2"
                 placeholder="Tìm kiếm bài viết"
             />
             <div className="row">
@@ -44,9 +45,7 @@ export default function SocialHome() {
                     <div className="label-3">Đã lưu</div>
                 </button>
             </div>
-            <div className='support-action row'>
-                {supportModule.map((e, i) => <div key={`support-module-${i}`} className='button-text-6'>{e.name}</div>)}
-            </div>
+            <SidebarActions />
         </div>
         {id ? <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
     </div>

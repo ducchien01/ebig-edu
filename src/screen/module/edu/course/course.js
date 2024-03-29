@@ -6,11 +6,14 @@ import ListCourse from './local-component/list-course'
 import PopupAddNewCourse from './local-component/popup-add-new-course'
 import { CourseController } from './controller'
 import { Popup, Text, showPopup } from '../../../../component/export-component'
+import { getFilesByIds } from '../../../base-controller'
+import ConfigAPI from '../../../../config/configApi'
 
 export default function SchoolCourse() {
     const ref = useRef()
     const [activeFilterTab, setActiveFilterTab] = useState(0)
-    const [data, setData] = useState()
+    const [data, setData] = useState([])
+    const [total, setTotal] = useState(0)
 
     const popupAddNewCourse = () => {
         showPopup({
@@ -20,14 +23,22 @@ export default function SchoolCourse() {
         })
     }
 
-    const getData = (status) => {
+    const getData = async (status) => {
         status ??= activeFilterTab
         if (status > 0) {
             var filter = [{ key: 'status', value: status }]
         }
-        CourseController.getListSimple({ take: 10, page: 1, filter: filter }).then(res => {
-            if (res) setData(res)
-        })
+        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 20)) + 1, take: 20, filter: filter })
+        if (res) {
+            if (total !== res.totalCount) setTotal(res.totalCount)
+            const imgRes = await getFilesByIds(res.data.map(e => e.thumbnailId ?? e.pictureId))
+            setData([...data, ...res.data.map(e => {
+                const fileInfor = imgRes.find(img => img.id === (e.thumbnailId ?? e.pictureId))
+                if (fileInfor)
+                    e.thumbnailUrl = ConfigAPI.fileUrl + fileInfor.url
+                return e
+            })])
+        }
     }
 
     useEffect(() => {
@@ -49,7 +60,7 @@ export default function SchoolCourse() {
                     <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => {
                         setActiveFilterTab(0)
                         getData(0)
-                    }}>Tất cả</div>
+                    }}>Tất cả ({total < 10 ? `0${total}` : total})</div>
                     <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => {
                         setActiveFilterTab(1)
                         getData(1)
@@ -60,7 +71,7 @@ export default function SchoolCourse() {
                     }}>Bản nháp</div>
                 </div>
                 <div className="tab-body-2 row">
-                    <ListCourse data={data} />
+                    <ListCourse data={data} getData={total !== data.length ? getData : undefined} />
                 </div>
             </div>
         </div>

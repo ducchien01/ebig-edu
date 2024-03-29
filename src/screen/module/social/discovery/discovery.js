@@ -13,9 +13,10 @@ export default function SocialDiscoveryView() {
         <div className="col" style={{ padding: '5.6rem 0', alignItems: 'center', gap: '2rem' }}>
             <Text maxLine={1} className="heading-4">Khám phá những điều hay nhất trên EBig</Text>
             <TextField
+                className='search-default placeholder-2'
                 placeholder='Tìm kiếm'
-                prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#00204D99' }} />}
-                style={{ height: '4.8rem', backgroundColor: 'var(--background)', border: 'none', width: '55.2rem' }}
+                prefix={<FontAwesomeIcon icon={faSearch} />}
+                style={{ height: '4.8rem', width: '55.2rem' }}
             />
             <div className='row' style={{ gap: '1.6rem' }}>
                 <Text className='subtitle-4'>Từ khóa tìm kiếm nhiều:</Text>

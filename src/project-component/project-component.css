@@ -138,6 +138,18 @@
     border: 1px solid var(--success-color);
 }
 
+.col.divider {
+    margin: 1.6rem 0;
+    height: 1px;
+    background-color: var(--background);
+}
+
+.row.divider {
+    margin: 0 1.6rem;
+    width: 1px;
+    background-color: var(--background);
+}
+
 .search-default {
     background-color: var(--background);
     border-radius: 2.4rem !important;

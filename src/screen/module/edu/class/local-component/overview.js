@@ -204,12 +204,22 @@ export default function Overview({ data, onChangeRequired }) {
                     <SwitchForm control={control} label={'Xem trước nội dung khóa học trước khi mua'} value={watch('isContent')} name={'isContent'} onChange={onChangeData} />
                 </div>
                 <TextFieldForm
+                    required
+                    register={register}
+                    errors={errors}
+                    label={'Học viên cần chuẩn bị gì trước khi bắt đầu khóa học?'}
+                    name={'tools'}
+                    onBlur={onChangeData}
+                />
+                {/* <TextFieldForm
+                    required
                     register={register}
                     errors={errors}
                     label={'Công cụ cần chuẩn bị'}
-                    placeholder={'Học viên cần chuẩn bị gì trước khi bắt đầu khóa học?'}
-                    name={'tools'}
-                />
+                    placeholder={''}
+                    name={''}
+                    onBlur={onChangeData}
+                /> */}
                 <div className="col" style={{ gap: 4 }}>
                     <div className="row" style={{ gap: 4 }}>
                         <Text className="label-3">Mục tiêu khóa học</Text>

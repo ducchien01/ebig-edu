@@ -34,13 +34,9 @@ export class CustomerController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'CustomerAuth' : 'Customer') + `/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + `Customer/GetById?Id=${id}`)
         if (response) {
-            if (response.code === 200) {
-                return response.data as UserInforItem
-            } else {
-                ToastMessage.errors(response.message)
-            }
+            return response as UserInforItem
         }
         return null
     }

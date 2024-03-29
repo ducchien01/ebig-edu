@@ -98,7 +98,7 @@ export default function Preview() {
                             <div className="button-text-3">Theo dõi</div>
                         </button>
                     </div>
-                    <div className="col" style={{ margin: '1.2rem 0', width: '100%', height: 1, backgroundColor: 'var(--background)' }}></div>
+                    <div className="col divider" style={{ width: '100%' }}></div>
                     <div className="col" style={{ gap: '3.2rem' }}>
                         <div className="col" style={{ gap: '0.8rem' }}>
                             <Text className="heading-7">Các khóa học khác từ chuyên gia</Text>
@@ -159,7 +159,7 @@ const OverallTab = ({ data }) => {
                 <div className="heading-5">Mục tiêu cuối khoá</div>
                 <ul>
                     {(data.targets ? JSON.parse(data.targets) : []).map(e => {
-                        return <li key={e.id} className="body-1" style={{marginLeft: '2.4rem'}}>{e.value}</li>
+                        return <li key={e.id} className="body-1" style={{ marginLeft: '2.4rem' }}>{e.value}</li>
                     })}
                 </ul>
             </div>

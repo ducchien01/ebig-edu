@@ -18,7 +18,6 @@ export function TextFieldForm({ label, register, required = false, name, type, p
             name={name}
             register={register(name, {
                 required: required ? (helperText ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`) : null,
-                setValueAs: value => value,
                 onBlur: onBlur,
                 onChange: onChange,
             })}

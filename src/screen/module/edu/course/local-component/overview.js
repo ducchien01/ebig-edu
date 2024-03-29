@@ -209,6 +209,7 @@ export default function Overview({ data, onChangeRequired }) {
                     label={'Công cụ cần chuẩn bị'}
                     placeholder={'Học viên cần chuẩn bị gì trước khi bắt đầu khóa học?'}
                     name={'tools'}
+                    onBlur={onChangeData}
                 />
                 <div className="col" style={{ gap: 4 }}>
                     <div className="row" style={{ gap: 4 }}>

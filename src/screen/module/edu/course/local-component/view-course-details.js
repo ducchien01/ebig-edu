@@ -1,17 +1,17 @@
 import { Text } from "../../../../../component/export-component";
 import demoAvatar from '../../../../../assets/demo-avatar1.png'
-import demoAvatar2 from '../../../../../assets/demo-avatar.png'
 import mediaImg from '../../../../../assets/media.png'
 import banner from '../../../../../assets/banner1.png'
+import demoImg from '../../../../../assets/demo-image1.png'
 import { useEffect, useState } from "react";
-import { listCommonInfor } from "../../../../../assets/const/const-list";
 import { NavLink, useParams } from "react-router-dom";
-import { FilledSocialSharing, OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from "../../../../../assets/const/icon";
+import { FilledSocialSharing, OutlineBooks, OutlineGChart, OutlineHeart, OutlineLock, OutlineShoppingCart, OutlineStar, OutlineTimeAlarm, OutlineUserProfile, OutlineVerified, OutlineVideoPlaylist } from "../../../../../assets/const/icon";
 import { CourseController } from "../controller";
 import { CustomerController } from "../../../customer/controller";
 import { Ultis } from "../../../../../Utils";
 import ConfigAPI from "../../../../../config/configApi";
 import { getFilesByIds } from "../../../../base-controller";
+import { studentLevelList } from "../../../../../assets/const/const-list";
 
 export default function ViewCourseDetails() {
     const { id } = useParams()
@@ -32,7 +32,6 @@ export default function ViewCourseDetails() {
         if (id) {
             CourseController.getById(id).then(async res => {
                 if (res) {
-
                     CustomerController.getById(res.customerId).then(cusRes => {
                         if (cusRes) setExpert(cusRes)
                     })
@@ -57,7 +56,7 @@ export default function ViewCourseDetails() {
 
     return <div className="col preview-container" style={{ gap: '4rem' }}>
         {data ? <>
-            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.fileUrl + data.pictureUrl})` }}>
+            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.fileUrl + data.pictureUrl})`, backgroundColor: 'var(--main-color)' }}>
                 <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                     <Text className="heading-3">{data.name}</Text>
                     <div className="row" style={{ gap: '0.8rem' }}>
@@ -155,27 +154,41 @@ export default function ViewCourseDetails() {
 
 const OverallTab = ({ data }) => {
     return <>
-        <div className="group-tag-infor row" style={{ marginBottom: '2.4rem' }}>
-            {listCommonInfor.map((item, i) => <div className="row tag-disabled">
-                {item.icon}
-                <Text className="button-text-3">{data?.[item.name]} {item.title}</Text>
-            </div>)}
+        <img src={demoImg} alt="" style={{ width: '100%', borderRadius: '0.8rem' }} />
+        <div className="row" style={{ paddingTop: '1.6rem', gap: '1.6rem' }}>
+            <button type="button" className="row button-grey" style={{ padding: 0, backgroundColor: 'transparent' }}>
+                <FilledSocialSharing />
+                <div className="button-text-3">Chia sẻ</div>
+            </button>
+            <button type="button" className="row button-grey" style={{ padding: 0, backgroundColor: 'transparent' }}>
+                <OutlineHeart />
+                <div className="button-text-3">Thêm vào mục yêu thích</div>
+            </button>
         </div>
-        <div className="col" style={{ gap: '1.6rem' }}>
-            <img style={{ width: '100%', borderRadius: '0.8rem' }} src="https://s3-alpha-sig.figma.com/img/6fef/4aa8/1304a208051abd5930880838abb6487f?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pZWPEM8Oozv0ctVXRJihFOZ5QlcvNNX4UCzlX0kVXVAf0dvOT7Cl7-jxBx-LpKID8EfBkivtbZhLVn7AMrMkVvDHzFktFQYABiSmEb0mv0UbBxNxB57rPMnJ6l2d4HeyiyVXyI8sUXptI~9MhBDyt37hAItdmZWLXijRlqwzKsROEo-7m5GvY4n484i28ca1Z94lX7n0DSuUNedyD3y1bhA18EXMuh2RkYmwWJGDJ1QJRnDzf7SiwC3geKokF3hdv1kok0wrqLaaDrZPyEJtWTBwPj2yeV3s-ZBknGOwL0rijsCPnkf~wct0SgVLeIa-49-Q767HQq1jMBhTYASIOQ__" alt="" />
-            <div className="row" style={{ gap: '1.6rem' }}>
-                <button type="button" className="row" style={{ gap: '0.8rem' }}>
-                    <FilledSocialSharing />
-                    <div className="button-text-3">Chia sẻ</div>
-                </button>
-                <button type="button" className="row" style={{ gap: '0.8rem' }}>
-                    <OutlineHeart />
-                    <div className="button-text-3">Thêm vào mục yêu thích</div>
-                </button>
+        <div className="col divider" style={{ width: '100%' }}></div>
+        <div className="row" style={{ width: '100%', padding: '2.4rem 4.8rem', gap: '2.4rem 4.8rem', flexWrap: 'wrap', backgroundColor: 'var(--background)', border: 'var(--border-grey1)', borderRadius: '0.8rem' }}>
+            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
+                <OutlineVideoPlaylist width="2rem" height="2rem" />
+                <div className="button-text-3">{data.courseLessons?.length} bài học</div>
             </div>
-            <div className="col" style={{ marginBottom: '1.6rem', width: '100%', height: 1, backgroundColor: 'var(--background)' }}></div>
+            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
+                <OutlineBooks width="2rem" height="2rem" />
+                <div className="button-text-3">24 tài liệu đính kèm</div>
+            </div>
+            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
+                <OutlineGChart width="2rem" height="2rem" />
+                <div className="button-text-3">{studentLevelList.find(e => e.id === data.level)?.name ?? '-'}</div>
+            </div>
+            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
+                <OutlineVerified width="2rem" height="2rem" color={data.isCertificate ? '#39AC6D' : undefined} />
+                <div className="button-text-3">Chứng chỉ tốt nghiệp</div>
+            </div>
+            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
+                <OutlineTimeAlarm width="2rem" height="2rem" color={data.isCertificate ? '#39AC6D' : undefined} />
+                <div className="button-text-3">12 tháng truy cập khóa học</div>
+            </div>
         </div>
-        <div className="col" style={{ gap: '4rem', padding: '2rem 0' }}>
+        <div className="col" style={{ gap: '4rem', padding: '3.2rem 0' }}>
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="heading-5">Giới thiệu tổng quan</div>
                 <div className="body-2">{data.description}</div>
@@ -200,58 +213,25 @@ const OverallTab = ({ data }) => {
                 <div className="heading-5">Công cụ cần chuẩn bị?</div>
                 <div className="body-2">{data.tools}</div>
             </div>
-            <div className="row" style={{ padding: '2.4rem', gap: '2.4rem', backgroundColor: '#F9FAFB', borderRadius: '0.8rem', alignItems: 'start' }}>
-                <img style={{ width: '10.4rem', height: '10.4rem', borderRadius: '50%' }} src={demoAvatar2} alt="" />
-                <div className="col" style={{ gap: '1.6rem', width: '100%', flex: 1 }}>
-                    <div className="col" style={{ gap: '0.4rem' }}>
-                        <Text className="heading-7">Phan Minh Anh</Text>
-                        <div className="row" style={{ paddingBottom: '0.4rem', gap: '0.4rem' }}>
-                            <div className="subtitle-4">200 bài viết</div>
-                            <div className="subtitle-4">.</div>
-                            <div className="subtitle-4">12 khóa học</div>
-                            <div className="subtitle-4">.</div>
-                            <div className="subtitle-4">334 người theo dõi </div>
-                        </div>
-                        <div className="body-3">
-                            He uses the language of cinema to compose his images, moving beyond what one sees and depicting what he wants others to see. He believes that in our overly crowded lives, sketching and painting invites us to move at a more deliberate pace, giving us a true sense of place, where unexpected stories are revealed.
-                        </div>
-                    </div>
-                    <button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
-                        <div className="button-text-3">Theo dõi</div>
-                    </button>
-                </div>
-            </div>
-            <div className="col" style={{ gap: '4rem' }}>
-                <div className="row" style={{ justifyContent: 'space-between' }}>
-                    <div className="heading-5">Đề xuất khóa học liên quan</div>
-                    <NavLink to="" className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
-                </div>
-                <div className="row" style={{ flexWrap: 'wrap', gap: '4rem' }}>
-                    {Array.from({ length: 3 }).map((item, i) => <div className="col col8 col12-sm" style={{ gap: '2.4rem', '--gutter': '4rem' }}>
-                        <img style={{ width: '100%', height: '18.4rem' }} src={mediaImg} alt="" />
-                        <div className="row" style={{ gap: '0.8rem' }}>
-                            <img src={demoAvatar} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
-                            <Text className="label-4">Phan Minh Anh</Text>
-                        </div>
-                        <div className="col" style={{ gap: '0.8rem' }}>
-                            <Text className="heading-6">Thiết kế UI/UX dành cho người mới bắt đầu</Text>
-                            <Text className="body-2">Create a CD cover by photographing day-to-day objects</Text>
-                            <div className="row" style={{ gap: '0.8rem' }}>
-                                <OutlineUserProfile />
-                                <div className="subtitle-4">1K2</div>
-                                <div className="subtitle-4">.</div>
-                                <OutlineStar />
-                                <div className="subtitle-4">4.7 (1k1)</div>
-                            </div>
-                            <div className="row">
-                                <Text className="heading-6" style={{ '--max-line': 1, flex: 1, width: '100%' }}>235,000đ - 2,500,000đ</Text>
-                                <button type="button" className="row" style={{ alignItems: 'center' }}><OutlineHeart width="2rem" height="2rem" /></button>
-                                <button type="button" className="row" style={{ alignItems: 'center' }}><OutlineShoppingCart width="2rem" height="2rem" /></button>
-                            </div>
-                        </div>
-                    </div>)}
-                </div>
-            </div>
         </div>
+        <div className="col divider"></div>
+        <div className="col" style={{ gap: '3.2rem', paddingTop: '2rem' }}>
+            <div className="heading-4">Nội dung khóa học</div>
+            {(data?.courseLessons ?? []).filter(e => !e.parentId).map((item, i) => {
+                let children = data.courseLessons.filter(e => e.parentId === item.id)
+                return <div key={item.id} className="col" style={{ gap: '2rem' }}>
+                    <Text className="heading-5" maxLine={1} style={{ width: '100%' }}>{`U${i + 1}: ${item.name}`}</Text>
+                    <div className="col" style={{ gap: '1.6rem' }}>
+                        {children.map(child => {
+                            return <NavLink className="row button-grey" style={{ backgroundColor: 'transparent', padding: 0 }}>
+                                <OutlineLock />
+                                <Text className="label-4" maxLine={1} style={{ width: '100%', flex: 1 }}>{child.name}</Text>
+                            </NavLink>
+                        })}
+                    </div>
+                </div>
+            })}
+        </div>
+        <div className="col" style={{}}></div>
     </>
 }

@@ -111,8 +111,8 @@ export default function Preview() {
                                 </div>)}
                             </div>
                         </div>
-                        <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem 15.6rem 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
-                            <Text className="heading-7" style={{ color: '#ffffff', }}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
+                        <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
+                            <Text className="heading-7" style={{ color: '#ffffff', }} maxLine={2}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
                             <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
                         </div>
                         <div className="col" style={{ gap: '2rem' }}>

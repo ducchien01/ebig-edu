@@ -272,7 +272,8 @@
 
 .more-infor-block {
     height: 100%;
-    width: 47.8rem;
+    width: min(47.8rem, 26%);
+    min-width: 40rem;
     overflow: hidden auto;
     padding: 0 3.2rem 1.6rem 3.2rem;
     gap: 2.4rem;
@@ -299,6 +300,17 @@
     width: calc(100% - 6.4rem);
 }
 
+.option-buy-class-mentor {
+    padding: 1.6rem;
+    border-radius: 0.8rem;
+    gap: 1.6rem;
+    border: var(--border-grey1);
+}
+
+.option-buy-class-mentor.selected {
+    border-color: var(--primary-color);
+}
+
 @media screen and (min-width: 1200px) {
     .details-block>.tab-container>.tab-header-2 {
         margin: 0 14.8%;
@@ -309,3 +321,4 @@
         padding: 1.2rem 14.8% !important;
     }
 }
+

@@ -11,7 +11,7 @@ import EduStudent from "../screen/module/edu/student/student";
 import SocialDiscoveryView from "../screen/module/social/discovery/discovery";
 import DiscoverTopicDetails from "../screen/module/social/discovery/local-component/topic-details";
 import SocialHome from "../screen/module/social/home/home";
-import ViewCourseDetails from "../screen/module/edu/course/local-component/view-course-details";
+import ViewCourseDetails from "../screen/module/edu/course/course-details";
 import CourseDetails from "../screen/module/edu/course/local-component/settings-details";
 import ListAllCourse from "../screen/module/edu/home/local-component/list-all-course";
 import EcomHome from "../screen/module/ecom/product/home";

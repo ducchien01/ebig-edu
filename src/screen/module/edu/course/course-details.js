@@ -1,23 +1,31 @@
-import { Text } from "../../../../../component/export-component";
-import demoAvatar from '../../../../../assets/demo-avatar1.png'
-import mediaImg from '../../../../../assets/media.png'
-import banner from '../../../../../assets/banner1.png'
-import demoImg from '../../../../../assets/demo-image1.png'
-import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { FilledSocialSharing, OutlineBooks, OutlineGChart, OutlineHeart, OutlineLock, OutlineShoppingCart, OutlineStar, OutlineTimeAlarm, OutlineUserProfile, OutlineVerified, OutlineVideoPlaylist } from "../../../../../assets/const/icon";
-import { CourseController } from "../controller";
-import { CustomerController } from "../../../customer/controller";
-import { Ultis } from "../../../../../Utils";
-import ConfigAPI from "../../../../../config/configApi";
-import { getFilesByIds } from "../../../../base-controller";
-import { studentLevelList } from "../../../../../assets/const/const-list";
+import { Checkbox, Popup, ProgressBar, RadioButton, Rating, Text, showPopup } from "../../../../component/export-component";
+import demoAvatar from '../../../../assets/demo-avatar1.png'
+// import mediaImg from '../../../../assets/media.png'
+// import banner from '../../../../assets/banner1.png'
+import demoImg from '../../../../assets/demo-image1.png'
+import { useEffect, useRef, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { FilledSocialSharing, FilledStar, OutlineBooks, OutlineCalendarDate, OutlineGChart, OutlineHeart, OutlineLock, OutlineTimeAlarm, OutlineUserProfile, OutlineVerified, OutlineVideoPlaylist } from "../../../../assets/const/icon";
+import { CourseController } from "./controller";
+import { CustomerController } from "../../customer/controller";
+import { Ultis } from "../../../../Utils";
+import ConfigAPI from "../../../../config/configApi";
+import { studentLevelList } from "../../../../assets/const/const-list";
+import { ClassController } from "../class/controller";
+import { MentorController } from "../mentor/controller";
+import { AccountController } from "../../account/controller";
+import PopupLogin from "../../account/popup-login";
 
 export default function ViewCourseDetails() {
+    const ref = useRef()
+    const isLogin = AccountController.token() != null
     const { id } = useParams()
+    const navigate = useNavigate()
     const [data, setData] = useState()
     const [activeFilterTab, setActiveFilterTab] = useState(0)
     const [expert, setExpert] = useState()
+    const [classList, setClassList] = useState([])
+    const [mentorList, setMentorList] = useState([])
 
     const renderTabView = () => {
         switch (activeFilterTab) {
@@ -28,6 +36,97 @@ export default function ViewCourseDetails() {
         }
     }
 
+    const buyCourse = () => {
+        if (isLogin) {
+            navigate()
+        } else {
+            showPopup({
+                ref: ref,
+                content: <PopupLogin ref={ref} />
+            })
+        }
+    }
+
+    const showAllClass = () => { }
+
+    const optionsBuyClass = () => {
+        let renderList = classList.slice(0, 2)
+        if (renderList.every(e => !e.checked)) {
+            renderList = [...classList.filter(e => e.checked), ...renderList].slice(0, 2)
+        }
+        if (!renderList.length) return <></>
+        return <div className="col" style={{ gap: '1.2rem' }}>
+            <div className="row" style={{ justifyContent: 'space-between' }}>
+                <Text className="body-3">Mua cùng lớp học online</Text>
+                <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }} >Xem tất cả</Text>
+            </div>
+            {renderList.map(item => {
+                return <div key={item.id} className={`col option-buy-class-mentor ${item.checked ? 'selected' : ''}`}>
+                    <div className="row" style={{ gap: '1.6rem', paddingBottom: '1.2rem', borderBottom: 'var(--border-grey1)', alignItems: 'start' }}>
+                        <RadioButton size={'1.8rem'} name="class-option" value={item.id} onChange={(v) => {
+                            setClassList(classList.map(e => {
+                                e.checked = v.target.value === e.id
+                                return e
+                            }))
+                        }} />
+                        <Text className="heading-8" maxLine={2} style={{ flex: 1, width: '100%' }}>{item.name}</Text>
+                        <Text className="heading-7">{Ultis.money(item.price)}đ</Text>
+                    </div>
+                    <div className="row" style={{ gap: '1.6rem' }}>
+                        <div className="row" style={{ gap: '0.8rem', flex: 1, alignItems: 'start' }}>
+                            <OutlineTimeAlarm width="2rem" height="2rem" />
+                            <div className="col" style={{ flex: 1, width: '100%' }}>
+                                <div className="label-5">Khai giảng</div>
+                                <Text className="heading-8" style={{ width: '100%' }} maxLine={2}>15/12/2023</Text>
+                            </div>
+                        </div>
+                        <div className="row" style={{ gap: '0.8rem', flex: 1, alignItems: 'start' }}>
+                            <OutlineVideoPlaylist width="2rem" height="2rem" />
+                            <div className="col" style={{ flex: 1, width: '100%' }}>
+                                <div className="label-5">Số lượng</div>
+                                <Text className="heading-8" style={{ width: '100%' }} maxLine={2}>08 buổi học</Text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            })}
+        </div>
+    }
+
+    const optionBuyMentor = () => {
+        let renderList = mentorList.filter(e => e.checked)
+        if (renderList.length < 2) {
+            renderList.push(...mentorList.filter(e => !e.checked))
+            renderList = renderList.slice(0, 2)
+        }
+        if (!renderList.length) return <></>
+        return <div className="col" style={{ gap: '1.2rem' }}>
+            <div className="row" style={{ justifyContent: 'space-between' }}>
+                <Text className="body-3">Mua cùng mentoring</Text>
+                <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }} >Xem tất cả</Text>
+            </div>
+            {renderList.map((item) => {
+                return <div key={item.id} className={`col option-buy-class-mentor ${item.checked ? 'selected' : ''}`}>
+                    <div className="row" style={{ gap: '1.6rem', paddingBottom: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
+                        <Checkbox size={'2rem'} style={{ borderRadius: '50%' }} value={item.checked} onChange={(v) => {
+                        }} />
+                        <Text className="heading-7" maxLine={1} style={{ flex: 1, width: '100%' }}>Tư duy thiết kế</Text>
+                        <Text className="heading-6">350.000đ</Text>
+                    </div>
+                    <div className="row" style={{ gap: '0.8rem', flex: 1, alignItems: 'start' }}>
+                        <OutlineCalendarDate width="2rem" height="2rem" />
+                        <div className="col" style={{ flex: 1, width: '100%' }}>
+                            <div className="label-5">Thời gian</div>
+                            <Text className="heading-8" style={{ width: '100%' }} maxLine={4}>Thứ Ba, 19:00 - 21:00
+                                Thứ Năm, 19:00 - 21:00
+                                Chủ Nhật, 19:00 - 21:00</Text>
+                        </div>
+                    </div>
+                </div>
+            })}
+        </div>
+    }
+
     useEffect(() => {
         if (id) {
             CourseController.getById(id).then(async res => {
@@ -35,28 +134,28 @@ export default function ViewCourseDetails() {
                     CustomerController.getById(res.customerId).then(cusRes => {
                         if (cusRes) setExpert(cusRes)
                     })
-                    let imgIds = []
-                    if (res.pictureId) imgIds.push(res.pictureId)
-                    if (res.thumbnailId) imgIds.push(res.thumbnailId)
-                    if (imgIds) {
-                        const imgRes = await getFilesByIds(imgIds)
-                        if (imgRes) {
-                            var newData = {
-                                ...res,
-                                pictureUrl: imgRes.find(e => e.id === res.pictureId).url,
-                                thumbnailUrl: imgRes.find(e => e.id === res.thumbnailId).url
-                            }
-                        }
-                    }
-                    setData(newData ?? res)
+                    setData(res)
                 }
             })
+            if (isLogin) {
+                ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ key: 'courseId', value: id }] }).then(res => {
+                    if (res) setClassList(res.data)
+                })
+                MentorController.getListSimpleAuth({ page: 1, take: 2, filter: [{ key: 'courseId', value: id }] }).then(res => {
+                    if (res) setMentorList(res.data)
+                })
+            } else {
+                ClassController.getListSimple({ page: 1, take: 2, filter: [{ key: 'courseId', value: id }] }).then(res => {
+                    if (res) setClassList(res.data)
+                })
+            }
         }
     }, [])
 
     return <div className="col preview-container" style={{ gap: '4rem' }}>
         {data ? <>
-            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.fileUrl + data.pictureUrl})`, backgroundColor: 'var(--main-color)' }}>
+            <Popup ref={ref} />
+            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
                 <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                     <Text className="heading-3">{data.name}</Text>
                     <div className="row" style={{ gap: '0.8rem' }}>
@@ -67,7 +166,6 @@ export default function ViewCourseDetails() {
                         <div className="label-4">.</div>
                         <OutlineUserProfile color="#ffffff" />
                         <Text className="label-2">{data.quantity ?? 0} học sinh</Text>
-
                     </div>
                 </div>
             </div>
@@ -87,22 +185,12 @@ export default function ViewCourseDetails() {
                 <div className="more-infor-block col">
                     <div className="col" style={{ gap: '1.6rem' }}>
                         <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
-                        <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem' }}>
+                        <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem', width: '100%' }} onClick={buyCourse}>
                             <div className="button-text-3">Mua khóa học</div>
                         </button>
                     </div>
-                    <div className="row" style={{ gap: '1.6rem', padding: '1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--background)', border: 'var(--border-grey1)' }}>
-                        <div className="col" style={{ flex: 1, width: '100%', gap: '0.8rem' }}>
-                            <Text className="heading-7">Mua cùng khóa dạy kèm trực tuyến với chuyên gia.</Text>
-                            <div className="row" style={{ gap: '0.8rem' }}>
-                                <div className="tag-infor row button-text-3" >Course</div>
-                                <div className="body-3">+</div>
-                                <div className="tag-success row button-text-3" >Mentor</div>
-                            </div>
-                            <div className="body-3">Tiết kiệm hơn 30%</div>
-                        </div>
-                        <div className="tag-infor row button-text-3 border">Chỉ từ 500.000đ</div>
-                    </div>
+                    {optionsBuyClass()}
+                    {optionBuyMentor()}
                     <div className="col" style={{ gap: '1.6rem' }}>
                         <img src={demoAvatar} alt="" style={{ width: '8rem', height: '8rem', borderRadius: '50%' }} />
                         <div className="col" style={{ gap: '0.4rem' }}>
@@ -122,23 +210,12 @@ export default function ViewCourseDetails() {
                             <div className="button-text-3">Theo dõi</div>
                         </button>
                     </div>
-                    <div className="col" style={{ margin: '1.2rem 0', width: '100%', height: 1, backgroundColor: 'var(--background)' }}></div>
+                    <div className="col divider" style={{ width: '100%' }}></div>
                     <div className="col" style={{ gap: '3.2rem' }}>
-                        <div className="col" style={{ gap: '0.8rem' }}>
-                            <Text className="heading-7">Các khóa học khác từ chuyên gia</Text>
-                            <Text className="body-3">Tìm hiểu thêm các khóa học khác từ chuyên gia</Text>
-                            <div className="col">
-                                {Array.from({ length: 4 }).map((item, i) => <div key={'other-course-' + i} className="row" style={{ padding: '1.2rem 0', gap: '1.6rem' }}>
-                                    <img src={mediaImg} alt="" style={{ width: '5.6rem', height: '5.6rem' }} />
-                                    <Text className="heading-7" style={{ flex: 1, width: '100%' }}>Thiết kế UI/UX cho người mới bắt đầu</Text>
-                                    <div className="row button-text-3 border tag-disabled">250.000đ</div>
-                                </div>)}
-                            </div>
-                        </div>
-                        <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem 15.6rem 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
-                            <Text className="heading-7" style={{ color: '#ffffff', }}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
+                        {/* <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
+                            <Text className="heading-7" style={{ color: '#ffffff', }} maxLine={2}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
                             <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
-                        </div>
+                        </div> */}
                         <div className="col" style={{ gap: '2rem' }}>
                             <div className="heading-7">Danh mục liên quan</div>
                             <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
@@ -223,7 +300,7 @@ const OverallTab = ({ data }) => {
                     <Text className="heading-5" maxLine={1} style={{ width: '100%' }}>{`U${i + 1}: ${item.name}`}</Text>
                     <div className="col" style={{ gap: '1.6rem' }}>
                         {children.map(child => {
-                            return <NavLink className="row button-grey" style={{ backgroundColor: 'transparent', padding: 0 }}>
+                            return <NavLink key={child.id} className="row button-grey" style={{ backgroundColor: 'transparent', padding: 0 }}>
                                 <OutlineLock />
                                 <Text className="label-4" maxLine={1} style={{ width: '100%', flex: 1 }}>{child.name}</Text>
                             </NavLink>
@@ -232,6 +309,38 @@ const OverallTab = ({ data }) => {
                 </div>
             })}
         </div>
-        <div className="col" style={{}}></div>
+        <div className="col divider"></div>
+        <div className="col" style={{ gap: '3.2rem', paddingTop: '2rem' }}>
+            <div className="heading-4">Đánh giá</div>
+            <div className="row" style={{ gap: '4.4rem' }}>
+                <div className="col" style={{ gap: '4rem' }}>
+                    <div className="col">
+                        <div className="row" style={{ gap: '1.2rem' }}>
+                            <div className="heading-3">4.7</div>
+                            <FilledStar width="3.2rem" height="3.2rem" color="#FC6B03" />
+                        </div>
+                        <div className="subtitle-2">Xếp hạng khoá học</div>
+                    </div>
+                    <div className="col">
+                        <div className="heading-3">11k</div>
+                        <div className="subtitle-2">Lượt xếp hạng</div>
+                    </div>
+                </div>
+                <div className="col" style={{ flex: 1, gap: '1.4rem' }}>
+                    {Array.from({ length: 5 }).map((_, i) => {
+                        return <ProgressBar key={'star-' + i} progressBarOnly style={{ width: '100%' }} />
+                    })}
+                </div>
+                <div className="col" style={{ gap: '1.2rem', alignItems: 'stretch' }}>
+                    {Array.from({ length: 5 }).map((_, i) => {
+                        return <div key={'rate-' + i} className="row" style={{ gap: '0.8rem' }}>
+                            <Rating value={i === 0 ? 1 : (((5 - i) % 5) / 5)} />
+                            <div className="heading-7">(10.543)</div>
+                        </div>
+                    })}
+                </div>
+            </div>
+
+        </div>
     </>
 }

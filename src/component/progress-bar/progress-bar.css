@@ -23,7 +23,7 @@
     border-radius: 10rem;
     width: 100%;
     flex: 1;
-    height: 6px;
+    height: 0.6rem;
     position: relative;
     overflow: hidden;
     background-color: var(--full-color);
@@ -35,7 +35,7 @@
     top: 0;
     left: 0;
     width: var(--percent);
-    height: 6px;
+    height: 0.6rem;
     border-radius: 10rem;
     background-color: var(--percent-color);
     transition: width ease-in-out 1s;

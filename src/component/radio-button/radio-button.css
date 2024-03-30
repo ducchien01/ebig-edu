@@ -1,6 +1,6 @@
 .radio-btn-container {
-    height: var(--size);
-    width: var(--size);
+    height: max(var(--size), 14px);
+    width: max(var(--size), 14px);
     aspect-ratio: 1 / 1 !important;
     border-radius: 50%;
     box-sizing: border-box;
@@ -18,8 +18,8 @@
 }
 
 .radio-btn-container>.checkmark {
-    height: calc(var(--size) / 2);
-    width: calc(var(--size) / 2);
+    height: calc(max(var(--size), 14px) / 2);
+    width: calc(max(var(--size), 14px) / 2);
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     visibility: hidden;

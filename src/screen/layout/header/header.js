@@ -17,7 +17,6 @@ export default function HeaderView() {
         <Popup ref={ref} />
         <div className="logo"></div>
         <div className="action row">
-
             {isLogin ?
                 <>
                     {search ?

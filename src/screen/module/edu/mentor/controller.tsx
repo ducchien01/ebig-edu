@@ -5,7 +5,7 @@ import { postData } from "../../../baseDA"
 import { MentorItem } from "./da"
 
 export class MentorController {
-    static getAll = async () => {
+    static getAllAuth = async () => {
         const response = await postData(ConfigAPI.ebigUrl + 'MentorAuth/GetAll')
         if (response) {
             if (response.code === 200) {
@@ -17,11 +17,11 @@ export class MentorController {
         return null
     }
 
-    static getListSimple = async (params?: FilterListSimpleBody) => {
+    static getListSimpleAuth = async (params?: FilterListSimpleBody) => {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'MentorAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<MentorItem>
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -29,7 +29,7 @@ export class MentorController {
         return null
     }
 
-    static getById = async (id: string) => {
+    static getByIdAuth = async (id: string) => {
         const response = await postData(ConfigAPI.ebigUrl + `MentorAuth/GetById?Id=${id}`)
         if (response) {
             if (response.code === 200) {
@@ -41,7 +41,7 @@ export class MentorController {
         return null
     }
 
-    static add = async (mentorItem: MentorItem) => {
+    static addAuth = async (mentorItem: MentorItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'MentorAuth/Action?action=add', {
             data: { data: mentorItem }
         })
@@ -55,7 +55,7 @@ export class MentorController {
         return null
     }
 
-    static edit = async (mentorItem: MentorItem) => {
+    static editAuth = async (mentorItem: MentorItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'MentorAuth/Action?action=edit', {
             data: {
                 id: mentorItem.id,
@@ -72,7 +72,7 @@ export class MentorController {
         return null
     }
 
-    static delete = async (listMentorId: Array<string>) => {
+    static deleteAuth = async (listMentorId: Array<string>) => {
         const response = await postData(ConfigAPI.ebigUrl + 'MentorAuth/Action?action=delete', {
             data: { ids: listMentorId }
         })

@@ -5,19 +5,20 @@ import { postData } from "../../baseDA";
 import { ToastMessage } from "../../../component/export-component";
 import { CustomerController } from "../customer/controller";
 import { BaseDA } from "../../../da/baseDA";
+import { CustomerType } from "../customer/da";
 
-const setToken = (txt) => Ultis.setStorage('token', txt)
+const setToken = (txt: string) => Ultis.setStorage('token', txt)
 const setTimeRefresh = () => {
     var now = Date.now() / 1000 + 9 * 60
     Ultis.setStorage('time_refresh', now)
 }
 
-const setRefreshToken = (txt) => Ultis.setStorage('refreshToken', encryptData(txt))
+const setRefreshToken = (txt?: string) => Ultis.setStorage('refreshToken', encryptData(txt ?? ''))
 
 export class AccountController {
     static token = () => Ultis.getStorage('token')
     static timeRefresh = () => parseFloat(Ultis.getStorage('time_refresh') ?? '0')
-    static refreshToken = () => decryptData(Ultis.getStorage('refreshToken'))
+    static refreshToken = () => decryptData(Ultis.getStorage('refreshToken') ?? '')
 
     static refreshNewToken = async () => {
         const response = await BaseDA.post(ConfigAPI.ebigUrl + `Account/refresh-token?token=${this.refreshToken()}`, {
@@ -35,7 +36,7 @@ export class AccountController {
         }
     }
 
-    static login = async (ggToken) => {
+    static login = async (ggToken: string) => {
         const res = await postData(ConfigAPI.ebigUrl + 'Account/LoginAccessAsync', {
             data: {
                 type: 'google',
@@ -49,7 +50,11 @@ export class AccountController {
                 setToken(res.data.token)
                 setRefreshToken(res.data.refreshToken)
                 await CustomerController.getInfor()
-                window.location.href = '/' + window.location.pathname.split('/')[1]
+                if(window.location.pathname.startsWith('/social/education') && CustomerController.userInfor()?.type === CustomerType.expert) {
+                    window.location.href = '/'
+                } else {
+                    window.location.reload()
+                }
             } else {
                 ToastMessage.errors(res.message)
             }

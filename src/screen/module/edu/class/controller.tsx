@@ -6,6 +6,18 @@ import { ClassItem } from "./da"
 
 export class ClassController {
     static getAll = async () => {
+        const response = await postData(ConfigAPI.ebigUrl + 'Class/GetAll')
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<ClassItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getAllAuth = async () => {
         const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/GetAll')
         if (response) {
             if (response.code === 200) {
@@ -18,10 +30,22 @@ export class ClassController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'Class/GetListSimpleByRequestBase', params)
+        if (response) {
+            if (response.code === 200) {
+                return response
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getListSimpleAuth = async (params?: FilterListSimpleBody) => {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ClassAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<ClassItem>
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }

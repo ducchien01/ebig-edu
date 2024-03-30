@@ -4,6 +4,7 @@ import { Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPo
 import { useNavigate } from "react-router-dom"
 
 export default function NoteList() {
+    const ref = useRef()
     const list = [
         {
             title: 'Toán cao cấp đại học',
@@ -27,7 +28,6 @@ export default function NoteList() {
             time: 1706702400000
         },
     ]
-    const ref = useRef()
 
     const showAllNote = () => {
         showPopup({

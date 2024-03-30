@@ -2,14 +2,14 @@ import { ToastMessage } from "../../../../component/export-component"
 import ConfigAPI from "../../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"
-import { ClassItem } from "./da"
+import { RatingItem } from "./da"
 
-export class ClassController {
+export class RatingController {
     static getAll = async () => {
-        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/GetAll')
+        const response = await postData(ConfigAPI.ebigUrl + 'RatingAuth/GetAll')
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<ClassItem>
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -18,10 +18,10 @@ export class ClassController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
-        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ClassAuth/GetListSimpleByRequestBase', params)
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'RatingAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<ClassItem>
+                return response.data as Array<RatingItem>
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -30,10 +30,10 @@ export class ClassController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + `ClassAuth/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetById?Id=${id}`)
         if (response) {
             if (response.code === 200) {
-                return response.data as ClassItem
+                return response.data as RatingItem
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -41,9 +41,21 @@ export class ClassController {
         return null
     }
 
-    static add = async (classItem: ClassItem) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=add', {
-            data: { data: classItem }
+    static getByLinkId = async (id: string) => {
+        const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetByLinkId?Id=${id}`)
+        if (response) {
+            if (response.code === 200) {
+                return response.data as RatingItem
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static add = async (ratingItem: RatingItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'RatingAuth/Action?action=add', {
+            data: { data: ratingItem }
         })
         if (response) {
             if (response.code === 200) {
@@ -55,16 +67,16 @@ export class ClassController {
         return null
     }
 
-    static edit = async (classItem: ClassItem) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=edit', {
+    static edit = async (ratingItem: RatingItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'RatingAuth/Action?action=edit', {
             data: {
-                id: classItem.id,
-                data: classItem
+                id: ratingItem.id,
+                data: ratingItem
             }
         })
         if (response) {
             if (response.code === 200) {
-                return response.data as ClassItem
+                return response.data as RatingItem
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -72,9 +84,9 @@ export class ClassController {
         return null
     }
 
-    static delete = async (listCourseId: Array<string>) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=delete', {
-            data: { ids: listCourseId }
+    static delete = async (listRatingId: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'RatingAuth/Action?action=delete', {
+            data: { ids: listRatingId }
         })
         if (response) {
             if (response.code === 200) {

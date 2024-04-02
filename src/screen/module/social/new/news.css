@@ -1,0 +1,11 @@
+.comment-box {
+    border: var(--border-grey1);
+    border-radius: 0.8rem;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.comment-box textarea {
+    height: 8rem;
+    padding: 1.6rem 1.6rem 0.8rem;
+}

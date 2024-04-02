@@ -45,7 +45,7 @@ export class RatingController {
         const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetByLinkId?Id=${id}`)
         if (response) {
             if (response.code === 200) {
-                return response.data as RatingItem
+                return response.data as Array<RatingItem>
             } else {
                 ToastMessage.errors(response.message)
             }

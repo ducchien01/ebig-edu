@@ -11,7 +11,7 @@ import PopupLogin from '../../module/account/popup-login';
 export default function HeaderView() {
     const ref = useRef()
     const [search, setSearch] = useState(false)
-    const isLogin = AccountController.token();
+    const isLogin = AccountController.token()
 
     return <div className="header row">
         <Popup ref={ref} />
@@ -30,7 +30,9 @@ export default function HeaderView() {
                         <button type='button' className='row icon-button24'><FontAwesomeIcon icon={faSearch} /></button>
                     }
                     <button type='button' className='row icon-button24'><OutlineShoppingCart width='2.4rem' height='2.4rem' /></button>
-                    <button type='button' className='user-infor' style={{ backgroundImage: `url(${CustomerController.userInfor()?.avatarUrl})` }}></button>
+                    <button type='button'>
+                        <img src={CustomerController.userInfor()?.avatarUrl} alt='' style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%' }} />
+                    </button>
                 </> :
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <button type='button' onClick={() => {

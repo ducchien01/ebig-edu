@@ -248,6 +248,11 @@ export const extendView = [
         path: 'education/course/:id',
         link: 'social/education/course',
     },
+    {
+        name: 'cart',
+        path: 'ecomerce/cart',
+        link: 'social/ecomerce/cart',
+    },
 ]
 
 export const supportModule = [

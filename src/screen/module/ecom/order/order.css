@@ -1,0 +1,17 @@
+.cart-view {
+    width: 100%;
+    gap: 2.4rem;
+    padding: 2.4rem 8rem 0.8rem 8rem;
+    height: 100%;
+    min-height: 80rem;
+    flex: 1;
+}
+
+.noti-identification {
+    background-color: var(--primary-background);
+    border: 1px solid #00358033;
+    padding: 2.4rem;
+    border-radius: 0.8rem;
+    gap: 12%;
+    width: 100%;
+}

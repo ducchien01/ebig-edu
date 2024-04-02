@@ -871,18 +871,8 @@ button * {
     color: #ffffff;
 }
 
-.header-breadcum {
-    gap: 0.8rem;
-    flex: 1;
-    width: 100%;
-}
-
-.header-breadcum .row:has(> .fa-chevron-right) * {
+.header-breadcum > * {
     color: #00204D99;
-}
-
-.header-breadcum .button-text-6.selected {
-    color: var(--primary-color);
 }
 
 .more-action-popup {

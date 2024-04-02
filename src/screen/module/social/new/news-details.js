@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { NewController } from "../../new/controller"
-import { Text } from "../../../../../component/export-component"
-import avatarDemo from "../../../../../assets/demo-avatar2.png"
+import { NewController } from "./controller"
+import { Text } from "../../../../component/export-component"
+import avatarDemo from "../../../../assets/demo-avatar2.png"
 import { NavLink } from "react-router-dom"
-import ListExpertByTopic from "./list-expert"
-import { OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
+import ListExpertByTopic from "../home/local-component/list-expert"
+import { OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
+import './news.css'
 
 export default function NewsDetails({ id, isLogin = false }) {
     const [data, setData] = useState()

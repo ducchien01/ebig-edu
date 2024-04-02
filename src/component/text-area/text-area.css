@@ -34,6 +34,7 @@
     line-height: inherit;
     text-align: inherit;
     text-overflow: inherit;
+    resize: inherit;
 }
 
 .text-field-container>textarea::placeholder {

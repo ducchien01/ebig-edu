@@ -1,5 +1,4 @@
 import { Checkbox, Popup, ProgressBar, RadioButton, Rating, Text, showPopup } from "../../../../component/export-component";
-import demoAvatar from '../../../../assets/demo-avatar1.png'
 // import mediaImg from '../../../../assets/media.png'
 // import banner from '../../../../assets/banner1.png'
 import demoImg from '../../../../assets/demo-image1.png'
@@ -15,6 +14,8 @@ import { ClassController } from "../class/controller";
 import { MentorController } from "../mentor/controller";
 import { AccountController } from "../../account/controller";
 import PopupLogin from "../../account/popup-login";
+import { InforCard } from "../../../../project-component/card";
+import ListComment from "../../social/new/local-component/list-comment";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -38,7 +39,7 @@ export default function ViewCourseDetails() {
 
     const buyCourse = () => {
         if (isLogin) {
-            navigate()
+            navigate('/social/ecomerce/cart')
         } else {
             showPopup({
                 ref: ref,
@@ -96,8 +97,12 @@ export default function ViewCourseDetails() {
     const optionBuyMentor = () => {
         let renderList = mentorList.filter(e => e.checked)
         if (renderList.length < 2) {
-            renderList.push(...mentorList.filter(e => !e.checked))
-            renderList = renderList.slice(0, 2)
+            if (mentorList.slice(0, 2).some(e => e.checked)) {
+                renderList = mentorList.slice(0, 2)
+            } else {
+                renderList.push(...mentorList.filter(e => !e.checked))
+                renderList = renderList.slice(0, 2)
+            }
         }
         if (!renderList.length) return <></>
         return <div className="col" style={{ gap: '1.2rem' }}>
@@ -107,11 +112,15 @@ export default function ViewCourseDetails() {
             </div>
             {renderList.map((item) => {
                 return <div key={item.id} className={`col option-buy-class-mentor ${item.checked ? 'selected' : ''}`}>
-                    <div className="row" style={{ gap: '1.6rem', paddingBottom: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
+                    <div className="row" style={{ gap: '1.6rem', paddingBottom: '1.2rem', borderBottom: 'var(--border-grey1)', alignItems: 'start' }}>
                         <Checkbox size={'2rem'} style={{ borderRadius: '50%' }} value={item.checked} onChange={(v) => {
+                            setMentorList(mentorList.map(e => {
+                                if (e.id === item.id) e.checked = v
+                                return e
+                            }))
                         }} />
-                        <Text className="heading-7" maxLine={1} style={{ flex: 1, width: '100%' }}>Tư duy thiết kế</Text>
-                        <Text className="heading-6">350.000đ</Text>
+                        <Text className="heading-7" maxLine={2} style={{ flex: 1, width: '100%' }}>{item.name}</Text>
+                        <Text className="heading-6">{Ultis.money(item.price)}đ</Text>
                     </div>
                     <div className="row" style={{ gap: '0.8rem', flex: 1, alignItems: 'start' }}>
                         <OutlineCalendarDate width="2rem" height="2rem" />
@@ -191,25 +200,17 @@ export default function ViewCourseDetails() {
                     </div>
                     {optionsBuyClass()}
                     {optionBuyMentor()}
-                    <div className="col" style={{ gap: '1.6rem' }}>
-                        <img src={demoAvatar} alt="" style={{ width: '8rem', height: '8rem', borderRadius: '50%' }} />
-                        <div className="col" style={{ gap: '0.4rem' }}>
-                            <Text className="heading-7">Phan Minh Anh</Text>
-                            <div className="row" style={{ paddingBottom: '0.4rem', gap: '0.4rem' }}>
-                                <div className="subtitle-4">200 bài viết</div>
-                                <div className="subtitle-4">.</div>
-                                <div className="subtitle-4">12 khóa học</div>
-                                <div className="subtitle-4">.</div>
-                                <div className="subtitle-4">334 người theo dõi </div>
-                            </div>
-                            <Text className="body-3" style={{ '--max-line': 4 }}>
-                                Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.
-                            </Text>
-                        </div>
-                        <button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
+                    <InforCard
+                        style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
+                        avatar={expert?.avatarUrl}
+                        avatarSize="8rem"
+                        title={expert?.name}
+                        subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
+                        content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
+                        actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
                             <div className="button-text-3">Theo dõi</div>
-                        </button>
-                    </div>
+                        </button>}
+                    />
                     <div className="col divider" style={{ width: '100%' }}></div>
                     <div className="col" style={{ gap: '3.2rem' }}>
                         {/* <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
@@ -246,7 +247,7 @@ const OverallTab = ({ data }) => {
         <div className="row" style={{ width: '100%', padding: '2.4rem 4.8rem', gap: '2.4rem 4.8rem', flexWrap: 'wrap', backgroundColor: 'var(--background)', border: 'var(--border-grey1)', borderRadius: '0.8rem' }}>
             <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
                 <OutlineVideoPlaylist width="2rem" height="2rem" />
-                <div className="button-text-3">{data.courseLessons?.length} bài học</div>
+                <div className="button-text-3">{data.courseLessons?.filter(e => e.lessonId)?.length} bài học</div>
             </div>
             <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '4.8rem' }}>
                 <OutlineBooks width="2rem" height="2rem" />
@@ -340,7 +341,7 @@ const OverallTab = ({ data }) => {
                     })}
                 </div>
             </div>
-
+            <ListComment />
         </div>
     </>
 }

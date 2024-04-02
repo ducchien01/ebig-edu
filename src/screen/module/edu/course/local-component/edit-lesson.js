@@ -52,7 +52,11 @@ export default function FormEditLesson({ courseData }) {
             case LessonType.video:
                 return <EditVideo data={data} />
             case LessonType.text:
-                return <EditText data={data} />
+                return <EditText data={data} onChange={(newData) => {
+                    LessonController.edit(newData).then(res => {
+                        if (res) setData(newData)
+                    })
+                }} />
             case LessonType.task:
                 return <EditTask data={data} />
             default:
@@ -88,32 +92,34 @@ export default function FormEditLesson({ courseData }) {
 
     return <div className="form-edit-lesson-content row" >
         <Popup ref={ref} />
-        <div className="col details-content-block col16 col20-md col20-sm" style={{ gap: '3.2rem', }}>
-            <div className="row" style={{ width: '100%', gap: '0.8rem' }}>
-                <div className='col header-breadcum' >
-                    <div className='row' style={{ gap: '0.8rem' }}>
-                        <div className='button-text-6'>Danh sách bài học</div>
-                        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.2rem' }} />
-                        <div className='button-text-6'>{data?.name}</div>
+        <div className="col details-content-block col16 col20-md col20-sm" style={{ gap: '3.2rem' }}>
+            <div className='col' style={{ gap: '0.8rem', width: '100%' }} >
+                <div className='row header-breadcum' style={{ gap: '0.8rem' }}>
+                    <div className='button-text-6'>Danh sách bài học</div>
+                    <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1rem' }} />
+                    <div className='button-text-6'>{data?.name}</div>
+                </div>
+                <div className="row" style={{ width: '100%', gap: '0.8rem', alignItems: 'start' }}>
+                    <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
+                        <Text className='heading-5' maxLine={2} style={{ width: '98%' }}>{data?.name}</Text>
+                        <button type="button" className="row" style={{ gap: '0.8rem' }}>
+                            {getPrefixIcon(data?.type)}
+                            <div className="button-text-3">{getTitleText(data?.type)}</div>
+                            <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.2rem', color: '#00204D99' }} />
+                        </button>
                     </div>
-                    <Text className='heading-5'>{data?.name}</Text>
-                    <button type="button" className="row" style={{ gap: '0.8rem' }}>
-                        {getPrefixIcon(data?.type)}
-                        <div className="button-text-3">{getTitleText(data?.type)}</div>
-                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.2rem', color: '#00204D99' }} />
+                    <button type="button" className="row button-grey">
+                        <FontAwesomeIcon icon={faEye} style={{ fontSize: '1.4rem' }} />
+                        <Text className="button-text-3" >Xem trước</Text>
+                    </button>
+                    <button type="button" style={{ padding: '0.6rem 1.2rem' }} className={`row ${showListLesson ? 'button-infor' : 'button-grey'}`} onClick={() => setShowListLesson(!showListLesson)}>
+                        <FontAwesomeIcon icon={showListLesson ? faXmark : faBars} style={{ fontSize: '1.4rem' }} />
+                        <Text className="button-text-3" >Danh sách bài học</Text>
+                    </button>
+                    <button type="button" className="row button-grey" style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%', justifyContent: 'center' }} onClick={popupMoreAction}>
+                        <FontAwesomeIcon icon={faEllipsisVertical} style={{ fontSize: '1.4rem' }} />
                     </button>
                 </div>
-                <button type="button" className="row button-grey">
-                    <FontAwesomeIcon icon={faEye} style={{ fontSize: '1.4rem' }} />
-                    <Text className="button-text-3" >Xem trước</Text>
-                </button>
-                <button type="button" style={{ padding: '0.6rem 1.2rem' }} className={`row ${showListLesson ? 'button-infor' : 'button-grey'}`} onClick={() => setShowListLesson(!showListLesson)}>
-                    <FontAwesomeIcon icon={showListLesson ? faXmark : faBars} style={{ fontSize: '1.4rem' }} />
-                    <Text className="button-text-3" >Danh sách bài học</Text>
-                </button>
-                <button type="button" className="row button-grey" style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%', justifyContent: 'center' }} onClick={popupMoreAction}>
-                    <FontAwesomeIcon icon={faEllipsisVertical} style={{ fontSize: '1.4rem' }} />
-                </button>
             </div>
             <div className="col" style={{ flex: 1, height: '100%', width: '100%', overflow: 'hidden auto' }}>
                 {renderUI()}
@@ -175,16 +181,17 @@ const EditVideo = ({ data }) => {
     return <div></div>
 }
 
-const EditText = ({ data }) => {
-    const [content, setContent] = useState('')
-    useEffect(() => {
-        setContent(data?.content ?? '')
-    }, [data])
-
+const EditText = ({ data, onChange }) => {
     return <CustomCKEditor
         config={editorConfiguration}
         style={{ flex: 1, height: '100%' }}
-        value={content}
+        value={data?.content ?? ''}
+        onBlur={(_, editor) => {
+            if (onChange) onChange({
+                ...data,
+                content: editor.getData()
+            })
+        }}
     />
 }
 

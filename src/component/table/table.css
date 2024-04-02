@@ -5,7 +5,7 @@
 }
 
 .custom-table>.tb-header {
-    top: 0;
+    top: -1px;
     z-index: 4;
     position: sticky;
     background-color: #f9fafb;
@@ -20,7 +20,7 @@
     height: 4rem;
     text-align: left;
     flex-shrink: 0 !important;
-    padding: 0 24px;
+    padding: 0 2.4rem;
     font: 400 1.4rem/2.2rem 'Inter';
     color: #00204DCC;
     vertical-align: middle;

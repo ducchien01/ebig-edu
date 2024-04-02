@@ -192,10 +192,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
                 </button>
             </div>
         </div>
-    </div> :
-        <EmptyLessons
-            addManual={addCourseLesson}
-        />
+    </div> : <EmptyLessons addManual={addCourseLesson} />
 }
 
 const EmptyLessons = ({ addManual, addByTemplate, upload }) => {
@@ -237,7 +234,9 @@ const EmptyLessons = ({ addManual, addByTemplate, upload }) => {
                     </div>
                 })
             }}>
-                <div className="row" style={{ padding: '0.8rem', borderRadius: '50%', backgroundColor: '#ffffff' }}><FilledCloudUpload width="2.4rem" height="2.4rem" /></div>
+                <div className="row" style={{ padding: '0.8rem', borderRadius: '50%', backgroundColor: '#ffffff' }}>
+                    <FilledCloudUpload width="2.4rem" height="2.4rem" />
+                </div>
                 <div className="col">
                     <Text className="heading-7">Upload giáo trình</Text>
                     <Text className="subtitle-4" >Tải lên template giáo trình bạn đã lưu</Text>

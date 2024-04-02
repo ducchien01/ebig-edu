@@ -36,9 +36,3 @@
     box-sizing: border-box;
     max-width: 33.4rem;
 }
-
-.main-layout>.header>.action>.user-infor {
-    width: 3.2rem;
-    height: 3.2rem;
-    border-radius: 50%;
-}

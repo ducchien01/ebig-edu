@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import './home.css'
 import ListNews from "./local-component/list-news"
 import ListExpertByTopic from "./local-component/list-expert"
-import NewsDetails from "./local-component/news-details"
+import NewsDetails from "../new/news-details"
 import SidebarActions from "../../../layout/sidebar/sidebar-actions"
 
 export default function SocialHome() {

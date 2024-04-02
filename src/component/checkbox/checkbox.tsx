@@ -7,6 +7,7 @@ interface CheckboxProps {
     checkColor?: string,
     disabled: false,
     style: CSSProperties,
+    /** default 2.4rem **/ 
     size?: number | string,
 }
 

@@ -25,13 +25,7 @@ export default function ListAllCourse() {
                     if (cusRes) setCustomerList(cusRes)
                 })
             }
-            const imgRes = await getFilesByIds(res.data.map(e => e.thumbnailId ?? e.pictureId))
-            setData([...data, ...res.data.filter(e => data.every(el => el.id !== e.id)).map(e => {
-                const fileInfor = imgRes.find(img => img.id === (e.thumbnailId ?? e.pictureId))
-                if (fileInfor)
-                    e.thumbnailUrl = ConfigAPI.fileUrl + fileInfor.url
-                return e
-            })])
+            setData([...data, ...res.data])
         }
     }
 
@@ -56,7 +50,7 @@ export default function ListAllCourse() {
                     to={'/social/education/course/' + item.id}
                     style={{ '--gutter': '4rem' }}
                     className="col col6"
-                    imgUrl={item.thumbnailUrl}
+                    imgUrl={ConfigAPI.imgUrl + item.thumbnailId}
                     heading={<div className="row" style={{ gap: '0.8rem' }}>
                         <img src={customer?.avatarUrl} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
                         <Text className="label-4">{customer?.name ?? '-'}</Text>

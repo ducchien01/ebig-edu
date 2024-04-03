@@ -9,6 +9,7 @@ import { CourseStatus } from "../da"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Ultis } from "../../../../../Utils"
 import { CourseCard } from "../../../../../project-component/card"
+import ConfigAPI from "../../../../../config/configApi"
 
 export default function ListCourse({ data, getData }) {
     const ref = useRef()
@@ -75,7 +76,7 @@ export default function ListCourse({ data, getData }) {
                 to={'details/overview/' + item.id}
                 style={{ '--gutter': '2.4rem' }}
                 className='col col12'
-                imgUrl={item.thumbnailUrl}
+                imgUrl={ConfigAPI.imgUrl + item.thumbnailId}
                 imgStyle={{ width: '20rem' }}
                 title={item.name}
                 subtitle={Ultis.datetoString(new Date(item.dateCreated), 'dd/mm/yyyy hh:mm')}

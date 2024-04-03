@@ -6,8 +6,6 @@ import ListCourse from './local-component/list-course'
 import PopupAddNewCourse from './local-component/popup-add-new-course'
 import { CourseController } from './controller'
 import { Popup, Text, showPopup } from '../../../../component/export-component'
-import { getFilesByIds } from '../../../base-controller'
-import ConfigAPI from '../../../../config/configApi'
 
 export default function SchoolCourse() {
     const ref = useRef()
@@ -31,13 +29,7 @@ export default function SchoolCourse() {
         const res = await CourseController.getListSimple({ page: Math.floor((data.length / 20)) + 1, take: 20, filter: filter })
         if (res) {
             if (total !== res.totalCount) setTotal(res.totalCount)
-            const imgRes = await getFilesByIds(res.data.map(e => e.thumbnailId ?? e.pictureId))
-            setData([...data, ...res.data.map(e => {
-                const fileInfor = imgRes.find(img => img.id === (e.thumbnailId ?? e.pictureId))
-                if (fileInfor)
-                    e.thumbnailUrl = ConfigAPI.fileUrl + fileInfor.url
-                return e
-            })])
+            setData([...data, ...res.data])
         }
     }
 

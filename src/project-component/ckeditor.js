@@ -64,7 +64,7 @@ export default class MyUploadAdapter {
             // UploadAdapter#upload documentation.
             console.log('11111111', response)
             resolve({
-                default: response.url
+                default: ConfigAPI.imgUrl + response.data[0].id
             });
         });
 
@@ -86,7 +86,7 @@ export default class MyUploadAdapter {
         // Prepare the form data.
         const data = new FormData();
 
-        data.append('file', file);
+        data.append('files', file);
 
         // Important note: This is the right place to implement security mechanisms
         // like authentication and CSRF protection. For instance, you can use

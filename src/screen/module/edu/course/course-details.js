@@ -232,7 +232,7 @@ export default function ViewCourseDetails() {
 
 const OverallTab = ({ data }) => {
     return <>
-        <img src={demoImg} alt="" style={{ width: '100%', borderRadius: '0.8rem' }} />
+        <img src={ConfigAPI.imgUrl + data.thumbnailId} alt="" style={{ width: '100%', borderRadius: '0.8rem' }} />
         <div className="row" style={{ paddingTop: '1.6rem', gap: '1.6rem' }}>
             <button type="button" className="row button-grey" style={{ padding: 0, backgroundColor: 'transparent' }}>
                 <FilledSocialSharing />
@@ -341,7 +341,7 @@ const OverallTab = ({ data }) => {
                     })}
                 </div>
             </div>
-            <ListComment />
+            <ListComment rating />
         </div>
     </>
 }

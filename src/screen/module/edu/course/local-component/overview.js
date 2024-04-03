@@ -146,6 +146,7 @@ export default function Overview({ data, onChangeRequired }) {
                     label={'Giới thiệu tổng quan'}
                     placeholder={'Giới thiệu ngắn gọn về khóa học'}
                     onBlur={onChangeData}
+                    style={{height: '14rem'}}
                 />
                 <Select1Form
                     required
@@ -186,6 +187,7 @@ export default function Overview({ data, onChangeRequired }) {
                     label={'Khóa học phù hợp với ai?'}
                     placeholder={'Mô tả chi tiết hơn về đối tượng khóa học nhắm đến'}
                     onBlur={onChangeData}
+                    style={{height: '14rem'}}
                 />
                 <div className="col" style={{ padding: '1.2rem 0', gap: '2rem' }}>
                     <SwitchForm control={control} label={'Cấp chứng chỉ cho học viên hoàn thành'} value={watch('isCertificate')} name={'isCertificate'} onChange={onChangeData} />

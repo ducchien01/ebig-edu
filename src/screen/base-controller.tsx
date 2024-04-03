@@ -23,15 +23,15 @@ interface FilterItem {
 }
 
 export interface FilterListSimpleBody {
-    /* number of element in response list */
+    /** number of element in response list **/
     take?: number,
-    /* reponse list = element index of ((page - 1) * take) to element index of (page * take) */
+    /** reponse list = element index of ((page - 1) * take) to element index of (page * take) **/
     page?: number,
-    /* object in response list only return value of prop in selectProps */
+    /** object in response list only return value of prop in selectProps **/
     selectProps?: Array<string>,
-    /* response list is sorted by elements in this list */
+    /** response list is sorted by elements in this list **/
     sort: Array<string>,
-    /* response list return elements have key and value (conatins or valid) according to this list  */
+    /** response list return elements have key and value (conatins or valid) according to this list  **/
     filter?: Array<FilterItem>
 }
 

@@ -28,8 +28,8 @@ export function TextFieldForm({ label, register, required = false, name, type, p
     </div>
 }
 
-export function TextAreaForm({ label, register, required = false, name, placeholder, errors, maxLength, readOnly = false, disabled = false, onChange, onBlur, onFocus, width = '100%', helperText }) {
-    return <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
+export function TextAreaForm({ label, register, required = false, name, placeholder, errors, maxLength, readOnly = false, disabled = false, onChange, onBlur, onFocus, width = '100%', helperText, style = {} }) {
+    return <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width, height: '12rem', ...style }}>
         {label ? <div className="row" style={{ gap: 4 }}>
             <Text className="label-3">{label}</Text>
             {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
@@ -37,12 +37,11 @@ export function TextAreaForm({ label, register, required = false, name, placehol
         <TextArea
             register={register(name, {
                 required: required ? (helperText ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`) : null,
-                setValueAs: value => value,
                 onBlur: onBlur,
                 onChange: onChange,
             })}
             onFocus={onFocus}
-            style={{ width: '100%', minHeight: '12rem' }}
+            style={{ width: '100%', height: '100%', flex: 1 }}
             placeholder={placeholder ? placeholder : label ? `Nhập ${label.toLowerCase()}` : ''}
             disabled={disabled}
             readOnly={readOnly}
@@ -136,21 +135,20 @@ export function CheckboxForm({ value, label, control, name, disabled = false, on
     />
 }
 
-export function RadioButtonForm({ value, label, defaultChecked, control, name, disabled = false, onChange, size }) {
-    return <Controller
-        name={name}
-        control={control}
-        render={({ field }) => <div className="row" style={{ gap: 4 }}>
-            <RadioButton value={value} disabled={disabled} size={size ?? '1.6rem'} defaultChecked={defaultChecked} name={name} onChange={(ev) => {
-                field.onChange(ev.target.value)
-                if (onChange) onChange(ev.target.value)
-            }} />
-            {label ? <Text className="label-3" maxLine={1}>{label}</Text> : null}
-        </div>}
-    />
+export function RadioButtonForm({ value, label, register, name, disabled = false, onChange, size }) {
+    return <div className="row" style={{ gap: 4 }}>
+        <RadioButton
+            value={value}
+            disabled={disabled}
+            size={size ?? '1.6rem'}
+            name={name}
+            register={register(name, { onChange: onChange })}
+        />
+        {label ? <Text className="label-3" maxLine={1}>{label}</Text> : null}
+    </div>
 }
 
-export function ImportFileForm({ name, label, control, maxSize, allowType, status, value, onChange, subTitle, width, required = false, direction = 'row', multiple = false }) {
+export function ImportFileForm({ name, label, control, maxSize, allowType, status, value, onChange, title, subTitle, width, required = false, direction = 'row', multiple = false }) {
     return <Controller
         name={name}
         control={control}
@@ -160,10 +158,10 @@ export function ImportFileForm({ name, label, control, maxSize, allowType, statu
                 <Text className="label-3">{label}</Text>
                 {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
             </div> : null}
-            <ImportFile maxSize={maxSize} subTitle={subTitle} allowType={allowType} status={status} value={value} onChange={(ev) => {
+            <ImportFile maxSize={maxSize} label={title} subTitle={subTitle} allowType={allowType} status={status} value={value} onChange={(ev) => {
                 field.onChange(ev)
                 if (onChange) onChange(ev)
-            }} style={{ width: '100%', borderStyle: 'dashed' }} className={direction} />
+            }} style={{ width: '100%', borderStyle: 'dashed', maxWidth: '100%' }} className={direction} />
         </div>}
     />
 }

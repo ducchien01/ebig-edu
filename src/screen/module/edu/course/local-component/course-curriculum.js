@@ -26,7 +26,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
                 var prefixIcon = <FilledLogoYoutube key={'prefix-icon'} />
                 var placeholder = `Tiêu đề video bài học ${lessons.filter(e => e.parentId === item.parentId && e.type === item.type).findIndex(e => item.id === e.id) + 1}`
                 break;
-            case LessonType.text:
+            case LessonType.paragraph:
                 prefixIcon = <FilledFileText key={'prefix-icon'} />
                 placeholder = `Tiêu đề bài viết ${lessons.filter(e => e.parentId === item.parentId && e.type === item.type).findIndex(e => item.id === e.id) + 1}`
                 break;
@@ -176,7 +176,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
                             <FontAwesomeIcon icon={faCirclePlus} style={{ fontSize: '1.25rem', color: '#00204D99' }} />
                             <div className="button-text-3">Video bài giảng</div>
                         </button>
-                        <button type="button" className="row" onClick={() => { showPopupAddNewLesson({ parentId: item.id, type: LessonType.text }) }}>
+                        <button type="button" className="row" onClick={() => { showPopupAddNewLesson({ parentId: item.id, type: LessonType.paragraph }) }}>
                             <FontAwesomeIcon icon={faCirclePlus} style={{ fontSize: '1.25rem', color: '#00204D99' }} />
                             <div className="button-text-3">Bài viết</div>
                         </button>
@@ -228,7 +228,7 @@ const EmptyLessons = ({ addManual, addByTemplate, upload }) => {
                             <ImportFile maxSize={50000} subTitle="Kích thước tệp nhỏ hơn 5MB." style={{ width: '100%', maxWidth: '100%', borderStyle: 'dashed' }} />
                         </div>
                         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
-                            <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
+                            <Text onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
                             <button type="button" className={`submit-popup-btn button-text-3`} onClick={upload}>Lưu</button>
                         </div>
                     </div>
@@ -269,7 +269,7 @@ const PopupAddNewLesson = forwardRef(function PopupAddNewLesson(data, ref) {
             />
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
-            <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
+            <Text onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
             <button type="button" className={`submit-popup-btn button-text-3 ${methods.watch('name').trim().length ? 'active' : ''}`} onClick={methods.handleSubmit(onSubmit)}>Tạo mới</button>
         </div>
     </form>

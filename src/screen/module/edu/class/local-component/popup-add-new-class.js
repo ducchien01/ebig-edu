@@ -22,7 +22,7 @@ const PopupAddNewClass = forwardRef(function PopupAddNewClass(data, ref) {
             />
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
-            <Text style={{ cursor: 'pointer' }} onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
+            <Text onClick={() => { closePopup(ref) }} className="button-text-3" >Hủy</Text>
             <button type="button" className={`submit-popup-btn button-text-3 ${methods.watch('name')?.length ? 'active' : ''}`} onClick={methods.handleSubmit(onSubmit)}>Tạo mới</button>
         </div>
     </form>

@@ -35,7 +35,7 @@
     padding: 3.2rem 1.6rem 3.2rem 0;
     border-right: var(--border-grey1);
     height: 100%;
-    width: 19.6%;
+    width: 18%;
     gap: 2.4rem;
 }
 
@@ -202,6 +202,7 @@
     border-radius: 0.8rem;
     border: var(--border-grey1);
     background-color: var(--background);
+    align-items: start;
 }
 
 .btn-sort {

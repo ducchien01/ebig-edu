@@ -44,7 +44,6 @@ export default function Overview({ data, onChangeRequired }) {
             TagController.getAll().then(res => {
                 if (res) setListTag(res)
             })
-            let listFile = []
             Object.keys(data).forEach(props => {
                 if (data[props] != null) {
                     if (props === 'targets') {
@@ -52,25 +51,15 @@ export default function Overview({ data, onChangeRequired }) {
                         if (targetList.length)
                             setValue(props, targetList)
                     } else if (['pictureId', 'thumbnailId'].includes(props)) {
-                        listFile.push({ key: props.replace('Id', 'File'), id: data[props] })
-                    } else if(props === 'price') {
+                        setValue(props, data[props])
+                        setValue(props.replace('Id', 'File'), { url: ConfigAPI.imgUrl + data[props], type: 'image' })
+                    } else if (props === 'price') {
                         setValue(props, Ultis.money(data[props]))
                     } else {
                         setValue(props, data[props])
                     }
                 }
             })
-            if (listFile.length) {
-                getFilesByIds(listFile.map(e => e.id)).then(res => {
-                    if (res) {
-                        res.forEach(fileItem => {
-                            const props = listFile.find(e => e.id === fileItem.id)
-                            if (props)
-                                setValue(props.key, { name: fileItem.name, url: ConfigAPI.fileUrl + fileItem.url, size: fileItem.size, type: 'image' })
-                        })
-                    }
-                })
-            }
         }
     }, [data])
 
@@ -90,7 +79,7 @@ export default function Overview({ data, onChangeRequired }) {
                         uploadFiles([newFile]).then(res => {
                             if (res) {
                                 setValue('pictureId', res[0].id)
-                                setValue('pictureFile', { name: newFile.name, url: ConfigAPI.fileUrl + res[0].url, size: newFile.size, type: 'image' })
+                                setValue('pictureFile', { url: ConfigAPI.imgUrl + res[0].id, type: 'image' })
                                 onChangeData()
                             }
                         })
@@ -110,7 +99,7 @@ export default function Overview({ data, onChangeRequired }) {
                         uploadFiles([newFile]).then(res => {
                             if (res) {
                                 setValue('thumbnailId', res[0].id)
-                                setValue('thumbnailFile', { name: newFile.name, url: ConfigAPI.fileUrl + res[0].url, size: newFile.size, type: 'image' })
+                                setValue('thumbnailFile', { url: ConfigAPI.imgUrl + res[0].id, type: 'image' })
                                 onChangeData()
                             }
                         })

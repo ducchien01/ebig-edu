@@ -47,7 +47,7 @@ export const uploadFiles = async (listFile: Array<File>) => {
     listFile.forEach(e => {
         formData.append("files", e);
     })
-    const response = await BaseDA.postFile(ConfigAPI.ebigUrl + 'UploadFileAuth/MulFile', {
+    const response = await BaseDA.postFile(ConfigAPI.ebigUrl + 'UploadFileAuth/Upload', {
         headers: headersObj,
         body: formData,
     })

@@ -115,12 +115,10 @@ export class ImportFile extends React.Component<ImportFileProps, ImportFileState
                     </div>,
                     <div key={'file-preview-content'} className='file-preview-content col' >
                         <Text className='title-file heading-8' style={{ maxWidth: '100%' }}>
-                            {this.state.preview
-                                ? this.state.preview?.name ?? ''
-                                : (this.props.label ?? 'Nhấp hoặc kéo tệp vào đây để tải lên')}
+                            {this.state.preview?.name ?? (this.props.label ?? 'Nhấp hoặc kéo tệp vào đây để tải lên')}
                         </Text>
                         <Text className='subtitle-file subtitle-3' style={{ maxWidth: '100%' }}>
-                            {this.state.preview
+                            {this.state.preview?.size
                                 ? `${this.state.preview?.size}KB`
                                 : (this.props.subTitle ?? (sizeTitle ? `Kích thước tệp nhỏ hơn ${sizeTitle}.` : ''))}
                         </Text>

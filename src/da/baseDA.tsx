@@ -1,4 +1,3 @@
-import { Ultis } from "../Utils";
 import { ToastMessage } from "../component/export-component";
 import { AccountController } from "../screen/module/account/controller";
 

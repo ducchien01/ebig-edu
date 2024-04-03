@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
 import './radio-button.css';
+import { UseFormRegister } from 'react-hook-form';
 
 interface RadioButtonProps {
     onChange?: React.ChangeEventHandler<HTMLInputElement>,
@@ -12,6 +13,7 @@ interface RadioButtonProps {
     activeColor?: string,
     offColor?: string,
     className?: string,
+    register?: UseFormRegister<{}>,
 }
 
 
@@ -34,8 +36,23 @@ export class RadioButton extends React.Component<RadioButtonProps> {
                 ...convertStyle,
             }
         }
+
         return <label className={`radio-btn-container row ${this.props.className ?? ''}`} style={convertStyle} >
-            <input type="radio" name={this.props.name} value={this.props.value} defaultChecked={this.props.defaultChecked} disabled={this.props.disabled} onChange={this.props.onChange} />
+            {this.props.register ?
+                <input
+                    {...this.props.register}
+                    type="radio"
+                    value={this.props.value}
+                    disabled={this.props.disabled}
+                /> :
+                <input type="radio"
+                    name={this.props.name}
+                    value={this.props.value}
+                    defaultChecked={this.props.defaultChecked}
+                    disabled={this.props.disabled}
+                    onChange={this.props.onChange}
+                />
+            }
             <span className="checkmark"></span>
         </label>
     }

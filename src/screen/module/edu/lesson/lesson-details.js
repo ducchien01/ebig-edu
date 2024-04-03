@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
-import { editorConfiguration } from "../../../../../assets/const/const-list"
-import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledIndicator, FilledLogoYoutube, FilledResizeV, FilledText, FilledTrashCan } from "../../../../../assets/const/icon"
+import { json, useParams } from "react-router-dom"
+import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledLogoYoutube, FilledText, FilledTrashCan } from "../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faChevronDown, faChevronRight, faEllipsisVertical, faEye, faGear, faXmark } from "@fortawesome/free-solid-svg-icons"
-import { Checkbox, CustomCKEditor, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
-import { LessonType } from "../../lesson/da"
-import { LessonController } from "../../lesson/controller"
+import { faBars, faChevronDown, faChevronRight, faEllipsisVertical, faEye, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
+import { LessonType } from "./da"
+import { LessonController } from "./controller"
+import EditVideo from "./local-component/edit-video"
+import EditParagraph from "./local-component/edit-paragraph"
+import EditTask from "./local-component/list-task"
+import PopupAddEditQuizz from "./local-component/poup-edit-task"
 
 export default function FormEditLesson({ courseData }) {
     const { lessonid } = useParams()
@@ -29,14 +32,55 @@ export default function FormEditLesson({ courseData }) {
                     <FilledChat />
                     <Text className="label-4">Tắt bình luận của học viên</Text>
                 </button>
-                <button type="button" className="row" onClick={() => {
-                    closePopup(ref)
-                }}>
+                <button type="button" className="row" onClick={() => { closePopup(ref) }}>
                     <FilledTrashCan color="#E14337" />
                     <Text className="label-4" style={{ color: '#E14337' }}>Xóa bài học</Text>
                 </button>
             </div>
         })
+    }
+
+    const showPopupEditAddQizz = (item) => {
+        showPopup({
+            ref: ref,
+            heading: <div className="heading-7 popup-header">Quizz</div>,
+            content: <PopupAddEditQuizz ref={ref} questionItem={item} onChange={(quest) => {
+                if (data.content) {
+                    try {
+                        let questList = JSON.parse(data.content)
+                        if (item) {
+                            data.content = JSON.stringify(questList.map(e => {
+                                if (e.id === quest.id) {
+                                    return quest
+                                }
+                                return e
+                            }))
+                        } else {
+                            data.content = JSON.stringify([...questList, quest])
+                        }
+                    } catch (error) {
+                        data.content = JSON.stringify([quest])
+                    }
+                } else {
+                    data.content = JSON.stringify([quest])
+                }
+                LessonController.edit(data).then(res => {
+                    if (res) setData(data)
+                })
+            }} />
+        })
+    }
+
+    const deleteQuest = (item) => {
+        try {
+            let questList = JSON.parse(data.content)
+            data.content = JSON.stringify(questList.filter(e => e.id !== item.id))
+            LessonController.edit(data).then(res => {
+                if (res) setData(data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
@@ -51,14 +95,14 @@ export default function FormEditLesson({ courseData }) {
         switch (data?.type) {
             case LessonType.video:
                 return <EditVideo data={data} />
-            case LessonType.text:
-                return <EditText data={data} onChange={(newData) => {
+            case LessonType.paragraph:
+                return <EditParagraph data={data} onChange={(newData) => {
                     LessonController.edit(newData).then(res => {
                         if (res) setData(newData)
                     })
                 }} />
             case LessonType.task:
-                return <EditTask data={data} />
+                return <EditTask data={data} editQuest={showPopupEditAddQizz} deleteQuest={deleteQuest} />
             default:
                 return <div></div>;
         }
@@ -68,7 +112,7 @@ export default function FormEditLesson({ courseData }) {
         switch (type) {
             case LessonType.video:
                 return <FilledLogoYoutube />
-            case LessonType.text:
+            case LessonType.paragraph:
                 return <FilledFileText />
             case LessonType.task:
                 return <FilledCircleQuestion />
@@ -81,7 +125,7 @@ export default function FormEditLesson({ courseData }) {
         switch (type) {
             case LessonType.video:
                 return 'Video bài giảng'
-            case LessonType.text:
+            case LessonType.paragraph:
                 return 'Bài viết'
             case LessonType.task:
                 return 'Bài kiểm tra'
@@ -131,7 +175,7 @@ export default function FormEditLesson({ courseData }) {
                     <FilledText width="2.4rem" height="2.4rem" />
                     <div className="subtitle-3">Text editor</div>
                 </button> : null}
-                <button type="button" className="col col6 col8-xxl col8-xl col12-lg col24-md col24-sm" >
+                <button type="button" className="col col6 col8-xxl col8-xl col12-lg col24-md col24-sm" onClick={() => showPopupEditAddQizz()} >
                     <FilledCircleQuestion width="2.4rem" height="2.4rem" />
                     <div className="subtitle-3">Quizz</div>
                 </button>
@@ -168,82 +212,5 @@ export default function FormEditLesson({ courseData }) {
                 </div>
             </div> : null}
         </div>
-    </div>
-}
-
-const EditVideo = ({ data }) => {
-    const [listVideo, setListVideo] = useState([])
-
-    useEffect(() => {
-        setListVideo(data?.list ?? [])
-    }, [data])
-
-    return <div></div>
-}
-
-const EditText = ({ data, onChange }) => {
-    return <CustomCKEditor
-        config={editorConfiguration}
-        style={{ flex: 1, height: '100%' }}
-        value={data?.content ?? ''}
-        onBlur={(_, editor) => {
-            if (onChange) onChange({
-                ...data,
-                content: editor.getData()
-            })
-        }}
-    />
-}
-
-const EditTask = ({ data }) => {
-    const [listQuestion, setListQuestion] = useState([])
-
-    useEffect(() => {
-        setListQuestion(data?.list ?? [{}, {}, {}])
-    }, [data])
-
-    return <div className="col" style={{ gap: '3.2rem' }}>
-        <div className="row" style={{ gap: '0.8rem', paddingTop: '1.2rem', borderTop: 'var(--border-grey1)' }}>
-            <button type="button" className="button-grey row">
-                <FontAwesomeIcon icon={faGear} style={{ fontSize: '1.4rem' }} />
-                <Text className="button-text-3">Cài đặt tính điểm</Text>
-            </button>
-            <button type="button" className="button-grey row">
-                <FilledResizeV />
-                <Text className="button-text-3">Thu gọn</Text>
-            </button>
-        </div>
-        {listQuestion.map((quest, i) => <div key={'quest-' + i} className="quest-block-infor row" >
-            <div className="row btn-sort" style={{ padding: '0.4rem', position: 'absolute' }}><FilledIndicator /></div>
-            <div className="col" style={{ flex: 1, width: '100%', gap: '1.2rem' }}>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <Text className="highlight-6">Câu hỏi 1</Text>
-                    <Text className="body-3" style={{ color: '#00204D99' }}>(Chọn nhiều hơn 1 câu trả lời)</Text>
-                </div>
-                <Text className="button-text-1" style={{ '--max-line': 100 }}>Đâu là nhận xét đúng về trường hợp abcdjdf?</Text>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <Checkbox size={'1.6rem'} style={{ borderRadius: '50%' }} />
-                    <Text className="label-4">A. Lorem Ipsum is simply dummy text of the printing</Text>
-                </div>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <Checkbox size={'1.6rem'} style={{ borderRadius: '50%' }} />
-                    <Text className="label-4">B. Lorem Ipsum is simply dummy text of the printing</Text>
-                </div>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <Checkbox size={'1.6rem'} style={{ borderRadius: '50%' }} />
-                    <Text className="label-4">C. Lorem Ipsum is simply dummy text of the printing</Text>
-                </div>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    <Checkbox size={'1.6rem'} style={{ borderRadius: '50%' }} />
-                    <Text className="label-4">D. Lorem Ipsum is simply dummy text of the printing</Text>
-                </div>
-            </div>
-            <button key={'suffix-action-btn1'} type="button" onClick={() => { }} >
-                <FilledEdit />
-            </button>
-            <button key={'suffix-action-btn2'} type="button" onClick={() => { }}>
-                <FilledTrashCan />
-            </button>
-        </div>)}
     </div>
 }

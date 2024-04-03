@@ -6,7 +6,7 @@ import { faChevronDown, faChevronRight, faChevronUp } from '@fortawesome/free-so
 import { extendView } from '../../../../../assets/const/const-list';
 import { Checkbox, Text } from '../../../../../component/export-component';
 import { CourseController } from '../controller';
-import FormEditLesson from './edit-lesson';
+import FormEditLesson from '../../lesson/lesson-details';
 import CourseCurriculum from './course-curriculum';
 import Overview from './overview';
 

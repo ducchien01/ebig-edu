@@ -23,6 +23,25 @@ export interface CourseLessonItem {
 
 export enum LessonType {
     video = 1,
-    text = 2,
+    paragraph = 2,
     task = 3,
+}
+
+export enum QuestionType {
+    checkbox = 1,
+    radio = 2,
+    essay = 3,
+}
+
+export interface AnswerItem {
+    id?: string,
+    content?: string,
+    isCorrect?: boolean,
+}
+
+export interface QuestionItem {
+    type?: QuestionType,
+    question?: string,
+    answers?: Array<AnswerItem>,
+    fileId?: string
 }

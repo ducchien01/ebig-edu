@@ -330,10 +330,6 @@ export const editorConfiguration = {
         ],
         shouldNotGroupWhenFull: false
     },
-    ckbox: {
-        tokenUrl: "https://file-mamager.wini.vn/",
-        serviceOrigin: "https://file-mamager.wini.vn/"
-    },
 };
 
 export const listCommonInfor = [

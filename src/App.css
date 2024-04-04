@@ -14,6 +14,7 @@ body,
 
     box-sizing: border-box;
     background-color: white;
+    overflow: hidden;
 }
 
 @font-face {
@@ -871,7 +872,7 @@ button * {
     color: #ffffff;
 }
 
-.header-breadcum > * {
+.header-breadcum>* {
     color: #00204D99;
 }
 

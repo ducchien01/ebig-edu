@@ -130,7 +130,7 @@ export function CheckboxForm({ value, label, control, name, disabled = false, on
                 field.onChange(newValue)
                 if (onChange) onChange(newValue)
             }} style={{ borderRadius: radius }} />
-            {label ? <Text className="label-4" maxLine={1}>{label}</Text> : null}
+            {label ? typeof label === 'string' ? <Text className="label-4" maxLine={1}>{label}</Text> : label : null}
         </div>}
     />
 }

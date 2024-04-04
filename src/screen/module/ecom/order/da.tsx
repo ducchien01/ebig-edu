@@ -33,3 +33,10 @@ export interface OrderItem {
     shopId?: string,
     orderDetails?: Array<OrderDetailsItem>
 }
+
+export enum OrderType {
+    course = 1,
+    class = 2,
+    mentor = 3,
+    other = 4
+}

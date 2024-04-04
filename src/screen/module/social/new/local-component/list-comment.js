@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { RatingController } from "../../../edu/rating/controller"
-import { Pagination, Text, TextArea } from "../../../../../component/export-component"
+import { Pagination, TextArea } from "../../../../../component/export-component"
 import { CustomerController } from "../../../customer/controller"
 
 export default function ListComment({rating = false}) {
@@ -28,7 +28,7 @@ export default function ListComment({rating = false}) {
                     placeholder="Bạn thấy khóa học này thế nào?"
                 />
                 <div className="row" style={{ width: '100%', justifyContent: 'end', padding: '0.4rem 1.6rem 0.8rem' }}>
-                    <button type="button" className="row button-primary" style={{ padding: '0.6rem 1.2rem' }}>
+                    <button type="button" className={`row ${methods.watch('value') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem'}} onClick={methods.handleSubmit(sendRating)}>
                         <div className="button-text-3">Phản hồi</div>
                     </button>
                 </div>

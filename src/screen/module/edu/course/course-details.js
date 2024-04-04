@@ -16,6 +16,7 @@ import { AccountController } from "../../account/controller";
 import PopupLogin from "../../account/popup-login";
 import { InforCard } from "../../../../project-component/card";
 import ListComment from "../../social/new/local-component/list-comment";
+import { OrderType } from "../../ecom/order/da";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -39,7 +40,42 @@ export default function ViewCourseDetails() {
 
     const buyCourse = () => {
         if (isLogin) {
-            navigate('/social/ecomerce/cart')
+            navigate('/social/ecomerce/cart', {
+                state: {
+                    from: expert,
+                    products: [
+                        {
+                            id: data.id,
+                            name: data.name,
+                            unit: 'Khóa học',
+                            price: data.price,
+                            thumbnailId: data.thumbnailId,
+                            checked: true,
+                            type: OrderType.course
+                        },
+                        ...mentorList.filter(e => e.checked).map(e => {
+                            return {
+                                id: e.id,
+                                name: e.name,
+                                unit: 'Buổi',
+                                price: e.price,
+                                checked: true,
+                                type: OrderType.mentor,
+                            }
+                        }),
+                        ...classList.filter(e => e.checked).map(e => {
+                            return {
+                                id: e.id,
+                                name: e.name,
+                                unit: 'Học kỳ',
+                                price: e.price,
+                                checked: true,
+                                type: OrderType.class,
+                            }
+                        }),
+                    ]
+                }
+            })
         } else {
             showPopup({
                 ref: ref,

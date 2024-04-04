@@ -21,7 +21,7 @@ export class RatingController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'RatingAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<RatingItem>
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }

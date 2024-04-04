@@ -23,15 +23,15 @@ interface FilterItem {
 }
 
 export interface FilterListSimpleBody {
-    /** number of element in response list **/
+    /** number of element in response list */
     take?: number,
-    /** reponse list = element index of ((page - 1) * take) to element index of (page * take) **/
+    /** reponse list = element index of ((page - 1) * take) to element index of (page * take) */
     page?: number,
-    /** object in response list only return value of prop in selectProps **/
+    /** object in response list only return value of prop in selectProps */
     selectProps?: Array<string>,
-    /** response list is sorted by elements in this list **/
-    sort: Array<string>,
-    /** response list return elements have key and value (conatins or valid) according to this list  **/
+    /** response list is sorted by elements in this list */
+    sort?: Array<string>,
+    /** response list return elements have key and value (conatins or valid) according to this list  */
     filter?: Array<FilterItem>
 }
 
@@ -58,9 +58,9 @@ export const getListSimpleBase = async (url: string, params?: FilterListSimpleBo
 
 export const getFilesByIds = async (listId: Array<string>) => {
     let res = await postData(ConfigAPI.ebigUrl + 'SystemFileAuth/GetListByIds', { data: listId })
-    if(res.code === 200) {
+    if (res.code === 200) {
         return res.data
-    } else  {
+    } else {
         ToastMessage.errors(res.message)
     }
     return null

@@ -20,9 +20,9 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
         value: this.props.value ?? false
     }
 
-    componentDidUpdate(prevProps: Readonly<CheckboxProps>, prevState: Readonly<CheckboxState>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<CheckboxProps>): void {
         if (prevProps.value !== this.props.value) {
-            this.setState({ ...this.state, value: this.props.value })
+            this.setState({ value: this.props.value })
         }
     }
 

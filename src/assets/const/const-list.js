@@ -253,6 +253,11 @@ export const extendView = [
         path: 'ecomerce/cart',
         link: 'social/ecomerce/cart',
     },
+    {
+        name: 'cart',
+        path: 'ecomerce/cart/payment',
+        link: 'social/ecomerce/cart/payment',
+    },
 ]
 
 export const supportModule = [

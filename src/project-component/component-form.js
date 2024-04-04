@@ -112,7 +112,7 @@ export function SwitchForm({ value, label, control, name, disabled = false, onCh
         name={name}
         control={control}
         render={({ field }) => <div className="row" style={{ gap: '0.8rem' }}>
-            <Switch value={value} disabled={disabled} size={size} onChange={(newValue) => {
+            <Switch name={name} value={value} disabled={disabled} size={size} onChange={(newValue) => {
                 field.onChange(newValue)
                 if (onChange) onChange(newValue)
             }} />

@@ -9,7 +9,6 @@ import { TopicController } from "../../../topic/controller";
 import { TagController } from "../../../tag/controller";
 import { studentLevelList } from "../../../../../assets/const/const-list";
 import { CourseController } from "../controller";
-import { getFilesByIds } from "../../../../base-controller";
 import ConfigAPI from "../../../../../config/configApi";
 import { uploadFiles } from "../../../../baseDA";
 

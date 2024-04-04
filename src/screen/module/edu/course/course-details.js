@@ -162,9 +162,7 @@ export default function ViewCourseDetails() {
                         <OutlineCalendarDate width="2rem" height="2rem" />
                         <div className="col" style={{ flex: 1, width: '100%' }}>
                             <div className="label-5">Thời gian</div>
-                            <Text className="heading-8" style={{ width: '100%' }} maxLine={4}>Thứ Ba, 19:00 - 21:00
-                                Thứ Năm, 19:00 - 21:00
-                                Chủ Nhật, 19:00 - 21:00</Text>
+                            <Text className="heading-8" style={{ width: '100%' }} maxLine={4}>{Ultis.datetoString(new Date(item.startDate), 'hh:mm') + ' - ' + Ultis.datetoString(new Date(item.endDate), 'hh:mm dd/mm/yyyy')}</Text>
                         </div>
                     </div>
                 </div>
@@ -371,7 +369,7 @@ const OverallTab = ({ data }) => {
                 <div className="col" style={{ gap: '1.2rem', alignItems: 'stretch' }}>
                     {Array.from({ length: 5 }).map((_, i) => {
                         return <div key={'rate-' + i} className="row" style={{ gap: '0.8rem' }}>
-                            <Rating value={i === 0 ? 1 : (((5 - i) % 5) / 5)} />
+                            <Rating value={i === 0 ? 1 : ((5 - i) % 5)} />
                             <div className="heading-7">(10.543)</div>
                         </div>
                     })}

@@ -60,7 +60,12 @@ export default function EcomCart() {
                 <div style={{ flex: 1, height: '100%', width: '100%', overflow: 'auto' }}>
                     <Table>
                         <TbHeader>
-                            <TbCell fixed style={{ minWidth: '4.4rem' }} align={CellAlignItems.center}><Checkbox size='2rem' /></TbCell>
+                            <TbCell fixed style={{ minWidth: '4.4rem' }} align={CellAlignItems.center}><Checkbox size='2rem' value={productList.length && productList.every(e => e.checked)} onChange={(v) => {
+                                setProductList(productList.map(e => {
+                                    e.checked = v
+                                    return e
+                                }))
+                            }} /></TbCell>
                             <TbCell style={{ minWidth: '50.4rem', }} >Thông tin sản phẩm</TbCell>
                             <TbCell style={{ minWidth: '16.4rem', }} >Đơn vị tính</TbCell>
                             <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >Đơn giá</TbCell>
@@ -70,21 +75,26 @@ export default function EcomCart() {
                         </TbHeader>
                         <TbBody>
                             {
-                                Array.from({ length: 10 }).map((_, index) => <TbRow key={index}>
-                                    <TbCell fixed style={{ minWidth: '4.4rem' }} align={CellAlignItems.center}><Checkbox size='2rem' /></TbCell>
+                                productList.map((item, index) => <TbRow key={index}>
+                                    <TbCell fixed style={{ minWidth: '4.4rem' }} align={CellAlignItems.center}><Checkbox size='2rem' value={item.checked} onChange={(v) => {
+                                        setProductList(productList.map(e => {
+                                            if (e.id === item.id) e.checked = v
+                                            return e
+                                        }))
+                                    }} /></TbCell>
                                     <TbCell style={{ minWidth: '50.4rem', }} >
                                         <div className="row" style={{ width: '100%', gap: '1.6rem', padding: '2.4rem 1.6rem', alignItems: 'start' }}>
-                                            <img src={demoImg} alt="" style={{ width: '11.8rem', borderRadius: '0.4rem' }} />
+                                            {item.thumbnailId && <img src={ConfigAPI.imgUrl + item.thumbnailId} alt="" style={{ width: '11.8rem', borderRadius: '0.4rem' }} />}
                                             <div className="col" style={{ padding: '1.2rem 0', flex: 1 }}>
                                                 <Text maxLine={2} className="heading-7" style={{ width: '100%' }}>{item.name}</Text>
                                                 <Text maxLine={1} className="subtitle-3" style={{ width: '100%' }}>By {state?.from?.name ?? '-'}</Text>
                                             </div>
                                         </div>
                                     </TbCell>
-                                    <TbCell style={{ minWidth: '16.4rem', }} >Khóa học</TbCell>
-                                    <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >932.000đ</TbCell>
-                                    <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >932.000đ</TbCell>
-                                    <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >932.000đ</TbCell>
+                                    <TbCell style={{ minWidth: '16.4rem', }} >{item.unit}</TbCell>
+                                    <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >{Ultis.money(item.price)}đ</TbCell>
+                                    <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >0đ</TbCell>
+                                    <TbCell style={{ minWidth: '16.4rem', }} align={CellAlignItems.end} >{Ultis.money(item.price)}đ</TbCell>
                                     <TbCell fixed style={{ minWidth: '16.4rem', }} align={CellAlignItems.center} >
                                         <button className="row icon-button16">
                                             <FilledTrashCan />

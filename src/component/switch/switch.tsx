@@ -23,6 +23,12 @@ export class Switch extends React.Component<SwitchProps, SwitchState> {
         value: this.props.value ?? false
     }
 
+    componentDidUpdate(prevProps: Readonly<SwitchProps>): void {
+        if (prevProps.value !== this.props.value) {
+            this.setState({ value: this.props.value })
+        }
+    }
+
     render() {
         const propStyle = {
             '--off-bg': this.props.offBackground ?? 'var(--background)',

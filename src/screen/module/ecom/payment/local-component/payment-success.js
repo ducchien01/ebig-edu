@@ -15,8 +15,13 @@ export default function PaymentProcess() {
         if (id) {
             OrderController.getById(id).then(res => {
                 if (res) {
-                    CustomerController.getById(res.shopId).then(cusRes => {
-                        setShop(cusRes)
+                    if (res.shopId) {
+                        CustomerController.getById(res.shopId).then(cusRes => {
+                            if (cusRes) setShop(cusRes)
+                        })
+                    }
+                    OrderController.getListSimpleDetails({ take: 20, filter: [{ key: 'orderId', operator: 'contains', value: id }] }).then(orders => {
+                        if (orders) setData({ ...res, orderDetails: orders.data })
                     })
                     setData(res)
                 }
@@ -37,6 +42,39 @@ export default function PaymentProcess() {
         }
     }
 
+    const getOrderDate = () => {
+        if (data?.dateCreated) {
+            const dateValue = new Date(data.dateCreated)
+            switch (dateValue.getDay()) {
+                case 0:
+                    var wDay = 'Chủ nhật'
+                    break;
+                case 1:
+                    wDay = 'Thứ 2'
+                    break;
+                case 2:
+                    wDay = 'Thứ 3'
+                    break;
+                case 3:
+                    wDay = 'Thứ 4'
+                    break;
+                case 4:
+                    wDay = 'Thứ 5'
+                    break;
+                case 5:
+                    wDay = 'Thứ 6'
+                    break;
+                case 6:
+                    wDay = 'Thứ 7'
+                    break;
+                default:
+                    break;
+            }
+            return wDay + ' ' + Ultis.datetoString(dateValue, 'dd//mm/yyyy hh:mm')
+        }
+        return '-'
+    }
+
     return data ? <div className="row" style={{ width: '100%', justifyContent: 'center', padding: '2rem 2rem 0.8rem 2rem' }}>
         <div className="col col16-xxl col16-xl col20-sm col18" style={{ '--gutter': '0px', gap: '2.4rem', padding: '3.6rem' }}>
             <div className="tag-success row" style={{ padding: '3.2rem  4.8rem', width: '100%', borderRadius: '0.8rem' }}>
@@ -50,7 +88,7 @@ export default function PaymentProcess() {
                 </div>
                 <div className="row" style={{ gap: '0.8rem' }}>
                     <Text maxLine={2} style={{ flex: 1, width: '100%' }} className="heading-8">Ngày đặt hàng</Text>
-                    <div className="button-text-3">March 26, 2022</div>
+                    <div className="button-text-3">{getOrderDate()}</div>
                 </div>
                 <div className="row" style={{ gap: '0.8rem' }}>
                     <Text maxLine={2} style={{ flex: 1, width: '100%' }} className="heading-8">Thẻ số **** 3241</Text>
@@ -72,7 +110,7 @@ export default function PaymentProcess() {
                         <Text className="button-text-3" maxLine={1} style={{ maxWidth: '11.6rem' }}>{Ultis.money(item.price)}đ</Text>
                     </div>
                 })}
-                <div className="row" style={{ gap: '0.8rem', alignItems: 'start', borderBottom: 'var(--border-grey1)', paddingBottom: '1.6rem' }}>
+                <div className="row" style={{ gap: '0.8rem' }}>
                     <Text className="label-1" maxLine={2} style={{ flex: 1, width: '100%' }}>Tổng giá sản phẩm</Text>
                     <Text className="heading-7" maxLine={1} style={{ maxWidth: '12rem' }}>{data?.totalPrice ? Ultis.money(data.totalPrice) : '0'}đ</Text>
                 </div>

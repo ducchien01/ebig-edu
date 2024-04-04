@@ -20,8 +20,8 @@ export const decryptData = (text: string) => {
 interface FilterItem {
     key: string,
     value: string,
-    /** > , < , contains, =  */ 
-    operator: string, 
+    /** value: contains , > , < , =  */
+    operator: string,
 }
 
 export interface FilterListSimpleBody {

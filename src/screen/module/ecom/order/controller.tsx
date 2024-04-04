@@ -9,7 +9,7 @@ export class OrderController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ShopOrderAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<OrderItem>
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -21,7 +21,7 @@ export class OrderController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ShopOrderDetailAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<OrderDetailsItem>
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -30,7 +30,7 @@ export class OrderController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + `/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + `ShopOrderAuth/GetById?Id=${id}`)
         if (response) {
             if (response.code === 200) {
                 return response.data as OrderItem

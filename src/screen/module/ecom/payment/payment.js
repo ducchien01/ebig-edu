@@ -7,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { OrderController } from "../order/controller";
 import { CustomerController } from "../../customer/controller";
 import QRCode from '../../../../assets/qr-banking.png'
+import { differenceInSeconds } from "date-fns";
 
 export default function EcomPayment() {
     const { state } = useLocation()
     const ref = useRef()
+    const [timer, setTimer] = useState()
     const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm({ shouldFocusError: false, defaultValues: { method: 'banking' } })
 
     const onSubmit = (ev) => {
@@ -51,10 +53,16 @@ export default function EcomPayment() {
     const onError = () => { }
 
     const finishPayment = (orderItem) => {
+        let now = new Date()
+        if (timer) {
+            var countDown = Math.abs(differenceInSeconds(timer, now))
+        } else {
+            setTimer(now)
+        }
         showPopup({
             ref: ref,
             heading: <div className="heading-6 popup-header">Thực hiện thanh toán</div>,
-            content: <PopupPaymentSubmit ref={ref} orderItem={orderItem} />
+            content: <PopupPaymentSubmit ref={ref} orderItem={orderItem} timer={countDown ?? 0} />,
         })
     }
 
@@ -263,7 +271,7 @@ const PopupPaymentSubmit = forwardRef(function PopupPaymentSubmit(data, ref) {
                             <Text className="subtitle-4">Nội dung chuyển khoản</Text>
                             <Text className="heading-7">DH8374593458345</Text>
                         </div>
-                        <CoutDownText />
+                        <CoutDownText remain={data.timer} />
                     </div>
                 </div>
             </div>
@@ -278,8 +286,8 @@ const PopupPaymentSubmit = forwardRef(function PopupPaymentSubmit(data, ref) {
     </div>
 })
 
-const CoutDownText = () => {
-    const [timer, setTimer] = useState(1800)
+const CoutDownText = ({ remain = 0 }) => {
+    const [timer, setTimer] = useState(1800 - remain)
 
     const getMinute = () => {
         const mValue = Math.floor(timer / 60)

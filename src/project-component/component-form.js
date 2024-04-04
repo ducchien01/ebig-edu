@@ -112,7 +112,7 @@ export function SwitchForm({ value, label, control, name, disabled = false, onCh
         name={name}
         control={control}
         render={({ field }) => <div className="row" style={{ gap: '0.8rem' }}>
-            <Switch value={value} disabled={disabled} size={size} onChange={(newValue) => {
+            <Switch name={name} value={value} disabled={disabled} size={size} onChange={(newValue) => {
                 field.onChange(newValue)
                 if (onChange) onChange(newValue)
             }} />
@@ -130,7 +130,7 @@ export function CheckboxForm({ value, label, control, name, disabled = false, on
                 field.onChange(newValue)
                 if (onChange) onChange(newValue)
             }} style={{ borderRadius: radius }} />
-            {label ? <Text className="label-4" maxLine={1}>{label}</Text> : null}
+            {label ? typeof label === 'string' ? <Text className="label-4" maxLine={1}>{label}</Text> : label : null}
         </div>}
     />
 }

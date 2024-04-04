@@ -3,8 +3,8 @@ import './rating.css'
 
 interface RatingProps {
     /**
-    value: 0-1 (0 - 100%)
-    **/
+    value: 0-5
+    */
     value?: number,
     size?: number | string,
     onChange?: (e: number) => {}
@@ -36,14 +36,19 @@ export class Rating extends React.Component<RatingProps, RatingState> {
             {Array.from({ length: 5 }).map((_, i) => {
                 let uniqueId = 'rating-star-grad-0'
                 let stopValue = 0
-                if (this.state.value >= ((i + 1) / 5)) {
+                if (this.state.value >= 5) {
                     uniqueId = 'rating-star-grad-5'
                     stopValue = 100
-                } else if (Math.floor(this.state.value * 5) === i) {
+                } else if (this.state.value >= i) {
                     uniqueId = autoKeyId()
-                    stopValue = ((this.state.value * 5) - i) * 100 
+                    stopValue = (this.state.value - i) * 100
                 }
-                return <svg key={'rate-' + i} width={"100%"} height={"100%"} style={{ width: this.props.size ?? '2rem', height: this.props.size ?? '2rem' }} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                return <svg onClick={() => {
+                    if (this.props.onChange) {
+                        this.setState({ value: i + 1 })
+                        this.props.onChange(i + 1)
+                    }
+                }} key={'rate-' + i} width={"100%"} height={"100%"} style={{ width: this.props.size ?? '2rem', height: this.props.size ?? '2rem' }} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id={uniqueId} x1="0%" x2="100%" y1="0%" y2="0%">
                             <stop offset="0%" stopColor={this.props.fillColor ?? '#FC6B03'} />

@@ -1,3 +1,11 @@
 .rating-container {
     gap: 0.8rem;
 }
+
+.rating-container svg {
+    cursor: pointer;
+}
+
+.rating-container svg > * {
+    pointer-events: none !important;
+}

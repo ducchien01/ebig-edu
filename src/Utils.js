@@ -290,22 +290,34 @@ export class Ultis {
         const formattedDate = `${day}/${month}/${year}`;
         return formattedDate;
     }
+
+    /** date: dd/mm/yyyy | yyyy/mm/dd | dd/mm | mm/yyyy
+        time: hh:mm:ss | hh:mm */
     static datetoString(x = new Date(), y = "dd/mm/yyyy") {
         let splitDateTime = y.split(" ");
-        let dateConvert = splitDateTime[0].split(y.includes("/") ? "/" : "-").map(type => {
-            switch (type.toLowerCase()) {
-                case "dd":
-                    return x.getDate() < 10 ? `0${x.getDate()}` : `${x.getDate()}`;
-                case "mm":
-                    return (x.getMonth() + 1) < 10 ? `0${(x.getMonth() + 1)}` : `${(x.getMonth() + 1)}`;
-                case "yyyy":
-                    return `${x.getFullYear()}`;
-                default:
-                    break;
-            }
-        }).join(y.includes("/") ? "/" : "-");
-        if (splitDateTime[1]) {
-            let timeConvert = splitDateTime[1].split(":").map(type => {
+        let dateConvert = splitDateTime[0]
+        let timeConvert = splitDateTime[1]
+        if (dateConvert.includes('hh')) {
+            timeConvert = splitDateTime[0]
+            dateConvert = splitDateTime[1]
+            var startByTime = true
+        }
+        if (dateConvert) {
+            dateConvert = dateConvert.split(y.includes("/") ? "/" : "-").map(type => {
+                switch (type.toLowerCase()) {
+                    case "dd":
+                        return x.getDate() < 10 ? `0${x.getDate()}` : `${x.getDate()}`;
+                    case "mm":
+                        return (x.getMonth() + 1) < 10 ? `0${(x.getMonth() + 1)}` : `${(x.getMonth() + 1)}`;
+                    case "yyyy":
+                        return `${x.getFullYear()}`;
+                    default:
+                        break;
+                }
+            }).join(y.includes("/") ? "/" : "-");
+        }
+        if (timeConvert) {
+            timeConvert = timeConvert.split(":").map(type => {
                 switch (type) {
                     case "hh":
                         return x.getHours() < 10 ? `0${x.getHours()}` : `${x.getHours()}`;
@@ -317,7 +329,11 @@ export class Ultis {
                         break;
                 }
             }).join(":")
-            return dateConvert + " " + timeConvert;
+            if (startByTime) {
+                return timeConvert + (dateConvert ? ` ${dateConvert}` : '')
+            } else {
+                return dateConvert + (timeConvert ? ` ${timeConvert}` : '')
+            }
         } else {
             return dateConvert;
         }

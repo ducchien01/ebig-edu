@@ -4,6 +4,7 @@
     border: 1px solid #00358033;
     background-color: var(--primary-color);
     transition: border, background-color 0.5s;
+    cursor: pointer;
 }
 
 .checkbox-container:not(*:has(> input:checked)) {

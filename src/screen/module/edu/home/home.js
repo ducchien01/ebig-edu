@@ -117,7 +117,7 @@ const HomeAuth = () => {
     }, [])
 
     return <div className='row' style={{ flex: 1 }}>
-        <div className='col' style={{ padding: '2.4rem 0', gap: '2.4rem', borderRight: 'var(--border-grey1)', height: '100%', width: '36.6rem' }}>
+        <div className='col' style={{ padding: '2.4rem 0', gap: '2.4rem', borderRight: 'var(--border-grey1)', height: '100%', width: '20%', minWidth: '30rem', maxWidth: '36.6rem' }}>
             <div className='row' style={{ padding: '0.4rem 1.6rem' }}>
                 <TextField
                     className='search-default placeholder-2'

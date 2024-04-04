@@ -17,6 +17,7 @@ import ListAllCourse from "../screen/module/edu/home/local-component/list-all-co
 import EcomHome from "../screen/module/ecom/product/home";
 import EcomCart from "../screen/module/ecom/cart/cart";
 import EcomPayment from "../screen/module/ecom/payment/payment";
+import PaymentProcess from "../screen/module/ecom/payment/local-component/payment-success";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -40,6 +41,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <EcomCart />
         case 'social/ecomerce/cart/payment':
             return <EcomPayment />
+        case 'social/ecomerce/cart/payment/processing':
+            return <PaymentProcess />
         case "edu/dashboard":
             return <EduDashboard />;
         case "edu/schedule":
@@ -61,7 +64,7 @@ export const getcomponentRouter = (moduleCode) => {
         case "edu/user/profile":
             return <ProfileView />;
         case "product-management":
-            // return <ProductView />;
+        // return <ProductView />;
         default:
             break;
     }

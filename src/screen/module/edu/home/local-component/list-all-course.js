@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { CourseController } from "../../course/controller";
 import { PostCard } from "../../../../../project-component/card";
-import { getFilesByIds } from "../../../../base-controller";
 import { CustomerController } from "../../../customer/controller";
 import { OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from "../../../../../assets/const/icon";
 import { Ultis } from "../../../../../Utils";

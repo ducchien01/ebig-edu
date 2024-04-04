@@ -19,7 +19,9 @@ export const decryptData = (text: string) => {
 
 interface FilterItem {
     key: string,
-    value: string
+    value: string,
+    /** > , < , contains, =  */ 
+    operator: string, 
 }
 
 export interface FilterListSimpleBody {
@@ -48,9 +50,9 @@ export const getListSimpleBase = async (url: string, params?: FilterListSimpleBo
                         "desc": true
                     }
                 }),
-                "filter": params?.filter ? params?.filter.map(e => [e.key, 'contains', e.value]).reduce((a, b) => a.concat(b)) : [], // "startswith", "endswith", "contains", "notcontains"
                 "select": params?.selectProps ?? [] //  chọn trường
-            }
+            },
+            "filter": params?.filter ? params?.filter.map(e => [e.key, 'contains', e.value]).reduce((a, b) => a.concat(b)) : [], // "startswith", "endswith", "contains", "notcontains"
         }
     })
     return response

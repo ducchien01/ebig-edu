@@ -17,13 +17,13 @@ export function TextFieldForm({ label, register, required = false, name, type, p
             type={type}
             name={name}
             register={register(name, {
-                required: required ? (helperText ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`) : null,
+                required: required,
                 onBlur: onBlur,
                 onChange: onChange,
             })}
             onFocus={onFocus}
             maxLength={maxLength}
-            helperText={errors?.[name] && errors.message}
+            helperText={errors?.[name] && (helperText ?? errors.message ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`)}
         />
     </div>
 }
@@ -36,7 +36,7 @@ export function TextAreaForm({ label, register, required = false, name, placehol
         </div> : null}
         <TextArea
             register={register(name, {
-                required: required ? (helperText ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`) : null,
+                required: required,
                 onBlur: onBlur,
                 onChange: onChange,
             })}
@@ -49,7 +49,7 @@ export function TextAreaForm({ label, register, required = false, name, placehol
             name={name}
             onBlur={onBlur}
             maxLength={maxLength}
-            helperText={errors?.[name] && errors.message}
+            helperText={errors?.[name] && (helperText ?? errors.message ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`)}
         />
     </div>
 }
@@ -58,7 +58,7 @@ export function Select1Form({ value, options, control, label, required = false, 
     return <Controller
         name={name}
         control={control}
-        rules={{ required: required ? (helperText ?? `Vui lòng ${(placeholder ? placeholder : label ? `Chọn ${label}` : 'gía trị').toLowerCase()}`) : null }}
+        rules={{ required: required }}
         render={({ field }) => <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
             {label ? <div className="row" style={{ gap: 4 }}>
                 <Text className="label-3">{label}</Text>
@@ -75,7 +75,7 @@ export function Select1Form({ value, options, control, label, required = false, 
                     field.onChange(ev.id)
                     if (onChange) onChange(ev)
                 }}
-                helperText={errors?.[name] && errors[name].message}
+                helperText={errors?.[name] && (helperText ?? errors.message ?? `Vui lòng ${(placeholder ? placeholder : label ? `Chọn ${label}` : 'gía trị').toLowerCase()}`)}
             />
         </div>}
     />
@@ -85,7 +85,7 @@ export function SelectMultipleForm({ value, options, control, label, required = 
     return <Controller
         name={name}
         control={control}
-        rules={{ required: required ? (helperText ?? `Vui lòng ${(placeholder ? placeholder : label ? `Chọn ${label}` : 'gía trị').toLowerCase()}`) : null }}
+        rules={{ required: required }}
         render={({ field }) => <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
             {label ? <div className="row" style={{ gap: 4 }}>
                 <Text className="label-3">{label}</Text>
@@ -101,7 +101,7 @@ export function SelectMultipleForm({ value, options, control, label, required = 
                     field.onChange(listValue)
                     if (onChange) onChange(listValue)
                 }}
-                helperText={errors?.[name] && errors[name].message}
+                helperText={errors?.[name] && (helperText ?? errors.message ?? `Vui lòng ${(placeholder ? placeholder : label ? `Chọn ${label}` : 'gía trị').toLowerCase()}`)}
             />
         </div>}
     />

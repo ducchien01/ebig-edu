@@ -24,7 +24,7 @@ export default function SchoolCourse() {
     const getData = async (status) => {
         status ??= activeFilterTab
         if (status > 0) {
-            var filter = [{ key: 'status', value: status }]
+            var filter = [{ field: 'status', value: status }]
         }
         const res = await CourseController.getListSimple({ page: Math.floor((data.length / 20)) + 1, take: 20, filter: filter })
         if (res) {

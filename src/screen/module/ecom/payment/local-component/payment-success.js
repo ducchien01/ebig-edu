@@ -20,7 +20,7 @@ export default function PaymentProcess() {
                             if (cusRes) setShop(cusRes)
                         })
                     }
-                    OrderController.getListSimpleDetails({ take: 20, filter: [{ key: 'orderId', operator: 'contains', value: id }] }).then(orders => {
+                    OrderController.getListSimpleDetails({ take: 20, filter: [{ field: 'orderId', operator: 'contains', value: id }] }).then(orders => {
                         if (orders) setData({ ...res, orderDetails: orders.data })
                     })
                     setData(res)
@@ -75,7 +75,7 @@ export default function PaymentProcess() {
         return '-'
     }
 
-    return data ? <div className="row" style={{ width: '100%', justifyContent: 'center', padding: '2rem 2rem 0.8rem 2rem' }}>
+    return data ? <div className="row" style={{ width: '100%', justifyContent: 'center', padding: '2rem 2rem 0.8rem 2rem', backgroundColor: 'var(--light-background)' }}>
         <div className="col col16-xxl col16-xl col20-sm col18" style={{ '--gutter': '0px', gap: '2.4rem', padding: '3.6rem' }}>
             <div className="tag-success row" style={{ padding: '3.2rem  4.8rem', width: '100%', borderRadius: '0.8rem' }}>
                 <div className="heading-7">Bạn đã đăng ký khóa học thành công!</div>

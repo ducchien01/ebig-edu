@@ -18,10 +18,10 @@ export const decryptData = (text: string) => {
 }
 
 interface FilterItem {
-    key: string,
+    field: string,
     value: string,
-    /** value: contains , > , < , =  */
-    operator: string,
+    /** value: contains, startswith, endswith, notcontains, > , < , =  */
+    operator?: string,
 }
 
 export interface FilterListSimpleBody {
@@ -52,7 +52,12 @@ export const getListSimpleBase = async (url: string, params?: FilterListSimpleBo
                 }),
                 "select": params?.selectProps ?? [] //  chọn trường
             },
-            "filter": params?.filter ? params?.filter.map(e => [e.key, 'contains', e.value]).reduce((a, b) => a.concat(b)) : [], // "startswith", "endswith", "contains", "notcontains"
+            "filter": params?.filter?.map(e => {
+                return {
+                    ...e,
+                    operator: e.operator??'contains'
+                }
+            }) ?? [], 
         }
     })
     return response

@@ -181,14 +181,14 @@ export default function ViewCourseDetails() {
                 }
             })
             if (isLogin) {
-                ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ key: 'courseId', value: id }] }).then(res => {
+                ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', value: id }] }).then(res => {
                     if (res) setClassList(res.data)
                 })
-                MentorController.getListSimpleAuth({ page: 1, take: 2, filter: [{ key: 'courseId', value: id }] }).then(res => {
+                MentorController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', value: id }] }).then(res => {
                     if (res) setMentorList(res.data)
                 })
             } else {
-                ClassController.getListSimple({ page: 1, take: 2, filter: [{ key: 'courseId', value: id }] }).then(res => {
+                ClassController.getListSimple({ page: 1, take: 2, filter: [{ field: 'courseId', value: id }] }).then(res => {
                     if (res) setClassList(res.data)
                 })
             }

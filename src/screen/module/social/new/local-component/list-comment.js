@@ -10,13 +10,14 @@ export default function ListComment({ rating = false }) {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })
     const { id } = useParams()
     const user = CustomerController.userInfor()
-    const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
+    const [pageDetails, setPageDetails] = useState({ page: 1, size: 20 });
     const [data, setData] = useState()
     const [customerList, setCustomerList] = useState([])
 
     const getListCommnet = async (page, size) => {
-        const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ key: 'linkId', value: id }] })
+        const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'LinkId', value: id }, { field: 'ParentId', operator: "=", value: null }] })
         if (res) {
+
             let customerIds = res.data.map(e => e.customerId)
             CustomerController.getByIds(customerIds).then(cusRes => {
                 if (cusRes) setCustomerList(cusRes)
@@ -50,7 +51,7 @@ export default function ListComment({ rating = false }) {
                     placeholder="Bạn thấy khóa học này thế nào?"
                 />
                 <div className="row" style={{ width: '100%', justifyContent: 'end', padding: '0.4rem 1.6rem 0.8rem' }}>
-                    <button type="button" className={`row ${methods.watch('value') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem'}} onClick={methods.handleSubmit(sendRating)}>
+                    <button type="button" className={`row ${methods.watch('value') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem' }} onClick={methods.handleSubmit(sendRating)}>
                         <div className="button-text-3">Phản hồi</div>
                     </button>
                 </div>
@@ -73,7 +74,7 @@ export default function ListComment({ rating = false }) {
                 </div>
             </div>
         })}
-        <Pagination
+        {/* <Pagination
             currentPage={pageDetails.page}
             /// pageSize
             itemPerPage={pageDetails.size}
@@ -85,6 +86,6 @@ export default function ListComment({ rating = false }) {
                     setPageDetails({ ...pageDetails, page: page, size: size });
                 }
             }}
-        />
+        /> */}
     </div>
 }

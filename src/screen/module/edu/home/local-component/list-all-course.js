@@ -8,6 +8,7 @@ import { CustomerController } from "../../../customer/controller";
 import { OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from "../../../../../assets/const/icon";
 import { Ultis } from "../../../../../Utils";
 import ConfigAPI from "../../../../../config/configApi";
+import { RatingController } from "../../rating/controller";
 
 export default function ListAllCourse() {
     const [data, setData] = useState([])
@@ -15,7 +16,7 @@ export default function ListAllCourse() {
     const [total, setTotal] = useState(0)
 
     const getData = async () => {
-        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 20)) + 1, take: 20 })
+        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 30)) + 1, take: 30 })
         if (res) {
             if (total !== res.totalCount) setTotal(res.totalCount)
             let customerIds = res.data.map(e => e.customerId).filter(id => customerList.every(item => item.id !== id))
@@ -24,7 +25,15 @@ export default function ListAllCourse() {
                     if (cusRes) setCustomerList(cusRes)
                 })
             }
-            setData([...data, ...res.data])
+            const ratingRes = await RatingController.getByLinkIds(res.data.map(e => e.id))
+            setData([...data, ...res.data.map(e => {
+                const ratingData = ratingRes.find(rate => rate.linkId === e.id)
+                return {
+                    ...e,
+                    totalStar: ratingData?.totalStart,
+                    totalComment: ratingData?.totalComment,
+                }
+            })])
         }
     }
 
@@ -62,7 +71,7 @@ export default function ListAllCourse() {
                             <Text className='button-text-3'>1k2</Text>
                             <Text className='button-text-3'>-</Text>
                             <OutlineStar />
-                            <Text className='button-text-3'>4.7 (1k1)</Text>
+                            <Text className='button-text-3'>{`${item.totalStar && item.totalComment ? `${(item.totalStar / item.totalComment).toFixed(1)} (${item.totalComment})` : '0 (0)'}`}</Text>
                         </div>
                         <div className='row'>
                             <Text className='heading-7' style={{ flex: 1, width: '96%' }}>{item.price ? Ultis.money(item.price) : ''}</Text>

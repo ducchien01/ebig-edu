@@ -2,7 +2,6 @@ import { faEllipsisV, faEye } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useRef, useState } from "react"
 import { InfiniteScroll, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
-import demoImage from '../../../../../assets/demo-image5.png'
 import { FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledTrashCan } from "../../../../../assets/const/icon"
 import { CourseController } from "../controller"
 import { CourseStatus } from "../da"
@@ -81,7 +80,7 @@ export default function ListCourse({ data, getData }) {
                 title={item.name}
                 subtitle={Ultis.datetoString(new Date(item.dateCreated), 'dd/mm/yyyy hh:mm')}
                 content={<div className="row" style={{ paddingTop: '2.4rem' }}>{statusTag(item.status)}</div>}
-                actions={<button type="button" className="row" onClick={(ev) => { showPopupListAction(ev, item) }}>
+                actions={<button type="button" className="row" onClick={(ev) => { showPopupListAction(ev, item) }} style={{padding: '0.4rem 0.6rem'}}>
                     <FontAwesomeIcon icon={faEllipsisV} style={{ fontSize: '2rem', color: '#00204D99', pointerEvents: 'none' }} />
                 </button>}
                 bottom={<div className="row" style={{ borderTop: 'var(--border-grey1)', padding: '1.6rem' }}>

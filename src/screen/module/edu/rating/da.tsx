@@ -9,4 +9,6 @@ export interface RatingItem {
     linkId?: string,
     parentId?: string,
     type?: number,
+    totalStart?: number,
+    totalComment?: number,
 }

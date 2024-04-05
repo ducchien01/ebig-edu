@@ -6,6 +6,7 @@ import ListCourse from './local-component/list-course'
 import PopupAddNewCourse from './local-component/popup-add-new-course'
 import { CourseController } from './controller'
 import { Popup, Text, showPopup } from '../../../../component/export-component'
+import { CustomerController } from '../../customer/controller'
 
 export default function SchoolCourse() {
     const ref = useRef()
@@ -23,9 +24,11 @@ export default function SchoolCourse() {
 
     const getData = async (status) => {
         status ??= activeFilterTab
+        let filter = []
         if (status > 0) {
-            var filter = [{ field: 'status', value: status }]
+            filter = [{ field: 'status', operator: '=', value: status }]
         }
+        filter.push({ field: 'customerId', operator: '=', value: CustomerController.userInfor().id })
         const res = await CourseController.getListSimple({ page: Math.floor((data.length / 20)) + 1, take: 20, filter: filter })
         if (res) {
             if (total !== res.totalCount) setTotal(res.totalCount)

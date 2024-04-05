@@ -10,12 +10,12 @@ export default function ListComment({ rating = false }) {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })
     const { id } = useParams()
     const user = CustomerController.userInfor()
-    const [pageDetails, setPageDetails] = useState({ page: 1, size: 20 });
+    const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
     const [data, setData] = useState()
     const [customerList, setCustomerList] = useState([])
 
     const getListCommnet = async (page, size) => {
-        const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'LinkId', value: id }, { field: 'ParentId', operator: "=", value: null }] })
+        const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'LinkId', operator: '=', value: id }, { field: 'ParentId', operator: "=", value: null }] })
         if (res) {
 
             let customerIds = res.data.map(e => e.customerId)
@@ -74,7 +74,7 @@ export default function ListComment({ rating = false }) {
                 </div>
             </div>
         })}
-        {/* <Pagination
+        <Pagination
             currentPage={pageDetails.page}
             /// pageSize
             itemPerPage={pageDetails.size}
@@ -86,6 +86,6 @@ export default function ListComment({ rating = false }) {
                     setPageDetails({ ...pageDetails, page: page, size: size });
                 }
             }}
-        /> */}
+        />
     </div>
 }

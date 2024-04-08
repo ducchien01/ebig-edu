@@ -25,28 +25,28 @@ export default function EcomPayment() {
         newOrder.email = user.email
         newOrder.type = OrderType.course
         newOrder.totalPrice = state.products?.length ? state.products.map(e => e.price).reduce((a, b) => a + b) : 0
-        newOrder.orderDetails = (state.products ?? []).map(e => {
-            return {
-                name: e.name,
-                price: e.price,
-                discount: 0,
-                totalPrice: e.price,
-                productId: e.id,
-                type: e.type,
-                quantity: 1,
-                orderId: newOrder.id,
-            }
-        })
         if (newOrder.id) {
             OrderController.edit(newOrder).then(res => {
                 if (res) finishPayment(newOrder)
             })
         } else {
-            OrderController.add(newOrder).then(newId => {
+            OrderController.add(newOrder).then(async newId => {
                 if (newId) {
                     setValue(newId)
                     newOrder.id = newId
-                    finishPayment(newOrder)
+                    const orderDetailsRes = await OrderController.addOrderDetails((state.products ?? []).map(e => {
+                        return {
+                            name: e.name,
+                            price: e.price,
+                            discount: 0,
+                            totalPrice: e.price,
+                            productId: e.id,
+                            type: e.type,
+                            quantity: 1,
+                            orderId: newId,
+                        }
+                    }))
+                    if (orderDetailsRes) finishPayment(newOrder)
                 }
             })
         }

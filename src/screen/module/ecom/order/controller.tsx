@@ -55,6 +55,20 @@ export class OrderController {
         return null
     }
 
+    static addOrderDetails = async (orders: Array<OrderDetailsItem>) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'ShopOrderDetailAuth/Action?action=add', {
+            data: { data: orders ?? [] }
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<OrderDetailsItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
     static edit = async (orderItem: OrderItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'ShopOrderAuth/Action?action=edit', {
             data: {

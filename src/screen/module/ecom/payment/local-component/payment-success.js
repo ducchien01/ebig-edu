@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Text } from "../../../../../component/export-component";
 import { useEffect, useState } from "react";
 import { OrderController } from "../../order/controller";
@@ -20,7 +20,7 @@ export default function PaymentProcess() {
                             if (cusRes) setShop(cusRes)
                         })
                     }
-                    OrderController.getListSimpleDetails({ take: 20, filter: [{ field: 'orderId', operator: 'contains', value: id }] }).then(orders => {
+                    OrderController.getListSimpleDetails({ take: 20, filter: [{ field: 'orderId', operator: '=', value: id }] }).then(orders => {
                         if (orders) setData({ ...res, orderDetails: orders.data })
                     })
                     setData(res)
@@ -114,6 +114,10 @@ export default function PaymentProcess() {
                     <Text className="label-1" maxLine={2} style={{ flex: 1, width: '100%' }}>Tổng giá sản phẩm</Text>
                     <Text className="heading-7" maxLine={1} style={{ maxWidth: '12rem' }}>{data?.totalPrice ? Ultis.money(data.totalPrice) : '0'}đ</Text>
                 </div>
+            </div>
+            <div className="row" style={{ gap: '1.2rem', padding: '0 max(14%, 2.4rem)' }}>
+                <NavLink className='row button-infor' style={{ flex: 1, width: '100%', padding: '1rem 1.6rem' }}><div className="button-text-3">Về trang chủ</div></NavLink>
+                <NavLink className='row button-primary' style={{ flex: 1, width: '100%', padding: '1rem 1.6rem' }}><div className="button-text-3">Quản lý khóa học</div></NavLink>
             </div>
         </div>
     </div> : null

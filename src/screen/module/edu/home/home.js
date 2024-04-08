@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Checkbox, Text, TextField } from '../../../../component/export-component'
+import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from '../../../../component/export-component'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
 import ListExpert from '../../social/discovery/local-component/list-expert'
@@ -11,7 +11,7 @@ import ListDiscountCourse from './local-component/list-discount-course'
 import ListCommonCourse from './local-component/list-common-course'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AccountController } from '../../account/controller'
-import { faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faChevronDown, faChevronUp, faCircleChevronLeft, faCircleChevronRight, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import { TopicController } from '../../topic/controller'
 import SidebarActions from '../../../layout/sidebar/sidebar-actions'
@@ -19,6 +19,9 @@ import ListAllCourse from './local-component/list-all-course'
 import { OrderController } from '../../ecom/order/controller'
 import { OrderType } from '../../ecom/order/da'
 import { CustomerController } from '../../customer/controller'
+import 'react-awesome-slider/dist/styles.css';
+import { CourseController } from '../course/controller'
+import ConfigAPI from '../../../../config/configApi'
 
 export default function EduHome() {
     const isLogin = AccountController.token()
@@ -118,20 +121,30 @@ const HomeAuth = () => {
         TopicController.getAll().then(res => {
             if (res) setTopicList(res)
         })
-        OrderController.getListSimple({
-            page: 1,
-            take: 4,
-            filter: [
-                // { field: 'type', operator: '=', value: OrderType.course },
-                { field: 'statusPayment', operator: '=', value: 2 },
-                { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }
-            ]
-        }).then(res => {
-            if (res) setMyCourses(res.data)
+        CourseController.getAll().then(res => {
+            if (res) setMyCourses(res)
         })
+        // OrderController.getListSimple({
+        //     page: 1,
+        //     take: 4,
+        //     filter: [
+        //         // { field: 'type', operator: '=', value: OrderType.course },
+        //         { field: 'statusPayment', operator: '=', value: 2 },
+        //         { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }
+        //     ]
+        // }).then(res => {
+        //     if (res) {
+        //         const orderIds = res.data.map(e => e.id)
+        //         OrderController.getListSimpleDetails({
+        //             page: 1,
+        //             take: 4,
+        //             filter: [{ field: 'orderId', operator: '=', value: orderIds[0] }]
+        //         }).then()
+        //     }
+        // })
     }, [])
 
-    return <div className='row' style={{ flex: 1 }}>
+    return <div className='row' style={{ flex: 1, height: '100%', width: '100%', }}>
         <div className='col' style={{ padding: '2.4rem 0', gap: '2.4rem', borderRight: 'var(--border-grey1)', height: '100%', width: '20%', minWidth: '30rem', maxWidth: '36.6rem' }}>
             <div className='row' style={{ padding: '0.4rem 1.6rem' }}>
                 <TextField
@@ -160,11 +173,40 @@ const HomeAuth = () => {
                 <div className='col' style={{ padding: '0 1.6rem' }}><SidebarActions /></div>
             </div>
         </div>
-        <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', justifyContent: 'center' }}>
-            <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', height: '100%', padding: '0 1.6rem' }}>
-                {myCourses.length ? <div className='col' style={{ height: '30.8rem', borderRadius: '0.8rem' }}>
-                    <div></div>
-                </div> : null}
+        <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', overflow: 'hidden auto', justifyContent: 'center', alignItems: 'start' }}>
+            <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
+                {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
+                    {myCourses.map(e => {
+                        return <div key={e.id} style={{ backgroundImage: `url(${ConfigAPI.imgUrl + e.pictureId})`, backgroundSize: 'cover' }}>
+                            <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
+                                <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>
+                                <div className='col' style={{ gap: '1.6rem' }}>
+                                    <div className='col' style={{ gap: '0.4rem' }}>
+                                        <div className='row' style={{ gap: '0.8rem' }}>
+                                            <img src='' alt='' style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
+                                            <div className='label-4' style={{ color: '#ffffff' }}>Phan Minh Anh</div>
+                                        </div>
+                                        <Text className='heading-4' maxLine={2}>{e.name}</Text>
+                                    </div>
+                                    <div className='col'>
+                                        <ProgressBar percentColor='#ffffff' fullColor='#00000000' progressBarOnly percent={60} progressBarStyle={{ border: '1px solid #ffffff' }} />
+                                        <div className='label-5' style={{ color: "#ffffff" }}>Bạn đã hoàn thành 60% khóa học này</div>
+                                    </div>
+                                </div>
+                                <div className='row' style={{ gap: '1.2rem' }}>
+                                    <NavLink className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
+                                        <div className='button-text-3'>Học tiếp</div>
+                                    </NavLink>
+                                    <NavLink className='button-primary row' style={{ backgroundColor: "#00000000", padding: 0 }}>
+                                        <div className='button-text-3'>Xem tất cả khóa học</div>
+                                        <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '1.4rem' }} />
+                                    </NavLink>
+                                </div>
+                            </div>
+                        </div>
+                    })}
+                </CustomSlider> : null}
+                {/* <AwesomeSlider  ></AwesomeSlider> */}
                 <ListAllCourse />
             </div>
         </div>

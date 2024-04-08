@@ -19,6 +19,7 @@ import { CustomCKEditor } from './ckeditor/ck-editor.tsx'
 import { Calendar, CalendarType } from './calendar/calendar.tsx'
 import { InfiniteScroll } from './infinite-scroll/infinite-scroll.tsx'
 import { Rating } from './rating/rating.tsx'
+import { CustomSlider } from './slider/slider.tsx'
 
 export {
     Calendar, CalendarType,
@@ -42,5 +43,6 @@ export {
     ToastMessage,
     CustomCKEditor,
     InfiniteScroll,
-    Rating
+    Rating,
+    CustomSlider
 }

@@ -16,6 +16,9 @@ import { useEffect, useState } from 'react'
 import { TopicController } from '../../topic/controller'
 import SidebarActions from '../../../layout/sidebar/sidebar-actions'
 import ListAllCourse from './local-component/list-all-course'
+import { OrderController } from '../../ecom/order/controller'
+import { OrderType } from '../../ecom/order/da'
+import { CustomerController } from '../../customer/controller'
 
 export default function EduHome() {
     const isLogin = AccountController.token()
@@ -109,10 +112,22 @@ const HomeGuest = () => {
 const HomeAuth = () => {
     const [topicList, setTopicList] = useState([])
     const [openAll, setOpenAll] = useState(false)
+    const [myCourses, setMyCourses] = useState([])
 
     useEffect(() => {
         TopicController.getAll().then(res => {
             if (res) setTopicList(res)
+        })
+        OrderController.getListSimple({
+            page: 1,
+            take: 4,
+            filter: [
+                // { field: 'type', operator: '=', value: OrderType.course },
+                { field: 'statusPayment', operator: '=', value: 2 },
+                { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }
+            ]
+        }).then(res => {
+            if (res) setMyCourses(res.data)
         })
     }, [])
 
@@ -147,7 +162,9 @@ const HomeAuth = () => {
         </div>
         <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', justifyContent: 'center' }}>
             <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', height: '100%', padding: '0 1.6rem' }}>
-                {/* <div className='col' style={{ height: '30.8rem' }}></div> */}
+                {myCourses.length ? <div className='col' style={{ height: '30.8rem', borderRadius: '0.8rem' }}>
+                    <div></div>
+                </div> : null}
                 <ListAllCourse />
             </div>
         </div>

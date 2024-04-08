@@ -56,8 +56,9 @@ export default function ListAllCourse() {
                 return <PostCard
                     key={item.id}
                     to={'/social/education/course/' + item.id}
-                    style={{ '--gutter': '4rem' }}
+                    style={{ '--gutter': '4rem', height: '100%', maxHeight: '40rem' }}
                     className="col col6"
+                    imgStyle={{ height: '12rem' }}
                     imgUrl={ConfigAPI.imgUrl + item.thumbnailId}
                     heading={<div className="row" style={{ gap: '0.8rem' }}>
                         <img src={customer?.avatarUrl} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />

@@ -41,6 +41,20 @@ export class RatingController {
         return null
     }
 
+    static getRateOfProduct = async (ids: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetRatingById`, {
+            data: (ids ?? []).join(',')
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
     static getByLinkIds = async (ids: Array<string>) => {
         const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetListRatingByIds`, {
             data: (ids ?? []).join(',')

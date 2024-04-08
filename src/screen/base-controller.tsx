@@ -55,9 +55,9 @@ export const getListSimpleBase = async (url: string, params?: FilterListSimpleBo
             "filter": params?.filter?.map(e => {
                 return {
                     ...e,
-                    operator: e.operator??'contains'
+                    operator: e.operator ?? 'contains'
                 }
-            }) ?? [], 
+            }) ?? [],
         }
     })
     return response

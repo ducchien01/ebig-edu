@@ -254,6 +254,7 @@
 
 .post-card-container {
     gap: 2.4rem;
+    height: fit-content;
 }
 
 .post-card-container.row>.thumbnail {

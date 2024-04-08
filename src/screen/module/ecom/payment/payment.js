@@ -8,6 +8,7 @@ import { OrderController } from "../order/controller";
 import { CustomerController } from "../../customer/controller";
 import QRCode from '../../../../assets/qr-banking.png'
 import { differenceInSeconds } from "date-fns";
+import { OrderType } from "../order/da";
 
 export default function EcomPayment() {
     const { state } = useLocation()
@@ -22,6 +23,7 @@ export default function EcomPayment() {
         newOrder.statusPayment = 0
         newOrder.customerId = user.id
         newOrder.email = user.email
+        newOrder.type = OrderType.course
         newOrder.totalPrice = state.products?.length ? state.products.map(e => e.price).reduce((a, b) => a + b) : 0
         newOrder.orderDetails = (state.products ?? []).map(e => {
             return {
@@ -67,6 +69,7 @@ export default function EcomPayment() {
     }
 
     useEffect(() => {
+        console.log("??????????", state)
     }, [])
 
     return <form onSubmit={handleSubmit(onSubmit, onError)} className="row" style={{ width: '100%', justifyContent: 'center', backgroundColor: 'var(--light-background)', padding: '2rem 2rem 0.8rem 2rem' }}>

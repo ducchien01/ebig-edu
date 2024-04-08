@@ -17,6 +17,7 @@ import PopupLogin from "../../account/popup-login";
 import { InforCard } from "../../../../project-component/card";
 import ListComment from "../../social/new/local-component/list-comment";
 import { OrderType } from "../../ecom/order/da";
+import { RatingController } from "../rating/controller";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -28,11 +29,12 @@ export default function ViewCourseDetails() {
     const [expert, setExpert] = useState()
     const [classList, setClassList] = useState([])
     const [mentorList, setMentorList] = useState([])
+    const [rateDetails, setRateDetails] = useState()
 
     const renderTabView = () => {
         switch (activeFilterTab) {
             case 0:
-                return <OverallTab data={data} />
+                return <OverallTab data={data} rateDetails={rateDetails} />
             default:
                 return <div></div>
         }
@@ -172,13 +174,16 @@ export default function ViewCourseDetails() {
 
     useEffect(() => {
         if (id) {
-            CourseController.getById(id).then(async res => {
+            CourseController.getById(id).then(res => {
                 if (res) {
                     CustomerController.getById(res.customerId).then(cusRes => {
                         if (cusRes) setExpert(cusRes)
                     })
                     setData(res)
                 }
+            })
+            RatingController.getRateOfProduct([id]).then(rateRes => {
+                if (rateRes?.length) setRateDetails(rateRes[0])
             })
             if (isLogin) {
                 ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(res => {
@@ -264,7 +269,7 @@ export default function ViewCourseDetails() {
     </div>
 }
 
-const OverallTab = ({ data }) => {
+const OverallTab = ({ data, rateDetails }) => {
     return <>
         <img src={ConfigAPI.imgUrl + data.thumbnailId} alt="" style={{ width: '100%', borderRadius: '0.8rem' }} />
         <div className="row" style={{ paddingTop: '1.6rem', gap: '1.6rem' }}>
@@ -351,13 +356,13 @@ const OverallTab = ({ data }) => {
                 <div className="col" style={{ gap: '4rem' }}>
                     <div className="col">
                         <div className="row" style={{ gap: '1.2rem' }}>
-                            <div className="heading-3">4.7</div>
+                            <div className="heading-3">{rateDetails?.ratingScore}</div>
                             <FilledStar width="3.2rem" height="3.2rem" color="#FC6B03" />
                         </div>
                         <div className="subtitle-2">Xếp hạng khoá học</div>
                     </div>
                     <div className="col">
-                        <div className="heading-3">11k</div>
+                        <div className="heading-3">{rateDetails ? Object.keys(rateDetails).map(e => e.startsWith('s') ? rateDetails[e] : 0).reduce((a, b) => a + b) : '-'}</div>
                         <div className="subtitle-2">Lượt xếp hạng</div>
                     </div>
                 </div>
@@ -368,9 +373,10 @@ const OverallTab = ({ data }) => {
                 </div>
                 <div className="col" style={{ gap: '1.2rem', alignItems: 'stretch' }}>
                     {Array.from({ length: 5 }).map((_, i) => {
+                        const star = i === 0 ? 5 : ((5 - i) % 5)
                         return <div key={'rate-' + i} className="row" style={{ gap: '0.8rem' }}>
-                            <Rating value={i === 0 ? 1 : ((5 - i) % 5)} />
-                            <div className="heading-7">(10.543)</div>
+                            <Rating value={star} />
+                            <div className="heading-7">({rateDetails ? rateDetails[`s${star}`] : '-'})</div>
                         </div>
                     })}
                 </div>

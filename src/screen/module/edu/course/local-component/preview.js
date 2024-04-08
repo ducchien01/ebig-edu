@@ -10,6 +10,7 @@ import { FilledSocialSharing, OutlineHeart, OutlineShoppingCart, OutlineStar, Ou
 import { CourseController } from "../controller";
 import { CustomerController } from "../../../customer/controller";
 import { Ultis } from "../../../../../Utils";
+import { InforCard } from "../../../../../project-component/card";
 
 export default function Preview() {
     const { id } = useParams()
@@ -31,7 +32,7 @@ export default function Preview() {
             CourseController.getById(id).then(res => {
                 if (res) setData(res)
             })
-        }//getById
+        } //getById
     }, [])
 
     return <div className="col preview-container" style={{ gap: '4rem' }}>
@@ -79,25 +80,17 @@ export default function Preview() {
                         </div>
                         <div className="tag-infor row button-text-3 border">Chỉ từ 500.000đ</div>
                     </div>
-                    <div className="col" style={{ gap: '1.6rem' }}>
-                        <img src={demoAvatar} alt="" style={{ width: '8rem', height: '8rem', borderRadius: '50%' }} />
-                        <div className="col" style={{ gap: '0.4rem' }}>
-                            <Text className="heading-7">Phan Minh Anh</Text>
-                            <div className="row" style={{ paddingBottom: '0.4rem', gap: '0.4rem' }}>
-                                <div className="subtitle-4">200 bài viết</div>
-                                <div className="subtitle-4">.</div>
-                                <div className="subtitle-4">12 khóa học</div>
-                                <div className="subtitle-4">.</div>
-                                <div className="subtitle-4">334 người theo dõi </div>
-                            </div>
-                            <Text className="body-3" style={{ '--max-line': 4 }}>
-                                Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.
-                            </Text>
-                        </div>
-                        <button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
+                    <InforCard
+                        style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
+                        avatar={user.avatarUrl}
+                        avatarSize="8rem"
+                        title={user.name}
+                        subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
+                        content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
+                        actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
                             <div className="button-text-3">Theo dõi</div>
-                        </button>
-                    </div>
+                        </button>}
+                    />
                     <div className="col divider" style={{ width: '100%' }}></div>
                     <div className="col" style={{ gap: '3.2rem' }}>
                         <div className="col" style={{ gap: '0.8rem' }}>
@@ -111,10 +104,10 @@ export default function Preview() {
                                 </div>)}
                             </div>
                         </div>
-                        <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
+                        {/* <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
                             <Text className="heading-7" style={{ color: '#ffffff', }} maxLine={2}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
                             <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
-                        </div>
+                        </div> */}
                         <div className="col" style={{ gap: '2rem' }}>
                             <div className="heading-7">Danh mục liên quan</div>
                             <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { InfiniteScroll, Text } from "../../../../../component/export-component";
+import { InfiniteScroll, Rating, Text } from "../../../../../component/export-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotate } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faRotate } from "@fortawesome/free-solid-svg-icons";
 import { CourseController } from "../../course/controller";
 import { PostCard } from "../../../../../project-component/card";
 import { CustomerController } from "../../../customer/controller";
@@ -44,7 +44,47 @@ export default function ListAllCourse() {
     return <div className="col" style={{ gap: '2.4rem', flex: 1 }}>
         <Text className="heading-4">Khám phá tất cả khoá học</Text>
         <div className="row" style={{ gap: '3.2rem', padding: '1.2rem 0', width: '100%', borderTop: 'var(--border-grey1)', borderBottom: 'var(--border-grey1)' }}>
-            <div className="row" style={{ gap: '1.2rem', flex: 1 }}></div>
+            <div className="row" style={{ flex: 1 }}>
+                <button className="col" style={{ gap: '0.4rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <div className="body-3">Khoảng giá</div>
+                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                    </div>
+                    <div className="heading-8">Tất cả</div>
+                </button>
+                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <button className="col" style={{ gap: '0.4rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <div className="body-3">Trạng thái khoá học</div>
+                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                    </div>
+                    <div className="heading-8">Tất cả</div>
+                </button>
+                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <button className="col" style={{ gap: '0.4rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <div className="body-3">Đánh giá</div>
+                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                    </div>
+                    <div className="heading-8"><Rating value={5} /></div>
+                </button>
+                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <button className="col" style={{ gap: '0.4rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <div className="body-3">Thời gian đăng</div>
+                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                    </div>
+                    <div className="heading-8">Tháng trước</div>
+                </button>
+                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <button className="col" style={{ gap: '0.4rem' }}>
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        <div className="body-3">Khuyến mại</div>
+                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                    </div>
+                    <div className="heading-8">Đang khuyến mại</div>
+                </button>
+            </div>
             <button className="row button-grey" style={{ borderRadius: 0, borderLeft: 'var(--border-grey1)', backgroundColor: 'transparent', padding: '1.2rem 3.2rem' }}>
                 <Text className="button-text-3">Đặt lại</Text>
                 <FontAwesomeIcon icon={faRotate} style={{ fontSize: '1.4rem' }} />

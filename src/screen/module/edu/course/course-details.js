@@ -18,6 +18,8 @@ import { InforCard } from "../../../../project-component/card";
 import ListComment from "../../social/new/local-component/list-comment";
 import { OrderType } from "../../ecom/order/da";
 import { RatingController } from "../rating/controller";
+import { OrderController } from "../../ecom/order/controller";
+import ListLessonTile from "../lesson/local-component/list-lesson-tile";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -30,6 +32,7 @@ export default function ViewCourseDetails() {
     const [classList, setClassList] = useState([])
     const [mentorList, setMentorList] = useState([])
     const [rateDetails, setRateDetails] = useState()
+    const [isPaid, setIsPaid] = useState(false)
 
     const renderTabView = () => {
         switch (activeFilterTab) {
@@ -186,6 +189,9 @@ export default function ViewCourseDetails() {
                 if (rateRes?.length) setRateDetails(rateRes[0])
             })
             if (isLogin) {
+                OrderController.getListSimpleDetails({ filter: [{ field: 'productId', operator: '=', value: id }] }).then(res => {
+                    if (res?.data?.length && res.data[0].isPay) setIsPaid(true)
+                })
                 ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(res => {
                     if (res) setClassList(res.data)
                 })
@@ -231,39 +237,51 @@ export default function ViewCourseDetails() {
                     </div>
                 </div>
                 <div className="more-infor-block col">
-                    <div className="col" style={{ gap: '1.6rem' }}>
-                        <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
-                        <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem', width: '100%' }} onClick={buyCourse}>
-                            <div className="button-text-3">Mua khóa học</div>
-                        </button>
-                    </div>
-                    {optionsBuyClass()}
-                    {optionBuyMentor()}
-                    <InforCard
-                        style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
-                        avatar={expert?.avatarUrl}
-                        avatarSize="8rem"
-                        title={expert?.name}
-                        subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
-                        content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
-                        actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
-                            <div className="button-text-3">Theo dõi</div>
-                        </button>}
-                    />
-                    <div className="col divider" style={{ width: '100%' }}></div>
-                    <div className="col" style={{ gap: '3.2rem' }}>
-                        {/* <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
+                    {isPaid ?
+                        <>
+                            <div className="row" style={{ gap: '1.2rem', padding: '2.4rem', border: 'var(--border-grey1)', borderRadius: '0.8rem', backgroundColor: 'var(--primary-background)' }}>
+                                <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
+                                    <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
+                                    <Text className="label-4" maxLine={1} style={{ width: '100%' }}>Bạn chưa bắt đầu khoá học</Text>
+                                </div>
+
+                            </div>
+                            <ListLessonTile courseLessons={data?.courseLessons} style={{ flex: 'none', height: 'fit-content' }} />
+                        </> : <>
+                            <div className="col" style={{ gap: '1.6rem' }}>
+                                <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
+                                <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem', width: '100%' }} onClick={buyCourse}>
+                                    <div className="button-text-3">Mua khóa học</div>
+                                </button>
+                            </div>
+                            {optionsBuyClass()}
+                            {optionBuyMentor()}
+                            <InforCard
+                                style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
+                                avatar={expert?.avatarUrl}
+                                avatarSize="8rem"
+                                title={expert?.name}
+                                subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
+                                content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
+                                actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
+                                    <div className="button-text-3">Theo dõi</div>
+                                </button>}
+                            />
+                            <div className="col divider" style={{ width: '100%' }}></div>
+                            <div className="col" style={{ gap: '3.2rem' }}>
+                                {/* <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
                             <Text className="heading-7" style={{ color: '#ffffff', }} maxLine={2}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
                             <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
                         </div> */}
-                        <div className="col" style={{ gap: '2rem' }}>
-                            <div className="heading-7">Danh mục liên quan</div>
-                            <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
-                                {['Programming', 'Data Science', 'Self Improvement', 'Writing', 'Relationships', 'Machine Learning', 'Productivity'].map((e, i) => <div key={'relate-tag-' + i} className="row button-text-3 tag-disabled">{e}</div>)}
+                                <div className="col" style={{ gap: '2rem' }}>
+                                    <div className="heading-7">Danh mục liên quan</div>
+                                    <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
+                                        {['Programming', 'Data Science', 'Self Improvement', 'Writing', 'Relationships', 'Machine Learning', 'Productivity'].map((e, i) => <div key={'relate-tag-' + i} className="row button-text-3 tag-disabled">{e}</div>)}
+                                    </div>
+                                    <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm các chủ đề</Text>
+                                </div>
                             </div>
-                            <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm các chủ đề</Text>
-                        </div>
-                    </div>
+                        </>}
                 </div>
             </div></> : null}
     </div>

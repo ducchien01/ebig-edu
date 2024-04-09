@@ -52,6 +52,7 @@ export class CustomSlider extends React.Component<SliderProps, SliderState> {
             className={`custom-slider-container ${this.props.className ?? ''}`}
             selected={this.state.page}
             bullets={false}
+            buttons={this.props.children && this.props.children?.length > 1}
             organicArrows={false}
             buttonContentLeft={this.props.prevButton ?? <FontAwesomeIcon icon={faCircleChevronLeft} style={{ color: this.props.iconColor ?? '#ffffff', fontSize: this.props.iconSize ?? '2.4rem' }} />}
             buttonContentRight={this.props.nextButton ?? <FontAwesomeIcon icon={faCircleChevronRight} style={{ color: this.props.iconColor ?? '#ffffff', fontSize: this.props.iconSize ?? '2.4rem' }} />}

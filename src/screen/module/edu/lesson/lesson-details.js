@@ -10,6 +10,7 @@ import EditVideo from "./local-component/edit-video"
 import EditParagraph from "./local-component/edit-paragraph"
 import EditTask from "./local-component/list-task"
 import PopupAddEditQuizz from "./local-component/poup-edit-task"
+import ListLessonTile from "./local-component/list-lesson-tile"
 
 export default function FormEditLesson({ courseData }) {
     const { lessonid } = useParams()
@@ -188,29 +189,7 @@ export default function FormEditLesson({ courseData }) {
                     <div className="subtitle-3">Embed</div>
                 </button>
             </div>
-            {showListLesson ? <div className="col " style={{ padding: '2.4rem 0', borderTop: 'var(--border-grey1)', gap: '3.2rem', flex: 1, height: '100%', width: '100%' }}>
-                <Text className="heading-6">Danh sách bài học</Text>
-                <div className="col" style={{ overflow: 'hidden auto', flex: 1, height: '100%' }}>
-                    {(courseData.courseLessons ?? []).filter(e => !e.parentId).map((item, i) => {
-                        let children = courseData.courseLessons.filter(e => e.parentId === item.id)
-                        return <div key={item.id} className="col" style={{ gap: '1.2rem' }}>
-                            <div className="row" style={{ gap: '1.4rem' }}>
-                                <div className="row label-2" style={{ width: '3.6rem', height: '3.6rem', borderRadius: '50%', backgroundColor: 'var(--background)', justifyContent: 'center' }}>{`U${i + 1}`}</div>
-                                <Text maxLine={1} className="heading-7" style={{ width: '100%', flex: 1 }}>{item.name}</Text>
-                                <Text maxLine={1} className="body-3">{`${i + 1}/${courseData.courseLessons.filter(e => !e.parentId).length}`}</Text>
-                            </div>
-                            <div className="col" style={{ paddingLeft: '4rem' }}>
-                                {children.map(childItem => {
-                                    return <div key={childItem.id} className="row" style={{ padding: '0.8rem 1rem', gap: '0.8rem', borderRadius: '0.8rem', backgroundColor: childItem.lessonId === lessonid ? 'var(--background)' : null }}>
-                                        {getPrefixIcon(childItem.type)}
-                                        <Text className="label-4" maxLine={1} style={{ flex: 1, width: '100%' }}>{childItem.name}</Text>
-                                    </div>
-                                })}
-                            </div>
-                        </div>
-                    })}
-                </div>
-            </div> : null}
+            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} lessonId={lessonid} /> : null}
         </div>
     </div>
 }

@@ -121,27 +121,22 @@ const HomeAuth = () => {
         TopicController.getAll().then(res => {
             if (res) setTopicList(res)
         })
-        CourseController.getAll().then(res => {
-            if (res) setMyCourses(res)
+        OrderController.getListSimple({
+            page: 1,
+            take: 4,
+            filter: [
+                { field: 'type', operator: '=', value: OrderType.course },
+                { field: 'statusPayment', operator: '=', value: 2 }
+            ]
+        }).then(async (res) => {
+            if (res) {
+                const courseIds = res.data.map(e => e.orderDetails).reduce((a,b) => a.concat(b)).filter(e => e.type === OrderType.course).map(e => e.productId)
+                const myCoursesRes = await CourseController.getByIds(courseIds)
+                if(myCoursesRes) {
+                    setMyCourses(myCoursesRes)
+                }
+            }
         })
-        // OrderController.getListSimple({
-        //     page: 1,
-        //     take: 4,
-        //     filter: [
-        //         // { field: 'type', operator: '=', value: OrderType.course },
-        //         { field: 'statusPayment', operator: '=', value: 2 },
-        //         { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }
-        //     ]
-        // }).then(res => {
-        //     if (res) {
-        //         const orderIds = res.data.map(e => e.id)
-        //         OrderController.getListSimpleDetails({
-        //             page: 1,
-        //             take: 4,
-        //             filter: [{ field: 'orderId', operator: '=', value: orderIds[0] }]
-        //         }).then()
-        //     }
-        // })
     }, [])
 
     return <div className='row' style={{ flex: 1, height: '100%', width: '100%', }}>
@@ -181,32 +176,31 @@ const HomeAuth = () => {
                             <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
                                 <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>
                                 <div className='col' style={{ gap: '1.6rem' }}>
-                                    <div className='col' style={{ gap: '0.4rem' }}>
-                                        <div className='row' style={{ gap: '0.8rem' }}>
+                                    {/* <div className='col' style={{ gap: '0.4rem' }}> */}
+                                        {/* <div className='row' style={{ gap: '0.8rem' }}>
                                             <img src='' alt='' style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
                                             <div className='label-4' style={{ color: '#ffffff' }}>Phan Minh Anh</div>
-                                        </div>
-                                        <Text className='heading-4' maxLine={2}>{e.name}</Text>
-                                    </div>
+                                        </div> */}
+                                        <Text className='heading-4' maxLine={2} style={{color: '#ffffff'}}>{e.name}</Text>
+                                    {/* </div> */}
                                     <div className='col'>
                                         <ProgressBar percentColor='#ffffff' fullColor='#00000000' progressBarOnly percent={60} progressBarStyle={{ border: '1px solid #ffffff' }} />
                                         <div className='label-5' style={{ color: "#ffffff" }}>Bạn đã hoàn thành 60% khóa học này</div>
                                     </div>
                                 </div>
                                 <div className='row' style={{ gap: '1.2rem' }}>
-                                    <NavLink className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
+                                    <NavLink to={'course/' + e.id} className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
                                         <div className='button-text-3'>Học tiếp</div>
                                     </NavLink>
-                                    <NavLink className='button-primary row' style={{ backgroundColor: "#00000000", padding: 0 }}>
+                                    {/* <NavLink className='button-primary row' style={{ backgroundColor: "#00000000", padding: 0 }}>
                                         <div className='button-text-3'>Xem tất cả khóa học</div>
                                         <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '1.4rem' }} />
-                                    </NavLink>
+                                    </NavLink> */}
                                 </div>
                             </div>
                         </div>
                     })}
                 </CustomSlider> : null}
-                {/* <AwesomeSlider  ></AwesomeSlider> */}
                 <ListAllCourse />
             </div>
         </div>

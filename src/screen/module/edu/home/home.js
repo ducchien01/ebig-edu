@@ -11,7 +11,7 @@ import ListDiscountCourse from './local-component/list-discount-course'
 import ListCommonCourse from './local-component/list-common-course'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AccountController } from '../../account/controller'
-import { faArrowRight, faChevronDown, faChevronUp, faCircleChevronLeft, faCircleChevronRight, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import { TopicController } from '../../topic/controller'
 import SidebarActions from '../../../layout/sidebar/sidebar-actions'
@@ -122,8 +122,6 @@ const HomeAuth = () => {
             if (res) setTopicList(res)
         })
         OrderController.getListSimple({
-            page: 1,
-            take: 4,
             filter: [
                 { field: 'type', operator: '=', value: OrderType.course },
                 { field: 'statusPayment', operator: '=', value: 2 }

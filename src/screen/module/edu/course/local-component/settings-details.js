@@ -8,7 +8,7 @@ import { Checkbox, Text } from '../../../../../component/export-component';
 import { CourseController } from '../controller';
 import FormEditLesson from '../../lesson/lesson-details';
 import CourseCurriculum from './course-curriculum';
-import Overview from './overview';
+import Overview from './settings-overview';
 
 export default function CourseDetails() {
     const { id } = useParams()

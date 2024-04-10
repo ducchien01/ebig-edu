@@ -323,3 +323,6 @@
     }
 }
 
+.lesson-content-view img {
+    max-width: 100%;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { json, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledLogoYoutube, FilledText, FilledTrashCan } from "../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars, faChevronDown, faChevronRight, faEllipsisVertical, faEye, faXmark } from "@fortawesome/free-solid-svg-icons"
@@ -66,7 +66,7 @@ export default function FormEditLesson({ courseData }) {
                     data.content = JSON.stringify([quest])
                 }
                 LessonController.edit(data).then(res => {
-                    if (res) setData(data)
+                    if (res) setData({...data})
                 })
             }} />
         })
@@ -189,7 +189,7 @@ export default function FormEditLesson({ courseData }) {
                     <div className="subtitle-3">Embed</div>
                 </button>
             </div>
-            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} lessonId={lessonid} /> : null}
+            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} /> : null}
         </div>
     </div>
 }

@@ -30,7 +30,7 @@ export default function EditTask({ data, editQuest, deleteQuest }) {
                 <Text className="button-text-3">Thu gọn</Text>
             </button>
         </div> */}
-        {listQuestion.map((item, i) => <div key={'quest-' + i} className="quest-block-infor row">
+        {listQuestion.map((item, i) => <div key={item.id} className="quest-block-infor row">
             <div className="row btn-sort" style={{ padding: '0.4rem', position: 'absolute' }}><FilledIndicator /></div>
             <div className="col" style={{ flex: 1, width: '100%', gap: '1.2rem' }}>
                 <div className="row" style={{ gap: '0.8rem' }}>

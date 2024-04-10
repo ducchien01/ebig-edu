@@ -16,6 +16,8 @@ import { RatingController } from "../rating/controller";
 import { OrderController } from "../../ecom/order/controller";
 import ListLessonTile from "../lesson/local-component/list-lesson-tile";
 import OverallTab from "./local-component/overall-tab";
+import CourseLessonsContent from "./local-component/course-lessons-tab";
+import CourseRatingTab from "./local-component/rating-tab";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -29,11 +31,16 @@ export default function ViewCourseDetails() {
     const [mentorList, setMentorList] = useState([])
     const [rateDetails, setRateDetails] = useState()
     const [isPaid, setIsPaid] = useState(false)
+    const [selectedCLesson, setSelectedCLesson] = useState()
 
     const renderTabView = () => {
         switch (activeFilterTab) {
             case 0:
                 return <OverallTab data={data} rateDetails={rateDetails} isPaid={isPaid} />
+            case 1:
+                return <CourseLessonsContent data={selectedCLesson} />
+            case 2:
+                return <CourseRatingTab rateDetails={rateDetails} />
             default:
                 return <div></div>
         }
@@ -178,6 +185,10 @@ export default function ViewCourseDetails() {
                     CustomerController.getById(res.customerId).then(cusRes => {
                         if (cusRes) setExpert(cusRes)
                     })
+                    if (res.courseLessons) {
+                        const unit1 = res.courseLessons.find(e => !e.parentId)
+                        if (unit1) setSelectedCLesson(res.courseLessons.find(e => e.parentId === unit1.id))
+                    }
                     setData(res)
                 }
             })
@@ -224,8 +235,10 @@ export default function ViewCourseDetails() {
                     <div className="col tab-container">
                         <div className="tab-header-2 row">
                             <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(0)}>Tổng quan</div>
-                            <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Nội dung khóa học</div>
-                            <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Đánh giá</div>
+                            {isPaid ? <>
+                                <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Nội dung khóa học</div>
+                                <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Đánh giá</div>
+                            </> : null}
                         </div>
                         <div className="tab-body-2 col" style={{ flex: 1, width: '100%', height: '100%', overflow: 'hidden auto', padding: '1.2rem 3.2rem' }}>
                             {renderTabView()}
@@ -240,9 +253,13 @@ export default function ViewCourseDetails() {
                                     <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
                                     <Text className="label-4" maxLine={1} style={{ width: '100%' }}>Bạn chưa bắt đầu khoá học</Text>
                                 </div>
-
                             </div>
-                            <ListLessonTile courseLessons={data?.courseLessons} style={{ flex: 'none', height: 'fit-content' }} />
+                            <ListLessonTile
+                                style={{ flex: 'none', height: 'fit-content' }}
+                                courseLessons={data?.courseLessons}
+                                selectedId={selectedCLesson?.id}
+                                onSelected={(item) => { setSelectedCLesson(item) }}
+                            />
                         </> : <>
                             <div className="col" style={{ gap: '1.6rem' }}>
                                 <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>

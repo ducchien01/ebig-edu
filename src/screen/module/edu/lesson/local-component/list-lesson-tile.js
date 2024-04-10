@@ -1,8 +1,10 @@
+import { useParams } from "react-router-dom"
 import { FilledCircleQuestion, FilledFileText, FilledLogoYoutube } from "../../../../../assets/const/icon"
 import { Text } from "../../../../../component/export-component"
 import { LessonType } from "../da"
 
-export default function ListLessonTile({ courseLessons = [], lessonId, style = {} }) {
+export default function ListLessonTile({ courseLessons = [], selectedId, style = {}, onSelected }) {
+    const { lessonid } = useParams()
     const getPrefixIcon = (type) => {
         switch (type) {
             case LessonType.video:
@@ -29,10 +31,18 @@ export default function ListLessonTile({ courseLessons = [], lessonId, style = {
                     </div>
                     <div className="col" style={{ paddingLeft: '4rem' }}>
                         {children.map(childItem => {
-                            return <div key={childItem.id} className="row" style={{ padding: '0.8rem 1rem', gap: '0.8rem', borderRadius: '0.8rem', backgroundColor: childItem.lessonId === lessonId ? 'var(--background)' : null }}>
+                            let check = false
+                            if (selectedId) {
+                                check = selectedId === childItem.id
+                            } else {
+                                check = childItem.lessonId === lessonid
+                            }
+                            return <button onClick={() => {
+                                if (onSelected) onSelected(childItem)
+                            }} key={childItem.id} className="row" style={{ padding: '0.8rem 1rem', gap: '0.8rem', borderRadius: '0.8rem', backgroundColor: check ? 'var(--background)' : null, cursor: onSelected ? 'auto' : 'context-menu' }}>
                                 {getPrefixIcon(childItem.type)}
                                 <Text className="label-4" maxLine={1} style={{ flex: 1, width: '100%' }}>{childItem.name}</Text>
-                            </div>
+                            </button>
                         })}
                     </div>
                 </div>

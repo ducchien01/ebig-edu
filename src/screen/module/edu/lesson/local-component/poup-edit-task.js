@@ -13,6 +13,7 @@ const PopupAddEditQuizz = forwardRef(function PopupAddEditQuizz(data, ref) {
     const methods = useForm({ shouldFocusError: false, defaultValues: { question: '', type: QuestionType.radio.toString(), answers: [{ id: uuidv4() }] } })
 
     const onSubmit = (ev) => {
+        ev.id ??= uuidv4()
         delete ev.file
         delete ev.isCorrect
         ev.type = parseInt(ev.type)

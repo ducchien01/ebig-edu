@@ -20,6 +20,7 @@ import { Calendar, CalendarType } from './calendar/calendar.tsx'
 import { InfiniteScroll } from './infinite-scroll/infinite-scroll.tsx'
 import { Rating } from './rating/rating.tsx'
 import { CustomSlider } from './slider/slider.tsx'
+import { ProgressCircle } from './progress-circle/progress-circle.tsx'
 
 export {
     Calendar, CalendarType,
@@ -44,5 +45,6 @@ export {
     CustomCKEditor,
     InfiniteScroll,
     Rating,
-    CustomSlider
+    CustomSlider,
+    ProgressCircle
 }

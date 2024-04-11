@@ -1,4 +1,4 @@
-import { Checkbox, Popup, RadioButton, Text, showPopup } from "../../../../component/export-component";
+import { Checkbox, Popup, ProgressCircle, RadioButton, Text, showPopup } from "../../../../component/export-component";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { OutlineCalendarDate, OutlineTimeAlarm, OutlineUserProfile, OutlineVideoPlaylist } from "../../../../assets/const/icon";
@@ -213,7 +213,7 @@ export default function ViewCourseDetails() {
         }
     }, [])
 
-    return <div className="col preview-container" style={{ gap: '4rem' }}>
+    return <div className="col preview-container" style={{ gap: '2.8rem' }}>
         {data ? <>
             <Popup ref={ref} />
             <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
@@ -253,6 +253,7 @@ export default function ViewCourseDetails() {
                                     <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
                                     <Text className="label-4" maxLine={1} style={{ width: '100%' }}>Bạn chưa bắt đầu khoá học</Text>
                                 </div>
+                                <ProgressCircle style={{ width: '6rem', height: '6rem' }} percent={100} textStyle={{fontSize: '1.6rem'}}/>
                             </div>
                             <ListLessonTile
                                 style={{ flex: 'none', height: 'fit-content' }}

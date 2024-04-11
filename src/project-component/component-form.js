@@ -58,7 +58,7 @@ export function Select1Form({ value, options, control, label, required = false, 
     return <Controller
         name={name}
         control={control}
-        rules={{ required: required }}
+        rules={{ required: required}}
         render={({ field }) => <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
             {label ? <div className="row" style={{ gap: 4 }}>
                 <Text className="label-3">{label}</Text>

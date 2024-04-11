@@ -253,7 +253,7 @@ export default function ViewCourseDetails() {
                                     <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
                                     <Text className="label-4" maxLine={1} style={{ width: '100%' }}>Bạn chưa bắt đầu khoá học</Text>
                                 </div>
-                                <ProgressCircle style={{ width: '6rem', height: '6rem' }} percent={100} textStyle={{fontSize: '1.6rem'}}/>
+                                <ProgressCircle style={{ width: '6.4rem', height: '6.4rem' }} percent={5} textStyle={{fontSize: 'min(1.6rem, 16px)'}}/>
                             </div>
                             <ListLessonTile
                                 style={{ flex: 'none', height: 'fit-content' }}

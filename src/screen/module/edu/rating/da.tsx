@@ -4,7 +4,6 @@ export interface RatingItem {
     dateCreated?: number,
     message?: string,
     value?: number,
-    isDeleted?: true,
     customerId?: string,
     linkId?: string,
     parentId?: string,

@@ -71,7 +71,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
             </> : <>
                 {prefixIcon ?? null}
                 <Text className={item.parentId ? 'button-text-3' : "highlight-6"}>{item.name}</Text>
-                {item.parentId ? <NavLink to={`/edu/school/course/details/textbook/lesson-content/${data.id}/${item.lessonId}`}>
+                {item.parentId ? <NavLink to={`/edu/course/details/textbook/lesson-content/${data.id}/${item.lessonId}`}>
                     <FilledOpenLink />
                 </NavLink> : null}
                 <button type="button" onClick={() => {
@@ -255,7 +255,7 @@ const PopupAddNewLesson = forwardRef(function PopupAddNewLesson(data, ref) {
         LessonController.add({ id: uuidv4(), name: ev.name.trim(), type: data.type, customerId: CustomerController.userInfor().id, dateCreated: (new Date()).getTime() }).then(async (id) => {
             const res = await LessonController.addToCourse({ ...data, name: ev.name.trim(), lessonId: id })
             if (res)
-                navigate(`/edu/school/course/details/textbook/lesson-content/${data.courseId}/${id}`)
+                navigate(`/edu/course/details/textbook/lesson-content/${data.courseId}/${id}`)
         })
     }
 

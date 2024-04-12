@@ -3,6 +3,7 @@ import { LessonController } from "../../lesson/controller"
 import { LessonType, QuestionType } from "../../lesson/da"
 import { Checkbox, RadioButton, Text } from "../../../../../component/export-component"
 import ConfigAPI from "../../../../../config/configApi"
+import ReactPlayer from "react-player"
 
 export default function CourseLessonsContent({ data, }) {
     const [lessonData, setLessonData] = useState()
@@ -10,7 +11,19 @@ export default function CourseLessonsContent({ data, }) {
     const renderUI = () => {
         switch (lessonData?.type) {
             case LessonType.video:
-                return <div></div>;
+                return <div>
+                    <ReactPlayer
+                        playing
+                        controls
+                        loop
+                        // config={{ youtube: { playerVars: { showinfo: 0 } } }}\
+                        pip
+                        url={[
+                            'https://www.youtube.com/shorts/As3vvfb6wq4',
+                            'https://www.youtube.com/shorts/lq9hzALa4Po',
+                            'https://www.youtube.com/shorts/loEsbT1vYCo'
+                        ]} />
+                </div>;
             case LessonType.paragraph:
                 return <div style={{ width: '100%' }} dangerouslySetInnerHTML={{ __html: lessonData.content }}></div>
             case LessonType.task:
@@ -20,8 +33,8 @@ export default function CourseLessonsContent({ data, }) {
                     console.log(error)
                 }
                 if (!quizz) return <div></div>
-                return <div className="col" style={{gap: '1.2rem', alignItems: 'end'}}>
-                    {quizz.map((item,i) => {
+                return <div className="col" style={{ gap: '1.2rem', alignItems: 'end' }}>
+                    {quizz.map((item, i) => {
                         return <div key={item.id} className="quest-block-infor row">
                             <div className="col" style={{ flex: 1, width: '100%', gap: '1.2rem' }}>
                                 <div className="row" style={{ gap: '0.8rem' }}>
@@ -32,7 +45,7 @@ export default function CourseLessonsContent({ data, }) {
                                 {item.fileId && <img src={ConfigAPI.imgUrl + item.fileId} alt="" style={{ width: '100%', borderRadius: '0.4rem' }} />}
                                 {(item.answers ?? []).map(ans => {
                                     return <div key={ans.id} className="row" style={{ gap: '0.8rem', alignItems: 'start' }}>
-                                        {item.type === QuestionType.radio ? <div style={{paddingTop: '0.2rem'}}><RadioButton size={'1.6rem'} name={item.id} value={ans.id} /></div> : <div style={{paddingTop: '0.2rem'}}><Checkbox size={'2rem'} style={{ borderRadius: '50%' }} /></div>}
+                                        {item.type === QuestionType.radio ? <div style={{ paddingTop: '0.2rem' }}><RadioButton size={'1.6rem'} name={item.id} value={ans.id} /></div> : <div style={{ paddingTop: '0.2rem' }}><Checkbox size={'2rem'} style={{ borderRadius: '50%' }} /></div>}
                                         <Text className="label-4" maxLine={20} style={{ flex: 1, width: '100%' }}>{ans.content}</Text>
                                     </div>
                                 })}

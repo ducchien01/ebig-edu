@@ -8,8 +8,6 @@ import NewStudentList from './local-component/new-student-list';
 import MothBusiness from './local-component/moth-business';
 import CurrentCourseList from './local-component/current-course-list';
 import { Text } from '../../../../component/export-component';
-import { useState } from 'react';
-import { AccountController } from '../../account/controller';
 import { CustomerController } from '../../customer/controller';
 
 // demo người dùng mới bằng type 1 là cũ, 0 là mới
@@ -24,7 +22,7 @@ export default function EduDashboard() {
             </div>
             {user.isActive ? <div className='row' style={{ columnGap: 8 }}>
                 <NavLink to={'/edu/schedule'} className="button-primary row"><div className='button-text-3'>Lịch dạy</div></NavLink>
-                <NavLink to={'/edu/school/course'} className="button-infor row border"><div className='button-text-3'>Quản lý khóa học</div></NavLink>
+                <NavLink to={'/edu/course'} className="button-infor row border"><div className='button-text-3'>Quản lý khóa học</div></NavLink>
             </div> :
                 <button className="button-primary row"><div className='button-text-3'>Xác thực hồ sơ giáo viên</div></button>
             }
@@ -36,7 +34,6 @@ export default function EduDashboard() {
 }
 
 function NewbieDashboard() {
-    const [v, setV] = useState(false)
     return <>
         <div className='block-view col'>
             <div className='block-title heading-6'>Thiết lập thông tin cơ bản</div>
@@ -75,7 +72,7 @@ function NewbieDashboard() {
                     <div className='subtitle-3'>Learn from expert professionals and join <br /> the largest online community for creatives.</div>
                 </div>
                 <div className='col' >
-                    <NavLink to={'/edu/school/course/add'} className='card-button row'>
+                    <NavLink to={'/edu/course/add'} className='card-button row'>
                         <div className='button-text-3'>Tạo khóa học</div>
                         <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: 16 }} />
                     </NavLink>

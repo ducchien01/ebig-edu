@@ -94,7 +94,7 @@ export default function ListCourse({ data, getData }) {
                             <Text className="button-text-3">Doanh thu -</Text>
                         </div>
                     </div>
-                    <NavLink to={`/edu/school/course/preview/${item.id}`} className="row" style={{ gap: '0.8rem' }}>
+                    <NavLink to={`/edu/course/preview/${item.id}`} className="row" style={{ gap: '0.8rem' }}>
                         <FontAwesomeIcon icon={faEye} style={{ color: 'var(--primary-color)', fontSize: '1.4rem' }} />
                         <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem trước</Text>
                     </NavLink>

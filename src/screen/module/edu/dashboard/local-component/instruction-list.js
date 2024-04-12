@@ -31,7 +31,7 @@ export default function InstructionList() {
     return <div className='block-view col'>
         <div className='block-title row'>
             <div className='heading-6'>Hướng dẫn dành cho bạn</div>
-            <NavLink to={'/edu/school/course/instructions'} className='button-text-3'>Xem tất cả</NavLink>
+            <NavLink to={'/edu/course/instructions'} className='button-text-3'>Xem tất cả</NavLink>
         </div>
         <div className='row list-card-view' style={{ flexWrap: 'wrap', columnGap: '4rem' }}>
             {list.map((e, i) => <div key={`card-img-${i}`} className='card-view-instruction col col6 col12-md col12-sm' style={{ '--gutter': '4rem' }}>

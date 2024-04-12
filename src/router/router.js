@@ -1,7 +1,6 @@
 import ProfileView from "../screen/module/customer/profile-view";
 import SchoolClass from "../screen/module/edu/class/class";
 import SchoolCourse from "../screen/module/edu/course/course";
-import SchoolCurriculum from "../screen/module/edu/curriculum/curriculum";
 import EduDashboard from "../screen/module/edu/dashboard/dashboard";
 import EduHome from "../screen/module/edu/home/home";
 import SchoolMentor from "../screen/module/edu/mentor/mentor";
@@ -47,18 +46,18 @@ export const getcomponentRouter = (moduleCode) => {
             return <EduDashboard />;
         case "edu/schedule":
             return <EduSchedule />;
-        case "edu/school/course":
+        case "edu/course":
             return <SchoolCourse />;
-        case "edu/school/course/details":
+        case "edu/course/details":
             return <CourseDetails />;
-        case "edu/school/class":
+        case "edu/class":
             return <SchoolClass />;
-        case "edu/school/mentor":
+        case "edu/mentor":
             return <SchoolMentor />;
-        case "edu/school/course/preview":
+        case "edu/exam":
+            return <SchoolMentor />;
+        case "edu/course/preview":
             return <Preview />;
-        case "edu/school/curriculum":
-            return <SchoolCurriculum />;
         case "edu/student":
             return <EduStudent />;
         case "edu/user/profile":

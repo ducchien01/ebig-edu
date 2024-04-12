@@ -14,7 +14,7 @@ export default function ClassDetails() {
     const { id } = useParams()
     const location = useLocation()
     const [selectedView, setSelectedView] = useState({ slug: 'overview' })
-    const [listView, setListView] = useState(extendView.filter(e => e.link === 'edu/school/course/details').map(e => JSON.parse(JSON.stringify(e))))
+    const [listView, setListView] = useState(extendView.filter(e => e.link === 'edu/course/details').map(e => JSON.parse(JSON.stringify(e))))
     const [data, setData] = useState()
 
     const checkValidInforToExport = (courseItem) => {
@@ -62,7 +62,7 @@ export default function ClassDetails() {
                 </div>
                 <div className='heading-6'>Thông tin chi tiết Course</div>
             </div>
-            <NavLink to={`/edu/school/course/preview/${id}`} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-grey'} row`} style={{ padding: '0.6rem 1.2rem' }}>
+            <NavLink to={`/edu/course/preview/${id}`} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-grey'} row`} style={{ padding: '0.6rem 1.2rem' }}>
                 <FilledSendMessage color={listView.filter(e => !e.parentId).every(e => e.valid) ? 'white' : undefined} />
                 <div className='button-text-3'>Xuất bản khóa học</div>
             </NavLink>

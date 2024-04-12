@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { FilledChat, FilledCircleQuestion, FilledEdit, FilledFileText, FilledHtmlCssCode, FilledHyperlink, FilledLogoYoutube, FilledText, FilledTrashCan } from "../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars, faChevronDown, faChevronRight, faEllipsisVertical, faEye, faXmark } from "@fortawesome/free-solid-svg-icons"
@@ -14,6 +14,7 @@ import ListLessonTile from "./local-component/list-lesson-tile"
 
 export default function FormEditLesson({ courseData }) {
     const { lessonid } = useParams()
+    const navigate = useNavigate()
     const ref = useRef()
     const [data, setData] = useState()
     const [showListLesson, setShowListLesson] = useState(false)
@@ -66,7 +67,7 @@ export default function FormEditLesson({ courseData }) {
                     data.content = JSON.stringify([quest])
                 }
                 LessonController.edit(data).then(res => {
-                    if (res) setData({...data})
+                    if (res) setData({ ...data })
                 })
             }} />
         })
@@ -90,7 +91,7 @@ export default function FormEditLesson({ courseData }) {
                 if (res) setData(res)
             })
         }
-    }, [])
+    }, [lessonid])
 
     const renderUI = () => {
         switch (data?.type) {
@@ -189,7 +190,7 @@ export default function FormEditLesson({ courseData }) {
                     <div className="subtitle-3">Embed</div>
                 </button>
             </div>
-            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} /> : null}
+            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} onSelected={(item) => { navigate(`/edu/course/details/textbook/lesson-content/${item.courseId}/${item.lessonId}`) }} /> : null}
         </div>
     </div>
 }

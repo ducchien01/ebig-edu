@@ -1,17 +1,32 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from "../../../../component/export-component";
+import { useRef, useState } from "react";
+import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showPopup } from "../../../../component/export-component";
 import { FilledSetupPreferences } from "../../../../assets/const/icon";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+import PopupAddNewExam from "./local-component/popup-add-new-exam";
 
 export default function ExamManagment() {
+    const ref = useRef()
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
     const [selected, setSelected] = useState()
 
+    const popupAddNewExam = () => {
+        showPopup({
+            ref: ref,
+            heading: <div className='popup-header heading-7'>Tạo mới bài thi</div>,
+            content: <PopupAddNewExam ref={ref} />,
+        })
+    }
+
     return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '2rem', padding: '2.4rem 3.2rem' }}>
-        <div className='col' style={{ padding: '1.6rem 0', gap: '0.4rem' }}>
-            <div className='heading-5'>Danh sách đề thi</div>
+        <Popup ref={ref} />
+        <div className="row" style={{ justifyContent: 'space-between' }}>
+            <div className="heading-4">Danh sách bài thi</div>
+            <button type="button" className="button-primary row" onClick={popupAddNewExam} style={{ backgroundColor: 'var(--primary-color)' }}>
+                <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
+                <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
+            </button>
         </div>
         <div className="row filter-header-container">
             <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#00204D99' }} />} />
@@ -36,7 +51,7 @@ export default function ExamManagment() {
                     {
                         Array.from({ length: 10 }).map((_, index) => <TbRow key={index} className={`${selected === index ? 'selected' : ''}`} onClick={() => setSelected(index)}>
                             <TbCell fixed={true} style={{ minWidth: 360, }} >
-                                <NavLink to={`/`} style={{color: 'var(--primary-color)'}}>Thi lái tàu</NavLink>
+                                <NavLink to={`/`} style={{ color: 'var(--primary-color)' }}>Thi lái tàu</NavLink>
                             </TbCell>
                             <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>FJYFJUF</Text></TbCell>
                             <TbCell style={{ minWidth: 80, }} >Begginer</TbCell>
@@ -44,6 +59,7 @@ export default function ExamManagment() {
                             <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>120</TbCell>
                             <TbCell style={{ minWidth: 160, }} >1,290,000vnđ</TbCell>
                             <TbCell fixed={true} style={{ minWidth: 180, }}>
+                                
                             </TbCell>
                         </TbRow>
                         )
@@ -69,3 +85,4 @@ export default function ExamManagment() {
         </div>
     </div>
 }
+

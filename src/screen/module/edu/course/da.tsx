@@ -30,6 +30,6 @@ export interface CourseItem {
     quantity?: number, // BE đang thiếu
     income?: number, // BE đang thiếu
     courseCates?: Array<CateItem>,
-    courseTags?: Array<TagItem>
+    courseTags?: Array<TagItem>,
     courseLessons?: Array<CourseLessonItem>,
 }

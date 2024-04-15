@@ -11,13 +11,14 @@ import SocialDiscoveryView from "../screen/module/social/discovery/discovery";
 import DiscoverTopicDetails from "../screen/module/social/discovery/local-component/topic-details";
 import SocialHome from "../screen/module/social/home/home";
 import ViewCourseDetails from "../screen/module/edu/course/course-details";
-import CourseDetails from "../screen/module/edu/course/local-component/settings-details";
+import SettingsCourse from "../screen/module/edu/course/local-component/settings-details";
 import ListAllCourse from "../screen/module/edu/home/local-component/list-all-course";
 import EcomHome from "../screen/module/ecom/product/home";
 import EcomCart from "../screen/module/ecom/cart/cart";
 import EcomPayment from "../screen/module/ecom/payment/payment";
 import PaymentProcess from "../screen/module/ecom/payment/local-component/payment-success";
 import ExamManagment from "../screen/module/edu/exam/exam";
+import SettingsExam from "../screen/module/edu/exam/local-component/settings-details";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -50,13 +51,15 @@ export const getcomponentRouter = (moduleCode) => {
         case "edu/course":
             return <SchoolCourse />;
         case "edu/course/details":
-            return <CourseDetails />;
+            return <SettingsCourse />;
         case "edu/class":
             return <SchoolClass />;
         case "edu/mentor":
             return <SchoolMentor />;
         case "edu/exam":
             return <ExamManagment />;
+        case "edu/exam/details":
+            return <SettingsExam />;
         case "edu/course/preview":
             return <Preview />;
         case "edu/student":

@@ -62,10 +62,10 @@ export class Dialog extends React.Component<Object, DialogState> {
                     ReactDOM.createPortal(
                         <div className='dialog-overlay'>
                             <div className='dialog-container col' style={{ width: '41.4rem', alignItems: this.state.alignment }} dialog-type={this.state.status} onClick={e => e.stopPropagation()} >
-                                <div key={'dialog-body'} className='dialog-body col' style={{alignItems: 'inherit'}}>
+                                <div key={'dialog-body'} className='dialog-body col' style={{ alignItems: 'inherit' }}>
                                     <div className='dialog-status row'>{getStatusIcon(this.state.status)}</div>
-                                    <div className='dialog-title'>{this.state.title}</div>
-                                    <div className='dialog-content'>{this.state.content}</div>
+                                    <div className='dialog-title' style={{ textAlign: this.state.alignment === DialogAlignment.center ? 'center' : 'start' }}>{this.state.title}</div>
+                                    <div className='dialog-content' style={{ textAlign: this.state.alignment === DialogAlignment.center ? 'center' : 'start' }}>{this.state.content}</div>
                                 </div>
                                 <div key={'dialog-footer'} className='dialog-footer row'>
                                     <button type='button' style={this.state.alignment === DialogAlignment.center ? { flex: 1, width: '100%' } : undefined} onClick={() => this.setState({ open: false })} className='dialog-action'>Quay lại</button>

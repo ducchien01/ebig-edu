@@ -25,6 +25,7 @@ export enum LessonType {
     video = 1,
     paragraph = 2,
     task = 3,
+    examTask = 4,
 }
 
 export enum QuestionType {

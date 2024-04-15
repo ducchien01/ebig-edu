@@ -184,6 +184,12 @@ export const extendView = [
         link: 'edu/course/preview',
     },
     {
+        name: 'exam details',
+        // slug: 'certificate',
+        path: 'exam/details/:id',
+        link: 'edu/exam/details',
+    },
+    {
         name: 'news details',
         path: 'home/news/:id',
         link: 'social/home/news',

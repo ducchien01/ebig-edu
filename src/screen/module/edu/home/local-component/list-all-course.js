@@ -9,6 +9,7 @@ import { OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } fr
 import { Ultis } from "../../../../../Utils";
 import ConfigAPI from "../../../../../config/configApi";
 import { RatingController } from "../../rating/controller";
+import { CourseStatus } from "../../course/da";
 
 export default function ListAllCourse() {
     const [data, setData] = useState([])
@@ -16,7 +17,7 @@ export default function ListAllCourse() {
     const [total, setTotal] = useState(0)
 
     const getData = async () => {
-        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 30)) + 1, take: 30 })
+        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 30)) + 1, take: 30, filter: [{ field: 'status', operator: '=', value: CourseStatus.published }] })
         if (res) {
             if (total !== res.totalCount) setTotal(res.totalCount)
             let customerIds = res.data.map(e => e.customerId).filter(id => customerList.every(item => item.id !== id))
@@ -52,7 +53,7 @@ export default function ListAllCourse() {
                     </div>
                     <div className="heading-8">Tất cả</div>
                 </button>
-                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <div className="row divider" style={{ height: '4.8rem' }}></div>
                 <button className="col" style={{ gap: '0.4rem' }}>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <div className="body-3">Trạng thái khoá học</div>
@@ -60,7 +61,7 @@ export default function ListAllCourse() {
                     </div>
                     <div className="heading-8">Tất cả</div>
                 </button>
-                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <div className="row divider" style={{ height: '4.8rem' }}></div>
                 <button className="col" style={{ gap: '0.4rem' }}>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <div className="body-3">Đánh giá</div>
@@ -68,7 +69,7 @@ export default function ListAllCourse() {
                     </div>
                     <div className="heading-8"><Rating value={5} /></div>
                 </button>
-                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <div className="row divider" style={{ height: '4.8rem' }}></div>
                 <button className="col" style={{ gap: '0.4rem' }}>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <div className="body-3">Thời gian đăng</div>
@@ -76,7 +77,7 @@ export default function ListAllCourse() {
                     </div>
                     <div className="heading-8">Tháng trước</div>
                 </button>
-                <div className="row divider" style={{height: '4.8rem'}}></div>
+                <div className="row divider" style={{ height: '4.8rem' }}></div>
                 <button className="col" style={{ gap: '0.4rem' }}>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <div className="body-3">Khuyến mại</div>

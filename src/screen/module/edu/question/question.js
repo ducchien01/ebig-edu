@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { CellAlignItems, Checkbox, Pagination, Popup, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, } from "../../../../component/export-component";
+import { CellAlignItems, Checkbox, Pagination, Popup, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showPopup, } from "../../../../component/export-component";
 import { FilledEdit, FilledSetupPreferences, FilledTrashCan } from "../../../../assets/const/icon";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { QuestionController } from "./controller";

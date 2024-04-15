@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import { FilledSendMessage } from '../../../../../assets/const/icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronRight, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { extendView } from '../../../../../assets/const/const-list';
 import { Checkbox, Text } from '../../../../../component/export-component';
 import { CourseController } from '../controller';
@@ -27,7 +27,7 @@ export default function CourseDetails() {
                         e.valid = checkProps.every(props => courseItem[props] != null)
                         needUpdate = true
                         break;
-                    case 'textbook':
+                    case 'lessons':
                         e.valid = courseItem.courseLessons?.length ? true : false
                         needUpdate = true
                         break;
@@ -72,37 +72,19 @@ export default function CourseDetails() {
             <div className='details-view-body-sidebar col'>
                 <Text className='heading-7'>{data?.name}</Text>
                 <div className='col' >
-                    {listView.filter(e => {
-                        if (selectedView.parentId === e.slug) e.isExpand = true
-                        return !e.parentId;
-                    }).map((item, index) => {
-                        const children = listView.filter(e => e.parentId === item.slug)
-                        item.isExpand ??= children.some(e => e.isExpand)
-                        return <div key={`sidebar-tile-${index}`} className='col' style={{ width: '100%' }}>
-                            <NavLink to={children.length ? null : `/edu/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${selectedView?.slug === item.slug ? 'selected' : ''}`}
-                                onClick={() => {
-                                    if (children.length) {
-                                        item.isExpand = !item.isExpand
-                                        setSelectedView(selectedView)
-                                    }
-                                }}
-                            >
-                                <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={item.valid} />
-                                <Text className='label-3' maxLine={1} style={{ flex: 1, with: '100%' }}>{item.name}</Text>
-                                {children.length ? <FontAwesomeIcon icon={item.isExpand ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem', color: '#00204D99' }} /> : null}
-                            </NavLink>
-                            {children.map((child, j) => <NavLink to={`/edu/${child.path.replace(':id', id)}`} key={`sidebar-tile-${index}-${j}`} style={{ paddingLeft: '4.4rem' }} className={`row details-sidebar-tile ${selectedView?.slug === child.slug || child.isExpand ? 'selected' : ''}`}>
-                                <Text className='label-3' maxLine={1} style={{ flex: 1, width: '100%' }}>{child.name}</Text>
-                            </NavLink>
-                            )}
-                        </div>
+                    {listView.filter(e => !e.parentId).map(function (item, i) {
+                        const isSelected = selectedView?.slug === item.slug || selectedView?.parentId === item.slug
+                        return <NavLink key={'nav-to-' + i} to={`/edu/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${isSelected ? 'selected' : ''}`}>
+                            <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={item.valid} />
+                            <Text className='label-3' maxLine={1} style={{ flex: 1, with: '100%' }}>{item.name}</Text>
+                        </NavLink>;
                     })}
                 </div>
             </div>
             <div className='details-view-body-content col'>
                 {[
                     {
-                        slug: 'lesson-content',
+                        slug: 'lessons-settings',
                         element: <FormEditLesson courseData={data} />
                     },
                     {

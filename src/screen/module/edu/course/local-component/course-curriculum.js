@@ -71,7 +71,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
             </> : <>
                 {prefixIcon ?? null}
                 <Text className={item.parentId ? 'button-text-3' : "highlight-6"}>{item.name}</Text>
-                {item.parentId ? <NavLink to={`/edu/course/details/textbook/lesson-content/${data.id}/${item.lessonId}`}>
+                {item.parentId ? <NavLink to={`/edu/course/details/lessons-settings/${data.id}/${item.lessonId}`}>
                     <FilledOpenLink />
                 </NavLink> : null}
                 <button type="button" onClick={() => {

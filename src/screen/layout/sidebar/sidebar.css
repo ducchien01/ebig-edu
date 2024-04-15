@@ -89,8 +89,12 @@
     border-radius: 8px;
 }
 
+.expand>.module-menu .sidebar-module-tile:hover {
+    background-color: #f5f7fa !important;
+}
+
 .expand>.module-menu .sidebar-module-tile.selected {
-    background-color: #00358014;
+    background-color: #00358014 !important;
 }
 
 .module-menu .sidebar-module-tile>.label-3 {

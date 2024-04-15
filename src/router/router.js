@@ -17,6 +17,7 @@ import EcomHome from "../screen/module/ecom/product/home";
 import EcomCart from "../screen/module/ecom/cart/cart";
 import EcomPayment from "../screen/module/ecom/payment/payment";
 import PaymentProcess from "../screen/module/ecom/payment/local-component/payment-success";
+import ExamManagment from "../screen/module/edu/exam/exam";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -55,7 +56,7 @@ export const getcomponentRouter = (moduleCode) => {
         case "edu/mentor":
             return <SchoolMentor />;
         case "edu/exam":
-            return <SchoolMentor />;
+            return <ExamManagment />;
         case "edu/course/preview":
             return <Preview />;
         case "edu/student":

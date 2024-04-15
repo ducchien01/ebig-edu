@@ -160,23 +160,9 @@ export const socialModules = [
 export const extendView = [
     {
         name: 'Chỉnh sửa bài học',
-        slug: 'lesson-content',
+        slug: 'lessons-settings',
         parentId: 'lessons',
-        path: 'course/details/textbook/lesson-content/:id/:lessonid',
-        link: 'edu/course/details',
-    },
-    {
-        name: 'Danh sách bài học',
-        slug: 'lessons',
-        parentId: 'textbook',
-        path: 'course/details/textbook/lessons/:id',
-        link: 'edu/course/details',
-    },
-    {
-        name: 'Tài liệu đính kèm',
-        slug: 'files',
-        parentId: 'textbook',
-        path: 'course/details/textbook/files/:id',
+        path: 'course/details/lessons-settings/:id/:lessonid',
         link: 'edu/course/details',
     },
     {
@@ -186,17 +172,11 @@ export const extendView = [
         link: 'edu/course/details',
     },
     {
-        name: 'Giáo trình',
-        slug: 'textbook',
-        path: 'course/details/textbook/:id',
+        name: 'Danh sách bài học',
+        slug: 'lessons',
+        path: 'course/details/lessons/:id',
         link: 'edu/course/details',
     },
-    // {
-    //     name: 'Chứng chỉ',
-    //     slug: 'certificate',
-    //     path: 'edu/course/details/certificate/:id',
-    //     link: 'edu/course/details',
-    // },
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',

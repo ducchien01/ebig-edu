@@ -11,17 +11,14 @@ export default function CourseLessonsContent({ data, }) {
     const renderUI = () => {
         switch (lessonData?.type) {
             case LessonType.video:
-                return <div>
+                return <div className="col" style={{width: '100%'}}>
                     <ReactPlayer
                         playing
                         controls
-                        loop
                         // config={{ youtube: { playerVars: { showinfo: 0 } } }}\
-                        pip
                         url={[
-                            'https://www.youtube.com/shorts/As3vvfb6wq4',
-                            'https://www.youtube.com/shorts/lq9hzALa4Po',
-                            'https://www.youtube.com/shorts/loEsbT1vYCo'
+                            'https://cdn.jsdelivr.net/gh/ducchien01/File@5b8e838/op_part_1_plants_14e6.mp4',
+                            'https://cdn.jsdelivr.net/gh/ducchien01/File@abefc11/op_part_0_plants_14e6.mp4',
                         ]} />
                 </div>;
             case LessonType.paragraph:

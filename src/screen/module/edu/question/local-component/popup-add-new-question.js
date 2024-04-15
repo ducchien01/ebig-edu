@@ -1,19 +1,20 @@
 import { forwardRef } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { ExamController } from "../controller"
+import { ExamController, QuestionController } from "../controller"
 import { TextFieldForm } from "../../../../../project-component/component-form"
 import { Text, ToastMessage, closePopup } from "../../../../../component/export-component"
 import { uuidv4 } from "../../../../../Utils"
+import { LessonType } from "../../lesson/da"
 
-const PopupAddNewExam = forwardRef(function PopupAddNewExam(data, ref) {
+const PopupAddNewQuestion = forwardRef(function PopupAddNewQuestion(data, ref) {
     const methods = useForm({ shouldFocusError: false, defaultValues: { name: '' } })
     const navigate = useNavigate()
 
     const onSubmit = (ev) => {
         console.log(ev)
-        ExamController.add({ id: uuidv4(), name: ev.name.trim(), }).then(id => {
-            if (id) {
+        QuestionController.add({ id: uuidv4(), name: ev.name.trim(), type: LessonType.examTask }).then(id => {
+            if(id) {
                 ToastMessage.success('Tạo mới câu hỏi thành công')
                 navigate('details/' + id)
             }
@@ -26,7 +27,7 @@ const PopupAddNewExam = forwardRef(function PopupAddNewExam(data, ref) {
                 name={'name'}
                 register={methods.register}
                 value={methods.watch('name')}
-                placeholder="Nhập tiêu đề bài thi"
+                placeholder="Nhập tiêu đề câu hỏi"
             />
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
@@ -36,4 +37,4 @@ const PopupAddNewExam = forwardRef(function PopupAddNewExam(data, ref) {
     </form>
 })
 
-export default PopupAddNewExam
+export default PopupAddNewQuestion

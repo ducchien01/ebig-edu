@@ -42,6 +42,20 @@ export class TopicController {
         return null
     }
 
+    static getByIds = async (ids: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'TopicAuth' : 'Topic') + `/GetListByIds`, {
+            data: ids ?? []
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data as TopicItem
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
     static add = async (topicItem: TopicItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'TopicAuth/Action?action=add', {
             data: { data: topicItem }

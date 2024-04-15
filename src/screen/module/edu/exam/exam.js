@@ -1,15 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showPopup } from "../../../../component/export-component";
-import { FilledSetupPreferences } from "../../../../assets/const/icon";
+import { FilledSetupPreferences, FilledTrashCan } from "../../../../assets/const/icon";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import PopupAddNewExam from "./local-component/popup-add-new-exam";
+import { ExamController } from "./controller";
+import { studentLevelList } from "../../../../assets/const/const-list";
+import { TopicController } from "../../topic/controller";
+import { ExamStatus } from "./da";
 
 export default function ExamManagment() {
     const ref = useRef()
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
-    const [selected, setSelected] = useState()
+    const [selectedId, setSelected] = useState()
+    const [data, setData] = useState()
+    const [listTopic, setListTopic] = useState([])
 
     const popupAddNewExam = () => {
         showPopup({
@@ -18,6 +24,29 @@ export default function ExamManagment() {
             content: <PopupAddNewExam ref={ref} />,
         })
     }
+
+    const getData = async (page, size) => {
+        const res = await ExamController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size })
+        if (res) {
+            const topicIds = (res.data ?? []).map(e => e.topicId).filter(id => id != null && listTopic.every(e => e.id !== id))
+            if (topicIds.length) {
+                TopicController.getByIds(topicIds).then(topicRes => {
+                    if (topicRes) setListTopic(topicRes)
+                })
+            }
+            setData(res)
+        }
+    }
+
+    const confirmDelete = async (item) => {
+        ExamController.delete([item.id]).then(res => {
+            if (res) getData()
+        })
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '2rem', padding: '2.4rem 3.2rem' }}>
         <Popup ref={ref} />
@@ -44,22 +73,24 @@ export default function ExamManagment() {
                     <TbCell style={{ minWidth: 80, }}>Trình độ</TbCell>
                     <TbCell style={{ minWidth: 120, }} >Chủ đề</TbCell>
                     <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>Thời gian thi (Phút)</TbCell>
-                    <TbCell style={{ minWidth: 160, }} >Lệ phí</TbCell>
+                    <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center}>Trạng thái</TbCell>
                     <TbCell fixed={true} style={{ minWidth: 180, }} align={CellAlignItems.center}>Action</TbCell>
                 </TbHeader>
                 <TbBody>
                     {
-                        Array.from({ length: 10 }).map((_, index) => <TbRow key={index} className={`${selected === index ? 'selected' : ''}`} onClick={() => setSelected(index)}>
+                        (data?.data ?? []).map((item) => <TbRow key={item.id} className={`${selectedId === item.id ? 'selected' : ''}`} onClick={() => setSelected(item.id)}>
                             <TbCell fixed={true} style={{ minWidth: 360, }} >
-                                <NavLink to={`/`} style={{ color: 'var(--primary-color)' }}>Thi lái tàu</NavLink>
+                                <NavLink to={`details/` + item.id} style={{ color: 'var(--primary-color)' }}>{item.name}</NavLink>
                             </TbCell>
-                            <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>FJYFJUF</Text></TbCell>
-                            <TbCell style={{ minWidth: 80, }} >Begginer</TbCell>
-                            <TbCell style={{ minWidth: 120, }}>Đường thủy</TbCell>
-                            <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>120</TbCell>
-                            <TbCell style={{ minWidth: 160, }} >1,290,000vnđ</TbCell>
-                            <TbCell fixed={true} style={{ minWidth: 180, }}>
-                                
+                            <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>{item.code}</Text></TbCell>
+                            <TbCell style={{ minWidth: 80, }} >{studentLevelList.find(e => e.id === item.level)?.name}</TbCell>
+                            <TbCell style={{ minWidth: 120, }}>{listTopic.find(e => e.id === item.topicId)?.name}</TbCell>
+                            <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>{item.time}</TbCell>
+                            <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center} >{item.status === ExamStatus.real ? "Thi chính thức" : "Thi thử"}</TbCell>
+                            <TbCell fixed={true} style={{ minWidth: 80, }} align={CellAlignItems.center}>
+                                <button type="button" className="row" onClick={() => { confirmDelete(item) }} style={{ padding: '0.6rem' }}>
+                                    <FilledTrashCan width='2rem' height='2rem' />
+                                </button>
                             </TbCell>
                         </TbRow>
                         )
@@ -74,11 +105,12 @@ export default function ExamManagment() {
                 /// pageSize
                 itemPerPage={pageDetails.size}
                 // data.total
-                totalItem={10}
+                totalItem={data?.totalCount}
                 /// action
                 onChangePage={(page, size) => {
                     if (pageDetails.page !== page || pageDetails.size !== size) {
                         setPageDetails({ page: page, size: size });
+                        getData(page, size)
                     }
                 }}
             />

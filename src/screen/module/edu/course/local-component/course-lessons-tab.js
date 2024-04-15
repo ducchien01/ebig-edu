@@ -121,7 +121,6 @@ const TestQuizzForm = ({ data = [] }) => {
                                 <Checkbox
                                     value={methods.watch(item.id)?.some(id => id === ans.id)}
                                     size={'2rem'}
-                                    style={{ borderRadius: '50%' }}
                                     onChange={(ev) => {
                                         let listValue = methods.getValues(item.id) ?? []
                                         if (ev) {

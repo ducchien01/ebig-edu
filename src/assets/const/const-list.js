@@ -73,25 +73,32 @@ export const eduModules = [
     {
         id: 11,
         parentId: 2,
+        name: 'Question',
+        link: 'edu/question',
+        path: 'question',
+    },
+    {
+        id: 12,
+        parentId: 2,
         name: 'Student Management',
         link: 'edu/student',
         path: 'student',
     },
     {
-        id: 12,
+        id: 13,
         parentId: 6,
         name: 'Hồ sơ cá nhân',
         link: 'edu/user/profile',
         path: 'user/profile',
     },
     {
-        id: 13,
+        id: 14,
         parentId: 6,
         name: 'Tài khoản liên kết',
         link: 'user/linked-account',
     },
     {
-        id: 14,
+        id: 15,
         parentId: 6,
         name: 'Mật khẩu và bảo mật',
         link: 'user/security',
@@ -188,6 +195,12 @@ export const extendView = [
         // slug: 'certificate',
         path: 'exam/details/:id',
         link: 'edu/exam/details',
+    },
+    {
+        name: 'question details',
+        // slug: 'certificate',
+        path: 'question/details/:id',
+        link: 'edu/question/details',
     },
     {
         name: 'news details',

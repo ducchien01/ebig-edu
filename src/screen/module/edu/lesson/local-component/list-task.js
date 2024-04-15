@@ -40,9 +40,11 @@ export default function EditTask({ data, editQuest, deleteQuest }) {
                 <Text className="button-text-1" style={{ '--max-line': 100 }}>{item.question}</Text>
                 {item.fileId && <img src={ConfigAPI.imgUrl + item.fileId} alt="" style={{ width: '100%', borderRadius: '0.4rem' }} />}
                 {(item.answers ?? []).map(ans => {
-                    return <div key={ans.id} className="row" style={{ gap: '0.8rem' }}>
-                        {item.type === QuestionType.radio ? <RadioButton size={'1.6rem'} name={item.id} value={ans.id} defaultChecked={ans.isCorrect} disabled /> : <Checkbox disabled value={ans.isCorrect} size={'1.6rem'} style={{ borderRadius: '50%' }} />}
-                        <Text className="label-4" maxLine={20} style={{flex: 1, width: '100%'}}>{ans.content}</Text>
+                    return <div key={ans.id} className="row" style={{ gap: '0.8rem', alignItems: 'start' }}>
+                        <div style={{ paddingTop: '0.2rem' }}>
+                            {item.type === QuestionType.radio ? <RadioButton size={'1.6rem'} name={item.id} value={ans.id} defaultChecked={ans.isCorrect} disabled /> : <Checkbox disabled value={ans.isCorrect} size={'1.6rem'} />}
+                        </div>
+                        <Text className="label-4" maxLine={20} style={{ flex: 1, width: '100%' }}>{ans.content}</Text>
                     </div>
                 })}
             </div>

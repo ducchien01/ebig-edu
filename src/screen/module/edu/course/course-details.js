@@ -157,7 +157,7 @@ export default function ViewCourseDetails() {
             {renderList.map((item) => {
                 return <div key={item.id} className={`col option-buy-class-mentor ${item.checked ? 'selected' : ''}`}>
                     <div className="row" style={{ gap: '1.6rem', paddingBottom: '1.2rem', borderBottom: 'var(--border-grey1)', alignItems: 'start' }}>
-                        <Checkbox size={'2rem'} style={{ borderRadius: '50%' }} value={item.checked} onChange={(v) => {
+                        <Checkbox size={'2rem'} value={item.checked} onChange={(v) => {
                             setMentorList(mentorList.map(e => {
                                 if (e.id === item.id) e.checked = v
                                 return e

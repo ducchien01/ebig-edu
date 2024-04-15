@@ -13,12 +13,12 @@ export interface ExamItem {
     level?: number,
     lessonId?: string,
     customerId?: string,
-    /** ExamStatus */
     status?: number,
     quantity?: number,
     time?: number,
     dateStart?: number,
     topicId?: string,
-    courseTags?: Array<TagItem>,
+    cateId?: string,
+    tags?: Array<TagItem>,
 }
 

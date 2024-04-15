@@ -19,6 +19,8 @@ import EcomPayment from "../screen/module/ecom/payment/payment";
 import PaymentProcess from "../screen/module/ecom/payment/local-component/payment-success";
 import ExamManagment from "../screen/module/edu/exam/exam";
 import SettingsExam from "../screen/module/edu/exam/local-component/settings-details";
+import QuestionManagment from "../screen/module/edu/question/question";
+import SettingsQuestion from "../screen/module/edu/question/local-component/settings-details";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -60,6 +62,10 @@ export const getcomponentRouter = (moduleCode) => {
             return <ExamManagment />;
         case "edu/exam/details":
             return <SettingsExam />;
+        case "edu/question":
+            return <QuestionManagment />;
+        case "edu/question/details":
+            return <SettingsQuestion />;
         case "edu/course/preview":
             return <Preview />;
         case "edu/student":

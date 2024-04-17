@@ -5,14 +5,14 @@ import { ExamController } from "../controller"
 import { TextFieldForm } from "../../../../../project-component/component-form"
 import { Text, ToastMessage, closePopup } from "../../../../../component/export-component"
 import { uuidv4 } from "../../../../../Utils"
+import { ExamStatus } from "../da"
 
 const PopupAddNewExam = forwardRef(function PopupAddNewExam(data, ref) {
     const methods = useForm({ shouldFocusError: false, defaultValues: { name: '' } })
     const navigate = useNavigate()
 
     const onSubmit = (ev) => {
-        console.log(ev)
-        ExamController.add({ id: uuidv4(), name: ev.name.trim(), }).then(id => {
+        ExamController.add({ id: uuidv4(), name: ev.name.trim(), status: ExamStatus.draft }).then(id => {
             if (id) {
                 ToastMessage.success('Tạo mới câu hỏi thành công')
                 navigate('details/' + id)

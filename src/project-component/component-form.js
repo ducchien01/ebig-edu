@@ -1,14 +1,14 @@
 import { Controller } from "react-hook-form";
 import { Checkbox, ImportFile, RadioButton, Select1, SelectMultiple, Switch, Text, TextArea, TextField } from "../component/export-component";
 
-export function TextFieldForm({ label, register, required = false, name, type, placeholder, errors, maxLength, readOnly = false, disabled = false, suffix, prefix, onChange, onBlur, onFocus, width = '100%', helperText }) {
-    return <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
+export function TextFieldForm({ label, register, required = false, name, type, placeholder, errors, maxLength, readOnly = false, disabled = false, suffix, prefix, onChange, onBlur, onFocus, width = '100%', helperText, className }) {
+    return <div className={className ?? 'col'} style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
         {label ? <div className="row" style={{ gap: 4 }}>
             <Text className="label-3">{label}</Text>
             {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
         </div> : null}
         <TextField
-            style={{ width: '100%' }}
+            style={{ width: '100%', flex: className?.includes('row') ? 1 : null }}
             placeholder={placeholder ? placeholder : label ? `Nhập ${label.toLowerCase()}` : ''}
             suffix={suffix}
             prefix={prefix}
@@ -54,18 +54,18 @@ export function TextAreaForm({ label, register, required = false, name, placehol
     </div>
 }
 
-export function Select1Form({ value, options, control, label, required = false, name, placeholder, searchPlaceholder, errors, disabled = false, onChange, width = '100%', helperText }) {
+export function Select1Form({ value, options, control, label, required = false, name, placeholder, searchPlaceholder, errors, disabled = false, onChange, width = '100%', helperText, className }) {
     return <Controller
         name={name}
         control={control}
-        rules={{ required: required}}
-        render={({ field }) => <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
+        rules={{ required: required }}
+        render={({ field }) => <div className={className ?? 'col'} style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
             {label ? <div className="row" style={{ gap: 4 }}>
                 <Text className="label-3">{label}</Text>
                 {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
             </div> : null}
             <Select1
-                style={{ width: '100%' }}
+                style={{ width: '100%', flex: className?.includes('row') ? 1 : null }}
                 placeholder={placeholder ? placeholder : label ? `Chọn ${label.toLowerCase()}` : ''}
                 value={value}
                 searchPlaceholder={searchPlaceholder}
@@ -81,18 +81,18 @@ export function Select1Form({ value, options, control, label, required = false, 
     />
 }
 
-export function SelectMultipleForm({ value, options, control, label, required = false, name, placeholder, errors, disabled = false, onChange, width = '100%', helperText }) {
+export function SelectMultipleForm({ value, options, control, label, required = false, name, placeholder, errors, disabled = false, onChange, width = '100%', helperText, className }) {
     return <Controller
         name={name}
         control={control}
         rules={{ required: required }}
-        render={({ field }) => <div className="col" style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
+        render={({ field }) => <div className={className ?? 'col'} style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
             {label ? <div className="row" style={{ gap: 4 }}>
                 <Text className="label-3">{label}</Text>
                 {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
             </div> : null}
             <SelectMultiple
-                style={{ width: '100%' }}
+                style={{ width: '100%', flex: className?.includes('row') ? 1 : null }}
                 placeholder={placeholder ? placeholder : label ? `Chọn ${label.toLowerCase()}` : ''}
                 value={value}
                 options={options}

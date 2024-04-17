@@ -81,7 +81,7 @@ export default function SettingsCourse() {
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <div className='button-text-6'>Danh sách Course</div>
                     <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.2rem' }} />
-                    <div className='button-text-6 selected'>Tạo mới Course</div>
+                    <div className='button-text-6 selected'>Chỉnh sửa Course</div>
                 </div>
                 <div className='heading-6'>Thông tin chi tiết Course</div>
             </div>

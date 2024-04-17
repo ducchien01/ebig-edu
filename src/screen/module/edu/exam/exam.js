@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showPopup } from "../../../../component/export-component";
+import { CellAlignItems, ComponentStatus, Dialog, DialogAlignment, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showDialog, showPopup } from "../../../../component/export-component";
 import { FilledSetupPreferences, FilledTrashCan } from "../../../../assets/const/icon";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
@@ -9,11 +9,12 @@ import { ExamController } from "./controller";
 import { studentLevelList } from "../../../../assets/const/const-list";
 import { TopicController } from "../../topic/controller";
 import { ExamStatus } from "./da";
+import './exam.css'
 
 export default function ExamManagment() {
     const ref = useRef()
+    const dialogRef = useRef()
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
-    const [selectedId, setSelected] = useState()
     const [data, setData] = useState()
     const [listTopic, setListTopic] = useState([])
 
@@ -38,9 +39,18 @@ export default function ExamManagment() {
         }
     }
 
-    const confirmDelete = async (item) => {
-        ExamController.delete([item.id]).then(res => {
-            if (res) getData()
+    const confirmDelete = (item) => {
+        showDialog({
+            ref: dialogRef,
+            status: ComponentStatus.WARNING,
+            alignment: DialogAlignment.center,
+            title: 'Bạn chắc chắn muốn xóa bài thi này',
+            content: 'Bài thi này sẽ bị xóa khỏi thư viện bài thi của bạn vĩnh viễn',
+            onSubmit: () => {
+                ExamController.delete([item.id]).then(res => {
+                    if (res) getData()
+                })
+            }
         })
     }
 
@@ -50,6 +60,7 @@ export default function ExamManagment() {
 
     return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '2rem', padding: '2.4rem 3.2rem' }}>
         <Popup ref={ref} />
+        <Dialog ref={dialogRef} />
         <div className="row" style={{ justifyContent: 'space-between' }}>
             <div className="heading-4">Danh sách bài thi</div>
             <button type="button" className="button-primary row" onClick={popupAddNewExam} style={{ backgroundColor: 'var(--primary-color)' }}>
@@ -78,19 +89,21 @@ export default function ExamManagment() {
                 </TbHeader>
                 <TbBody>
                     {
-                        (data?.data ?? []).map((item) => <TbRow key={item.id} className={`${selectedId === item.id ? 'selected' : ''}`} onClick={() => setSelected(item.id)}>
+                        (data?.data ?? []).map((item) => <TbRow key={item.id} >
                             <TbCell fixed={true} style={{ minWidth: 360, }} >
                                 <NavLink to={`details/` + item.id} style={{ color: 'var(--primary-color)' }}>{item.name}</NavLink>
                             </TbCell>
-                            <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>{item.code}</Text></TbCell>
+                            <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>{item.code?.toUpperCase()?.replaceAll('-', '')}</Text></TbCell>
                             <TbCell style={{ minWidth: 80, }} >{studentLevelList.find(e => e.id === item.level)?.name}</TbCell>
                             <TbCell style={{ minWidth: 120, }}>{listTopic.find(e => e.id === item.topicId)?.name}</TbCell>
                             <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>{item.time}</TbCell>
-                            <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center} >{item.status === ExamStatus.real ? "Thi chính thức" : "Thi thử"}</TbCell>
-                            <TbCell fixed={true} style={{ minWidth: 80, }} align={CellAlignItems.center}>
-                                <button type="button" className="row" onClick={() => { confirmDelete(item) }} style={{ padding: '0.6rem' }}>
-                                    <FilledTrashCan width='2rem' height='2rem' />
-                                </button>
+                            <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center} >{item.status ? item.status === ExamStatus.real ? "Thi chính thức" : "Thi thử" : 'Bản nháp'}</TbCell>
+                            <TbCell fixed={true} style={{ minWidth: 80, }} >
+                                <div className="row" style={{ justifyContent: 'center' }}>
+                                    <button type="button" className="row" onClick={() => { confirmDelete(item) }} style={{ padding: '0.6rem', width: 'fit-content' }}>
+                                        <FilledTrashCan width='2rem' height='2rem' />
+                                    </button>
+                                </div>
                             </TbCell>
                         </TbRow>
                         )

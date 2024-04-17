@@ -72,7 +72,7 @@ export class SelectMultiple extends React.Component<SelectMultipleProps, SelectM
         if (prevProps.value !== this.props.value) {
             this.setState({
                 ...this.state,
-                value: this.props.value??[]
+                value: this.props.value ?? []
             })
         }
         if (prevState.isOpen !== this.state.isOpen && this.state.isOpen) {
@@ -124,6 +124,7 @@ export class SelectMultiple extends React.Component<SelectMultipleProps, SelectM
             {this.state.value?.length ? (
                 this.state.value.map(item => (
                     <div
+                        key={item.id}
                         className='selected-item-value row'
                         onClick={() => {
                             let newValue = this.state.value.filter(e => e.id !== item.id)
@@ -204,7 +205,7 @@ export class SelectMultiple extends React.Component<SelectMultipleProps, SelectM
                         <div className='col select-body'>
                             {(this.state.search ?? this.props.options ?? []).map(
                                 item => (
-                                    <div className='select-tile row'>
+                                    <div key={item.id} className='select-tile row'>
                                         <label className='prefix-checkbox'>
                                             <input
                                                 type='checkbox'

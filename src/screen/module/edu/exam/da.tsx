@@ -1,8 +1,9 @@
 import { TagItem } from "../../tag/da";
 
 export enum ExamStatus {
-    test = 0,
-    real = 1,
+    draft = 0,
+    test = 1,
+    real = 2,
 }
 
 export interface ExamItem {

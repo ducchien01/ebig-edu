@@ -41,6 +41,20 @@ export class QuestionController {
         return null
     }
 
+    static getByIds = async (ids: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + `LessonAuth/GetListByIds`, {
+            data: ids ?? []
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data as ExamQuestionItem
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
     static add = async (examQuestionItem: ExamQuestionItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'LessonAuth/Action?action=add', {
             data: { data: examQuestionItem }
@@ -73,9 +87,9 @@ export class QuestionController {
     }
 
 
-    static delete = async (listExamQuestion: Array<string>) => {
+    static delete = async (listExamQuestionIds: Array<string>) => {
         const response = await postData(ConfigAPI.ebigUrl + 'LessonAuth/Action?action=delete', {
-            data: { ids: listExamQuestion }
+            data: { ids: listExamQuestionIds }
         })
         if (response) {
             if (response.code === 200) {

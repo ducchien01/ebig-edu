@@ -8,6 +8,7 @@ export interface LessonItem {
     courseId?: string,
     fileId?: string,
     content?: string,
+    answer?: string
 }
 
 export interface CourseLessonItem {

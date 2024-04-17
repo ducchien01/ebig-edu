@@ -4,7 +4,7 @@ import React, { CSSProperties, ReactNode } from 'react';
 interface InfiniteScrollProps {
     className?: string,
     style?: CSSProperties,
-    handleScroll?: (ev: React.UIEvent<HTMLDivElement, UIEvent>) => Promise<any>,
+    handleScroll?: (ev: React.UIEvent<HTMLDivElement, UIEvent>) => Promise<any> | null,
     children?: ReactNode,
     totalCount?: number,
 }

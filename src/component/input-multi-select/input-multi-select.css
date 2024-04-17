@@ -6,13 +6,14 @@
     height: 4rem;
     max-height: 100%;
     box-sizing: border-box;
-    padding: 8px;
-    column-gap: 6px;
+    padding: 0.8rem;
+    column-gap: 0.6rem;
     width: 16rem;
     position: relative;
     border: 0.5px solid #00358033;
     border-radius: 4px;
     cursor: context-menu;
+    overflow: auto hidden;
 }
 
 .select-multi-container.disabled {
@@ -50,10 +51,10 @@
 }
 
 .select-multi-container>.selected-item-value {
-    border-radius: 4px;
-    padding: 8px;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
     background-color: #F2F5F8;
-    column-gap: 8px;
+    column-gap: 0.8rem;
 }
 
 .select-multi-container>.selected-item-value>.selected-value-title {
@@ -69,18 +70,18 @@
     position: absolute;
     z-index: 9999;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     height: fit-content;
     box-shadow: 0 0 12px 0 #00204d1f;
     align-items: center;
-    padding: 8px 0;
+    padding: 0.8rem 0;
     overflow: hidden;
 }
 
 .select-multi-popup>.header-search {
-    margin: 0 8px;
+    margin: 0 0.8rem;
     width: calc(100% - 1.6rem);
-    padding: 8px 1.6rem;
+    padding: 0.8rem 1.6rem;
     border: 1px solid #00358033;
     box-sizing: border-box;
     border-radius: 4px;
@@ -112,7 +113,7 @@
 .select-multi-popup>.select-body>.select-tile {
     justify-content: start;
     align-items: center;
-    padding: 8px 1.6rem;
+    padding: 0.8rem 1.6rem;
     column-gap: 6px;
     width: 100%;
     cursor: context-menu;
@@ -160,7 +161,7 @@
 }
 
 .no-results-found {
-    padding: 8px;
+    padding: 0.8rem;
     font: 400 1.4rem/2rem "Inter";
     color: #1C2430;
 }

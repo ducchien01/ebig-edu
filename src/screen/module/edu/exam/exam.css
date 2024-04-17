@@ -1,0 +1,12 @@
+.exam-infor-tile {
+    padding: 1.6rem 0;
+    border-bottom: var(--border-grey1);
+}
+
+.exam-infor-tile > .edit-infor-container {
+    gap: 1.2rem;
+}
+
+.exam-infor-tile > .edit-infor-container > div:first-child {
+    width: 16rem;
+}

@@ -45,7 +45,7 @@ export class TbRow extends React.Component<TbRowProps> {
                     align={e.props.align}
                     children={e.props.children}
                     fixed={e.props.fixed}
-                    style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0 } : { left: ox } : e.props.style}
+                    style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0, ...(e.props.style ?? {}) } : { left: ox, ...(e.props.style ?? {}) } : e.props.style}
                     className={e.props.className} />;
             })}
         </tr>
@@ -66,7 +66,7 @@ export class TbHeader extends React.Component<TbRowProps> {
                         align={e.props.align}
                         children={e.props.children}
                         fixed={e.props.fixed}
-                        style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0 } : { left: ox } : e.props.style}
+                        style={e.props.fixed ? (this.props.children && i === this.props.children.length - 1) ? { right: 0, ...(e.props.style ?? {}) } : { left: ox, ...(e.props.style ?? {}) } : e.props.style}
                         className={e.props.className} />;
                 })}
             </tr>

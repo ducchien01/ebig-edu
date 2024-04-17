@@ -18,6 +18,7 @@ import ListLessonTile from "../lesson/local-component/list-lesson-tile";
 import OverallTab from "./local-component/overall-tab";
 import CourseLessonsContent from "./local-component/course-lessons-tab";
 import CourseRatingTab from "./local-component/rating-tab";
+import { CustomerLessonController } from "../customer-lesson/controller";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -32,13 +33,32 @@ export default function ViewCourseDetails() {
     const [rateDetails, setRateDetails] = useState()
     const [isPaid, setIsPaid] = useState(false)
     const [selectedCLesson, setSelectedCLesson] = useState()
+    const [learningProgress, setLearningProgress] = useState([])
 
     const renderTabView = () => {
         switch (activeFilterTab) {
             case 0:
                 return <OverallTab data={data} rateDetails={rateDetails} isPaid={isPaid} />
             case 1:
-                return <CourseLessonsContent data={selectedCLesson} />
+                return <CourseLessonsContent
+                    data={selectedCLesson}
+                    onEndLesson={() => {
+                        if (learningProgress.every(e => e.lessonId !== selectedCLesson.lessonId)) {
+                            let newProgress = {
+                                name: selectedCLesson.name,
+                                lessonId: selectedCLesson.lessonId,
+                                courseId: id,
+                                customerId: CustomerController.userInfor().id
+                            }
+                            CustomerLessonController.add(newProgress).then(res => {
+                                if (res) {
+                                    newProgress.id = res
+                                    setLearningProgress([...learningProgress, newProgress])
+                                }
+                            })
+                        }
+                    }}
+                />
             case 2:
                 return <CourseRatingTab rateDetails={rateDetails} />
             default:
@@ -178,6 +198,18 @@ export default function ViewCourseDetails() {
         </div>
     }
 
+    const renderLearningPregressUI = () => {
+        const lessons = (data?.courseLessons ?? []).filter(e => e.parentId)
+        const myProgress = Math.round((learningProgress.length / lessons.length) * 100)
+        return <div className="row" style={{ gap: '1.2rem', padding: '2.4rem', border: 'var(--border-grey1)', borderRadius: '0.8rem', backgroundColor: 'var(--primary-background)' }}>
+            <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
+                <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
+                <Text className="label-4" maxLine={1} style={{ width: '100%' }}>{myProgress ? `Bạn đã hoàn thành ${myProgress}%` : 'Bạn chưa bắt đầu khoá học'}</Text>
+            </div>
+            <ProgressCircle style={{ width: '6.4rem', height: '6.4rem' }} percent={myProgress} textStyle={{ fontSize: 'min(1.6rem, 16px)' }} />
+        </div>
+    }
+
     useEffect(() => {
         if (id) {
             CourseController.getById(id).then(res => {
@@ -197,7 +229,12 @@ export default function ViewCourseDetails() {
             })
             if (isLogin) {
                 OrderController.getListSimpleDetails({ filter: [{ field: 'productId', operator: '=', value: id }] }).then(res => {
-                    if (res?.data?.length && res.data[0].isPay) setIsPaid(true)
+                    if (res?.data?.length && res.data[0].isPay) {
+                        CustomerLessonController.getListSimple({ page: 1, take: 200, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(progressRes => {
+                            if (progressRes) setLearningProgress(progressRes.data ?? [])
+                        })
+                        setIsPaid(true)
+                    }
                 })
                 ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(res => {
                     if (res) setClassList(res.data)
@@ -248,13 +285,7 @@ export default function ViewCourseDetails() {
                 <div className="more-infor-block col">
                     {isPaid ?
                         <>
-                            <div className="row" style={{ gap: '1.2rem', padding: '2.4rem', border: 'var(--border-grey1)', borderRadius: '0.8rem', backgroundColor: 'var(--primary-background)' }}>
-                                <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
-                                    <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
-                                    <Text className="label-4" maxLine={1} style={{ width: '100%' }}>Bạn chưa bắt đầu khoá học</Text>
-                                </div>
-                                <ProgressCircle style={{ width: '6.4rem', height: '6.4rem' }} percent={5} textStyle={{fontSize: 'min(1.6rem, 16px)'}}/>
-                            </div>
+                            {renderLearningPregressUI()}
                             <ListLessonTile
                                 style={{ flex: 'none', height: 'fit-content' }}
                                 courseLessons={data?.courseLessons}
@@ -283,10 +314,6 @@ export default function ViewCourseDetails() {
                             />
                             <div className="col divider" style={{ width: '100%' }}></div>
                             <div className="col" style={{ gap: '3.2rem' }}>
-                                {/* <div className="col" style={{ background: `no-repeat center/cover url(${banner})`, padding: '1.6rem min(25%, 15.6rem) 1.6rem 2rem', width: '100%', gap: '1.6rem', borderRadius: '0.8rem' }}>
-                            <Text className="heading-7" style={{ color: '#ffffff', }} maxLine={2}>Trở thành chuyên gia để viết bài, giảng dạy và bán hàng</Text>
-                            <button type="button" className="row button-text-3" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem', backgroundColor: '#ffffff', color: 'var(--primary-color)', width: 'fit-content' }}>Đăng ký ngay</button>
-                        </div> */}
                                 <div className="col" style={{ gap: '2rem' }}>
                                     <div className="heading-7">Danh mục liên quan</div>
                                     <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>

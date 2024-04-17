@@ -68,7 +68,21 @@ export class CourseController {
 
     static getByIds = async (ids: Array<string>) => {
         const response = await postData(ConfigAPI.ebigUrl + 'CourseAuth/ListItemByIds', {
-            data: ids ??[]
+            data: ids ?? []
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<CourseItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getLearningProgressByIds = async (ids: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'CourseAuth/CListItemByIds', {
+            data: ids ?? []
         })
         if (response) {
             if (response.code === 200) {

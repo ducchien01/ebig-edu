@@ -7,7 +7,7 @@ import ReactPlayer from "react-player"
 import { useForm } from "react-hook-form"
 import { CheckboxForm, RadioButtonForm } from "../../../../../project-component/component-form"
 
-export default function CourseLessonsContent({ data, }) {
+export default function CourseLessonsContent({ data, onEndLesson = () => { } }) {
     const [lessonData, setLessonData] = useState()
 
     const renderUI = () => {
@@ -24,6 +24,7 @@ export default function CourseLessonsContent({ data, }) {
                         ]} />
                 </div>;
             case LessonType.paragraph:
+                setTimeout(onEndLesson, 120000)
                 return <div style={{ width: '100%' }} dangerouslySetInnerHTML={{ __html: lessonData.content }}></div>
             case LessonType.task:
                 try {
@@ -32,7 +33,7 @@ export default function CourseLessonsContent({ data, }) {
                     console.log(error)
                 }
                 if (!quizz) return <div></div>
-                return <TestQuizzForm data={quizz} />
+                return <TestQuizzForm data={quizz} endTask={onEndLesson} />
             default:
                 return <div></div>;
         }
@@ -52,12 +53,13 @@ export default function CourseLessonsContent({ data, }) {
     </div>
 }
 
-const TestQuizzForm = ({ data = [] }) => {
+const TestQuizzForm = ({ data = [], endTask }) => {
     const methods = useForm({ shouldFocusError: false })
     const [userAnswer, setUserAnswer] = useState()
 
     const submitAnswer = (ev) => {
         setUserAnswer(ev)
+        if (endTask) endTask()
     }
 
     useEffect(() => {

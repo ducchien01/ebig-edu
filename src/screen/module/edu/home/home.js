@@ -128,9 +128,9 @@ const HomeAuth = () => {
             ]
         }).then(async (res) => {
             if (res) {
-                const courseIds = res.data.map(e => e.orderDetails).reduce((a,b) => a.concat(b)).filter(e => e.type === OrderType.course).map(e => e.productId)
-                const myCoursesRes = await CourseController.getByIds(courseIds)
-                if(myCoursesRes) {
+                const courseIds = res.data.map(e => e.orderDetails).reduce((a, b) => a.concat(b)).filter(e => e.type === OrderType.course).map(e => e.productId)
+                const myCoursesRes = await CourseController.getLearningProgressByIds(courseIds)
+                if (myCoursesRes) {
                     setMyCourses(myCoursesRes)
                 }
             }
@@ -170,25 +170,26 @@ const HomeAuth = () => {
             <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
                 {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
                     {myCourses.map(e => {
+                        const myProgress = e.countLessonUsed ? ((e.countLessonUsed / e.countLesson) * 100) : 0
                         return <div key={e.id} style={{ backgroundImage: `url(${ConfigAPI.imgUrl + e.pictureId})`, backgroundSize: 'cover' }}>
                             <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
                                 <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>
                                 <div className='col' style={{ gap: '1.6rem' }}>
                                     {/* <div className='col' style={{ gap: '0.4rem' }}> */}
-                                        {/* <div className='row' style={{ gap: '0.8rem' }}>
+                                    {/* <div className='row' style={{ gap: '0.8rem' }}>
                                             <img src='' alt='' style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
                                             <div className='label-4' style={{ color: '#ffffff' }}>Phan Minh Anh</div>
                                         </div> */}
-                                        <Text className='heading-4' maxLine={2} style={{color: '#ffffff'}}>{e.name}</Text>
+                                    <Text className='heading-4' maxLine={2} style={{ color: '#ffffff' }}>{e.name}</Text>
                                     {/* </div> */}
                                     <div className='col'>
-                                        <ProgressBar percentColor='#ffffff' fullColor='#00000000' progressBarOnly percent={60} progressBarStyle={{ border: '1px solid #ffffff' }} />
-                                        <div className='label-5' style={{ color: "#ffffff" }}>Bạn đã hoàn thành 60% khóa học này</div>
+                                        <ProgressBar percentColor='#ffffff' fullColor='#00000000' progressBarOnly percent={myProgress} progressBarStyle={{ border: '1px solid #ffffff' }} />
+                                        <div className='label-5' style={{ color: "#ffffff" }}>{myProgress ? `Bạn đã hoàn thành ${myProgress}% khóa học này` : 'Bạn chưa bắt đầu học khóa học này'}</div>
                                     </div>
                                 </div>
                                 <div className='row' style={{ gap: '1.2rem' }}>
                                     <NavLink to={'course/' + e.id} className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
-                                        <div className='button-text-3'>Học tiếp</div>
+                                        <div className='button-text-3'>{myProgress ? 'Học tiếp' : 'Bắt đầu học'}</div>
                                     </NavLink>
                                     {/* <NavLink className='button-primary row' style={{ backgroundColor: "#00000000", padding: 0 }}>
                                         <div className='button-text-3'>Xem tất cả khóa học</div>

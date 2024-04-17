@@ -60,9 +60,9 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
         selectMonth: (this.props.value ?? today).getMonth(),
         selectYear: (this.props.value ?? today).getFullYear(),
         type: CalendarType.DATE,
-        selectHours: 0,
-        selectMinutes: 0,
-        selectSeconds: 0
+        selectHours: this.props.value?.getHours() ?? 0,
+        selectMinutes: this.props.value?.getMinutes() ?? 0,
+        selectSeconds: this.props.value?.getSeconds() ?? 0,
     }
 
     showDateInMonth() {
@@ -101,7 +101,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
             })}
             {Array.from({ length: 42 }).map((_, i) => {
                 let dateNumber = (i % 7) + (Math.floor(i / 7) * 7) - firstDayOfMonth.getDay()
-                const timeValue = new Date(this.state.selectYear, this.state.selectMonth, dateNumber + 1)
+                const timeValue = new Date(this.state.selectYear, this.state.selectMonth, dateNumber + 1, this.state.selectHours, this.state.selectMinutes, this.state.selectSeconds)
                 let style = {}
                 let additionProps = {}
                 let selected = false
@@ -422,13 +422,22 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                         <div className="heading-7">{this.state.selectHours < 10 ? `0${this.state.selectHours}` : this.state.selectHours}:{this.state.selectMinutes < 10 ? `0${this.state.selectMinutes}` : this.state.selectMinutes}:{this.state.selectSeconds < 10 ? `0${this.state.selectSeconds}` : this.state.selectSeconds}</div>
                         <div className="row" style={{ alignItems: 'start', flex: 1, height: '100%' }}>
                             <div className="scroll-picker-hours col">{Array.from({ length: 24 }).map((_, i) => <button type="button" onClick={() => {
-                                this.setState({ ...this.state, selectHours: i })
+                                let newValue = this.state.value
+                                newValue.setHours(i)
+                                this.setState({ ...this.state, selectHours: i, value: newValue })
+                                if (this.props.onSelect) this.props.onSelect(newValue)
                             }} key={`hours-${i}`} className={`label-4 ${this.state.selectHours === (i) ? 'selected' : ''}`} >{i < 10 ? `0${i}` : i}</button>)}</div>
                             <div className="scroll-picker-minutes col">{Array.from({ length: 60 }).map((_, i) => <button type="button" onClick={() => {
-                                this.setState({ ...this.state, selectMinutes: i })
+                                let newValue = this.state.value
+                                newValue.setMinutes(i)
+                                this.setState({ ...this.state, selectMinutes: i, value: newValue })
+                                if (this.props.onSelect) this.props.onSelect(newValue)
                             }} key={`hours-${i}`} className={`label-4 ${this.state.selectMinutes === (i) ? 'selected' : ''}`} >{i < 10 ? `0${i}` : i}</button>)}</div>
                             <div className="scroll-picker-seconds col">{Array.from({ length: 60 }).map((_, i) => <button type="button" onClick={() => {
-                                this.setState({ ...this.state, selectSeconds: i })
+                                let newValue = this.state.value
+                                newValue.setSeconds(i)
+                                this.setState({ ...this.state, selectSeconds: i, value: newValue })
+                                if (this.props.onSelect) this.props.onSelect(newValue)
                             }} key={`hours-${i}`} className={`label-4 ${this.state.selectSeconds === (i) ? 'selected' : ''}`} >{i < 10 ? `0${i}` : i}</button>)}</div>
                         </div>
                     </div> : null}

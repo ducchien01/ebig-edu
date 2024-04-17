@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
-import { Checkbox, ImportFile, RadioButton, Select1, SelectMultiple, Switch, Text, TextArea, TextField } from "../component/export-component";
+import { Checkbox, DatePicker, ImportFile, RadioButton, Select1, SelectMultiple, Switch, Text, TextArea, TextField } from "../component/export-component";
+import { Ultis } from "../Utils";
 
 export function TextFieldForm({ label, register, required = false, name, type, placeholder, errors, maxLength, readOnly = false, disabled = false, suffix, prefix, onChange, onBlur, onFocus, width = '100%', helperText, className }) {
     return <div className={className ?? 'col'} style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
@@ -52,6 +53,32 @@ export function TextAreaForm({ label, register, required = false, name, placehol
             helperText={errors?.[name] && (helperText ?? errors.message ?? `Vui lòng ${(placeholder ? placeholder : label ? `Nhập ${label}` : 'gía trị').toLowerCase()}`)}
         />
     </div>
+}
+
+export function DatePickerForm({ control, label, required = false, name, placeholder, errors, disabled = false, onChange, width = '100%', helperText, className, pickerType }) {
+    return <Controller
+        name={name}
+        control={control}
+        rules={{ required: required }}
+        render={({ field }) => <div className={className ?? 'col'} style={{ gap: '0.8rem', overflow: 'visible', width: width }}>
+            {label ? <div className="row" style={{ gap: 4 }}>
+                <Text className="label-3">{label}</Text>
+                {required ? <Text className="label-4" style={{ color: '#E14337' }}>*</Text> : null}
+            </div> : null}
+            <DatePicker
+                style={{ width: '100%', flex: className?.includes('row') ? 1 : null }}
+                placeholder={placeholder ? placeholder : label ? `Chọn ${label.toLowerCase()}` : ''}
+                value={field.value}
+                disabled={disabled}
+                pickerType={pickerType}
+                onChange={(date) => {
+                    field.onChange(date)
+                    if (onChange) onChange(date)
+                }}
+                helperText={errors?.[name] && (helperText ?? errors.message ?? `Vui lòng ${(placeholder ? placeholder : label ? `Chọn ${label}` : 'gía trị').toLowerCase()}`)}
+            />
+        </div>}
+    />
 }
 
 export function Select1Form({ value, options, control, label, required = false, name, placeholder, searchPlaceholder, errors, disabled = false, onChange, width = '100%', helperText, className }) {
@@ -165,3 +192,4 @@ export function ImportFileForm({ name, label, control, maxSize, allowType, statu
         </div>}
     />
 }
+

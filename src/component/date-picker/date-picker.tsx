@@ -66,7 +66,7 @@ const stringToDate = (_date: string, _format: string = "dd/MM/yyyy", _delimiter:
         dayformat = _format.trim().split(" ")[0];
         hourformat = _format.trim().split(" ")[1];
         day = _date.trim().split(" ")[0];
-        hours = _date.trim().split(" ")[1];
+        hours = _date.trim().split(" ")[1] ?? '00:00:00';
         isHour = true;
     }
     let formatLowerCase: string = dayformat.toLowerCase();
@@ -152,7 +152,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                     let splitParams: Array<string> = params.includes('/') ? params.split('/') : params.split('-')
                     return new Date(parseInt(splitParams[1] ?? `${today.getFullYear()}`), parseInt(splitParams[0] ?? `${today.getMonth()}`), 1)
                 case CalendarType.DATETIME:
-                    return stringToDate(params, this.props.formatDate)
+                    return stringToDate(params, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
                 default:
                     return stringToDate(params)
             }
@@ -251,14 +251,17 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                                 if (inputValue.match(/[0-9]{1,2}(\/|-)[0-9]{1,2}(\/|-)[0-9]{4}/g)) {
                                     let dateValue = stringToDate(inputValue, this.props.formatDate, '/')
                                     if (inRangeTime(dateValue, this.props.min ?? startDate, this.props.min ?? endDate)) {
-                                        this.setState({ ...this.state, isOpen: false, value: dateToString(dateValue, this.props.formatDate) })
-                                        if (this.props.onChange) this.props.onChange(dateValue)
+                                        const stateValue = dateToString(dateValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
+                                        this.setState({ ...this.state, isOpen: false, value: stateValue })
+                                        if (this.props.onChange) this.props.onChange(stateValue)
                                     } else if (differentInDay(this.props.min ?? startDate, dateValue) > -1) {
-                                        this.setState({ ...this.state, isOpen: false, value: dateToString(this.props.min ?? startDate, this.props.formatDate) })
-                                        if (this.props.onChange) this.props.onChange(this.props.min ?? startDate)
+                                        const stateValue = dateToString(this.props.min ?? startDate, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
+                                        this.setState({ ...this.state, isOpen: false, value: stateValue })
+                                        if (this.props.onChange) this.props.onChange(stateValue)
                                     } else if (differentInDay(dateValue, this.props.min ?? endDate) > -1) {
-                                        this.setState({ ...this.state, isOpen: false, value: dateToString(this.props.min ?? endDate, this.props.formatDate) })
-                                        if (this.props.onChange) this.props.onChange(this.props.min ?? endDate)
+                                        const stateValue = dateToString(this.props.min ?? endDate, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
+                                        this.setState({ ...this.state, isOpen: false, value: stateValue })
+                                        if (this.props.onChange) this.props.onChange(stateValue)
                                     } else {
                                         this.setState({ ...this.state, isOpen: false, value: undefined })
                                         if (this.props.onChange) this.props.onChange(undefined)
@@ -318,18 +321,21 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                                 switch (this.props.pickerType) {
                                     case CalendarType.YEAR:
                                         this.setState({ ...this.state, value: dateValue.getFullYear().toString(), isOpen: false })
-                                        break;
+                                        if (this.props.onChange) this.props.onChange(dateValue.getFullYear().toString())
+                                            break;
                                     case CalendarType.MONTH:
                                         var newValue = dateToString(dateValue)
                                         this.setState({ ...this.state, value: newValue.split('/').slice(1).join('/'), isOpen: false })
-                                        break;
+                                        if (this.props.onChange) this.props.onChange(newValue.split('/').slice(1).join('/'))
+                                            break;
                                     case CalendarType.DATETIME:
-                                        var newValue = dateToString(dateValue, this.props.formatDate)
-                                        this.setState({ ...this.state, value: newValue, isOpen: false })
+                                        var newValue = dateToString(dateValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
+                                        this.setState({ ...this.state, value: newValue })
                                         break;
                                     default:
                                         var newValue = dateToString(dateValue)
                                         this.setState({ ...this.state, value: newValue, isOpen: false })
+                                        if (this.props.onChange) this.props.onChange(newValue)
                                         break;
                                 }
                             }}
@@ -340,20 +346,20 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                                         className='row button-text-3'
                                         style={{ color: 'var(--primary-color)', width: 'fit-content' }}
                                         onClick={() => {
-                                            this.setState({ ...this.state, isOpen: false, value: dateToString(today, this.props.formatDate) })
-                                            if (this.props.onChange) this.props.onChange(dateToString(today, this.props.formatDate))
+                                            let format = this.props.formatDate ?? (this.props.pickerType === CalendarType.DATETIME ? 'dd/mm/yyyy hh:mm' : 'dd/mm/yyyy')
+                                            this.setState({ ...this.state, isOpen: false, value: dateToString(today, format) })
+                                            if (this.props.onChange) this.props.onChange(dateToString(today, format))
                                         }}
                                     >
                                         Today
                                     </button> : null}
                                 {this.props.pickerType === CalendarType.DATETIME ? <>
                                     <div style={{ flex: 1 }}></div>
-                                    <button
-                                        type='button'
-                                        className='row button-text-3 reset-value-button'
-                                        onClick={() => { }}
-                                    >
-                                        Today
+                                    <button type='button' className='row button-primary' style={{ padding: '0.6rem 0.8rem' }} onClick={() => {
+                                        this.setState({ ...this.state, isOpen: false })
+                                        if (this.props.onChange) this.props.onChange(this.state.value)
+                                    }} >
+                                        <div className='button-text-3'>Submit</div>
                                     </button>
                                 </> : null}
                             </div>}

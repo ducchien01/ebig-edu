@@ -271,7 +271,7 @@ export class Ultis {
         }
         var month = parseInt(dateItems[monthIndex]);
         month -= 1;
-        var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex], hour, min, sec);
+        var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex], hour??0, min??0, sec??0);
         return formatedDate;
     }
 

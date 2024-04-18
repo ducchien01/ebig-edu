@@ -28,7 +28,7 @@ export default function MainLayout({ menu }) {
                         />;
                     }
                     )}
-                    {eduExpertModules.map((prop, key) => <Route
+                    {[...eduExpertModules, ...extendView].map((prop, key) => <Route
                         path={prop.path ?? prop.link}
                         element={getcomponentRouter(prop.link)}
                         key={`extend-${key}`}

@@ -1,5 +1,4 @@
-import { OutlineBooks, FilledBooks, OutlineShoppingBag, FilledShoppingBag, OutlineStatics, FilledStatics, OutlineWallet, FilledWallet, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat, FilledShop } from './icon'
-import demoAvatar from '../demo-avatar.png';
+import { OutlineBooks, FilledBooks, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat, FilledShop } from './icon'
 import MyUploadAdapter from '../../project-component/ckeditor';
 export const modules = [
     {
@@ -114,102 +113,44 @@ export const eduExpertModules = [
     },
 ]
 
-export const socialModules = [
-    {
-        id: 2,
-        parentId: 1,
-        name: 'Home',
-        link: 'social/home',
-        path: 'home',
-        icon: <OutlineHome width='2.4rem' height='2.4rem' />,
-        selectedIcon: <FilledHome width='2.4rem' height='2.4rem' />,
-    },
-    {
-        id: 3,
-        parentId: 1,
-        name: 'Education',
-        link: 'social/education',
-        path: 'education',
-        expertPath: '/edu/dashboard',
-        icon: <OutlineBooks width='2.4rem' height='2.4rem' />,
-        selectedIcon: <FilledBooks width='2.4rem' height='2.4rem' />,
-    },
-    {
-        id: 4,
-        parentId: 1,
-        name: 'Shop',
-        link: 'social/ecomerce',
-        path: 'ecomerce',
-        icon: <OutlineShop width='2.4rem' height='2.4rem' />,
-        selectedIcon: <FilledShop width='2.4rem' height='2.4rem' />,
-    },
-    {
-        id: 5,
-        parentId: 1,
-        name: 'Discovery',
-        link: 'social/discovery',
-        path: 'discovery',
-        icon: <OutlineCompass width='2.4rem' height='2.4rem' />,
-        selectedIcon: <OutlineCompass width='2.4rem' height='2.4rem' />,
-    },
-    {
-        id: 6,
-        parentId: 1,
-        name: 'Notification',
-        link: 'social/notification',
-        path: 'notification',
-        icon: <OutlineBell width='2.4rem' height='2.4rem' />,
-        selectedIcon: <FilledBell width='2.4rem' height='2.4rem' />,
-    },
-    {
-        id: 7,
-        parentId: 1,
-        name: 'Chat',
-        link: 'social/chat',
-        path: 'chat',
-        icon: <OutlineChat width='2.4rem' height='2.4rem' />,
-        selectedIcon: <FilledChat width='2.4rem' height='2.4rem' />,
-    },
-]
-
 // react-router-dom use path params: exp with params id & type => ...link/:id/:type => make optional ...link/(/:id)(/:type)
 export const extendView = [
     {
         name: 'Chỉnh sửa bài học',
         slug: 'lessons-settings',
         parentId: 'lessons',
-        path: 'course/details/lessons-settings/:id/:lessonid',
-        link: 'edu/course/details',
+        path: 'education/courses/details/lessons-settings/:id/:lessonid',
+        link: 'education/courses/details',
     },
     {
         name: 'Tổng quan',
         slug: 'overview',
-        path: 'course/details/overview/:id',
-        link: 'edu/course/details',
+        path: 'education/courses/details/overview/:id',
+        link: 'education/courses/details',
     },
     {
         name: 'Danh sách bài học',
         slug: 'lessons',
-        path: 'course/details/lessons/:id',
-        link: 'edu/course/details',
+        path: 'education/courses/details/lessons/:id',
+        link: 'education/courses/details',
     },
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',
-        path: 'course/preview/:id',
-        link: 'edu/course/preview',
+        path: 'education/courses/preview/:id',
+        link: 'education/courses/preview',
     },
     {
         name: 'exam details',
         // slug: 'certificate',
-        path: 'exam/details/:id',
-        link: 'edu/exam/details',
+        path: 'education/exams/details/:id',
+        link: 'education/exams/details',
     },
     {
         name: 'question details',
         // slug: 'certificate',
-        path: 'question/details/:id',
-        link: 'edu/question/details',
+        path: 'education/questions/details/:id',
+        link: 'education/questions/details',
     },
     {
         name: 'news details',

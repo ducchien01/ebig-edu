@@ -267,7 +267,14 @@ const HomeExpert = () => {
     }
 
     useEffect(() => {
-        setSelectedId(eduExpertModules.find(e => e.link && location.pathname.includes(e.link))?.id)
+        const selectedModule = eduExpertModules.find(e => e.link && location.pathname.includes(e.link))
+        setSelectedId(selectedModule?.id ?? 1)
+        if (selectedModule?.parentId) {
+            setModules(modules.map(e => {
+                if (e.id === selectedModule.parentId) e.isOpen = true
+                return e
+            }))
+        }
     }, [location.pathname])
 
     return <div className='row' style={{ flex: 1, width: '100%', height: '100%' }}>

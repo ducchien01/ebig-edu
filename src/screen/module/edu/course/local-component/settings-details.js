@@ -17,7 +17,7 @@ export default function SettingsCourse() {
     const naviagte = useNavigate()
     const location = useLocation()
     const [selectedView, setSelectedView] = useState({ slug: 'overview' })
-    const [listView, setListView] = useState(extendView.filter(e => e.link === 'edu/course/details').map(e => JSON.parse(JSON.stringify(e))))
+    const [listView, setListView] = useState(extendView.filter(e => e.link === 'education/courses/details'))
     const [data, setData] = useState()
 
     const checkValidInforToExport = (courseItem) => {
@@ -96,7 +96,7 @@ export default function SettingsCourse() {
                 <div className='col' >
                     {listView.filter(e => !e.parentId).map(function (item, i) {
                         const isSelected = selectedView?.slug === item.slug || selectedView?.parentId === item.slug
-                        return <NavLink key={'nav-to-' + i} to={`/edu/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${isSelected ? 'selected' : ''}`}>
+                        return <NavLink key={'nav-to-' + i} to={`/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${isSelected ? 'selected' : ''}`}>
                             <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={item.valid} />
                             <Text className='label-3' maxLine={1} style={{ flex: 1, with: '100%' }}>{item.name}</Text>
                         </NavLink>;

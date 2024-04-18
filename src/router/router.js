@@ -54,7 +54,7 @@ export const getcomponentRouter = (moduleCode) => {
             return <EduHome />;
         // case 'education/courses':
         //     return <ListAllCourse />
-        case "education/course":
+        case "education/courses":
             return <ViewCourseDetails />;
         case 'ecomerce':
             return <EcomHome />
@@ -64,17 +64,17 @@ export const getcomponentRouter = (moduleCode) => {
             return <EcomPayment />
         case 'ecomerce/cart/payment/processing':
             return <PaymentProcess />
-        case "edu/course/details":
+        case "education/courses/details":
             return <SettingsCourse />;
-        case "edu/exam/details":
+        case "education/exams/details":
             return <SettingsExam />;
-        case "edu/question/details":
+        case "education/questions/details":
             return <SettingsQuestion />;
-        case "edu/course/preview":
+        case "education/courses/preview":
             return <Preview />;
-        case "edu/user/profile":
-            return <ProfileView />;
-        case "product-management":
+        // case "edu/user/profile":
+        //     return <ProfileView />;
+        // case "product-management":
         // return <ProductView />;
         default:
             break;

@@ -40,7 +40,7 @@ export default function SchoolCourse() {
         getData()
     }, [])
 
-    return <div className='col school-course view-container'>
+    return <div className='col view-container' style={{ width: '100%', height: '100%', flex: 1, padding: '2.4rem 3.2rem' }}>
         <Popup ref={ref} />
         <div className='col'>
             <div className="view-header row" style={{ border: 'none' }}>

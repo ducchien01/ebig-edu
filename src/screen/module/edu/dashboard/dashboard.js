@@ -14,7 +14,7 @@ import { CustomerController } from '../../customer/controller';
 export default function EduDashboard() {
     const user = CustomerController.userInfor()
 
-    return <div className="edu-dashboard col">
+    return <div className="col" style={{ height: '100%', flex: 1, width: '100%', alignItems: 'center', overflow: 'hidden auto', gap: '2.4rem' }} >
         <div className="banner-container col">
             <div className="col" style={{ rowGap: 8 }}>
                 <div className="heading-3">eBig is a community of <br /> spreading the knowledge</div>

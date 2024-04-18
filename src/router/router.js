@@ -24,52 +24,54 @@ import SettingsQuestion from "../screen/module/edu/question/local-component/sett
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
-        case 'social/home':
+        case 'social':
             return <SocialHome />
-        case 'social/home/news':
+        case 'social/news':
             return <SocialHome />
-        case 'social/discovery':
+        case 'discovery':
             return <SocialDiscoveryView />
-        case 'social/discovery/topic':
+        case 'discovery/topic':
             return <DiscoverTopicDetails />
-        case 'social/education':
+        case 'education':
             return <EduHome />
-        case 'social/education/courses':
-            return <ListAllCourse />
-        case "social/education/course":
+        case "education/dashboard":
+            return <EduHome />;
+        case "education/schedule":
+            return <EduHome />;
+        case "education/courses":
+            return <EduHome />;
+        case "education/students":
+            return <EduHome />;
+        case "education/classes":
+            return <EduHome />;
+        case "education/mentors":
+            return <EduHome />;
+        case "education/curriculum":
+            return <EduHome />;
+        case "education/exams":
+            return <EduHome />;
+        case "education/questions":
+            return <EduHome />;
+        // case 'education/courses':
+        //     return <ListAllCourse />
+        case "education/course":
             return <ViewCourseDetails />;
-        case 'social/ecomerce':
+        case 'ecomerce':
             return <EcomHome />
-        case 'social/ecomerce/cart':
+        case 'ecomerce/cart':
             return <EcomCart />
-        case 'social/ecomerce/cart/payment':
+        case 'ecomerce/cart/payment':
             return <EcomPayment />
-        case 'social/ecomerce/cart/payment/processing':
+        case 'ecomerce/cart/payment/processing':
             return <PaymentProcess />
-        case "edu/dashboard":
-            return <EduDashboard />;
-        case "edu/schedule":
-            return <EduSchedule />;
-        case "edu/course":
-            return <SchoolCourse />;
         case "edu/course/details":
             return <SettingsCourse />;
-        case "edu/class":
-            return <SchoolClass />;
-        case "edu/mentor":
-            return <SchoolMentor />;
-        case "edu/exam":
-            return <ExamManagment />;
         case "edu/exam/details":
             return <SettingsExam />;
-        case "edu/question":
-            return <QuestionManagment />;
         case "edu/question/details":
             return <SettingsQuestion />;
         case "edu/course/preview":
             return <Preview />;
-        case "edu/student":
-            return <EduStudent />;
         case "edu/user/profile":
             return <ProfileView />;
         case "product-management":

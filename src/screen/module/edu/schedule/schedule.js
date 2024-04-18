@@ -19,7 +19,7 @@ export default function EduSchedule() {
         })
     }
 
-    return <div className="edu-schedule col view-container">
+    return <div className="col view-container" style={{ gap: '2.4rem', padding: '1.6rem 8rem', flex: 1, width: '100%', height: '100%', overflow: 'hidden auto' }}>
         <Popup ref={ref} />
         <div className="view-header row">
             <div className="heading-4">Giảng dạy</div>
@@ -29,7 +29,7 @@ export default function EduSchedule() {
             </button>
         </div>
         <NoteList />
-        <Teachingcalendar/>
+        <Teachingcalendar />
         <MeentorList />
         <TeachingProcessList />
 

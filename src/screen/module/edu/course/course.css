@@ -1,9 +1,3 @@
-.school-course {
-    width: 100%;
-    height: max-content;
-    padding: 2.4rem 3.2rem;
-}
-
 .list-card-course-infor {
     gap: 2.4rem;
     flex-wrap: wrap;

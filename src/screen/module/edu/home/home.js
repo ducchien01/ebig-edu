@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from '../../../../component/export-component'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
@@ -12,7 +12,7 @@ import ListCommonCourse from './local-component/list-common-course'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AccountController } from '../../account/controller'
 import { faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TopicController } from '../../topic/controller'
 import SidebarActions from '../../../layout/sidebar/sidebar-actions'
 import ListAllCourse from './local-component/list-all-course'
@@ -22,11 +22,22 @@ import { CustomerController } from '../../customer/controller'
 import 'react-awesome-slider/dist/styles.css';
 import { CourseController } from '../course/controller'
 import ConfigAPI from '../../../../config/configApi'
+import { CustomerType } from '../../customer/da'
+import { eduExpertModules } from '../../../../assets/const/const-list'
+import EduDashboard from '../dashboard/dashboard'
+import EduSchedule from '../schedule/schedule'
+import EduStudent from '../student/student'
+import SchoolCourse from '../course/course'
+import SchoolClass from '../class/class'
+import SchoolMentor from '../mentor/mentor'
+import ExamManagment from '../exam/exam'
+import QuestionManagment from '../question/question'
 
 export default function EduHome() {
     const isLogin = AccountController.token()
+    const expertRole = CustomerController.userInfor()?.type === CustomerType.expert
 
-    return isLogin ? <HomeAuth /> : <HomeGuest />
+    return isLogin ? expertRole ? <HomeExpert /> : <HomeAuth /> : <HomeGuest />
 }
 
 const HomeGuest = () => {
@@ -203,5 +214,70 @@ const HomeAuth = () => {
                 <ListAllCourse />
             </div>
         </div>
+    </div>
+}
+
+const HomeExpert = () => {
+    const location = useLocation()
+    const [modules, setModules] = useState(eduExpertModules)
+    const [selectedId, setSelectedId] = useState()
+    const moduleTile = (item) => {
+        console.log(location.pathname)
+        if (!item.link) {
+            var children = modules.filter(e => e.parentId === item.id)
+            item.isOpen ??= false
+        }
+        return <div key={'m-' + item.id} className='col'>
+            <NavLink to={item.link ? ('/' + item.link) : null} onClick={children ? () => {
+                setModules(modules.map(e => {
+                    if (e.id === item.id) e.isOpen = !item.isOpen
+                    return e
+                }))
+            } : null} className={`row expert-module-tile ${selectedId === item.id ? 'selected' : ''}`} style={{ paddingLeft: item.parentId ? '4rem' : '1.6rem' }}>
+                <Text maxLine={1} className='label-3' style={{ flex: 1, width: '100%' }}>{item.name}</Text>
+                {children ? <FontAwesomeIcon icon={item.isOpen ? faChevronUp : faChevronDown} style={{ fontSize: '1.6rem', color: '#00204D99' }} /> : null}
+            </NavLink>
+            {children && item.isOpen ? <div className='col'>{children.map(e => moduleTile(e))}</div> : null}
+        </div>
+    }
+
+    const renderUI = () => {
+        switch (location.pathname) {
+            case '/education/dashboard':
+                return <EduDashboard />
+            case '/education/schedule':
+                return <EduSchedule />
+            case '/education/students':
+                return <EduStudent />
+            case '/education/courses':
+                return <SchoolCourse />
+            case '/education/classes':
+                return <SchoolClass />
+            case '/education/mentors':
+                return <SchoolMentor />
+            case '/education/curriculum':
+                return <div className='sdufgsduifg8isdgfisud'></div>
+            case '/education/exams':
+                return <ExamManagment />
+            case '/education/questions':
+                return <QuestionManagment />
+            default:
+                return <EduDashboard />
+        }
+    }
+
+    useEffect(() => {
+        setSelectedId(eduExpertModules.find(e => e.link && location.pathname.includes(e.link))?.id)
+    }, [location.pathname])
+
+    return <div className='row' style={{ flex: 1, width: '100%', height: '100%' }}>
+        <div className='col expert-sidebar'>
+            <Text className='heading-6'>Education Management</Text>
+            <div className='col' style={{ gap: '1.2rem', flex: 1, height: '100%', overflow: 'hidden auto' }}>
+                {modules.filter(e => !e.parentId).map(item => moduleTile(item))}
+            </div>
+            <SidebarActions />
+        </div>
+        {renderUI()}
     </div>
 }

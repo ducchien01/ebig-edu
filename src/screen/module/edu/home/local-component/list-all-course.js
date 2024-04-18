@@ -96,7 +96,7 @@ export default function ListAllCourse() {
                 const customer = customerList.find(e => e.id === item.customerId)
                 return <PostCard
                     key={item.id}
-                    to={'/social/education/course/' + item.id}
+                    to={'course/' + item.id}
                     style={{ '--gutter': '4rem', height: '100%', maxHeight: '40rem' }}
                     className="col col6"
                     imgStyle={{ height: '12rem' }}

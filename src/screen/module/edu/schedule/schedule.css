@@ -6,37 +6,6 @@
     align-items: stretch;
 }
 
-.course-process-list>.card-process-course {
-    --gutter: 4rem;
-    row-gap: 2.4rem;
-}
-
-.course-process-list>.card-process-course>.process-course-img {
-    background-size: cover;
-    height: 18rem;
-    width: 100%;
-    border-radius: 8px;
-}
-
-.course-process-list>.card-process-course>.process-course-infor {
-    row-gap: 0.8rem;
-    max-height: 148px;
-    height: 100%;
-    flex: 1;
-}
-
-.card-process-course>.process-course-infor>.heading-7 {
-    max-height: 4.8rem;
-    flex: 1;
-}
-
-.card-process-course>.process-course-infor .percent-tag {
-    border-radius: 10rem;
-    background-color: var(--background);
-    color: #00204D99 !important;
-    padding: 4px 0.8rem;
-}
-
 .card-mentor-schedule {
     border-radius: 8px;
     padding: 2.4rem;

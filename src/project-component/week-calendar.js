@@ -11,7 +11,7 @@ const WeekCalendar = ({
     listData = [],
     initDate = now,
     style,
-    titleOnlyWeekDay,
+    titleOnlyWeekDay = false,
     renderUIInTime = () => <div></div>
 }) => {
     const getDayTitle = (i) => {

@@ -4,6 +4,7 @@ import demoImg3 from '../../../../../assets/demo-image3.png';
 import demoImg4 from '../../../../../assets/demo-image4.png';
 import { FilledBook } from '../../../../../assets/const/icon';
 import { ProgressBar } from '../../../../../component/export-component';
+import { PostCard } from '../../../../../project-component/card';
 
 export default function TeachingProcessList() {
     const [activeProcessTab, setActiveProcessTab] = useState(0)
@@ -61,24 +62,27 @@ export default function TeachingProcessList() {
             </div>
             <div className="tab-body-2 row">
                 {activeProcessTab ? <div></div> : <div className="row course-process-list">
-                    {list.map((e, i) => <div key={`card-img-${i}`} className='card-process-course col col6 col12-md col12-sm' >
-                        <div className='process-course-img' style={{ backgroundImage: `url(${e.img})` }}></div>
-                        <div className="col process-course-infor">
-                            <div className="heading-7">{e.name}</div>
-                            <div className="row" style={{ columnGap: '0.8rem' }} >
+                    {list.map(function (e, i) {
+                        return <PostCard
+                            key={`card-img-${i}`}
+                            className='col col6 col12-md col12-sm'
+                            style={{ '--gutter': '4rem', gap: '2.4rem' }}
+                            imgUrl={e.img}
+                            title={e.name}
+                            content={<div className="row" style={{ columnGap: '0.8rem', flexWrap: 'wrap' }}>
                                 <FilledBook />
                                 <div className='button-text-3'>Sắp diễn ra:</div>
                                 <div className='body-3'>{e.next}</div>
-                            </div>
-                            <div>
+                            </div>}
+                            actions={<div className='col' style={{ gap: '0.8rem' }}>
                                 <ProgressBar percent={Math.round(e.endLesson * 100 / e.totalLesson)} progressBarOnly={true} style={{ width: '100%' }} />
-                                <div className="row" style={{ columnGap: '1rem' }} >
+                                <div className="row" style={{ columnGap: '1rem' }}>
                                     <div className="heading-8">{e.endLesson}/{e.totalLesson} buổi</div>
                                     <div className="row button-text-3 percent-tag">{Math.round(e.endLesson * 100 / e.totalLesson)}%</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>)}
+                            </div>}
+                        />
+                    })}
                 </div>}
             </div>
         </div>

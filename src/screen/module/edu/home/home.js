@@ -181,7 +181,7 @@ const HomeAuth = () => {
             <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
                 {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
                     {myCourses.map(e => {
-                        const myProgress = e.countLessonUsed ? ((e.countLessonUsed / e.countLesson) * 100) : 0
+                        const myProgress = e.countLessonUsed ? Math.round((e.countLessonUsed / e.countLesson) * 100) : 0
                         return <div key={e.id} style={{ backgroundImage: `url(${ConfigAPI.imgUrl + e.pictureId})`, backgroundSize: 'cover' }}>
                             <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
                                 <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>

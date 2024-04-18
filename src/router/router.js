@@ -52,9 +52,7 @@ export const getcomponentRouter = (moduleCode) => {
             return <EduHome />;
         case "education/questions":
             return <EduHome />;
-        // case 'education/courses':
-        //     return <ListAllCourse />
-        case "education/courses":
+        case "education/course":
             return <ViewCourseDetails />;
         case 'ecomerce':
             return <EcomHome />

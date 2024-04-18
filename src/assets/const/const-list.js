@@ -170,17 +170,17 @@ export const extendView = [
     {
         name: 'course details',
         path: 'education/course/:id',
-        link: 'social/education/course',
+        link: 'education/course',
     },
     {
         name: 'cart',
         path: 'ecomerce/cart',
-        link: 'social/ecomerce/cart',
+        link: 'ecomerce/cart',
     },
     {
         name: 'cart',
         path: 'ecomerce/cart/payment',
-        link: 'social/ecomerce/cart/payment',
+        link: 'ecomerce/cart/payment',
     },
     {
         name: 'cart',

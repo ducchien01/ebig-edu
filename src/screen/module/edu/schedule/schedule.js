@@ -32,6 +32,5 @@ export default function EduSchedule() {
         <Teachingcalendar />
         <MeentorList />
         <TeachingProcessList />
-
     </div>
 }

@@ -17,7 +17,7 @@ const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
             <Select1Form label={'Bài học'} control={methods.control} name={'lesson'} />
             <div className="col" style={{ gap: 8 }}>
                 <Text className="label-3">Thời gian nhắc nhở</Text>
-                <RadioButtonForm label={'Tự động'} control={methods.control} name="timeNote" value={'auto'} defaultChecked={methods.getValues('timeNote') === 'auto'} />
+                <RadioButtonForm label={'Tự động'} register={methods.register} name="timeNote" value={'auto'} />
                 {methods.watch('timeNote') === 'auto' ? <div className="row" style={{ gap: '0.8rem' }}>
                     <Select1
                         className="body-3"
@@ -36,7 +36,7 @@ const PopupAddEditNote = forwardRef(function PopupAddEditNote(data, ref) {
                         }}
                     />
                 </div> : null}
-                <RadioButtonForm label={'Tự nhập thời gian'} control={methods.control} name="timeNote" value={'custom'} defaultChecked={methods.getValues('timeNote') === 'custom'} />
+                <RadioButtonForm label={'Tự nhập thời gian'} register={methods.register} name="timeNote" value={'custom'} />
                 {methods.watch('timeNote') === 'custom' ? <div className="row" style={{ gap: '0.8rem' }}>
                     <TextField placeholder="hh:mm" className="body-3" />
                     <DatePicker placeholder="Chọn ngày" />

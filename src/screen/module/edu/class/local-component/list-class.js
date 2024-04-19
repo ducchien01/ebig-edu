@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react"
-import { ComponentStatus, Dialog, DialogAlignment, Text, ToastMessage, showDialog } from "../../../../../component/export-component"
+import { ComponentStatus, Dialog, DialogAlignment, Text, showDialog } from "../../../../../component/export-component"
 import { FilledEdit, FilledTrashCan } from "../../../../../assets/const/icon"
 import { Ultis } from "../../../../../Utils"
-import { ClassController } from "../controller"
 
 export default function ListClass({ data = [], onEdit, onDelete }) {
     const [list, setList] = useState([])
@@ -14,12 +13,7 @@ export default function ListClass({ data = [], onEdit, onDelete }) {
             alignment: DialogAlignment.center,
             status: ComponentStatus.WARNING,
             title: 'Bạn chắc chắn muốn xóa lớp học này',
-            onSubmit: () => [
-                ClassController.delete([item.id]).then(res => {
-                    if (res) onDelete(item)
-                    ToastMessage.success('Xóa lớp học thành công')
-                })
-            ]
+            onSubmit: () => { onDelete(item) }
         })
     }
 
@@ -43,7 +37,7 @@ export default function ListClass({ data = [], onEdit, onDelete }) {
             return <div key={item.id} className="col class-infor-container col8 col12-lg col12-md col12-sm" >
                 <div className="row" style={{ gap: '0.8rem' }}>
                     <Text className="heading-7" style={{ flex: 1, width: '100%' }} maxLine={2}>{item.name}</Text>
-                    <button className="row icon-button16" onClick={() => { onEdit(item) }}><FilledEdit /></button>
+                    {onEdit ? <button className="row icon-button16" onClick={() => { onEdit(item) }}><FilledEdit /></button> : null}
                     <button className="row icon-button16" onClick={() => { submitDelete(item) }} ><FilledTrashCan /></button>
                 </div>
                 <div className="row" style={{ alignItems: 'start', gap: '2.4rem' }}>

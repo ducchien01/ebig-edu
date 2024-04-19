@@ -35,7 +35,6 @@
 .custom-table tr>td {
     background-color: #ffffff !important;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 52rem;
 }

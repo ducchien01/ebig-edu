@@ -10,6 +10,7 @@ import FormEditLesson from '../../lesson/lesson-details';
 import CourseCurriculum from './course-curriculum';
 import Overview from './settings-overview';
 import { CourseStatus } from '../da';
+import AdditionalClass from './additional-class';
 
 export default function SettingsCourse() {
     const { id } = useParams()
@@ -116,6 +117,10 @@ export default function SettingsCourse() {
                     {
                         slug: 'overview',
                         element: <Overview data={data} onChangeRequired={checkValidInforToExport} />
+                    },
+                    {
+                        slug: 'additional-class',
+                        element: <AdditionalClass courseData={data} />
                     },
                 ].find(e => e.slug === selectedView.slug)?.element}
             </div>

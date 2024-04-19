@@ -93,7 +93,7 @@ export default function QuestionManagment() {
                         (data?.data ?? []).map((item, i) => <TbRow key={item.id} style={{ borderTop: i > 0 ? 'var(--border-grey1)' : 'none' }} >
                             <TbCell fixed={true} style={{ minWidth: 60, verticalAlign: 'top', padding: '1.2rem 2.4rem' }} >{i + 1}</TbCell>
                             <TbCell style={{ minWidth: 200, verticalAlign: 'top', padding: '1.2rem 2.4rem' }} ><Text style={{ width: '100%' }} maxLine={3}>{item.name}</Text></TbCell>
-                            <TbCell style={{ minWidth: 400, whiteSpace: 'break-spaces', padding: '1.2rem 2.4rem' }} align={CellAlignItems.center}>
+                            <TbCell style={{ minWidth: 400, padding: '1.2rem 2.4rem' }} align={CellAlignItems.center}>
                                 <div className="col" style={{ width: '100%', gap: '1.2rem' }}>
                                     <Text className="button-text-1" maxLine={4} style={{ width: '100%' }}>{item.questionItem?.question}</Text>
                                     {item.questionItem?.fileId && <img src={ConfigAPI.imgUrl + item.fileId} alt="" style={{ width: '100%', borderRadius: '0.4rem' }} />}

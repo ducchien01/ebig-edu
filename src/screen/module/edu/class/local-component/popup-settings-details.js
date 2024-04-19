@@ -211,7 +211,7 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             <button className="button-text-3" style={{ color: '#00204D99' }} onClick={() => { closePopup(ref) }}>Hủy</button>
-            <button type="ssubmit" onClick={methods.handleSubmit(onSubmit)} className={`row ${methods.watch('name') && methods.watch('price') ? 'button-primary' : 'button-disabled'}`}>
+            <button type="submit" onClick={methods.handleSubmit(onSubmit)} className={`row ${methods.watch('name') && methods.watch('price') ? 'button-primary' : 'button-disabled'}`}>
                 <div className="button-text-3">{data.classItem ? 'Lưu' : 'Tạo mới'}</div>
             </button>
         </div>

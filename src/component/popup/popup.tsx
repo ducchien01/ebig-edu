@@ -36,6 +36,11 @@ export const closePopup = (ref: React.MutableRefObject<Popup>) => {
 }
 
 export class Popup extends React.Component<Object, PopupState> {
+    private ref: React.RefObject<HTMLDivElement>;
+    constructor(props: Object | Readonly<Object>) {
+        super(props);
+        this.ref = React.createRef();
+    }
     state: Readonly<PopupState> = {
         open: false,
     }
@@ -50,7 +55,7 @@ export class Popup extends React.Component<Object, PopupState> {
 
     componentDidUpdate(prevProps: Readonly<Object>, prevState: Readonly<PopupState>) {
         if (prevState.open !== this.state.open && this.state.open && this.state.style) {
-            const thisPopupRect = document.body.querySelector('.popup-container')?.getBoundingClientRect()
+            const thisPopupRect = this.ref.current?.getBoundingClientRect()
             if (thisPopupRect) {
                 let style: CSSProperties | undefined;
                 if (thisPopupRect.right > document.body.offsetWidth) {
@@ -81,7 +86,7 @@ export class Popup extends React.Component<Object, PopupState> {
                             if ((ev.target as HTMLElement).classList.contains('popup-overlay'))
                                 this.onClose()
                         } : undefined}>
-                            <div className='popup-container col' onClick={e => e.stopPropagation()} style={this.state.style} >
+                            <div ref={this.ref} className='popup-container col' onClick={e => e.stopPropagation()} style={this.state.style} >
                                 {this.state.heading}
                                 {this.state.content}
                                 {this.state.footer}

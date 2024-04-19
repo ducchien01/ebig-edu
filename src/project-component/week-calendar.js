@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const now = new Date()
 const WeekCalendar = ({
@@ -14,6 +14,7 @@ const WeekCalendar = ({
     titleOnlyWeekDay = false,
     renderUIInTime = () => <div></div>
 }) => {
+    const [list, setList] = useState([])
     const getDayTitle = (i) => {
         switch (i) {
             case 0:
@@ -38,7 +39,8 @@ const WeekCalendar = ({
     useEffect(() => {
         minTime = Math.floor(minTime)
         maxTime = Math.floor(maxTime)
-    }, [])
+        setList(listData)
+    }, [listData])
 
     return <div className="row week-calendar" style={style}>
         <div className="col time-line-container">
@@ -60,7 +62,7 @@ const WeekCalendar = ({
             </div>
             {onlyDate ?
                 <div className="col date-time-col" style={{ height: `${(maxTime - minTime) * 6 * 0.8}rem` }}>
-                    {listData.filter(e => e.time.getDay() === initDate.getDay()).map((e, j) => {
+                    {list.filter(e => e.time.getDay() === initDate.getDay()).map((e, j) => {
                         let convertTime = typeof e.time === "number" ? (new Date(e.time)) : e.time
                         let endMinutes = convertTime.getMinutes() + ((e.duration ?? 0) % 60)
                         let endTime = convertTime.getHours() + Math.floor((e.duration ?? 0) / 60)
@@ -75,7 +77,7 @@ const WeekCalendar = ({
                 </div>
                 : <div className="row" style={{ height: `${(maxTime - minTime) * 6 * 0.8}rem` }}>
                     {Array.from({ length: 7 }).map((_, i) => <div key={'time-range-' + i} className="col date-time-col" style={{ height: '100%' }}>
-                        {listData.filter(e => (typeof e.time === "number" ? (new Date(e.time)) : e.time).getDay() === i).map((e, j) => {
+                        {list.filter(e => (typeof e.time === "number" ? (new Date(e.time)) : e.time).getDay() === i).map((e, j) => {
                             let convertTime = typeof e.time === "number" ? (new Date(e.time)) : e.time
                             let endMinutes = convertTime.getMinutes() + ((e.duration ?? 0) % 60)
                             let endTime = convertTime.getHours() + Math.floor((e.duration ?? 0) / 60)

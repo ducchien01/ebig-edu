@@ -136,7 +136,6 @@ export default function Overview({ data, onChangeRequired }) {
                             setValue('price', data.price != null ? Ultis.money(data.price) : '')
                         }
                     }}
-
                 />
                 <TextAreaForm
                     register={register}

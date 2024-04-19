@@ -24,6 +24,10 @@ const InputTime = ({ style, className, defaultValue, onChange, helperText }) => 
         })
     }
 
+    useEffect(() => {
+        setValue(defaultValue)
+    },[defaultValue])
+
     return <div className={`picker-time-hm-container ${className ?? ''}`} style={style}>
         <Popup ref={ref} />
         <TextField

@@ -22,7 +22,17 @@
 .support-action {
     flex-wrap: wrap;
     gap: 1.6rem;
-} 
+}
+
+.main-layout-body:has(> .sidebar) .expert-sidebar {
+    margin-left: max(min(-20%, -30rem), -36.6rem);
+    transition: margin-left ease-in-out 1s;
+}
+
+.main-layout-body:has(> .sidebar.expand) .expert-sidebar {
+    margin-left: 0;
+    transition: margin-left ease-in-out 1s;
+}
 
 /* .sidebar {
     height: 100%;

@@ -12,6 +12,7 @@ export default function SideBar({ menu }) {
     const location = useLocation()
     const [moduleList, setModuleList] = useState(menu)
     const [selected, setSelected] = useState([])
+    const [isExpand, setIsExpand] = useState(true)
 
     const dialogLogout = () => {
         showDialog({
@@ -31,11 +32,16 @@ export default function SideBar({ menu }) {
         setSelected(newSelectedList)
     }, [location.pathname])
 
-    return <div className="col sidebar" >
+    return <div className={`col sidebar ${isExpand ? 'expand' : ''}`} >
         <Dialog ref={dialogRef} />
         <div className='col' style={{ flex: 1 }}>
             {moduleList.filter(e => e.parentId === 1).map((item, index) => {
-                return <NavLink key={`sidebar-item-${index}`} to={item.link} className={`sidebar-item ${selected.some(e => e.id === item.id) ? 'selected' : ''}`}>
+                const isSelected = selected.some(e => e.id === item.id)
+                return <NavLink key={`sidebar-item-${index}`} to={isSelected ? null : item.link} onClick={() => {
+                    if (isSelected) {
+                        setIsExpand(!isExpand)
+                    }
+                }} className={`sidebar-item ${isSelected ? 'selected' : ''}`}>
                     {selected.some(e => e.id === item.id) ? item.selectedIcon : item.icon}
                 </NavLink>
             })}

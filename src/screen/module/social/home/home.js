@@ -23,7 +23,7 @@ export default function SocialHome() {
     }, [location.pathname])
 
     return <div className="row" style={{ flex: 1 }}>
-        <div className="col news-sidebar-social" >
+        <div className="col body-sidebar" >
             <TextField
                 prefix={<FontAwesomeIcon icon={faSearch} />}
                 style={{ height: '4rem', padding: '0.8rem 1.6rem' }}

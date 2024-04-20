@@ -149,15 +149,12 @@ const HomeAuth = () => {
     }, [])
 
     return <div className='row' style={{ flex: 1, height: '100%', width: '100%', }}>
-        <div className='col' style={{ padding: '2.4rem 0', gap: '2.4rem', borderRight: 'var(--border-grey1)', height: '100%', width: '20%', minWidth: '30rem', maxWidth: '36.6rem' }}>
-            <div className='row' style={{ padding: '0.4rem 1.6rem' }}>
-                <TextField
-                    className='search-default placeholder-2'
-                    style={{ flex: 1, width: '100%', }}
-                    placeholder='Tìm kiếm khóa học'
-                    prefix={<FontAwesomeIcon icon={faSearch} />}
-                />
-            </div>
+        <div className='col body-sidebar' >
+            <TextField
+                className='search-default placeholder-2'
+                placeholder='Tìm kiếm khóa học'
+                prefix={<FontAwesomeIcon icon={faSearch} />}
+            />
             <div className='col' style={{ flex: 1, gap: '2.4rem' }}>
                 <div className='row' style={{ padding: '0 1.6rem' }}>
                     <Text className='heading-6'>Khoá học theo chủ đề</Text>
@@ -174,7 +171,7 @@ const HomeAuth = () => {
                         <FontAwesomeIcon icon={openAll ? faChevronUp : faChevronDown} style={{ fontSize: '1.4rem' }} />
                     </button>
                 </div>
-                <div className='col' style={{ padding: '0 1.6rem' }}><SidebarActions /></div>
+                <SidebarActions />
             </div>
         </div>
         <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', overflow: 'hidden auto', justifyContent: 'center', alignItems: 'start' }}>
@@ -278,7 +275,7 @@ const HomeExpert = () => {
     }, [location.pathname])
 
     return <div className='row' style={{ flex: 1, width: '100%', height: '100%' }}>
-        <div className='col expert-sidebar'>
+        <div className='col body-sidebar'>
             <Text className='heading-6'>Education Management</Text>
             <div className='col' style={{ gap: '1.2rem', flex: 1, height: '100%', overflow: 'hidden auto' }}>
                 {modules.filter(e => !e.parentId).map(item => moduleTile(item))}

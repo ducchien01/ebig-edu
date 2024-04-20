@@ -1,13 +1,4 @@
-.news-sidebar-social {
-    height: 100%;
-    border-right: var(--border-grey1);
-    padding: 2.4rem 1.6rem;
-    gap: 2.4rem;
-    width: min(20%, 36.6rem);
-    min-width: 24rem;
-}
-
-.news-sidebar-social .news-bookmark-tab {
+.news-bookmark-tab {
     padding: 0.8rem 1.6rem;
     border-radius: 0.8rem;
     width: 100%;
@@ -15,7 +6,7 @@
     text-align: start;
 }
 
-.news-sidebar-social .news-bookmark-tab.selected {
+.news-bookmark-tab.selected {
     background-color: #00358014;
 }
 
@@ -60,4 +51,10 @@
 
 .filter-news-container>div>.filter-news-tab.selected>* {
     color: var(--primary-color);
+}
+
+@media only screen and (max-width: 576px) {
+    .additional-infor-view {
+        display: none;
+    }
 }

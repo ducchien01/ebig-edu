@@ -17,7 +17,7 @@ export default function ListTopic() {
         {data.map((item, i) => {
             return <PostCard
                 key={'topic-' + i}
-                className='col col4'
+                className={`col col4 ${i < 8 ? 'col6-min' : 'col0-min'}`}
                 to={`/social/discovery/topic/${item.id}`}
                 style={{ '--gutter': '4rem', gap: '2rem' }}
                 imgUrl={topicThumnailDemo}

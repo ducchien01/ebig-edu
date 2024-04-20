@@ -94,6 +94,10 @@
 
 /* Extra small devices (phones, 576px and down) min*/
 @media only screen and (max-width: 576px) {
+    :root {
+        font-size: 4px !important;
+    }
+
     .row>.col0-min {
         display: none !important;
     }

@@ -8,9 +8,7 @@ import { ComponentStatus, Dialog, DialogAlignment, showDialog } from '../../../c
 
 export default function SideBar({ menu }) {
     const dialogRef = useRef()
-    const navigate = useNavigate()
     const location = useLocation()
-    const [moduleList, setModuleList] = useState(menu)
     const [selected, setSelected] = useState([])
     const [isExpand, setIsExpand] = useState(true)
 
@@ -35,7 +33,7 @@ export default function SideBar({ menu }) {
     return <div className={`col sidebar ${isExpand ? 'expand' : ''}`} >
         <Dialog ref={dialogRef} />
         <div className='col' style={{ flex: 1 }}>
-            {moduleList.filter(e => e.parentId === 1).map((item, index) => {
+            {menu.filter(e => e.parentId === 1).map((item, index) => {
                 const isSelected = selected.some(e => e.id === item.id)
                 return <NavLink key={`sidebar-item-${index}`} to={isSelected ? null : item.link} onClick={() => {
                     if (isSelected) {

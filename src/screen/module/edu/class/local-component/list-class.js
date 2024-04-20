@@ -31,7 +31,7 @@ export default function ListClass({ data = [], onEdit, onDelete }) {
         }))
     }, [data])
 
-    return <div className="row" style={{ gap: '2.4rem', flexWrap: 'wrap' }}>
+    return <div className="row" style={{ gap: '2.4rem', flexWrap: 'wrap', alignItems: 'stretch' }}>
         <Dialog ref={ref} />
         {list.map((item) => {
             return <div key={item.id} className="col class-infor-container col8 col12-lg col12-md col12-sm" >

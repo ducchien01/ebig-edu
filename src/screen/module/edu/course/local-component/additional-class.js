@@ -15,7 +15,7 @@ export default function AdditionalClass({ courseData }) {
             ref: ref,
             heading: <div className='popup-header heading-7'>Danh sách lớp học của bạn</div>,
             style: { minHeight: '44rem' },
-            content: <PopupListClass ref={ref} selectedList={data} onSubmit={getData} courseId={courseData.id} />
+            content: <PopupListClass ref={ref} selectedList={data} onEdit={getData} courseId={courseData.id} />
         })
     }
 

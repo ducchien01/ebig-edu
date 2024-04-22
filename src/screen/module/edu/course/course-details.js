@@ -19,6 +19,7 @@ import OverallTab from "./local-component/overall-tab";
 import CourseLessonsContent from "./local-component/course-lessons-tab";
 import CourseRatingTab from "./local-component/rating-tab";
 import { CustomerLessonController } from "../customer-lesson/controller";
+import PopupListClass from "../class/local-component/popup-list-class";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -68,7 +69,7 @@ export default function ViewCourseDetails() {
 
     const buyCourse = () => {
         if (isLogin) {
-            navigate('/social/ecomerce/cart', {
+            navigate('/ecomerce/cart', {
                 state: {
                     from: expert,
                     products: [
@@ -112,7 +113,24 @@ export default function ViewCourseDetails() {
         }
     }
 
-    const showAllClass = () => { }
+    const showAllClass = () => {
+        showPopup({
+            ref: ref,
+            heading: <div className='popup-header heading-7'>Danh sách lớp học của bạn</div>,
+            style: { minHeight: '44rem' },
+            content: <PopupListClass ref={ref} selectedList={classList.filter(e => e.checked)} onSelect={(newSelectedList) => {
+                let updateList = classList.map(e => {
+                    e.checked = newSelectedList.some(el => el.id === e.id)
+                    return e
+                })
+                updateList.push(...newSelectedList.filter(e => classList.every(el => el.id !== e.id)).map(e => {
+                    e.checked = true
+                    return e
+                }))
+                setClassList(updateList)
+            }} courseId={id} />
+        })
+    }
 
     const optionsBuyClass = () => {
         let renderList = classList.slice(0, 2)
@@ -123,12 +141,12 @@ export default function ViewCourseDetails() {
         return <div className="col" style={{ gap: '1.2rem' }}>
             <div className="row" style={{ justifyContent: 'space-between' }}>
                 <Text className="body-3">Mua cùng lớp học online</Text>
-                <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }} >Xem tất cả</Text>
+                <Text onClick={showAllClass} className="button-text-3" style={{ color: 'var(--primary-color)' }} >Xem tất cả</Text>
             </div>
             {renderList.map(item => {
                 return <div key={item.id} className={`col option-buy-class-mentor ${item.checked ? 'selected' : ''}`}>
                     <div className="row" style={{ gap: '1.6rem', paddingBottom: '1.2rem', borderBottom: 'var(--border-grey1)', alignItems: 'start' }}>
-                        <RadioButton size={'1.8rem'} name="class-option" value={item.id} onChange={(v) => {
+                        <RadioButton size={'1.8rem'} name="class-option" defaultChecked={item.checked} value={item.id} onChange={(v) => {
                             setClassList(classList.map(e => {
                                 e.checked = v.target.value === e.id
                                 return e
@@ -236,7 +254,7 @@ export default function ViewCourseDetails() {
                         setIsPaid(true)
                     }
                 })
-                ClassController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(res => {
+                ClassController.getListSimple({ page: 1, take: 2, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(res => {
                     if (res) setClassList(res.data)
                 })
                 MentorController.getListSimpleAuth({ page: 1, take: 2, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(res => {

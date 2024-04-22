@@ -101,7 +101,7 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
             delete classData.schedule
         }
         if (data.classItem) {
-            ClassController.edit(classData).then(res => {
+            ClassController.edit([classData]).then(res => {
                 if (res) {
                     if (data.onChange) data.onChange()
                     ToastMessage.success('Cập nhật lớp học thành công')

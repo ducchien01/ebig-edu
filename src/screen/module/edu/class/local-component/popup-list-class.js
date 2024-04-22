@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
-import { CellAlignItems, Checkbox, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, closePopup } from "../../../../../component/export-component";
+import { CellAlignItems, Checkbox, Pagination, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, closePopup } from "../../../../../component/export-component";
 import { FilledSetupPreferences } from "../../../../../assets/const/icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -12,40 +12,62 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
     const [selectedList, setSelectedList] = useState([])
 
     const getData = (page, size) => {
-        ClassController.getListSimpleAuth({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'courseId', operator: '=', value: data.courseId }, 'or', { field: 'courseId', operator: '=', value: null }] }).then(res => {
-            if (res) setClassData({
-                ...res, data: res.data.map(e => {
-                    if (e.content) {
-                        try {
-                            var schedule = JSON.parse(e.content)
-                        } catch (error) {
-                            console.log(error)
+        if (data.onEdit) {
+            ClassController.getListSimpleAuth({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'courseId', operator: '=', value: data.courseId }, 'or', { field: 'courseId', operator: '=', value: null }] }).then(res => {
+                if (res) setClassData({
+                    ...res, data: res.data.map(e => {
+                        if (e.content) {
+                            try {
+                                var schedule = JSON.parse(e.content)
+                            } catch (error) {
+                                console.log(error)
+                            }
+                            e.schedule = schedule
                         }
-                        e.schedule = schedule
-                    }
-                    return e
+                        return e
+                    })
                 })
             })
-        })
+        } else if (data.onSelect) {
+            ClassController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'courseId', operator: '=', value: data.courseId }] }).then(res => {
+                if (res) setClassData({
+                    ...res, data: res.data.map(e => {
+                        if (e.content) {
+                            try {
+                                var schedule = JSON.parse(e.content)
+                            } catch (error) {
+                                console.log(error)
+                            }
+                            e.schedule = schedule
+                        }
+                        return e
+                    })
+                })
+            })
+        }
     }
 
     const onSubmit = () => {
-        let listUpdate = [...data.selectedList.map(e => {
-            delete e.schedule
-            if (selectedList.some(item => item.id === e.id)) e.courseId = data.courseId
-            else e.courseId = null
-            return e
-        })]
-        listUpdate.push(...selectedList.filter(e => listUpdate.every(el => el.id !== e.id)).map(e => {
-            delete e.schedule
-            e.courseId = data.courseId
-            return e
-        }))
-        debugger
-        ClassController.edit(listUpdate).then(res => {
-            if (res) data.onSubmit()
+        if (data.onEdit) {
+            let listUpdate = [...data.selectedList.map(e => {
+                delete e.schedule
+                if (selectedList.some(item => item.id === e.id)) e.courseId = data.courseId
+                else e.courseId = null
+                return e
+            })]
+            listUpdate.push(...selectedList.filter(e => listUpdate.every(el => el.id !== e.id)).map(e => {
+                delete e.schedule
+                e.courseId = data.courseId
+                return e
+            }))
+            ClassController.edit(listUpdate).then(res => {
+                if (res) data.onEdit()
+                closePopup(ref)
+            })
+        } else if (data.onSelect) {
+            data.onSelect(selectedList)
             closePopup(ref)
-        })
+        }
     }
 
     useEffect(() => {
@@ -67,15 +89,17 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                 <Table>
                     <TbHeader>
                         <TbCell fixed={true} style={{ minWidth: 60 }}>
-                            <Checkbox size={'2rem'} value={selectedList.length && classData?.data?.every(el => selectedList.some(e => el.id === e.id))} onChange={(vl) => {
-                                if (classData.data) {
-                                    if (vl) {
-                                        setSelectedList([...selectedList, ...classData.data.filter(e => selectedList.every(el => el.id !== e.id))])
-                                    } else {
-                                        setSelectedList(selectedList.filter(e => classData.data.every(el => e.id !== el.id)))
+                            {
+                                data.onEdit ? <Checkbox size={'2rem'} value={selectedList.length && classData?.data?.every(el => selectedList.some(e => el.id === e.id))} onChange={(vl) => {
+                                    if (classData.data) {
+                                        if (vl) {
+                                            setSelectedList([...selectedList, ...classData.data.filter(e => selectedList.every(el => el.id !== e.id))])
+                                        } else {
+                                            setSelectedList(selectedList.filter(e => classData.data.every(el => e.id !== el.id)))
+                                        }
                                     }
-                                }
-                            }} />
+                                }} /> : null
+                            }
                         </TbCell>
                         <TbCell style={{ minWidth: 240, }} >Tên lớp</TbCell>
                         <TbCell style={{ minWidth: 80, }} align={CellAlignItems.center}>Số buổi</TbCell>
@@ -87,13 +111,27 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                         {
                             (classData?.data ?? []).map((item, index) => <TbRow key={item.id}>
                                 <TbCell fixed={true} style={{ minWidth: 60, verticalAlign: 'top', paddingTop: '0.8rem' }} >
-                                    <Checkbox size={'2rem'} value={selectedList.some(e => e.id === item.id)} onChange={(vl) => {
-                                        if (vl) {
-                                            setSelectedList([...selectedList, item])
-                                        } else {
-                                            setSelectedList(selectedList.filter(e => e.id !== item.id))
-                                        }
-                                    }} />
+                                    {
+                                        data.onEdit ? <Checkbox size={'2rem'} value={selectedList.some(e => e.id === item.id)} onChange={(vl) => {
+                                            if (vl) {
+                                                setSelectedList([...selectedList, item])
+                                            } else {
+                                                setSelectedList(selectedList.filter(e => e.id !== item.id))
+                                            }
+                                        }} /> : data.onSelect ? <RadioButton
+                                            size={'2rem'}
+                                            name="selected"
+                                            defaultChecked={(data.selectedList ?? []).some(e => e.id === item.id)}
+                                            value={item.id}
+                                            onChange={(vl) => {
+                                                if (vl) {
+                                                    setSelectedList([item])
+                                                } else {
+                                                    setSelectedList(selectedList.filter(e => e.id !== item.id))
+                                                }
+                                            }}
+                                        /> : null
+                                    }
                                 </TbCell>
                                 <TbCell style={{ minWidth: 240, verticalAlign: 'top', paddingTop: '0.8rem' }} >
                                     <Text style={{ width: '100%' }} maxLine={2}>{item.name}</Text>

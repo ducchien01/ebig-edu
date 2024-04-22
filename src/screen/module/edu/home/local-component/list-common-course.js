@@ -20,8 +20,8 @@ export default function ListCommonCourse() {
         {data.map((item, i) => {
             return <PostCard
                 key={'discount-course-' + i}
-                to={'/social/education/course/' + item.id}
-                className='col6 col'
+                to={'course/' + item.id}
+                className={`col col6 ${i < 3 ? i < 2 ? 'col8-sm col12-min' : 'col8-sm col0-min' : 'col0-sm col0-min'}`}
                 style={{ '--gutter': '4rem' }}
                 imgUrl={demoImage}
                 imgStyle={{ height: '18.4rem' }}

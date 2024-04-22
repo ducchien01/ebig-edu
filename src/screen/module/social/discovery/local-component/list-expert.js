@@ -14,7 +14,7 @@ export default function ListExpert() {
         })
     }, [])
 
-    return <div style={{ position: 'relative', width: '100%', height: '48rem' }}>
+    return <div style={{ position: 'relative', width: '100%'}}>
         <div className="row" style={{ gap: '4rem', overflow: 'auto hidden', width: '100%' }}>
             {data.map((item, i) => {
                 return <div key={'expert-' + i} className="col expert-intro-container" style={{ '--img-url': `url(${item.avatarUrl})` }}>

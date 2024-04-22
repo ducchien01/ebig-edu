@@ -14,16 +14,21 @@ export default function AdditionalClass({ courseData }) {
         showPopup({
             ref: ref,
             heading: <div className='popup-header heading-7'>Danh sách lớp học của bạn</div>,
-            content: <PopupListClass />
+            style: { minHeight: '44rem' },
+            content: <PopupListClass ref={ref} selectedList={data} onSubmit={getData} courseId={courseData.id} />
         })
     }
 
-    useEffect(() => {
+    const getData = () => {
         if (courseData) {
-            ClassController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'courseId', operator: '=', value: courseData.id }] }).then(res => {
+            ClassController.getListSimpleAuth({ page: 1, take: 100, filter: [{ field: 'courseId', operator: '=', value: courseData.id }] }).then(res => {
                 if (res) setData(res.data)
             })
         }
+    }
+
+    useEffect(() => {
+        getData()
     }, [courseData])
 
     return <div className="col" style={{ width: '100%', flex: 1, height: '100%' }} >

@@ -32,6 +32,7 @@ import SchoolClass from '../class/class'
 import SchoolMentor from '../mentor/mentor'
 import ExamManagment from '../exam/exam'
 import QuestionManagment from '../question/question'
+import CurriculumManagment from '../curriculum/curriculum'
 
 export default function EduHome() {
     const isLogin = AccountController.token()
@@ -45,8 +46,8 @@ const HomeGuest = () => {
         <div className="row" style={{ width: '100%', justifyContent: 'center', backgroundColor: 'var(--main-color)' }}>
             <div className="col col24 col20-xxl col20-xl" style={{ padding: '6.4rem 3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
                 <div className='col' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-3' maxLine={2} style={{ color: '#ffffff', width: '56%' }}>eBig is a community of spreading the knowledge</Text>
-                    <Text className='body-3' maxLine={2} style={{ color: '#ffffff', width: '56%' }}>Learn from expert professionals and join the largest online community for creatives.</Text>
+                    <Text className='heading-3' maxLine={2} style={{ color: '#ffffff', width: 'max(56%, 60rem)' }}>eBig is a community of spreading the knowledge</Text>
+                    <Text className='body-3' maxLine={2} style={{ color: '#ffffff', width: 'max(56%, 40rem)' }}>Learn from expert professionals and join the largest online community for creatives.</Text>
                 </div>
                 <NavLink className="row button-grey">
                     <Text className='button-text-3'>Xem các khóa học</Text>
@@ -63,7 +64,7 @@ const HomeGuest = () => {
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem', backgroundColor: 'var(--dark-background)' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <Text className='heading-4' maxLine={2} style={{ flex: 1, color: '#ffffff' }}>Học cùng chuyên gia hàng đầu</Text>
                     <NavLink className='button-text-3' style={{ color: '#ffffff' }}>Xem tất cả</NavLink>
@@ -72,9 +73,9 @@ const HomeGuest = () => {
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <Text className='heading-4' maxLine={2}>Chủ động lựa chọn loại hình lớp học</Text>
-                <div className='row' style={{ gap: '4rem', width: '100%' }}>
+                <div className='row' style={{ gap: '4rem', width: '100%', alignItems: 'stretch' }}>
                     <PostCard
                         imgUrl={courseThumbnail}
                         to={''}
@@ -103,7 +104,7 @@ const HomeGuest = () => {
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Khoá học đang được ưu đãi</Text>
                     <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
@@ -112,7 +113,7 @@ const HomeGuest = () => {
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Khoá học phổ biến nhất</Text>
                     <NavLink to={'courses'} className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
@@ -175,7 +176,7 @@ const HomeAuth = () => {
             </div>
         </div>
         <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', overflow: 'hidden auto', justifyContent: 'center', alignItems: 'start' }}>
-            <div className='col col24-md col24-sm' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
+            <div className='col col24-md col24-sm col24-min' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
                 {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
                     {myCourses.map(e => {
                         const myProgress = e.countLessonUsed ? Math.round((e.countLessonUsed / e.countLesson) * 100) : 0
@@ -253,7 +254,7 @@ const HomeExpert = () => {
             case '/education/mentors':
                 return <SchoolMentor />
             case '/education/curriculum':
-                return <div className='sdufgsduifg8isdgfisud'></div>
+                return <CurriculumManagment />
             case '/education/exams':
                 return <ExamManagment />
             case '/education/questions':

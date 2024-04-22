@@ -1,8 +1,8 @@
 .expert-intro-container {
     gap: 0.4rem;
-    width: 24%;
+    width: max(24%, 22rem);
     background-size: cover;
-    height: 48rem;
+    height: 44rem;
     justify-content: end;
     padding: 1.6rem;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 80.45%, #000 100%), var(--img-url) lightgray 50% / cover no-repeat;

@@ -62,7 +62,7 @@ export default function ListNews({ isLogin = false }) {
             // })
         }} className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-                <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '4rem', '--gutter': '0px' }}>
+                <div className="col col24 col20-xxl" style={{ padding: '3.2rem', gap: '4rem', '--gutter': '0px' }}>
                     {isLogin && <div className="row filter-news-container">
                         <button type="button" className="row">
                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
@@ -86,7 +86,7 @@ export default function ListNews({ isLogin = false }) {
                                 key={'new-' + i}
                                 className="row"
                                 style={{ gap: '4.8rem' }}
-                                to={`/social/home/news/${item.id}`}
+                                to={`news/${item.id}`}
                                 imgUrl={thumbnailDemo}
                                 imgStyle={{ width: '16.2rem', height: '16.2rem' }}
                                 heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>

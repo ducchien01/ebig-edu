@@ -53,6 +53,7 @@ export const getListSimpleBase = async (url: string, params?: FilterListSimpleBo
                 "select": params?.selectProps ?? [] //  chọn trường
             },
             "filter": params?.filter?.map(e => {
+                if (typeof e === 'string') return e;
                 return {
                     ...e,
                     operator: e.operator ?? 'contains'

@@ -52,8 +52,22 @@
 .filter-news-container>div>.filter-news-tab.selected>* {
     color: var(--primary-color);
 }
+/* min */
+@media only screen and (max-width: 576px) { 
+    .additional-infor-view {
+        display: none;
+    }
+}
 
-@media only screen and (max-width: 576px) {
+/* sm */
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+    .additional-infor-view {
+        display: none;
+    }
+}
+
+/* md */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
     .additional-infor-view {
         display: none;
     }

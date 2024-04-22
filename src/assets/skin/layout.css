@@ -4,6 +4,7 @@
 }
 
 .row {
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -95,7 +96,7 @@
 /* Extra small devices (phones, 576px and down) min*/
 @media only screen and (max-width: 576px) {
     :root {
-        font-size: 4px !important;
+        font-size: 6px !important;
     }
 
     .row>.col0-min {
@@ -180,7 +181,7 @@
 /* Small devices (portrait tablets and large phones, 576px and up) Small (sm)*/
 @media only screen and (min-width: 576px) and (max-width: 768px) {
     :root {
-        font-size: 6px !important;
+        font-size: 6.8px !important;
     }
 
     .row>.col0-sm {
@@ -264,7 +265,7 @@
 /* Medium devices (landscape tablets, 768px and up) Medium (md)*/
 @media only screen and (min-width: 768px) and (max-width: 992px) {
     :root {
-        font-size: 6px !important;
+        font-size: 7.6px !important;
     }
 
     .row>.col0-md {
@@ -349,7 +350,7 @@
 /* Large devices (laptops/desktops, 992px and up) Large (lg)*/
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
     :root {
-        font-size: 8px !important;
+        font-size: 8.4px !important;
     }
 
     .row>.col0-lg {
@@ -434,7 +435,7 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) X-large (xl)*/
 @media only screen and (min-width: 1200px) {
     :root {
-        font-size: 8px !important;
+        font-size: 8.8px !important;
     }
 
     .row>.col0-xl {

@@ -12,33 +12,44 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
     const [selectedList, setSelectedList] = useState([])
 
     const getData = (page, size) => {
-        ClassController.getListSimpleAuth({ page: page ?? pageDetails.page, take: size ?? pageDetails.size }).then(res => {
-            if (res) setClassData(res)
+        ClassController.getListSimpleAuth({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'courseId', operator: '=', value: data.courseId }, 'or', { field: 'courseId', operator: '=', value: null }] }).then(res => {
+            if (res) setClassData({
+                ...res, data: res.data.map(e => {
+                    if (e.content) {
+                        try {
+                            var schedule = JSON.parse(e.content)
+                        } catch (error) {
+                            console.log(error)
+                        }
+                        e.schedule = schedule
+                    }
+                    return e
+                })
+            })
         })
     }
 
     const onSubmit = () => {
-        ClassController.edit()
+        let listUpdate = [...data.selectedList.map(e => {
+            delete e.schedule
+            if (selectedList.some(item => item.id === e.id)) e.courseId = data.courseId
+            else e.courseId = null
+            return e
+        })]
+        listUpdate.push(...selectedList.filter(e => listUpdate.every(el => el.id !== e.id)).map(e => {
+            delete e.schedule
+            e.courseId = data.courseId
+            return e
+        }))
+        debugger
+        ClassController.edit(listUpdate).then(res => {
+            if (res) data.onSubmit()
+            closePopup(ref)
+        })
     }
 
     useEffect(() => {
-        ClassController.getAll().then(res => {
-            if (res) {
-                setClassData({
-                    data: res.map(e => {
-                        if (e.content) {
-                            try {
-                                var schedule = JSON.parse(e.content)
-                            } catch (error) {
-                                console.log(error)
-                            }
-                            e.schedule = schedule
-                        }
-                        return e
-                    }), totalCount: res.length
-                })
-            }
-        })
+        getData()
         setSelectedList(data.selectedList ?? [])
     }, [data.selectedList])
 
@@ -56,19 +67,27 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                 <Table>
                     <TbHeader>
                         <TbCell fixed={true} style={{ minWidth: 60 }}>
-                            <Checkbox size={'2rem'} value={selectedList.length && selectedList.every(e => classData?.data?.every(el => el.id === e.id))} onChange={(vl) => { }} />
+                            <Checkbox size={'2rem'} value={selectedList.length && classData?.data?.every(el => selectedList.some(e => el.id === e.id))} onChange={(vl) => {
+                                if (classData.data) {
+                                    if (vl) {
+                                        setSelectedList([...selectedList, ...classData.data.filter(e => selectedList.every(el => el.id !== e.id))])
+                                    } else {
+                                        setSelectedList(selectedList.filter(e => classData.data.every(el => e.id !== el.id)))
+                                    }
+                                }
+                            }} />
                         </TbCell>
                         <TbCell style={{ minWidth: 240, }} >Tên lớp</TbCell>
                         <TbCell style={{ minWidth: 80, }} align={CellAlignItems.center}>Số buổi</TbCell>
                         <TbCell style={{ minWidth: 180, }} >Ngày khai giảng</TbCell>
                         <TbCell style={{ minWidth: 240, }} >Lịch học</TbCell>
-                        <TbCell style={{ minWidth: 240, }} >Học phí</TbCell>
+                        <TbCell style={{ minWidth: 180, }} >Học phí</TbCell>
                     </TbHeader>
                     <TbBody>
                         {
                             (classData?.data ?? []).map((item, index) => <TbRow key={item.id}>
                                 <TbCell fixed={true} style={{ minWidth: 60, verticalAlign: 'top', paddingTop: '0.8rem' }} >
-                                    <Checkbox size={'2rem'} value={selectedList.some(e => classData?.data?.every(el => el.id === e.id))} onChange={(vl) => {
+                                    <Checkbox size={'2rem'} value={selectedList.some(e => e.id === item.id)} onChange={(vl) => {
                                         if (vl) {
                                             setSelectedList([...selectedList, item])
                                         } else {
@@ -81,7 +100,7 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                                 </TbCell>
                                 <TbCell style={{ minWidth: 80, verticalAlign: 'top', paddingTop: '0.8rem' }} align={CellAlignItems.center}>{item.quantity}</TbCell>
                                 <TbCell style={{ minWidth: 180, verticalAlign: 'top', paddingTop: '0.8rem' }} >{Ultis.datetoString(new Date(item.startDate))}</TbCell>
-                                <TbCell style={{ minWidth: 240, verticalAlign: 'top' }} >
+                                <TbCell style={{ minWidth: 180, verticalAlign: 'top' }} >
                                     <ul>
                                         {(item.schedule ?? []).map(e => {
                                             let startTime = new Date(e.time)
@@ -122,9 +141,9 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                             </TbRow>
                             )
                         }
-                    </TbBody >
-                </Table >
-            </div >
+                    </TbBody>
+                </Table>
+            </div>
             <div className="row" style={{ padding: '0 1.6rem' }}>
                 <Pagination
                     /// Size
@@ -132,7 +151,7 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                     /// pageSize
                     itemPerPage={pageDetails.size}
                     // data.total
-                    totalItem={classData?.totalCount ?? 10}
+                    totalItem={classData?.totalCount}
                     /// action
                     onChangePage={(page, size) => {
                         if (pageDetails.page !== page || pageDetails.size !== size) {
@@ -141,14 +160,14 @@ const PopupListClass = forwardRef(function PopupListClass(data, ref) {
                     }}
                 />
             </div>
-        </div >
+        </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             <button className="button-text-3" style={{ color: '#00204D99' }} onClick={() => { closePopup(ref) }}>Hủy</button>
-            <button type="submit" onClick={() => { }} className={`row button-primary`}>
+            <button type="submit" onClick={onSubmit} className={`row button-primary`}>
                 <div className="button-text-3">Xác nhận</div>
             </button>
         </div>
-    </div >
+    </div>
 })
 
 export default PopupListClass

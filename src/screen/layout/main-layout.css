@@ -20,7 +20,7 @@
     .card-mentor-schedule>.time-infor {
         border: none !important;
         border-left: var(--border-grey1) !important;
-        padding-left: 2.4rem !important;
+        padding-left: 2rem !important;
         padding-top: 0 !important;
     }
 }

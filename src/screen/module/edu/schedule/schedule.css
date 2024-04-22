@@ -7,8 +7,8 @@
 }
 
 .card-mentor-schedule {
-    border-radius: 8px;
-    padding: 2.4rem;
+    border-radius: 0.8rem;
+    padding: 2rem;
     flex-wrap: wrap;
     gap: 2.4rem;
     background-color: var(--background);
@@ -30,7 +30,7 @@
 
 .card-mentor-schedule>.time-infor {
     border-top: var(--border-grey1);
-    padding-top: 2.4rem;
+    padding-top: 2rem;
 }
 
 .card-mentor-schedule>.time-infor>.row {

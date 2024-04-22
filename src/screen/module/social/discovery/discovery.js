@@ -24,13 +24,13 @@ export default function SocialDiscoveryView() {
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 2rem' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem' }}>
                 <Text className='heading-5'>Topic được quan tâm nhiều</Text>
                 <ListTopic />
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 2rem' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', alignItems: 'center' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', alignItems: 'center' }}>
                 <Text className='heading-5' style={{ width: '100%' }}>Bài viết xu hướng</Text>
                 <ListTrendingNews />
                 <NavLink type='button' className='row button-infor border' style={{ backgroundColor: 'transparent' }}>
@@ -39,13 +39,13 @@ export default function SocialDiscoveryView() {
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 1.2rem', backgroundColor: 'var(--dark-background)' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <Text className='heading-5' style={{ color: '#ffffff' }}>Các chuyên gia hàng đầu</Text>
                 <ListExpert />
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 1.2rem' }}>
-            <div className='col col16-xxl col18 col20-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Text className='heading-5'>Khóa học xu hướng</Text>
                     <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>

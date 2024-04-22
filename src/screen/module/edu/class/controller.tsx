@@ -67,7 +67,7 @@ export class ClassController {
 
     static add = async (classItem: ClassItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=add', {
-            data: { data: classItem }
+            data: { data: [classItem] }
         })
         if (response) {
             if (response.code === 200) {
@@ -79,11 +79,10 @@ export class ClassController {
         return null
     }
 
-    static edit = async (classItem: ClassItem) => {
+    static edit = async (classItemList: Array<ClassItem>) => {
         const response = await postData(ConfigAPI.ebigUrl + 'ClassAuth/Action?action=edit', {
             data: {
-                id: classItem.id,
-                data: classItem
+                data: classItemList
             }
         })
         if (response) {

@@ -10,7 +10,7 @@ export default function ListCourse() {
             return <PostCard
                 key={'course-' + i}
                 imgUrl={thumbnailDemo}
-                className="col col8"
+                className={`col col8 ${i < 4 ? 'col12-sm col12-min' : 'col-sm col0-min'}`}
                 style={{ gap: '0.8rem', '--gutter': '4rem' }}
                 imgStyle={{ with: '100%', height: '19.8rem' }}
                 heading={<div className="row" style={{ padding: '0.8rem 0', gap: '0.8rem' }}>

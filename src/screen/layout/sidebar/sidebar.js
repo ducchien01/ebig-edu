@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './sidebar.css'
 import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
 import { AccountController } from '../../module/account/controller';
@@ -44,6 +44,6 @@ export default function SideBar({ menu }) {
                 </NavLink>
             })}
         </div>
-        <button type='button' onClick={dialogLogout}><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button>
+        {AccountController.token() ? <button type='button' onClick={dialogLogout}><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button> : null}
     </div>
 }

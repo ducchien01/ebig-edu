@@ -160,18 +160,13 @@ export const extendView = [
     },
     {
         name: 'news details',
-        path: 'home/news/:id',
-        link: 'social/home/news',
+        path: 'social/news/:id',
+        link: 'social/news',
     },
     {
         name: 'topic details',
         path: 'discovery/topic/:id',
         link: 'social/discovery/topic',
-    },
-    {
-        name: 'course details',
-        path: 'education/courses',
-        link: 'social/education/courses',
     },
     {
         name: 'course details',

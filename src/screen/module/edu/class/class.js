@@ -21,8 +21,8 @@ export default function SchoolClass() {
     }
 
     const getData = () => {
-        ClassController.getAll().then(res => {
-            if (res) setData(res)
+        ClassController.getListSimpleAuth({ page: 1, take: 100, }).then(res => {
+            if (res) setData(res.data)
         })
     }
 

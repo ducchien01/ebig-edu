@@ -1,29 +1,34 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './mentor.css'
+import './curriculum.css'
 import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from '../../../../component/export-component'
 import { FilledSetupPreferences, FilledTrashCan } from '../../../../assets/const/icon'
-import { useState } from 'react'
-import { MentorController } from './controller'
-import { CustomerController } from '../../customer/controller'
+import { useEffect, useState } from 'react'
+import { LessonController } from '../lesson/controller'
+import { LessonType } from '../lesson/da'
+import { Ultis } from '../../../../Utils'
 
-export default function SchoolMentor() {
+export default function CurriculumManagment() {
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 })
     const [data, setData] = useState()
 
     const getData = (page, size) => {
-        MentorController.getListSimpleAuth({
+        LessonController.getListSimple({
             page: page ?? pageDetails.page,
             take: size ?? pageDetails.size,
-            filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }]
+            filter: [{ field: 'type', operator: '<>', value: LessonType.examTask }]
         }).then(res => {
             if (res) setData(res)
         })
     }
 
+    useEffect(() => {
+        getData()
+    }, [])
+
     return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '2rem', padding: '2.4rem 3.2rem' }}>
         <div className="row" style={{ justifyContent: 'space-between' }}>
-            <div className="heading-4">Danh sách bài thi</div>
+            <div className="heading-4">Danh sách bài học</div>
             <button type="button" className="button-primary row" onClick={() => { }} style={{ backgroundColor: 'var(--primary-color)' }}>
                 <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
                 <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
@@ -40,19 +45,21 @@ export default function SchoolMentor() {
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'auto' }}>
             <Table>
                 <TbHeader>
-                    <TbCell fixed={true} style={{ minWidth: 360 }}>Tiêu đề buổi mentor</TbCell>
-                    <TbCell style={{ minWidth: 180, }} >Ngày bắt đầu</TbCell>
-                    <TbCell style={{ minWidth: 240, }} >Thời gian hẹn</TbCell>
+                    <TbCell fixed={true} style={{ minWidth: 200 }}>Tên bài học</TbCell>
+                    <TbCell style={{ minWidth: 80, }} >Loại</TbCell>
+                    <TbCell style={{ minWidth: 120, }} >Ngày tạo</TbCell>
                     <TbCell fixed={true} style={{ minWidth: 80, }} align={CellAlignItems.center}>Action</TbCell>
                 </TbHeader>
                 <TbBody>
                     {
                         (data?.data ?? []).map((item, index) => <TbRow key={index}>
-                            <TbCell fixed={true} style={{ minWidth: 360, }} >{item.name}</TbCell>
-                            <TbCell style={{ minWidth: 180, }} >18/10/2023</TbCell>
-                            <TbCell style={{ minWidth: 80, }} >19:00 - 20:00 Thứ 3,6 hàng tuần</TbCell>
-                            <TbCell fixed={true} style={{ minWidth: 240, }} align={CellAlignItems.center}>
-                                <button><FilledTrashCan /></button>
+                            <TbCell fixed={true} style={{ minWidth: 200, }} >
+                                <Text maxLine={2} style={{ width: '100%' }}>{item.name}</Text>
+                            </TbCell>
+                            <TbCell style={{ minWidth: 80, }} >{item.type === LessonType.video ? 'video' : item.type === LessonType.paragraph ? 'bài viết' : 'bài kiểm tra'}</TbCell>
+                            <TbCell style={{ minWidth: 120, }} >{item.dateCreated ? Ultis.datetoString(new Date(item.dateCreated)) : '-'}</TbCell>
+                            <TbCell fixed={true} style={{ minWidth: 80, }} align={CellAlignItems.center}>
+                                {/* <button><FilledTrashCan /></button> */}
                             </TbCell>
                         </TbRow>
                         )
@@ -67,7 +74,7 @@ export default function SchoolMentor() {
                 /// pageSize
                 itemPerPage={pageDetails.size}
                 // data.total
-                totalItem={10}
+                totalItem={data?.totalCount}
                 /// action
                 onChangePage={(page, size) => {
                     if (pageDetails.page !== page || pageDetails.size !== size) {

@@ -98,7 +98,7 @@ export default function ListAllCourse() {
                     key={item.id}
                     to={'course/' + item.id}
                     style={{ '--gutter': '4rem', height: '100%', maxHeight: '40rem' }}
-                    className="col col6"
+                    className="col col6 col8-sm col8-min"
                     imgStyle={{ height: '12rem' }}
                     imgUrl={ConfigAPI.imgUrl + item.thumbnailId}
                     heading={<div className="row" style={{ gap: '0.8rem' }}>

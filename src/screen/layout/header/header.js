@@ -34,7 +34,7 @@ export default function HeaderView() {
                         <img src={CustomerController.userInfor()?.avatarUrl} alt='' style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%' }} />
                     </button>
                 </> :
-                <div className='row' style={{ gap: '0.8rem' }}>
+                <div className='row' style={{gap: '0.8rem'}}>
                     <button type='button' onClick={() => {
                         showPopup({
                             ref: ref,

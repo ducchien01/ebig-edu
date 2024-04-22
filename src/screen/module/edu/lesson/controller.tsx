@@ -1,5 +1,6 @@
 import { ToastMessage } from "../../../../component/export-component"
 import ConfigAPI from "../../../../config/configApi"
+import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"
 import { CourseLessonItem, LessonItem } from "./da"
 
@@ -9,6 +10,18 @@ export class LessonController {
         if (response) {
             if (response.code === 200) {
                 return response.data as Array<LessonItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getListSimple = async (params?: FilterListSimpleBody) => {
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl +'LessonAuth/GetListSimpleByRequestBase', params)
+        if (response) {
+            if (response.code === 200) {
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }

@@ -224,10 +224,10 @@ export default function ViewCourseDetails() {
                     setData(res)
                 }
             })
-            RatingController.getRateOfProduct([id]).then(rateRes => {
-                if (rateRes?.length) setRateDetails(rateRes[0])
-            })
             if (isLogin) {
+                RatingController.getRateOfProduct([id]).then(rateRes => {
+                    if (rateRes?.length) setRateDetails(rateRes[0])
+                })
                 OrderController.getListSimpleDetails({ filter: [{ field: 'productId', operator: '=', value: id }] }).then(res => {
                     if (res?.data?.length && res.data[0].isPay) {
                         CustomerLessonController.getListSimple({ page: 1, take: 200, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(progressRes => {

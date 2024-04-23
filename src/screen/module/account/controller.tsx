@@ -30,7 +30,7 @@ export class AccountController {
         } else if (response.code === 404) {
             ToastMessage.errors('Phiên đăng nhập của bạn đã hết hạn')
             Ultis.clearStorage()
-            window.location.href = '/' + window.location.pathname.split('/')[1]
+            window.location.reload()
         } else {
             ToastMessage.errors(response.message)
         }
@@ -50,11 +50,7 @@ export class AccountController {
                 setToken(res.data.token)
                 setRefreshToken(res.data.refreshToken)
                 await CustomerController.getInfor()
-                if(window.location.pathname.startsWith('/social/education') && CustomerController.userInfor()?.type === CustomerType.expert) {
-                    window.location.href = '/'
-                } else {
-                    window.location.reload()
-                }
+                window.location.reload()
             } else {
                 ToastMessage.errors(res.message)
             }

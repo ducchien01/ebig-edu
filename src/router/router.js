@@ -75,6 +75,6 @@ export const getcomponentRouter = (moduleCode) => {
         // case "product-management":
         // return <ProductView />;
         default:
-            break;
+            return <SocialHome />
     }
 };

@@ -25,7 +25,7 @@ export default function SideBar({ menu }) {
     useEffect(() => {
         const newSelectedList = menu.filter(e => {
             if (e.parentId === 1) e.isExpand ??= true
-            return location.pathname.startsWith('/' + e.link);
+            return location.pathname === '/' ? e.link.includes('social') : location.pathname.startsWith('/' + e.link);
         })
         setSelected(newSelectedList)
     }, [location.pathname])

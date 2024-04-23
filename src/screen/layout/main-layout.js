@@ -19,6 +19,11 @@ export default function MainLayout({ menu }) {
             <SideBar menu={menu} />
             <div className="view col">
                 <Routes>
+                    <Route
+                        path={''}
+                        element={getcomponentRouter()}
+                        exact
+                    />
                     {modules.filter(e => modules.every(el => e.id !== el.parentId)).map(function (prop, key) {
                         return <Route
                             path={prop.path ?? prop.link}

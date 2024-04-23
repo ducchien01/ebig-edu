@@ -61,7 +61,7 @@ export default function QuestionManagment() {
         getData()
     }, [])
 
-    return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '1.2rem', padding: '2.4rem 3.2rem' }}>
+    return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '0.8rem', padding: '2.4rem 3.2rem 0 3.2rem' }}>
         <Popup ref={ref} />
         <Dialog ref={dialogRef} />
         <div className="row" style={{ justifyContent: 'space-between' }}>

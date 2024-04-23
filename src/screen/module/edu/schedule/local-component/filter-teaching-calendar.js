@@ -1,45 +1,22 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Calendar, Popup, Text, showPopup } from "../../../../../component/export-component"
 import demoBanner5 from '../../../../../assets/demo-image5.png'
 import WeekCalendar from "../../../../../project-component/week-calendar"
 
-const demoList = [
-    {
-        time: new Date('Mar 12 2024 14:00'),
-        duration: 195,
-        name: 'Toán cao cấp đại học'
-    },
-    {
-        time: new Date('Mar 14 2024 9:00'),
-        duration: 60,
-        name: 'Mentee Trần Đăng Quân'
-    },
-    {
-        time: new Date('Mar 15 2024 14:00'),
-        duration: 195,
-        name: 'Toán cao cấp đại học'
-    },
-    {
-        time: new Date('Mar 14 2024 20:00'),
-        duration: 60,
-        name: 'Mentee Trần Đăng Quân'
-    },
-]
-
-export default function Teachingcalendar() {
+export default function Teachingcalendar({ listData = [] }) {
     const [openSchedule, setOpenSchedule] = useState(true)
     const [activeScheduleTab, setActiveScheduleTab] = useState(0)
 
     const renderUICalendar = () => {
         switch (activeScheduleTab) {
             case 0:
-                return <CalendarShowDate />
+                return <CalendarShowDate listData={listData} />
             case 1:
-                return <CalendarShowWeek />
+                return <CalendarShowWeek listData={listData} />
             case 2:
-                return <CalendarShowMonth />
+                return <CalendarShowMonth listData={listData} />
             default:
                 return <div></div>
         }
@@ -63,14 +40,26 @@ export default function Teachingcalendar() {
     </div>
 }
 
-const CalendarShowDate = () => {
+const CalendarShowDate = ({ listData }) => {
     const now = new Date()
     const [selectDate, setSelectDate] = useState(now)
 
     return <div className="row" style={{ alignItems: 'start' }}>
         <div className="col" style={{ width: '100%', flex: 1 }}>
             <div className="heading-7">{`Tháng ${selectDate.getMonth() + 1} ${selectDate.getFullYear()}`}</div>
-            <WeekCalendar onlyDate initDate={selectDate} listData={demoList} minTime={7} maxTime={24} />
+            <WeekCalendar onlyDate initDate={selectDate} listData={listData} minTime={7} maxTime={24} renderUIInTime={(vl) => {
+                let startTime = new Date(vl.time)
+                let endTime = new Date(vl.time)
+                endTime.setMinutes(endTime.getMinutes() + vl.duration)
+                return <div className="col" style={{ width: '100%', height: '100%', padding: '0.8rem', backgroundColor: 'var(--primary-background)', borderLeft: '2px solid  var(--primary-color)', borderRadius: '0.8rem 0 0 0.8rem' }}>
+                    {vl.name ? <Text maxLine={2} className="heading-9" style={{ color: 'var(--primary-color)', width: '100%' }}>
+                        {vl.name}
+                    </Text> : null}
+                    <Text maxLine={2} className="regular0" style={{ color: 'var(--primary-color)', width: '100%' }}>
+                        {`${startTime.getHours() > 9 ? startTime.getHours() : `0${startTime.getHours()}`}:${startTime.getMinutes() > 9 ? startTime.getMinutes() : `0${startTime.getMinutes()}`}-${endTime.getHours() > 9 ? endTime.getHours() : `0${endTime.getHours()}`}:${endTime.getMinutes() > 9 ? endTime.getMinutes() : `0${endTime.getMinutes()}`}`}
+                    </Text>
+                </div>
+            }} />
         </div>
         <div className="col" style={{ padding: '0 2.4rem', gap: '2.4rem', alignItems: 'center', width: '36.6rem' }}>
             <Calendar value={now} onSelect={(ev) => { setSelectDate(ev) }} />
@@ -90,15 +79,27 @@ const CalendarShowDate = () => {
     </div>
 }
 
-const CalendarShowWeek = () => {
+const CalendarShowWeek = ({ listData }) => {
     const now = new Date()
     return <div className="col" style={{ width: '100%' }}>
         <div className="row heading-7" style={{ padding: '0.8rem 0' }}>{`Tháng ${now.getMonth() + 1} ${now.getFullYear()}`}</div>
-        <WeekCalendar listData={demoList} minTime={7} maxTime={24} />
+        <WeekCalendar listData={listData} minTime={7} maxTime={24} renderUIInTime={(vl) => {
+            let startTime = new Date(vl.time)
+            let endTime = new Date(vl.time)
+            endTime.setMinutes(endTime.getMinutes() + vl.duration)
+            return <div className="col" style={{ width: '100%', height: '100%', padding: '0.8rem', backgroundColor: 'var(--primary-background)', borderLeft: '2px solid  var(--primary-color)', borderRadius: '0.8rem 0 0 0.8rem' }}>
+                {vl.name ? <Text maxLine={2} className="heading-9" style={{ color: 'var(--primary-color)', width: '100%' }}>
+                    {vl.name}
+                </Text> : null}
+                <Text maxLine={2} className="regular0" style={{ color: 'var(--primary-color)', width: '100%' }}>
+                    {`${startTime.getHours() > 9 ? startTime.getHours() : `0${startTime.getHours()}`}:${startTime.getMinutes() > 9 ? startTime.getMinutes() : `0${startTime.getMinutes()}`}-${endTime.getHours() > 9 ? endTime.getHours() : `0${endTime.getHours()}`}:${endTime.getMinutes() > 9 ? endTime.getMinutes() : `0${endTime.getMinutes()}`}`}
+                </Text>
+            </div>
+        }} />
     </div>
 }
 
-const CalendarShowMonth = () => {
+const CalendarShowMonth = ({ listData }) => {
     const ref = useRef()
     const now = new Date()
     const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)

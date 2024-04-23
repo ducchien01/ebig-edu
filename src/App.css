@@ -830,6 +830,7 @@ button * {
 .tab-header>.tab-btn.selected {
     background-color: #ffffff;
     color: var(--primary-color);
+    pointer-events: none !important;
 }
 
 .tab-header-2 {
@@ -853,7 +854,7 @@ button * {
 }
 
 .tab-container {
-    gap: 4rem;
+    gap: 2rem;
 }
 
 .submit-popup-btn {

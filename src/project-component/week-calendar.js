@@ -62,7 +62,7 @@ const WeekCalendar = ({
             </div>
             {onlyDate ?
                 <div className="col date-time-col" style={{ height: `${(maxTime - minTime) * 6 * 0.8}rem` }}>
-                    {list.filter(e => e.time.getDay() === initDate.getDay()).map((e, j) => {
+                    {list.filter(e => (typeof e.time === "number" ? (new Date(e.time)) : e.time).getDay() === initDate.getDay()).map((e, j) => {
                         let convertTime = typeof e.time === "number" ? (new Date(e.time)) : e.time
                         let endMinutes = convertTime.getMinutes() + ((e.duration ?? 0) % 60)
                         let endTime = convertTime.getHours() + Math.floor((e.duration ?? 0) / 60)

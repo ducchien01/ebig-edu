@@ -1,9 +1,10 @@
-import { CourseItem } from "../course/da";
-
-export interface MentorItem extends CourseItem {
+export interface MentorItem {
+    id?: string,
+    name?: string,
+    dateCreated?: number,
     content?: string,
-    courseId?: string,
     startDate?: number,
     endDate?: number,
-    schedule?: string, // BE chưa thêm
+    price?: number,
+    customerId?: string
 }

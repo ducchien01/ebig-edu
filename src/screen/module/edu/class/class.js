@@ -15,7 +15,7 @@ export default function SchoolClass() {
         showPopup({
             ref: ref,
             heading: <div className='popup-header heading-7'>Tạo mới class</div>,
-            style: { width: '148rem' },
+            style: { width: '152rem' },
             content: <PopupSettingsClass ref={ref} classItem={classItem} onChange={getData} />
         })
     }
@@ -30,7 +30,7 @@ export default function SchoolClass() {
         getData()
     }, [])
 
-    return <div className='col view-container' style={{ flex: 1, height: '100%', width: '100%', padding: '2.4rem 3.2rem', overflow: 'hidden auto' }}>
+    return <div className='col view-container' style={{ flex: 1, height: '100%', width: '100%', padding: '0.4rem 3.2rem 1.6rem', overflow: 'hidden auto' }}>
         <Popup ref={ref} />
         <div className='col'>
             <div className="view-header row" style={{ border: 'none' }}>

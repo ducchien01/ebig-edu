@@ -41,9 +41,9 @@ export class MentorController {
         return null
     }
 
-    static addAuth = async (mentorItem: MentorItem) => {
+    static addAuth = async (mentorItemList: Array<MentorItem>) => {
         const response = await postData(ConfigAPI.ebigUrl + 'MentorAuth/Action?action=add', {
-            data: { data: mentorItem }
+            data: { data: mentorItemList ?? [] }
         })
         if (response) {
             if (response.code === 200) {
@@ -58,8 +58,7 @@ export class MentorController {
     static editAuth = async (mentorItem: MentorItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'MentorAuth/Action?action=edit', {
             data: {
-                id: mentorItem.id,
-                data: mentorItem
+                data: [mentorItem]
             }
         })
         if (response) {

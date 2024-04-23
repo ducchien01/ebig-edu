@@ -1,0 +1,27 @@
+.input-time-range-container {
+    gap: 0.8rem;
+    overflow: visible;
+    position: relative;
+}
+
+.input-time-range-container>button {
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    left: -0.4rem;
+    top: 50%;
+    transform: translate(-100%, -50%);
+}
+
+.input-end-time .text-field-container.helper-text::after {
+    content: attr(helper-text);
+    color: var(--helper-text-color);
+    position: absolute;
+    right: 0;
+    left: unset !important;
+    bottom: 0 !important;
+    width: max-content;
+    font: inherit 1.2rem / 1.6rem 'Inter';
+    /* text-align: end; */
+    transform: translate(7.5%, 92.5%) scale(0.85) !important;
+}

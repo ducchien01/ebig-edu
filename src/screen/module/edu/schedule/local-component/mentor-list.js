@@ -3,7 +3,7 @@ import avatarDemo2 from '../../../../../assets/demo-avatar2.png';
 import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from '../../../../../component/export-component';
 import demoAvatar from '../../../../../assets/demo-avatar1.png'
 
-export default function MeentorList() {
+export default function MentorList() {
     const list = [
         {
             title: 'Coach 1:1 Phân tích dữ liệu dành cho beginner',

@@ -11,11 +11,13 @@ import { studentLevelList } from "../../../../../assets/const/const-list";
 import { CourseController } from "../controller";
 import ConfigAPI from "../../../../../config/configApi";
 import { uploadFiles } from "../../../../baseDA";
+import { CategoryController } from "../../../category/controller";
 
 export default function Overview({ data, onChangeRequired }) {
-    const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }], test: 'hjdsgfyds' } })
+    const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }] } })
     const [listTopic, setListTopic] = useState([])
     const [listTag, setListTag] = useState([])
+    const [listCate, setListCate] = useState([])
 
     const onChangeData = () => {
         let courseData = { ...data, ...getValues() }
@@ -27,6 +29,8 @@ export default function Overview({ data, onChangeRequired }) {
         }
         if (courseData.price && typeof courseData.price === 'string') {
             courseData.price = parseFloat(courseData.price.replaceAll(",", ''))
+        } else {
+            courseData.price = 0
         }
         delete courseData.pictureFile
         delete courseData.thumbnailFile
@@ -43,6 +47,7 @@ export default function Overview({ data, onChangeRequired }) {
             TagController.getAll().then(res => {
                 if (res) setListTag(res)
             })
+        CategoryController.getAll()
             Object.keys(data).forEach(props => {
                 if (data[props] != null) {
                     if (props === 'targets') {
@@ -144,7 +149,7 @@ export default function Overview({ data, onChangeRequired }) {
                     label={'Giới thiệu tổng quan'}
                     placeholder={'Giới thiệu ngắn gọn về khóa học'}
                     onBlur={onChangeData}
-                    style={{height: '14rem'}}
+                    style={{ height: '14rem' }}
                 />
                 <Select1Form
                     required
@@ -185,7 +190,7 @@ export default function Overview({ data, onChangeRequired }) {
                     label={'Khóa học phù hợp với ai?'}
                     placeholder={'Mô tả chi tiết hơn về đối tượng khóa học nhắm đến'}
                     onBlur={onChangeData}
-                    style={{height: '14rem'}}
+                    style={{ height: '14rem' }}
                 />
                 <div className="col" style={{ padding: '1.2rem 0', gap: '2rem' }}>
                     <SwitchForm control={control} label={'Cấp chứng chỉ cho học viên hoàn thành'} value={watch('isCertificate')} name={'isCertificate'} onChange={onChangeData} />

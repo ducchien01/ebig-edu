@@ -47,8 +47,8 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
             var endTime = new Date(dayWeekValue.time)
             endTime.setMinutes(endTime.getMinutes() + dayWeekValue.duration)
         }
-        return <div key={'dw-' + i} className="row" style={{ height: '5.6rem', gap: '0.8rem', padding: '1.2rem 1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--light-background)' }}>
-            <div className="row" style={{ gap: 4, width: '9.8rem' }}>
+        return <div key={'dw-' + i} className="row" style={{ gap: '0.8rem', padding: '1.6rem 1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--background)' }}>
+            <div className="row" style={{ gap: '0.4rem', width: '8.8rem' }}>
                 <Checkbox value={dayWeekValue != null} size={'1.6rem'} onChange={(vl) => {
                     let schedule = methods.getValues('schedule')
                     if (vl) {
@@ -60,7 +60,7 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
                 }} />
                 <Text className="label-3">{dayWeekTitle}</Text>
             </div>
-            {dayWeekValue ? <div className="row" style={{ flex: 1, gap: '1.2rem' }}>
+            {dayWeekValue ? <div className="row input-time-range-container" style={{ flex: 1 }}>
                 <InputTime
                     style={{ flex: 1 }}
                     defaultValue={startTime ? `${startTime.getHours() > 9 ? startTime.getHours() : `0${startTime.getHours()}`}:${startTime.getMinutes() > 9 ? startTime.getMinutes() : `0${startTime.getMinutes()}`}` : '07:00'}
@@ -69,21 +69,29 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
                         startTime.setMinutes(minVl)
                         let schedule = methods.getValues('schedule')
                         methods.setValue('schedule', schedule.map(e => {
-                            if ((new Date(e.time)).getDay() === i) e.time = startTime.getTime()
+                            if ((new Date(e.time)).getDay() === i) {
+                                e.time = startTime.getTime()
+                                startTime.setMinutes(startTime.getMinutes() + e.duration)
+                                if (startTime.getDay() !== i) {
+                                    e.duration = differenceInMinutes(endTime, new Date(e.time))
+                                }
+                            }
                             return e
                         }))
                     }}
                 />
-                <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '1.6rem', color: '#00204D66' }} />
+                <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '1.4rem', color: '#00204D66' }} />
                 <InputTime
                     style={{ flex: 1 }}
+                    className={'input-end-time'}
                     defaultValue={endTime ? `${endTime.getHours() > 9 ? endTime.getHours() : `0${endTime.getHours()}`}:${endTime.getMinutes() > 9 ? endTime.getMinutes() : `0${endTime.getMinutes()}`}` : '07:00'}
+                    helperText={dayWeekValue.duration < 0 ? 'Giờ kết thúc phải lớn hơn giờ bắt đầu' : null}
                     onChange={(hoursVl, minVl) => {
                         endTime.setHours(hoursVl)
                         endTime.setMinutes(minVl)
                         let schedule = methods.getValues('schedule')
                         methods.setValue('schedule', schedule.map(e => {
-                            if ((new Date(e.time)).getDay() === i) e.duration = Math.abs(differenceInMinutes(startTime, endTime))
+                            if ((new Date(e.time)).getDay() === i) e.duration = differenceInMinutes(endTime, startTime)
                             return e
                         }))
                     }}
@@ -94,12 +102,34 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
 
     const onSubmit = (ev) => {
         let classData = ev
-        if (classData.startDate) classData.startDate = Ultis.stringToDate(classData.startDate).getTime()
-        if (classData.price?.length) classData.price = parseFloat(classData.price.replaceAll(',', ''))
-        if (classData.schedule) {
-            classData.content = JSON.stringify(classData.schedule)
-            delete classData.schedule
+        if (classData.startDate) {
+            var _startDate = Ultis.stringToDate(classData.startDate)
+            classData.startDate = _startDate.getTime()
         }
+        if (classData.price?.length) classData.price = parseFloat(classData.price.replaceAll(',', ''))
+        if (_startDate && classData.quantity) {
+            const _week = Math.floor(classData.quantity / classData.schedule.length)
+            const _remainDay = classData.quantity % classData.schedule.length
+            const _classDayList = classData.schedule.map(e => (new Date(e.time)).getDay()).sort((a, b) => a - b)
+            let _startDay = Math.min(..._classDayList.map(e => e >= _startDate.getDay()), 10)
+            if (_startDay === 10) {
+                _startDay = _classDayList[0]
+                _startDate.setDate(_startDate.getDate() + (_startDay + 7 - _startDate.getDay()))
+            } else {
+                _startDate.setDate(_startDate.getDate() + (_startDay - _startDate.getDay()))
+            }
+            const _index = _classDayList.indexOf(_startDay)
+            if (_index + _remainDay >= _classDayList.length) {
+                const _endDay = _classDayList[_index + _remainDay - _classDayList.length]
+                _startDate.setDate(_startDate.getDate() + (7 * _week) + (7 - _startDay + _endDay))
+            } else {
+                const _endDay = _classDayList[_index + _remainDay]
+                _startDate.setDate(_startDate.getDate() + (7 * _week) + (_endDay - _startDay))
+            }
+            classData.endDate = _startDate.getTime()
+        }
+        classData.content = JSON.stringify(classData.schedule)
+        delete classData.schedule
         if (data.classItem) {
             ClassController.edit([classData]).then(res => {
                 if (res) {
@@ -132,7 +162,13 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
                         } catch (error) {
                             console.log(error)
                         }
-                        methods.setValue('schedule', scheduleJson ?? [])
+                        methods.setValue('schedule', (scheduleJson ?? []).map(e => {
+                            const _time = new Date(e.time)
+                            return {
+                                time: (new Date(_now.getFullYear(), _now.getMonth(), _now.getDate() + _time.getDay() - _now.getDay(), _time.getHours(), _time.getMinutes())).getTime(),
+                                duration: e.duration
+                            }
+                        }))
                     } else if (props === 'price') {
                         methods.setValue(props, Ultis.money(data.classItem[props]))
                     } else {
@@ -211,7 +247,7 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
         </div>
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             <button className="button-text-3" style={{ color: '#00204D99' }} onClick={() => { closePopup(ref) }}>Hủy</button>
-            <button type="submit" onClick={methods.handleSubmit(onSubmit)} className={`row ${methods.watch('name') && methods.watch('price') ? 'button-primary' : 'button-disabled'}`}>
+            <button type="submit" onClick={methods.handleSubmit(onSubmit)} className={`row ${methods.watch('name') && methods.watch('price') && methods.watch('schedule').length && methods.watch('schedule').every(e => e.duration > 0) ? 'button-primary' : 'button-disabled'}`}>
                 <div className="button-text-3">{data.classItem ? 'Lưu' : 'Tạo mới'}</div>
             </button>
         </div>

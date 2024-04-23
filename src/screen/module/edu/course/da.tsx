@@ -1,6 +1,7 @@
 import { CourseLessonItem } from "../lesson/da"
 import { TagItem } from "../../tag/da"
-import { CateItem } from "../../category/da"
+import { ClassItem } from "../class/da"
+import { MentorItem } from "../mentor/da"
 
 export enum CourseStatus {
     draft = 0,
@@ -25,11 +26,18 @@ export interface CourseItem {
     customerId?: string,
     status?: number,
     price?: number,
+    quatity?: number,
     pictureId?: string,
-    thumbnailId?: string, // BE đang thiếu
-    quantity?: number, // BE đang thiếu
-    income?: number, // BE đang thiếu
-    courseCates?: Array<CateItem>,
+    thumbnailId?: string,
+    haveClass?: boolean,
+    haveMentor?: boolean,
+    totalComment?: number,
+    totalRating?: number,
+    countLesson?: number,
+    countLessonUsed?: number,
+    cateId?: string,
     courseTags?: Array<TagItem>,
     courseLessons?: Array<CourseLessonItem>,
+    classes?: Array<ClassItem>,
+    mentors?: Array<MentorItem>,
 }

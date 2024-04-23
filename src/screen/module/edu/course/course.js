@@ -10,7 +10,7 @@ import { CustomerController } from '../../customer/controller'
 
 export default function SchoolCourse() {
     const ref = useRef()
-    const [activeFilterTab, setActiveFilterTab] = useState(0)
+    const [activeFilterTab, setActiveFilterTab] = useState(null)
     const [data, setData] = useState([])
     const [total, setTotal] = useState(0)
 
@@ -23,16 +23,21 @@ export default function SchoolCourse() {
     }
 
     const getData = async (status) => {
-        status ??= activeFilterTab
         let filter = []
-        if (status > 0) {
+        if (status != null) {
             filter = [{ field: 'status', operator: '=', value: status }]
         }
         filter.push({ field: 'customerId', operator: '=', value: CustomerController.userInfor().id })
-        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 20)) + 1, take: 20, filter: filter })
+        const page = Math.floor((data.length / 20)) + 1
+        const res = await CourseController.getListSimple({ page: page, take: 20, filter: filter })
         if (res) {
             if (total !== res.totalCount) setTotal(res.totalCount)
-            setData([...data, ...res.data])
+            if (status !== activeFilterTab) {
+                setActiveFilterTab(status)
+                setData(res.data)
+            } else {
+                setData([...data, ...res.data])
+            }
         }
     }
 
@@ -40,7 +45,7 @@ export default function SchoolCourse() {
         getData()
     }, [])
 
-    return <div className='col view-container' style={{ width: '100%', height: '100%', flex: 1, padding: '2.4rem 3.2rem' }}>
+    return <div className='col view-container' style={{ width: '100%', height: '100%', flex: 1, padding: '0.4rem 3.2rem 1.6rem 3.2rem', overflow: 'hidden auto' }}>
         <Popup ref={ref} />
         <div className='col'>
             <div className="view-header row" style={{ border: 'none' }}>
@@ -52,17 +57,14 @@ export default function SchoolCourse() {
             </div>
             <div className="col tab-container">
                 <div className="tab-header-2 row">
-                    <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => {
-                        setActiveFilterTab(0)
-                        getData(0)
-                    }}>Tất cả ({total < 10 ? `0${total}` : total})</div>
+                    <div className={`tab-btn label-4 row ${activeFilterTab == null ? 'selected' : ''}`} onClick={() => {
+                        getData(null)
+                    }}>Tất cả</div>
                     <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => {
-                        setActiveFilterTab(1)
                         getData(1)
                     }}>Đã xuất bản</div>
-                    <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => {
-                        setActiveFilterTab(2)
-                        getData(2)
+                    <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => {
+                        getData(0)
                     }}>Bản nháp</div>
                 </div>
                 <div className="tab-body-2 row">

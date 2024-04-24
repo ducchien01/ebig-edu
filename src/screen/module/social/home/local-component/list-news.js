@@ -2,7 +2,6 @@ import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
 import { InfiniteScroll, Popup, Text, showPopup } from "../../../../../component/export-component"
 import avatarDemo from '../../../../../assets/demo-avatar.png'
-import thumbnailDemo from '../../../../../assets/demo-image3.png'
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
 import { TopicController } from "../../../topic/controller"
 import { PostCard } from "../../../../../project-component/card"
@@ -11,6 +10,7 @@ import { useForm } from "react-hook-form"
 import { uuidv4 } from "../../../../../Utils"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons"
+import ConfigAPI from "../../../../../config/configApi"
 
 export default function ListNews({ isLogin = false }) {
     const ref = useRef()
@@ -62,7 +62,7 @@ export default function ListNews({ isLogin = false }) {
             // })
         }} className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-                <div className="col col24 col20-xxl" style={{ padding: '3.2rem', gap: '4rem', '--gutter': '0px' }}>
+                <div className="col col24 col20-xxl" style={{ padding: '2rem 3.2rem', gap: '2.4rem', '--gutter': '0px' }}>
                     {isLogin && <div className="row filter-news-container">
                         <button type="button" className="row">
                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
@@ -85,9 +85,9 @@ export default function ListNews({ isLogin = false }) {
                             return <PostCard
                                 key={'new-' + i}
                                 className="row"
-                                style={{ gap: '4.8rem' }}
-                                to={`news/${item.id}`}
-                                imgUrl={thumbnailDemo}
+                                style={{ gap: '4rem', alignItems: 'start' }}
+                                to={`social/news/${item.id}`}
+                                imgUrl={ConfigAPI.imgUrl + item.pictureId}
                                 imgStyle={{ width: '16.2rem', height: '16.2rem' }}
                                 heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
                                     <img src={avatarDemo} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
@@ -97,8 +97,8 @@ export default function ListNews({ isLogin = false }) {
                                     <div className="label-4">.</div>
                                     <Text className="subtitle-3">12 tháng 09</Text>
                                 </div>}
-                                title={'Dishonest fonts, sustainable design, how to be strategic, color with gen AI'}
-                                content={`“I couldn't stop thinking about the thought process of turning to social media, emphasis on the social, and asking no one to talk to you. This idea — that we can safely expect to insulate ourselves from responses to our posts is indicative of how rapidly the social media environment has changed in the just three years.”`}
+                                title={item.title}
+                                content={item.description}
                                 actions={<div className="row" style={{ gap: '1.2rem', width: '100%' }}>
                                     <div className="tag-disabled row">
                                         <div className="button-text-3">{topicList.find(e => e.id === item.topicId)?.name ?? ''}</div>

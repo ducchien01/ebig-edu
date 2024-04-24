@@ -21,6 +21,7 @@ import ExamManagment from "../screen/module/edu/exam/exam";
 import SettingsExam from "../screen/module/edu/exam/local-component/settings-details";
 import QuestionManagment from "../screen/module/edu/question/question";
 import SettingsQuestion from "../screen/module/edu/question/local-component/settings-details";
+import SettingsNews from "../screen/module/social/new/local-component/settings-details";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -28,6 +29,10 @@ export const getcomponentRouter = (moduleCode) => {
             return <SocialHome />
         case 'social/news':
             return <SocialHome />
+        case 'social/news/create':
+            return <SettingsNews />
+        case 'social/news/edit':
+            return <SettingsNews />
         case 'discovery':
             return <SocialDiscoveryView />
         case 'discovery/topic':

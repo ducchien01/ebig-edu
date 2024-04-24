@@ -1,20 +1,23 @@
 import { FilledSEdit } from "../../../../assets/const/icon"
-import { Text, TextField } from "../../../../component/export-component"
+import { Popup, Text, TextField, showPopup } from "../../../../component/export-component"
 import { AccountController } from "../../account/controller"
 import avatarDemo from '../../../../assets/demo-avatar.png'
-import { NavLink, useLocation, useParams } from "react-router-dom"
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import './home.css'
 import ListNews from "./local-component/list-news"
 import ListExpertByTopic from "./local-component/list-expert"
 import NewsDetails from "../new/news-details"
 import SidebarActions from "../../../layout/sidebar/sidebar-actions"
+import PopupLogin from "../../account/popup-login"
 
 export default function SocialHome() {
     const { id } = useParams()
     const location = useLocation()
+    const navigate = useNavigate()
+    const ref = useRef()
     const isLogin = AccountController.token()
     const [selectedTab, setSelectedTab] = useState(0)
 
@@ -23,6 +26,7 @@ export default function SocialHome() {
     }, [location.pathname])
 
     return <div className="row" style={{ flex: 1 }}>
+        <Popup ref={ref} />
         <div className="col body-sidebar" >
             <TextField
                 prefix={<FontAwesomeIcon icon={faSearch} />}
@@ -32,7 +36,16 @@ export default function SocialHome() {
             />
             <div className="row">
                 <Text maxLine={1} style={{ flex: 1, width: '100%' }} className="heading-6">Bảng tin</Text>
-                <button type="button" className="row button-infor" style={{ backgroundColor: 'transparent' }}>
+                <button type="button" onClick={() => {
+                    if (isLogin) {
+                        navigate('social/news/create')
+                    } else {
+                        showPopup({
+                            ref: ref,
+                            content: <PopupLogin ref={ref} />
+                        })
+                    }
+                }} className="row button-infor" style={{ backgroundColor: 'transparent' }}>
                     <FilledSEdit width="1.6rem" height="1.6rem" color="#366AE2" />
                     <div className="button-text-3">Tạo bài viết</div>
                 </button>

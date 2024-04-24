@@ -90,7 +90,7 @@ export default function ListComment({ rating = false }) {
                         placeholder="Bạn thấy khóa học này thế nào?"
                     />
                     <div className="row" style={{ width: '100%', justifyContent: 'end', padding: '0.4rem 1.6rem 0.8rem' }}>
-                        <button type="button" className={`row ${methods.watch('value') && methods.watch('message') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem' }} onClick={methods.handleSubmit(sendRating)}>
+                        <button type="button" className={`row ${(methods.watch('value') || !rating) && methods.watch('message') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem' }} onClick={methods.handleSubmit(sendRating)}>
                             <div className="button-text-3">Phản hồi</div>
                         </button>
                     </div>

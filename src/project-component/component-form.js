@@ -39,7 +39,6 @@ export function TextAreaForm({ label, register, required = false, name, placehol
             register={register(name, {
                 required: required,
                 onBlur: onBlur,
-                onChange: onChange,
             })}
             onFocus={onFocus}
             style={{ width: '100%', height: '100%', flex: 1 }}

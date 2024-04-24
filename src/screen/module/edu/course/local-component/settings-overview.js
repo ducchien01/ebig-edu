@@ -12,6 +12,7 @@ import { CourseController } from "../controller";
 import ConfigAPI from "../../../../../config/configApi";
 import { uploadFiles } from "../../../../baseDA";
 import { CategoryController } from "../../../category/controller";
+import { CustomerController } from "../../../customer/controller";
 
 export default function Overview({ data, onChangeRequired }) {
     const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }] } })
@@ -47,7 +48,9 @@ export default function Overview({ data, onChangeRequired }) {
             TagController.getAll().then(res => {
                 if (res) setListTag(res)
             })
-        CategoryController.getAll()
+            CategoryController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
+                if (res) setListCate(res.data)
+            })
             Object.keys(data).forEach(props => {
                 if (data[props] != null) {
                     if (props === 'targets') {
@@ -181,6 +184,15 @@ export default function Overview({ data, onChangeRequired }) {
                     name={'level'}
                     value={watch('level')}
                     options={studentLevelList}
+                    onChange={onChangeData}
+                />
+                <Select1Form
+                    control={control}
+                    errors={errors}
+                    label={'Phân loại danh mục'}
+                    name={'cateId'}
+                    value={watch('cateId')}
+                    options={listCate}
                     onChange={onChangeData}
                 />
                 <TextAreaForm

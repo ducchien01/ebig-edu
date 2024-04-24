@@ -165,6 +165,21 @@ export const extendView = [
         link: 'social/news',
     },
     {
+        name: 'news details',
+        path: 'social/news/:id',
+        link: 'social/news',
+    },
+    {
+        name: 'news add edit',
+        path: 'social/news/create',
+        link: 'social/news/create',
+    },
+    {
+        name: 'news add edit',
+        path: 'social/news/edit/:id',
+        link: 'social/news/edit',
+    },
+    {
         name: 'topic details',
         path: 'discovery/topic/:id',
         link: 'social/discovery/topic',
@@ -260,11 +275,19 @@ export const editorConfiguration = {
             'undo', 'redo',
             '|', 'imageUpload',
             '|', 'heading',
+            '|', 'fontSize',
             '|', 'bold', 'italic',
+            '|', 'bulletedList',
             '|', 'link', 'blockQuote', 'codeBlock',
             '|', 'ckbox'
         ],
-        shouldNotGroupWhenFull: false
+        shouldNotGroupWhenFull: false,
+        // fontSize: {
+        //     options: [
+        //         12, 14, 16, 18, 20
+        //     ],
+        //     supportAllValues: true
+        // },
     },
     // ckbox: {
     //     tokenUrl: "https://file-mamager.wini.vn/",

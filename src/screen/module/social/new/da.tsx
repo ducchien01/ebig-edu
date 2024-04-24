@@ -1,4 +1,3 @@
-import { CateItem } from "../../category/da";
 import { TagItem } from "../../tag/da";
 
 export interface NewItem {
@@ -25,6 +24,11 @@ export interface NewItem {
     customerId?: string,
     topicId?: string,
     status?: number,
-    newsCates?: Array<CateItem>,
+    cateId?: string,
     newsTags?: Array<TagItem>,
+}
+
+export enum NewStatus {
+    draft = 0,
+    published = 1
 }

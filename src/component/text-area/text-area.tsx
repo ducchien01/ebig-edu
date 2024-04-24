@@ -12,6 +12,7 @@ interface TextAreaProps {
     placeholder?: string,
     disabled?: boolean,
     readOnly?: boolean,
+    autoFocus?: boolean,
     className?: string,
     helperText?: string,
     name?: string,
@@ -28,6 +29,7 @@ export class TextArea extends React.Component<TextAreaProps> {
         >
             {this.props.register ?
                 <textarea
+                    autoFocus={this.props.autoFocus}
                     {...this.props.register}
                     maxLength={this.props.maxLength}
                     name={this.props.name}
@@ -35,7 +37,9 @@ export class TextArea extends React.Component<TextAreaProps> {
                     readOnly={this.props.readOnly}
                     disabled={this.props.disabled}
                     onFocus={this.props.onFocus}
+                    onChange={this.props.onChange}
                 /> : <textarea
+                    autoFocus={this.props.autoFocus}
                     maxLength={this.props.maxLength}
                     name={this.props.name}
                     defaultValue={this.props.defaultValue}

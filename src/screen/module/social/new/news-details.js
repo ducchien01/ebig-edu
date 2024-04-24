@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom"
 import ListExpertByTopic from "../home/local-component/list-expert"
 import { OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
 import './news.css'
+import ListComment from "./local-component/list-comment"
 
 export default function NewsDetails({ id, isLogin = false }) {
     const [data, setData] = useState()
@@ -15,13 +16,13 @@ export default function NewsDetails({ id, isLogin = false }) {
             if (res) setData(res)
         })
     }, [])
-    
+
     return data ? <>
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
                 <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem 2rem', gap: '4rem', '--gutter': '0px' }}>
                     <div className="col" style={{ gap: '1.6rem' }}>
-                        <Text className="heading-3" maxLine={2} style={{ width: '100%' }}>Bắc Cực đang ấm lên nhanh hơn gần 4 lần so với phần còn lại của thế giới</Text>
+                        <Text className="heading-3" maxLine={2} style={{ width: '100%' }}>{data.title}</Text>
                         <div className="row" style={{ gap: '0.8rem' }}>
                             <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>#Thiết kế trải nghiệm người dùng</Text>
                             <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>#UIUX</Text>
@@ -60,6 +61,7 @@ export default function NewsDetails({ id, isLogin = false }) {
                             <button><OutlineSharing width="2rem" height="2rem" /></button>
                         </div>
                     </div>
+                    <ListComment />
                 </div>
             </div>
         </div>

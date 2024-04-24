@@ -1,9 +1,9 @@
 import React, { CSSProperties } from "react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import type { Editor, EditorConfig } from '@ckeditor/ckeditor5-core';
 import type { EventInfo } from '@ckeditor/ckeditor5-utils';
 import './ck-editor.css'
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 interface CKEditorProps<TEditor extends Editor> {
     config?: EditorConfig,

@@ -42,7 +42,7 @@ export default function ListAllCourse() {
         getData()
     }, [])
 
-    return <div className="col" style={{ gap: '2.4rem', flex: 1 }}>
+    return <div className="col" style={{ gap: '2rem', flex: 1 }}>
         <Text className="heading-4">Khám phá tất cả khoá học</Text>
         <div className="row" style={{ gap: '3.2rem', padding: '1.2rem 0', width: '100%', borderTop: 'var(--border-grey1)', borderBottom: 'var(--border-grey1)' }}>
             <div className="row" style={{ flex: 1 }}>

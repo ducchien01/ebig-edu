@@ -139,7 +139,7 @@ const HomeAuth = () => {
                 { field: 'statusPayment', operator: '=', value: 2 }
             ]
         }).then(async (res) => {
-            if (res) {
+            if (res?.data?.length) {
                 const courseIds = res.data.map(e => e.orderDetails).reduce((a, b) => a.concat(b)).filter(e => e.type === OrderType.course).map(e => e.productId)
                 const myCoursesRes = await CourseController.getLearningProgressByIds(courseIds)
                 if (myCoursesRes) {
@@ -175,7 +175,7 @@ const HomeAuth = () => {
                 <SidebarActions />
             </div>
         </div>
-        <div className='row' style={{ flex: 1, padding: '3.2rem 0', width: '100%', height: '100%', overflow: 'hidden auto', justifyContent: 'center', alignItems: 'start' }}>
+        <div className='row' style={{ flex: 1, padding: '2.4rem 0', width: '100%', height: '100%', overflow: 'hidden auto', justifyContent: 'center', alignItems: 'start' }}>
             <div className='col col24-md col24-sm col24-min' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
                 {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
                     {myCourses.map(e => {

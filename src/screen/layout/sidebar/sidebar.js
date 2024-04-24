@@ -35,7 +35,7 @@ export default function SideBar({ menu }) {
         <div className='col' style={{ flex: 1 }}>
             {menu.filter(e => e.parentId === 1).map((item, index) => {
                 const isSelected = selected.some(e => e.id === item.id)
-                return <NavLink key={`sidebar-item-${index}`} to={isSelected ? null : item.link} onClick={() => {
+                return <NavLink key={`sidebar-item-${index}`} to={isSelected ? null : (item.path ?? item.link)} onClick={() => {
                     if (isSelected) {
                         setIsExpand(!isExpand)
                     }

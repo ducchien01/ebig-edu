@@ -6,6 +6,7 @@ export const modules = [
         parentId: 1,
         name: 'Social',
         link: 'social',
+        path: '',
         icon: <OutlineHome width='2.4rem' height='2.4rem' />,
         selectedIcon: <FilledHome width='2.4rem' height='2.4rem' />,
     },

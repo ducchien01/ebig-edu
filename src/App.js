@@ -16,14 +16,6 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/*" element={<MainLayout menu={modules} />} />
-                    {/* <Route path="/social/*" element={<MainLayout menu={socialModules} />} />
-                    <Route path="/ecomerce/*" element={<MainLayout menu={[]} />} />
-                    {expertRole ? <Route path="/edu/*" element={<MainLayout menu={eduExpertModules} />} /> : null}
-                    {expertRole ? <Route path="/edu" element={<Navigate to={"/edu/dashboard"} replace />} /> : null}
-                    <Route path="/ecomerce" element={<Navigate to={"/ecomerce/home"} replace />} />
-                    <Route path="/social" element={<Navigate to={"/social/home"} replace />} />
-                    <Route path="/" element={<Navigate to={"/social/home"} replace />} />
-                    <Route path="/*" element={<Navigate to={"/social/home"} replace />} /> */}
                 </Routes>
             </BrowserRouter>
         </GoogleOAuthProvider>

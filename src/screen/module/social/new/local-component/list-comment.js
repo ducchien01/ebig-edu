@@ -6,6 +6,7 @@ import { CustomerController } from "../../../customer/controller"
 import { useForm } from "react-hook-form"
 import { Ultis } from "../../../../../Utils"
 import { OutlineChat, OutlineHeart } from "../../../../../assets/const/icon"
+import { LikeController } from "../../../like/controller"
 
 export default function ListComment({ rating = false }) {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })
@@ -120,20 +121,33 @@ export default function ListComment({ rating = false }) {
 
 const RatingCard = ({ ratingItem, showDivider = false, isRating = false, customer, user }) => {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })
+    const [data, setData] = useState()
     const [children, setChildren] = useState([])
     const [showReply, setShowReply] = useState(false)
     const [customerList, setCustomerList] = useState([])
     const [onReplying, setOnReplying] = useState(false)
 
     const getReply = async () => {
-        const res = await RatingController.getListSimple({ take: 20, filter: [{ field: 'ParentId', operator: "=", value: ratingItem.id }] })
+        const res = await RatingController.getListSimple({ page: Math.floor(children.length / 10) + 1, take: 10, filter: [{ field: 'parentId', operator: "=", value: ratingItem.id }] })
         if (res) {
             let customerIds = res.data.map(e => e.customerId).filter(id => customerList.every(e => e.id !== id))
             if (customerIds.length)
                 CustomerController.getByIds(customerIds).then(cusRes => {
                     if (cusRes) setCustomerList([...customerList, ...cusRes])
                 })
-            setChildren(res.data)
+            LikeController.getTotalLikeByIds(res.data.map(e => e.id)).then(likeRes => {
+                let newData = res.data
+                if (likeRes?.length) {
+                    newData = newData.map(e => {
+                        return {
+                            ...e,
+                            totalLike: likeRes.find(el => el.linkId === e.id)?.totalLike ?? 0
+                        }
+                    })
+                }
+                newData = [...children, ...newData.filter(e => children.every(el => el.id !== e.id))]
+                setChildren(newData)
+            })
         }
     }
 
@@ -142,23 +156,29 @@ const RatingCard = ({ ratingItem, showDivider = false, isRating = false, custome
             ...ev,
             dateCreated: (new Date()).getTime(),
             customerId: user?.id,
-            linkId: ratingItem.linkId,
-            parentId: ratingItem.id
+            linkId: data.linkId,
+            parentId: data.id
         }
         const newId = await RatingController.add(newReply)
         if (newId) {
             newReply.id = newId
+            setData({ ...data, totalRating: (data.totalRating ?? 0) + 1 })
             setChildren([newReply, ...children])
             setOnReplying(false)
             if (customerList.every(e => e.id !== user.id)) setCustomerList([...customerList, user])
         }
     }
 
+    const sendLike = async () => {
+
+    }
+
     useEffect(() => {
         if (customer && customerList.every(e => e.id !== customer.id)) setCustomerList([...customerList, customer])
+        setData(ratingItem)
     }, [customer])
 
-    return <div className="col" style={{ gap: '2.4rem' }}>
+    return data ? <div className="col" style={{ gap: '2.4rem' }}>
         {showDivider && <div className="col divider" style={{ width: '100%' }}></div>}
         <div className="col" style={{ gap: '0.8rem' }}>
             <div className="row">
@@ -166,16 +186,16 @@ const RatingCard = ({ ratingItem, showDivider = false, isRating = false, custome
                     <img src={customer?.avatarUrl} alt="" style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%' }} />
                     <Text className="label-3">{customer?.name}</Text>
                     <Text className="label-3">.</Text>
-                    <Text className="subtitle-3">{Ultis.datetoString(new Date(ratingItem.dateCreated))}</Text>
+                    <Text className="subtitle-3">{Ultis.datetoString(new Date(data.dateCreated))}</Text>
                 </div>
-                {isRating && <Rating value={ratingItem.value} />}
+                {isRating && <Rating value={data.value} />}
             </div>
-            <Text className="body-2" maxLine={2}>{ratingItem.message}</Text>
+            <Text className="body-2" maxLine={2}>{data.message}</Text>
         </div>
         <div className="row">
             <div className="row" style={{ flex: 1, gap: '0.8rem' }}>
                 <OutlineHeart width="2.4rem" height="2.4rem" />
-                <Text className="button-text-3">1,2k</Text>
+                <Text className="button-text-3">{data.totalLike ?? 0}</Text>
                 <Text className="label-4">.</Text>
                 <button onClick={async () => {
                     if (!showReply) {
@@ -184,7 +204,7 @@ const RatingCard = ({ ratingItem, showDivider = false, isRating = false, custome
                     setShowReply(!showReply)
                 }} className="row" style={{ gap: '0.8rem' }}>
                     <OutlineChat width="2.4rem" height="2.4rem" />
-                    <Text className="button-text-3">{showReply ? 'Đóng bình luận' : '1,2k'}</Text>
+                    <Text className="button-text-3">{showReply ? 'Đóng bình luận' : (data.totalRating ?? 0)}</Text>
                 </button>
             </div>
             {!onReplying && <button onClick={() => { setOnReplying(true) }} className="button-text-3" style={{ color: 'var(--primary-color)' }}>Phản hồi</button>}
@@ -225,10 +245,11 @@ const RatingCard = ({ ratingItem, showDivider = false, isRating = false, custome
                     <Text className="body-2" maxLine={2}>{child.message}</Text>
                     <div className="row" style={{ paddingTop: '1.6rem', gap: '0.8rem' }}>
                         <OutlineHeart width="2.4rem" height="2.4rem" />
-                        <Text className="button-text-3">1,2k</Text>
+                        <Text className="button-text-3">{child.totalLike ?? 0}</Text>
                     </div>
                 </div>
             })}
+            {data.totalRating !== children.length ? <Text onClick={getReply} className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm</Text> : null}
         </div> : null}
-    </div>
+    </div> : <></>
 }

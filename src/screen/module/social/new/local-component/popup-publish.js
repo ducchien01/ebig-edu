@@ -18,18 +18,18 @@ const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
     const [listCate, setListCate] = useState([])
 
     const submitPublishNew = (ev) => {
-        let newData = {...data.item, ...ev} 
+        let newData = { ...data.item, ...ev }
         delete newData.picture
-        if(newData.id) {
+        if (newData.id) {
             NewController.edit(newData).then(res => {
-                if(res) {
-                    ToastMessage.success('Đăng bài viết thành công')
+                if (res) {
+                    ToastMessage.success('Chỉnh sửa bài viết thành công')
                     navigate('/')
                 }
             })
         } else {
             NewController.add(newData).then(res => {
-                if(res) {
+                if (res) {
                     ToastMessage.success('Đăng bài viết thành công')
                     navigate('/')
                 }
@@ -46,6 +46,9 @@ const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
         })
         CategoryController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
             if (res) setListCate(res.data)
+        })
+        Object.keys(data.item).forEach(props => {
+            methods.setValue(props, data.item[props])
         })
     }, [])
 

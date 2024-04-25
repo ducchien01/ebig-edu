@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { NewController } from "../controller";
 import { editorConfiguration } from "../../../../../assets/const/const-list";
 import PopupPublishNews from "./popup-publish";
+import { FilledTrashCan } from "../../../../../assets/const/icon";
 
 export default function SettingsNews() {
     const { id } = useParams()
@@ -60,10 +61,19 @@ export default function SettingsNews() {
                             }, 100)
                         }}
                     /> : <Text onClick={() => { setEditTitle(true) }} style={{ width: '100%', wordBreak: 'break-word', opacity: methods.watch('title') ? 1 : 0.6 }} className="heading-4" maxLine={10}>{methods.watch('title') ?? 'Nhập tiêu đề bài viết ...'}</Text>}
-                    {methods.watch('pictureId') ? <img
-                        src={ConfigAPI.imgUrl + methods.getValues('pictureId')}
-                        alt=""
-                    /> : <ImportFileForm
+                    {methods.watch('pictureId') ? <div style={{ width: '100%', position: 'relative' }}>
+                        <img
+                            src={ConfigAPI.imgUrl + methods.getValues('pictureId')}
+                            alt=""
+                            style={{ width: '100%' }}
+                        />
+                        <button type="button" style={{ position: 'absolute', top: '0.4rem', right: '0.4rem', padding: '0.6rem', backgroundColor: '#ffffff', borderRadius: '0.8rem' }} onClick={() => {
+                            methods.setValue('pictureId', null)
+                            methods.setValue('picture', null)
+                        }} >
+                            <FilledTrashCan width="2.8rem" height="2.8rem" />
+                        </button>
+                    </div> : <ImportFileForm
                         control={methods.control}
                         name={'picture'}
                         value={methods.watch('picture')}

@@ -4,16 +4,39 @@ import { Text } from "../../../../component/export-component"
 import avatarDemo from "../../../../assets/demo-avatar2.png"
 import { NavLink } from "react-router-dom"
 import ListExpertByTopic from "../home/local-component/list-expert"
-import { OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
+import { FilledSEdit, FilledTrashCan, OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
 import './news.css'
 import ListComment from "./local-component/list-comment"
+import { CustomerController } from "../../customer/controller"
+import { Ultis } from "../../../../Utils"
+import { RatingController } from "../../edu/rating/controller"
+import ConfigAPI from "../../../../config/configApi"
 
 export default function NewsDetails({ id, isLogin = false }) {
+    const user = CustomerController.userInfor()
     const [data, setData] = useState()
+    const [customer, setCustomer] = useState()
 
     useEffect(() => {
         NewController.getById(id).then(res => {
-            if (res) setData(res)
+            if (res) {
+                RatingController.getRatingLikeByIds([id]).then(interactRes => {
+                    if (interactRes) {
+                        setData({
+                            ...res,
+                            totalRating: interactRes[0]?.totalRating ?? 0,
+                            totalLike: interactRes[0]?.totalLike ?? 0,
+                        })
+                    }
+                })
+                if (res.customerId !== user.id) {
+                    CustomerController.getById(res.customerId).then(cusRes => {
+                        if (cusRes) setCustomer(cusRes)
+                    })
+                } else {
+                    setCustomer(user)
+                }
+            }
         })
     }, [])
 
@@ -21,40 +44,49 @@ export default function NewsDetails({ id, isLogin = false }) {
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
                 <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem 2rem', gap: '4rem', '--gutter': '0px' }}>
-                    <div className="col" style={{ gap: '1.6rem' }}>
-                        <Text className="heading-3" maxLine={2} style={{ width: '100%' }}>{data.title}</Text>
-                        <div className="row" style={{ gap: '0.8rem' }}>
-                            <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>#Thiết kế trải nghiệm người dùng</Text>
-                            <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>#UIUX</Text>
+                    <div className="row" style={{ gap: '2.4rem', alignItems: 'start' }}>
+                        <div className="col" style={{ gap: '1.6rem', flex: 1 }}>
+                            <Text className="heading-3" style={{ width: '100%' }}>{data.title}</Text>
+                            {data.newsTags?.length ? <div className="row" style={{ gap: '0.8rem' }}>
+                                {data.newsTags.map(e => <Text key={e.id} className="button-text-3" style={{ color: 'var(--primary-color)' }}>{e.name}</Text>)}
+                            </div> : null}
                         </div>
+                        {user.id === customer.id && <div className="row" style={{ gap: '0.8rem' }}>
+                            <NavLink to={`/social/news/edit/${id}`} className="row button-grey" style={{ backgroundColor: 'transparent', padding: '0.4rem' }}>
+                                <FilledSEdit width="2.4rem" height="2.4rem" />
+                            </NavLink>
+                            <button className="row button-grey" style={{ backgroundColor: 'transparent', padding: '0.4rem' }}>
+                                <FilledTrashCan width="2.4rem" height="2.4rem" />
+                            </button>
+                        </div>}
                     </div>
                     <div className="col" style={{ gap: '3.2rem' }}>
                         <div className="row" style={{ gap: '1.6rem' }}>
-                            <img src={avatarDemo} alt="" style={{ width: '4.8rem', height: '4.8rem' }} />
+                            <img src={customer?.avatarUrl} alt="" style={{ width: '4.8rem', height: '4.8rem' }} />
                             <div className="col" style={{ gap: '0.4rem' }}>
                                 <div className="row" style={{ gap: '0.8rem' }}>
-                                    <Text className="heading-7">Cameron Williamson</Text>
+                                    <Text className="heading-7">{customer?.name}</Text>
                                     <Text className="heading-7">.</Text>
-                                    <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }}>Theo dõi</Text>
+                                    {user.id !== customer.id && <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }}>Theo dõi</Text>}
                                 </div>
                                 <div className="row" style={{ gap: '0.8rem' }}>
-                                    <Text className="subtitle-4">Đã đăng trong</Text>
-                                    <Text maxLine={1} className="button-text-5" style={{ flex: 1, maxWidth: '100%', width: 'fit-content' }}>“UIUX cho người mới bắt đầu vào người mới bắt đầu”</Text>
-                                    <div className="label-4">.</div>
-                                    <Text className="subtitle-4">12 tháng 09</Text>
+                                    <Text className="subtitle-4">Đăng ngày</Text>
+                                    <Text className="subtitle-4">{data.dateCreated ? Ultis.datetoString(new Date(data.dateCreated)) : '-'}</Text>
                                 </div>
                             </div>
                         </div>
+                        {data.pictureId ? <img src={ConfigAPI.imgUrl + data.pictureId} alt="" style={{ width: '100%', borderRadius: '0.8rem' }} /> : null}
+                        <div dangerouslySetInnerHTML={{ __html: data.description }} className="news-show-ckeditor-content show-all"></div>
                         <div className="row" style={{ gap: '1.2rem', borderTop: 'var(--border-grey1)', borderBottom: 'var(--border-grey1)', padding: '0.8rem 0' }}>
                             <div className="row" style={{ flex: 1 }}>
                                 <div className="row tag-disabled" style={{ backgroundColor: 'transparent' }}>
                                     <OutlineThumbUp width="2.4rem" height="2.4rem" />
-                                    <div className="button-text-3">1,2k</div>
+                                    <div className="button-text-3">{data.totalLike}</div>
                                 </div>
                                 <div className="label-4">.</div>
                                 <div className="row tag-disabled" style={{ backgroundColor: 'transparent' }}>
                                     <OutlineChat width="2.4rem" height="2.4rem" />
-                                    <div className="button-text-3">1,2k</div>
+                                    <div className="button-text-3">{data.totalRating}</div>
                                 </div>
                             </div>
                             <button><OutlineBookMarkAdd width="2rem" height="2rem" /></button>

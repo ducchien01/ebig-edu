@@ -38,7 +38,7 @@ export default function SocialHome() {
                 <Text maxLine={1} style={{ flex: 1, width: '100%' }} className="heading-6">Bảng tin</Text>
                 <button type="button" onClick={() => {
                     if (isLogin) {
-                        navigate('social/news/create')
+                        navigate('/social/news/create')
                     } else {
                         showPopup({
                             ref: ref,
@@ -51,12 +51,12 @@ export default function SocialHome() {
                 </button>
             </div>
             <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto', gap: '1.2rem' }}>
-                <button type="button" className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
+                <NavLink to={'/'} className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
                     <div className="label-3">Bảng tin</div>
-                </button>
-                <button type="button" className={`news-bookmark-tab ${selectedTab === 1 ? 'selected' : ''}`}>
+                </NavLink>
+                <NavLink to={'/social/my-news'} className={`news-bookmark-tab ${selectedTab === 1 ? 'selected' : ''}`}>
                     <div className="label-3">Đã lưu</div>
-                </button>
+                </NavLink>
             </div>
             <SidebarActions />
         </div>

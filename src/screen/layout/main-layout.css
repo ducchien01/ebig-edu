@@ -16,6 +16,10 @@
     overflow: hidden auto;
 }
 
+.view:has(>.hero-header) {
+    gap: 2.8rem;
+}
+
 @media only screen and (min-width: 1200px) {
     .card-mentor-schedule>.time-infor {
         border: none !important;

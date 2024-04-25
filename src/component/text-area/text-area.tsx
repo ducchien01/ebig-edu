@@ -37,7 +37,6 @@ export class TextArea extends React.Component<TextAreaProps> {
                     readOnly={this.props.readOnly}
                     disabled={this.props.disabled}
                     onFocus={this.props.onFocus}
-                    onChange={this.props.onChange}
                 /> : <textarea
                     autoFocus={this.props.autoFocus}
                     maxLength={this.props.maxLength}

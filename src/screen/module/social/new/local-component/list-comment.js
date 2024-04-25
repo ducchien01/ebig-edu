@@ -18,7 +18,9 @@ export default function ListComment({ rating = false }) {
     const [myRating, setMyRating] = useState()
 
     const getListCommnet = async (page, size) => {
-        const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }, { field: 'customerId', operator: "<>", value: user.id }] })
+        const filterList = [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }]
+        if (rating) filterList.push({ field: 'customerId', operator: "<>", value: user.id })
+        const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: filterList, sort: ['dateCreated'] })
         if (res) {
             let customerIds = res.data.map(e => e.customerId)
             CustomerController.getByIds(customerIds).then(cusRes => {
@@ -38,14 +40,21 @@ export default function ListComment({ rating = false }) {
         const newId = await RatingController.add(newRating)
         if (newId) {
             newRating.id = newId
-            setMyRating(newRating)
+            if (rating) {
+                setMyRating(newRating)
+            } else {
+                getListCommnet()
+                methods.reset()
+            }
         }
     }
 
     useEffect(() => {
-        RatingController.getListSimple({ filter: [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }, { field: 'customerId', operator: "=", value: user.id }] }).then(res => {
-            if (res?.data?.length) setMyRating(res.data[0])
-        })
+        if (rating) {
+            RatingController.getListSimple({ filter: [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }, { field: 'customerId', operator: "=", value: user.id }] }).then(res => {
+                if (res?.data?.length) setMyRating(res.data[0])
+            })
+        }
         getListCommnet()
     }, [])
 
@@ -91,7 +100,7 @@ export default function ListComment({ rating = false }) {
                         placeholder="Bạn thấy khóa học này thế nào?"
                     />
                     <div className="row" style={{ width: '100%', justifyContent: 'end', padding: '0.4rem 1.6rem 0.8rem' }}>
-                        <button type="button" className={`row ${(methods.watch('value') || !rating) && methods.watch('message') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem' }} onClick={methods.handleSubmit(sendRating)}>
+                        <button type="button" className={`row ${((methods.watch('value') || !rating) && methods.watch('message')) ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem' }} onClick={methods.handleSubmit(sendRating)}>
                             <div className="button-text-3">Phản hồi</div>
                         </button>
                     </div>
@@ -128,7 +137,7 @@ const RatingCard = ({ ratingItem, showDivider = false, isRating = false, custome
     const [onReplying, setOnReplying] = useState(false)
 
     const getReply = async () => {
-        const res = await RatingController.getListSimple({ page: Math.floor(children.length / 10) + 1, take: 10, filter: [{ field: 'parentId', operator: "=", value: ratingItem.id }] })
+        const res = await RatingController.getListSimple({ page: Math.floor(children.length / 10) + 1, take: 10, sort: ['dateCreated'], filter: [{ field: 'parentId', operator: "=", value: ratingItem.id }] })
         if (res) {
             let customerIds = res.data.map(e => e.customerId).filter(id => customerList.every(e => e.id !== id))
             if (customerIds.length)
@@ -166,6 +175,10 @@ const RatingCard = ({ ratingItem, showDivider = false, isRating = false, custome
             setChildren([newReply, ...children])
             setOnReplying(false)
             if (customerList.every(e => e.id !== user.id)) setCustomerList([...customerList, user])
+            if (!showReply) {
+                await getReply()
+                setShowReply(true)
+            }
         }
     }
 

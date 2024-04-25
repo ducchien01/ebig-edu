@@ -20,23 +20,23 @@ export default function OverallTab({ data, rateDetails, isPaid }) {
         </div>
         <div className="col divider" style={{ width: '100%' }}></div>
         {isPaid ? null : <div className="row" style={{ width: '100%', padding: '2.4rem 3.2rem', gap: '2.4rem', flexWrap: 'wrap', backgroundColor: 'var(--background)', border: 'var(--border-grey1)', borderRadius: '0.8rem' }}>
-            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
+            <div className="row tag-disabled col12 col24-sm col24-min" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
                 <OutlineVideoPlaylist width="2rem" height="2rem" />
                 <div className="button-text-3">{data.courseLessons?.filter(e => e.lessonId)?.length} bài học</div>
             </div>
-            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
+            <div className="row tag-disabled col12 col24-sm col24-min" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
                 <OutlineBooks width="2rem" height="2rem" />
                 <div className="button-text-3">24 tài liệu đính kèm</div>
             </div>
-            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
+            <div className="row tag-disabled col12 col24-sm col24-min" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
                 <OutlineGChart width="2rem" height="2rem" />
                 <div className="button-text-3">{studentLevelList.find(e => e.id === data.level)?.name ?? '-'}</div>
             </div>
-            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
+            <div className="row tag-disabled col12 col24-sm col24-min" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
                 <OutlineVerified width="2rem" height="2rem" color={data.isCertificate ? '#39AC6D' : undefined} />
                 <div className="button-text-3">Chứng chỉ tốt nghiệp</div>
             </div>
-            <div className="row tag-disabled col12" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
+            <div className="row tag-disabled col12 col24-sm col24-min" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
                 <OutlineTimeAlarm width="2rem" height="2rem" color={data.isCertificate ? '#39AC6D' : undefined} />
                 <div className="button-text-3">12 tháng truy cập khóa học</div>
             </div>

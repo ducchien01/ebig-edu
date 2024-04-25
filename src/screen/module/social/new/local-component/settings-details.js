@@ -49,11 +49,12 @@ export default function SettingsNews() {
                         placeholder={'Nhập tiêu đề bài viết ...'}
                         name={'title'}
                         className="heading-4"
-                        register={methods.register('title')}
-                        onChange={(ev) => {
-                            ev.target.style.height = `0px`
-                            ev.target.style.height = `${ev.target.scrollHeight}px`
-                        }}
+                        register={methods.register('title', {
+                            onChange: (ev) => {
+                                ev.target.style.height = `0px`
+                                ev.target.style.height = `${ev.target.scrollHeight}px`
+                            }
+                        })}
                         onFocus={(ev) => {
                             setTimeout(() => {
                                 ev.target.style.height = `0px`

@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
-import { InfiniteScroll, Popup, Text, showPopup } from "../../../../../component/export-component"
+import { InfiniteScroll, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
 import avatarDemo from '../../../../../assets/demo-avatar.png'
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
 import { TopicController } from "../../../topic/controller"
@@ -23,13 +23,16 @@ export default function ListNews({ isLogin = false }) {
     const [topicList, setTopicList] = useState([])
     const [filterTab, setFilterTab] = useState(0)
 
-    const showShareOptions = (ev) => {
+    const showShareOptions = (ev, newId) => {
         showPopup({
             ref: ref,
             clickOverlayClosePopup: true,
             style: { left: `${ev.pageX}px`, top: `${ev.pageY}px` },
             content: <div className="col more-action-popup">
-                <button type="button" className="row" >
+                <button type="button" className="row" onClick={() => {
+                    navigator.clipboard.writeText(window.location.href.replace('social', '') + `social/news/${newId}`)
+                    closePopup(ref)
+                }}>
                     <OutlineFileCopy />
                     <Text className="label-4">Sao chép đường liên kết</Text>
                 </button>
@@ -135,7 +138,7 @@ export default function ListNews({ isLogin = false }) {
                                         </div>
                                     </div>
                                     <button type="button" className="row icon-button32" onClick={showAddBookmark}><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
-                                    <button type="button" className="row icon-button32" onClick={showShareOptions} >
+                                    <button type="button" className="row icon-button32" onClick={(ev) => { showShareOptions(ev, item.id) }} >
                                         <OutlineSharing width="2rem" height="2rem" />
                                     </button>
                                 </div>}

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { NewController } from "./controller"
-import { Text } from "../../../../component/export-component"
+import { Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
 import avatarDemo from "../../../../assets/demo-avatar2.png"
 import { NavLink } from "react-router-dom"
 import ListExpertByTopic from "../home/local-component/list-expert"
-import { FilledSEdit, FilledTrashCan, OutlineBookMarkAdd, OutlineChat, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
+import { FilledLogoFacebook, FilledSEdit, FilledTrashCan, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
 import './news.css'
 import ListComment from "./local-component/list-comment"
 import { CustomerController } from "../../customer/controller"
@@ -13,9 +13,31 @@ import { RatingController } from "../../edu/rating/controller"
 import ConfigAPI from "../../../../config/configApi"
 
 export default function NewsDetails({ id, isLogin = false }) {
+    const ref = useRef()
     const user = CustomerController.userInfor()
     const [data, setData] = useState()
     const [customer, setCustomer] = useState()
+
+    const showShareOptions = (ev) => {
+        showPopup({
+            ref: ref,
+            clickOverlayClosePopup: true,
+            style: { left: `${ev.pageX}px`, top: `${ev.pageY}px` },
+            content: <div className="col more-action-popup">
+                <button type="button" className="row" onClick={() => {
+                    navigator.clipboard.writeText(window.location.href)
+                    closePopup(ref)
+                }}>
+                    <OutlineFileCopy />
+                    <Text className="label-4">Sao chép đường liên kết</Text>
+                </button>
+                <button type="button" className="row">
+                    <FilledLogoFacebook />
+                    <Text className="label-4">Chia sẻ lên Facebook</Text>
+                </button>
+            </div>
+        })
+    }
 
     useEffect(() => {
         NewController.getById(id).then(res => {
@@ -42,8 +64,9 @@ export default function NewsDetails({ id, isLogin = false }) {
 
     return data ? <>
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+            <Popup ref={ref} />
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-                <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem 2rem', gap: '4rem', '--gutter': '0px' }}>
+                <div className="col col24 col20-xxl col20-xl" style={{ padding: '2.4rem 2rem', gap: '4rem', '--gutter': '0px' }}>
                     <div className="row" style={{ gap: '2.4rem', alignItems: 'start' }}>
                         <div className="col" style={{ gap: '1.6rem', flex: 1 }}>
                             <Text className="heading-3" style={{ width: '100%' }}>{data.title}</Text>
@@ -90,7 +113,7 @@ export default function NewsDetails({ id, isLogin = false }) {
                                 </div>
                             </div>
                             <button><OutlineBookMarkAdd width="2rem" height="2rem" /></button>
-                            <button><OutlineSharing width="2rem" height="2rem" /></button>
+                            <button type="button" onClick={showShareOptions}><OutlineSharing width="2rem" height="2rem" /></button>
                         </div>
                     </div>
                     <ListComment />

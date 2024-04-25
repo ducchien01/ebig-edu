@@ -5,10 +5,14 @@ import { Checkbox, RadioButton, Text } from "../../../../../component/export-com
 import ConfigAPI from "../../../../../config/configApi"
 import ReactPlayer from "react-player"
 import { useForm } from "react-hook-form"
-import { CheckboxForm, RadioButtonForm } from "../../../../../project-component/component-form"
+import { RadioButtonForm } from "../../../../../project-component/component-form"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
+import ListLessonTile from "../../lesson/local-component/list-lesson-tile"
 
-export default function CourseLessonsContent({ data, onEndLesson = () => { } }) {
+export default function CourseLessonsContent({ data, onEndLesson = () => { }, courseLessons, onSelected }) {
     const [lessonData, setLessonData] = useState()
+    const [showLessonList, setShowLessonList] = useState(false)
 
     const renderUI = () => {
         switch (lessonData?.type) {
@@ -48,8 +52,21 @@ export default function CourseLessonsContent({ data, onEndLesson = () => { } }) 
     }, [data])
 
     return <div className="col lesson-content-view" style={{ gap: '2rem', padding: '1.6rem 0' }}>
-        <Text className="heading-4" maxLine={2} style={{ width: '100%' }}>{data?.name}</Text>
-        {renderUI()}
+        <div className="row" style={{ width: '100%', alignItems: 'start' }}>
+            <Text className="heading-4" style={{ width: '100%', flex: 1 }}>{data?.name}</Text>
+            <button className="icon-button40 row on-show-lesson-list" style={{ display: 'none' }} onClick={() => { setShowLessonList(!showLessonList) }}>
+                <FontAwesomeIcon icon={showLessonList ? faCaretUp : faCaretDown} />
+            </button>
+        </div>
+        {showLessonList ? <ListLessonTile
+            style={{ flex: 'none', height: 'fit-content' }}
+            courseLessons={courseLessons}
+            selectedId={data?.id}
+            onSelected={(item) => {
+                onSelected(item)
+                setShowLessonList(false)
+            }}
+        /> : renderUI()}
     </div>
 }
 

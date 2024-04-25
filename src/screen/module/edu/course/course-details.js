@@ -59,6 +59,8 @@ export default function ViewCourseDetails() {
                             })
                         }
                     }}
+                    courseLessons={data?.courseLessons}
+                    onSelected={setSelectedCLesson}
                 />
             case 2:
                 return <CourseRatingTab rateDetails={rateDetails} />
@@ -268,81 +270,80 @@ export default function ViewCourseDetails() {
         }
     }, [])
 
-    return <div className="col preview-container" style={{ gap: '2.8rem' }}>
-        {data ? <>
-            <Popup ref={ref} />
-            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
-                <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
-                    <Text className="heading-3">{data.name}</Text>
-                    <div className="row" style={{ gap: '0.8rem' }}>
-                        <img src={expert?.avatarUrl} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-                        <Text className="label-2">{expert?.name ?? expert?.userName}</Text>
-                        <div className="label-4">.</div>
-                        <div className="row tag-infor">Khóa học Online</div>
-                        <div className="label-4">.</div>
-                        <OutlineUserProfile color="#ffffff" />
-                        <Text className="label-2">{data.quantity ?? 0} học sinh</Text>
+    return data ? <>
+        <Popup ref={ref} />
+        <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
+            <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
+                <Text className="heading-3">{data.name}</Text>
+                <div className="row" style={{ gap: '0.8rem' }}>
+                    <img src={expert?.avatarUrl} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                    <Text className="label-2">{expert?.name ?? expert?.userName}</Text>
+                    <div className="label-4">.</div>
+                    <div className="row tag-infor">Khóa học Online</div>
+                    <div className="label-4">.</div>
+                    <OutlineUserProfile color="#ffffff" />
+                    <Text className="label-2">{data.quantity ?? 0} học sinh</Text>
+                </div>
+            </div>
+        </div>
+        <div className="row" >
+            <div className="details-block col">
+                <div className="col tab-container">
+                    <div className="tab-header-2 row">
+                        <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(0)}>Tổng quan</div>
+                        {isPaid ? <>
+                            <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Nội dung khóa học</div>
+                            <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Đánh giá</div>
+                        </> : null}
+                    </div>
+                    <div className="tab-body-2 col" style={{ flex: 1, width: '100%', height: '100%', overflow: 'hidden auto', padding: '1.2rem 3.2rem' }}>
+                        {renderTabView()}
                     </div>
                 </div>
             </div>
-            <div className="row" >
-                <div className="details-block col">
-                    <div className="col tab-container">
-                        <div className="tab-header-2 row">
-                            <div className={`tab-btn label-4 row ${activeFilterTab === 0 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(0)}>Tổng quan</div>
-                            {isPaid ? <>
-                                <div className={`tab-btn label-4 row ${activeFilterTab === 1 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(1)}>Nội dung khóa học</div>
-                                <div className={`tab-btn label-4 row ${activeFilterTab === 2 ? 'selected' : ''}`} onClick={() => setActiveFilterTab(2)}>Đánh giá</div>
-                            </> : null}
+            <div className="more-infor-block col">
+                {isPaid ?
+                    <>
+                        {renderLearningPregressUI()}
+                        <ListLessonTile
+                            style={{ flex: 'none', height: 'fit-content' }}
+                            courseLessons={data?.courseLessons}
+                            selectedId={selectedCLesson?.id}
+                            onSelected={setSelectedCLesson}
+                        />
+                    </> : <>
+                        <div className="col" style={{ gap: '1.6rem' }}>
+                            <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
+                            <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem', width: '100%' }} onClick={buyCourse}>
+                                <div className="button-text-3">Mua khóa học</div>
+                            </button>
                         </div>
-                        <div className="tab-body-2 col" style={{ flex: 1, width: '100%', height: '100%', overflow: 'hidden auto', padding: '1.2rem 3.2rem' }}>
-                            {renderTabView()}
-                        </div>
-                    </div>
-                </div>
-                <div className="more-infor-block col">
-                    {isPaid ?
-                        <>
-                            {renderLearningPregressUI()}
-                            <ListLessonTile
-                                style={{ flex: 'none', height: 'fit-content' }}
-                                courseLessons={data?.courseLessons}
-                                selectedId={selectedCLesson?.id}
-                                onSelected={(item) => { setSelectedCLesson(item) }}
-                            />
-                        </> : <>
-                            <div className="col" style={{ gap: '1.6rem' }}>
-                                <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
-                                <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem', width: '100%' }} onClick={buyCourse}>
-                                    <div className="button-text-3">Mua khóa học</div>
-                                </button>
-                            </div>
-                            {optionsBuyClass()}
-                            {optionBuyMentor()}
-                            <InforCard
-                                style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
-                                avatar={expert?.avatarUrl}
-                                avatarSize="8rem"
-                                title={expert?.name}
-                                subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
-                                content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
-                                actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
-                                    <div className="button-text-3">Theo dõi</div>
-                                </button>}
-                            />
-                            <div className="col divider" style={{ width: '100%' }}></div>
-                            <div className="col" style={{ gap: '3.2rem' }}>
-                                <div className="col" style={{ gap: '2rem' }}>
-                                    <div className="heading-7">Danh mục liên quan</div>
-                                    <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
-                                        {['Programming', 'Data Science', 'Self Improvement', 'Writing', 'Relationships', 'Machine Learning', 'Productivity'].map((e, i) => <div key={'relate-tag-' + i} className="row button-text-3 tag-disabled">{e}</div>)}
-                                    </div>
-                                    <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm các chủ đề</Text>
+                        {optionsBuyClass()}
+                        {optionBuyMentor()}
+                        <InforCard
+                            style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
+                            avatar={expert?.avatarUrl}
+                            avatarSize="8rem"
+                            title={expert?.name}
+                            subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
+                            content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
+                            actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>
+                                <div className="button-text-3">Theo dõi</div>
+                            </button>}
+                        />
+                        <div className="col divider" style={{ width: '100%' }}></div>
+                        <div className="col" style={{ gap: '3.2rem' }}>
+                            <div className="col" style={{ gap: '2rem' }}>
+                                <div className="heading-7">Danh mục liên quan</div>
+                                <div className="row" style={{ flexWrap: 'wrap', gap: '1.6rem 0.8rem' }}>
+                                    {['Programming', 'Data Science', 'Self Improvement', 'Writing', 'Relationships', 'Machine Learning', 'Productivity'].map((e, i) => <div key={'relate-tag-' + i} className="row button-text-3 tag-disabled">{e}</div>)}
                                 </div>
+                                <Text className="button-text-3" style={{ color: 'var(--primary-color)' }}>Xem thêm các chủ đề</Text>
                             </div>
-                        </>}
-                </div>
-            </div></> : null}
-    </div>
+                        </div>
+                    </>}
+            </div>
+        </div>
+    </> : null
 }
 

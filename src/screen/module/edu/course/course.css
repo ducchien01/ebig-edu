@@ -87,13 +87,6 @@
     overflow: hidden auto;
 }
 
-@media only screen and (min-width: 992px) {
-    .course-overview-form>.col:last-child {
-        border-left: var(--border-grey1);
-        padding-left: 4rem;
-    }
-}
-
 .course-curriculum-empty {
     gap: 2.4rem;
     flex-wrap: wrap;
@@ -306,6 +299,13 @@
     border-color: var(--primary-color);
 }
 
+@media only screen and (min-width: 992px) {
+    .course-overview-form>.col:last-child {
+        border-left: var(--border-grey1);
+        padding-left: 4rem;
+    }
+}
+
 @media screen and (min-width: 1200px) {
     .details-block>.tab-container>.tab-header-2 {
         margin: 0 14.8%;
@@ -319,4 +319,26 @@
 
 .lesson-content-view img {
     max-width: 100%;
+}
+
+/* min */
+@media only screen and (max-width: 576px) {
+    .more-infor-block {
+        display: none;
+    }
+
+    .on-show-lesson-list {
+        display: flex !important;
+    }
+}
+
+/* sm */
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+    .more-infor-block {
+        display: none;
+    }
+
+    .on-show-lesson-list {
+        display: flex !important;
+    }
 }

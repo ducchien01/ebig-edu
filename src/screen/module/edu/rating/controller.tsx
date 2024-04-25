@@ -113,4 +113,18 @@ export class RatingController {
         }
         return null
     }
+
+    static getRatingLikeByIds = async (ids: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'RatingAuth/GetRatingLikeByIds', {
+            data: (ids ?? []).join(',')
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
 }

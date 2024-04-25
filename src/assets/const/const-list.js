@@ -282,12 +282,6 @@ export const editorConfiguration = {
             '|', 'ckbox'
         ],
         shouldNotGroupWhenFull: false,
-        // fontSize: {
-        //     options: [
-        //         12, 14, 16, 18, 20
-        //     ],
-        //     supportAllValues: true
-        // },
     },
     // ckbox: {
     //     tokenUrl: "https://file-mamager.wini.vn/",

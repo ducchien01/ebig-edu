@@ -9,3 +9,20 @@
     height: 8rem;
     padding: 1.6rem 1.6rem 0.8rem;
 }
+
+.news-content-editor .ck-content > p {
+    font-size: 1.6rem;
+}
+
+.news-show-ckeditor-content p {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.6rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+    opacity: 0.8;
+    margin: 0;
+}

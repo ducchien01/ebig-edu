@@ -1,7 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
 import { InfiniteScroll, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
-import avatarDemo from '../../../../../assets/demo-avatar.png'
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
 import { TopicController } from "../../../topic/controller"
 import { PostCard } from "../../../../../project-component/card"

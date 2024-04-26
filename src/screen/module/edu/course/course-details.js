@@ -39,7 +39,21 @@ export default function ViewCourseDetails() {
     const renderTabView = () => {
         switch (activeFilterTab) {
             case 0:
-                return <OverallTab data={data} rateDetails={rateDetails} isPaid={isPaid} />
+                return <OverallTab
+                    data={data}
+                    rateDetails={rateDetails}
+                    isPaid={isPaid}
+                    buyOptions={<>
+                        <div className="col" style={{ gap: '1.6rem' }}>
+                            <Text className="heading-4" style={{ '--max-line': 1 }}>{`${Ultis.money(data.price)}đ`}</Text>
+                            <button type="button" className="row button-primary" style={{ padding: '1.2rem 2rem', width: '100%' }} onClick={buyCourse}>
+                                <div className="button-text-3">Mua khóa học</div>
+                            </button>
+                        </div>
+                        {optionsBuyClass()}
+                        {optionBuyMentor()}
+                    </>}
+                />
             case 1:
                 return <CourseLessonsContent
                     data={selectedCLesson}

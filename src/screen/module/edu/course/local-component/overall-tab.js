@@ -5,7 +5,7 @@ import ConfigAPI from "../../../../../config/configApi"
 import { studentLevelList } from "../../../../../assets/const/const-list"
 import CourseRatingTab from "./rating-tab"
 
-export default function OverallTab({ data, rateDetails, isPaid }) {
+export default function OverallTab({ data, rateDetails, isPaid, buyOptions }) {
     return <>
         <img src={ConfigAPI.imgUrl + data.thumbnailId} alt="" style={{ width: '100%', borderRadius: '0.8rem' }} />
         <div className="row" style={{ paddingTop: '1.6rem', gap: '1.6rem' }}>
@@ -18,6 +18,7 @@ export default function OverallTab({ data, rateDetails, isPaid }) {
                 <div className="button-text-3">Thêm vào mục yêu thích</div>
             </button>
         </div>
+        {<div className="col buy-course-with-options" style={{ gap: '2.4rem', display: 'none', padding: '3.2rem 2rem' }}>{buyOptions}</div>}
         <div className="col divider" style={{ width: '100%' }}></div>
         {isPaid ? null : <div className="row" style={{ width: '100%', padding: '2.4rem 3.2rem', gap: '2.4rem', flexWrap: 'wrap', backgroundColor: 'var(--background)', border: 'var(--border-grey1)', borderRadius: '0.8rem' }}>
             <div className="row tag-disabled col12 col24-sm col24-min" style={{ padding: 0, backgroundColor: 'transparent', '--gutter': '2.4rem', justifyContent: 'start' }}>
@@ -40,7 +41,7 @@ export default function OverallTab({ data, rateDetails, isPaid }) {
                 <OutlineTimeAlarm width="2rem" height="2rem" color={data.isCertificate ? '#39AC6D' : undefined} />
                 <div className="button-text-3">12 tháng truy cập khóa học</div>
             </div>
-    </div>}
+        </div>}
         <div className="col" style={{ gap: '4rem', padding: '3.2rem 0' }}>
             <div className="col" style={{ gap: '1.6rem' }}>
                 <div className="heading-5">Giới thiệu tổng quan</div>

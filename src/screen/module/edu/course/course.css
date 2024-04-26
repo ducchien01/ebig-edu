@@ -327,7 +327,8 @@
         display: none;
     }
 
-    .on-show-lesson-list {
+    .on-show-lesson-list,
+    .buy-course-with-options {
         display: flex !important;
     }
 }
@@ -338,7 +339,8 @@
         display: none;
     }
 
-    .on-show-lesson-list {
+    .on-show-lesson-list,
+    .buy-course-with-options {
         display: flex !important;
     }
 }

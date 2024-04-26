@@ -110,8 +110,11 @@ export default function ListComment({ rating = false }) {
             const customer = customerList.find(e => e.id === item.customerId)
             return <RatingCard key={item.id} ratingItem={item} customer={customer} isRating={rating} showDivider user={user} />
         })}
-        <div style={{ height: 'fit-content' }}>
+        <div className="row" style={{ height: 'fit-content' }}>
+            <div style={{ flex: 1 }}></div>
             <Pagination
+                hiddenTotal
+                style={{ width: 'fit-content' }}
                 currentPage={pageDetails.page}
                 /// pageSize
                 itemPerPage={pageDetails.size}

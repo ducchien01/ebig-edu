@@ -1,19 +1,19 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import ReactPaginate from "react-paginate";
 import './pagination.css';
 import { Select1, Text } from "../export-component";
 
-export function Pagination({ currentPage, itemPerPage, totalItem, onChangePage, hiddenPageSize = false }: { currentPage: number, itemPerPage: number, totalItem: number, onChangePage: Function, hiddenPageSize: boolean }) {
+export function Pagination({ currentPage, itemPerPage, totalItem, onChangePage, hiddenPageSize = false, hiddenTotal = false, style }: { currentPage: number, itemPerPage: number, totalItem: number, onChangePage: Function, hiddenPageSize: boolean, hiddenTotal: boolean, style: CSSProperties }) {
     if (currentPage > 1 && (totalItem === 0 || (Math.floor(totalItem / itemPerPage) + (totalItem % itemPerPage === 0 ? 0 : 1)) < currentPage)) {
         onChangePage(1, itemPerPage);
         return <div></div>;
     }
     if (totalItem > 0) {
         return (
-            <div className="row custom-pagination">
-                <Text className="regular2">
+            <div className="row custom-pagination" style={style}>
+                {hiddenTotal ? null : <Text className="regular2">
                     Hiển thị {itemPerPage * (currentPage - 1) + 1}-{((itemPerPage * (currentPage - 1) + itemPerPage) > totalItem) ? totalItem : (itemPerPage * (currentPage - 1) + itemPerPage)} trong tổng số {totalItem} bản ghi
-                </Text>
+                </Text>}
                 <div className="row ">
                     {hiddenPageSize ? null : <div className="row items-per-page-container" >
                         <Text className="regular2">Items/page</Text>

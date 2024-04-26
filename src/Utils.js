@@ -1,6 +1,37 @@
 import $ from "jquery";
 import { parse, format } from 'date-fns';
 
+Array.prototype.filterAndMap = function (callbackfn) {
+    let k,
+        len,
+        result = []
+
+    // Method cannot be run on an array that does not exist.
+    if (this == null) {
+        throw new TypeError('this is null or not defined')
+    }
+
+    // Loop through array.
+    len = this.length
+    k = 0
+    while (k < len) {
+        if (k in this) {
+            // For each element, if callback returns truthy, add it to
+            // result array.
+            if (callbackfn) {
+                if (!result.includes(callbackfn.call(undefined, this[k], k, this))) {
+                    result.push(callbackfn.call(undefined, this[k], k, this))
+                }
+            } else {
+                if (!result.includes(this[k])) {
+                    result.push(this[k])
+                }
+            }
+        }
+        k = k + 1
+    }
+    return result
+}
 
 var arrayConstructor = [].constructor;
 var objectConstructor = ({}).constructor;
@@ -271,7 +302,7 @@ export class Ultis {
         }
         var month = parseInt(dateItems[monthIndex]);
         month -= 1;
-        var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex], hour??0, min??0, sec??0);
+        var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex], hour ?? 0, min ?? 0, sec ?? 0);
         return formatedDate;
     }
 

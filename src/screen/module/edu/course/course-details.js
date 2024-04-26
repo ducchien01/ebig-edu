@@ -36,6 +36,23 @@ export default function ViewCourseDetails() {
     const [selectedCLesson, setSelectedCLesson] = useState()
     const [learningProgress, setLearningProgress] = useState([])
 
+    const onEndLesson = () => {
+        if (selectedCLesson.lessonId && learningProgress.every(id => id !== selectedCLesson.lessonId)) {
+            let newProgress = {
+                name: selectedCLesson.name,
+                lessonId: selectedCLesson.lessonId,
+                courseId: id,
+                customerId: CustomerController.userInfor().id
+            }
+            CustomerLessonController.add(newProgress).then(res => {
+                if (res) {
+                    newProgress.id = res
+                    setLearningProgress([...learningProgress, selectedCLesson.lessonId].filterAndMap())
+                }
+            })
+        }
+    }
+
     const renderTabView = () => {
         switch (activeFilterTab) {
             case 0:
@@ -57,22 +74,7 @@ export default function ViewCourseDetails() {
             case 1:
                 return <CourseLessonsContent
                     data={selectedCLesson}
-                    onEndLesson={() => {
-                        if (learningProgress.every(e => e.lessonId !== selectedCLesson.lessonId)) {
-                            let newProgress = {
-                                name: selectedCLesson.name,
-                                lessonId: selectedCLesson.lessonId,
-                                courseId: id,
-                                customerId: CustomerController.userInfor().id
-                            }
-                            CustomerLessonController.add(newProgress).then(res => {
-                                if (res) {
-                                    newProgress.id = res
-                                    setLearningProgress([...learningProgress, newProgress])
-                                }
-                            })
-                        }
-                    }}
+                    onEndLesson={onEndLesson}
                     courseLessons={data?.courseLessons}
                     onSelected={setSelectedCLesson}
                 />
@@ -265,7 +267,9 @@ export default function ViewCourseDetails() {
                 OrderController.getListSimpleDetails({ filter: [{ field: 'productId', operator: '=', value: id }] }).then(res => {
                     if (res?.data?.length && res.data[0].isPay) {
                         CustomerLessonController.getListSimple({ page: 1, take: 200, filter: [{ field: 'courseId', operator: '=', value: id }] }).then(progressRes => {
-                            if (progressRes) setLearningProgress(progressRes.data ?? [])
+                            if (progressRes) {
+                                setLearningProgress((progressRes.data ?? []).filterAndMap(e => e.lessonId))
+                            }
                         })
                         setIsPaid(true)
                     }
@@ -324,7 +328,10 @@ export default function ViewCourseDetails() {
                             style={{ flex: 'none', height: 'fit-content' }}
                             courseLessons={data?.courseLessons}
                             selectedId={selectedCLesson?.id}
-                            onSelected={setSelectedCLesson}
+                            onSelected={(item) => {
+                                if (activeFilterTab !== 1) setActiveFilterTab(1)
+                                setSelectedCLesson(item)
+                            }}
                         />
                     </> : <>
                         <div className="col" style={{ gap: '1.6rem' }}>

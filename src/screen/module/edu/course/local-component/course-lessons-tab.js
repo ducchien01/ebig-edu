@@ -28,7 +28,7 @@ export default function CourseLessonsContent({ data, onEndLesson = () => { }, co
                         ]} />
                 </div>;
             case LessonType.paragraph:
-                setTimeout(onEndLesson, 120000)
+                setTimeout(onEndLesson, 60000)
                 return <div className="lesson-paragraph-ck-editor" style={{ width: '100%' }}>
                     <div className="ck-content" dangerouslySetInnerHTML={{ __html: lessonData.content }}></div>
                 </div>
@@ -124,6 +124,12 @@ const TestQuizzForm = ({ data = [], endTask }) => {
                 </div>
             </div>
         })}
+        <button type="button" onClick={() => {
+            methods.reset()
+            setUserAnswer(null)
+        }} className="row button-primary">
+            <div className="button-text-3">Reset</div>
+        </button>
     </div> : <form className="col" style={{ gap: '1.2rem', alignItems: 'end' }}>
         {data.map((item, i) => {
             return <div key={item.id} className="quest-block-infor row">

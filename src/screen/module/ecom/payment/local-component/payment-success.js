@@ -116,8 +116,8 @@ export default function PaymentProcess() {
                 </div>
             </div>
             <div className="row" style={{ gap: '1.2rem', padding: '0 max(14%, 2.4rem)' }}>
-                <NavLink className='row button-infor' style={{ flex: 1, width: '100%', padding: '1rem 1.6rem' }}><div className="button-text-3">Về trang chủ</div></NavLink>
-                <NavLink className='row button-primary' style={{ flex: 1, width: '100%', padding: '1rem 1.6rem' }}><div className="button-text-3">Quản lý khóa học</div></NavLink>
+                <NavLink to={'/education'} className='row button-infor' style={{ flex: 1, width: '100%', padding: '1rem 1.6rem' }}><div className="button-text-3">Về trang chủ</div></NavLink>
+                <NavLink to={'/education'} className='row button-primary' style={{ flex: 1, width: '100%', padding: '1rem 1.6rem' }}><div className="button-text-3">Quản lý khóa học</div></NavLink>
             </div>
         </div>
     </div> : null

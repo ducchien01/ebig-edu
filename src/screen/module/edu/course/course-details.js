@@ -287,6 +287,7 @@ export default function ViewCourseDetails() {
     return data ? <>
         <Popup ref={ref} />
         <div className="img-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
+            <div style={{ flex: 1 }}></div>
             <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                 <Text className="heading-3">{data.name}</Text>
                 <div className="row" style={{ gap: '0.8rem' }}>

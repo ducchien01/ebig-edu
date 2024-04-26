@@ -9,6 +9,7 @@ import { CategoryController } from "../../../category/controller";
 import { CustomerController } from "../../../customer/controller";
 import { NewController } from "../controller";
 import { useNavigate } from "react-router-dom";
+import { NewStatus } from "../da";
 
 const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
     const navigate = useNavigate()
@@ -20,6 +21,7 @@ const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
     const submitPublishNew = (ev) => {
         let newData = { ...data.item, ...ev }
         delete newData.picture
+        newData.status = NewStatus.published
         if (newData.id) {
             NewController.edit(newData).then(res => {
                 if (res) {

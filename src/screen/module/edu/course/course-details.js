@@ -234,7 +234,7 @@ export default function ViewCourseDetails() {
 
     const renderLearningPregressUI = () => {
         const lessons = (data?.courseLessons ?? []).filter(e => e.parentId)
-        const myProgress = Math.round((learningProgress.length / lessons.length) * 100)
+        const myProgress = lessons.length ? Math.round((learningProgress.length / lessons.length) * 100) : 0
         return <div className="row" style={{ gap: '1.2rem', padding: '2.4rem', border: 'var(--border-grey1)', borderRadius: '0.8rem', backgroundColor: 'var(--primary-background)' }}>
             <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
                 <Text className="heading-6" maxLine={1} style={{ width: '100%' }}>Quá trình học tập</Text>
@@ -286,7 +286,7 @@ export default function ViewCourseDetails() {
 
     return data ? <>
         <Popup ref={ref} />
-        <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
+        <div className="img-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data.pictureId})`, backgroundColor: 'var(--main-color)' }}>
             <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                 <Text className="heading-3">{data.name}</Text>
                 <div className="row" style={{ gap: '0.8rem' }}>

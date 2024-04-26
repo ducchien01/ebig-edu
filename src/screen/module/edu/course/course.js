@@ -68,7 +68,9 @@ export default function SchoolCourse() {
                     }}>Bản nháp</div>
                 </div>
                 <div className="tab-body-2 row">
-                    <ListCourse data={data} getData={total !== data.length ? getData : undefined} />
+                    <ListCourse data={data} getData={total !== data.length ? (onLoadMore) => {
+                        if(onLoadMore) getData()
+                    } : undefined} />
                 </div>
             </div>
         </div>

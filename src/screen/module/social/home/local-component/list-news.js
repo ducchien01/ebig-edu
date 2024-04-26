@@ -12,6 +12,7 @@ import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons"
 import ConfigAPI from "../../../../../config/configApi"
 import { RatingController } from "../../../edu/rating/controller"
 import { CustomerController } from "../../../customer/controller"
+import { NewStatus } from "../../new/da"
 
 export default function ListNews({ isLogin = false }) {
     const ref = useRef()
@@ -53,7 +54,7 @@ export default function ListNews({ isLogin = false }) {
     }
 
     const getData = () => {
-        NewController.getListSimple({ page: Math.floor((newsData.length / 30)) + 1, take: 30 }).then(res => {
+        NewController.getListSimple({ page: Math.floor((newsData.length / 30)) + 1, take: 30, filter: [{ field: 'status', operator: '=', value: NewStatus.published }] }).then(res => {
             if (res) {
                 if (res.totalCount !== total) setTotal(res.totalCount)
                 const newList = res.data.filter(e => newsData.every(el => el.id !== e.id))
@@ -82,7 +83,7 @@ export default function ListNews({ isLogin = false }) {
 
     return <>
         <Popup ref={ref} />
-        <InfiniteScroll handleScroll={total !== newsData.length ? getData : undefined} className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+        <InfiniteScroll handleScroll={total !== newsData.length ? (onLoadMore) => { if (onLoadMore) getData() } : undefined} className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
                 <div className="col col24 col20-xxl" style={{ padding: '2rem 3.2rem', gap: '2.4rem', '--gutter': '0px' }}>
                     {isLogin && <div className="row filter-news-container">

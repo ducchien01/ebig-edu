@@ -34,7 +34,7 @@ export default function Preview() {
 
     return <div className="col preview-container" style={{ gap: '4rem' }}>
         {data ? <>
-            <div className="hero-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data?.pictureId})` }}>
+            <div className="img-header col" style={{ backgroundImage: `url(${ConfigAPI.imgUrl + data?.pictureId})` }}>
                 <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                     <Text className="heading-3">{data.name}</Text>
                     <div className="row" style={{ gap: '0.8rem' }}>

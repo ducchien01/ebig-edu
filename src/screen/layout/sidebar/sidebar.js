@@ -6,7 +6,7 @@ import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
 import { AccountController } from '../../module/account/controller';
 import { ComponentStatus, Dialog, DialogAlignment, showDialog } from '../../../component/export-component';
 
-export default function SideBar({ menu }) {
+export default function SideBar({ menu = [] }) {
     const dialogRef = useRef()
     const location = useLocation()
     const [selected, setSelected] = useState([])
@@ -25,9 +25,9 @@ export default function SideBar({ menu }) {
     useEffect(() => {
         const newSelectedList = menu.filter(e => {
             if (e.parentId === 1) e.isExpand ??= true
-            return location.pathname === '/' ? e.link.includes('social') : location.pathname.startsWith('/' + e.link);
+            return location.pathname.startsWith('/' + e.link);
         })
-        setSelected(newSelectedList)
+        setSelected(newSelectedList.length ? newSelectedList : menu.slice(0, 1))
     }, [location.pathname])
 
     return <div className={`col sidebar ${isExpand ? 'expand' : ''}`} >

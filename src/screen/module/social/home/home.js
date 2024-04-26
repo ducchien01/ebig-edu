@@ -12,17 +12,24 @@ import ListExpertByTopic from "./local-component/list-expert"
 import NewsDetails from "../new/news-details"
 import SidebarActions from "../../../layout/sidebar/sidebar-actions"
 import PopupLogin from "../../account/popup-login"
+import { CustomerController } from "../../customer/controller"
+import CustomerPage from "./local-component/customer-page"
 
-export default function SocialHome() {
+export default function SocialHome({ customerPage = false }) {
     const { id } = useParams()
     const location = useLocation()
     const navigate = useNavigate()
     const ref = useRef()
     const isLogin = AccountController.token()
-    const [selectedTab, setSelectedTab] = useState(0)
+    const user = CustomerController.userInfor()
+    const [selectedTab, setSelectedTab] = useState(1)
 
     useEffect(() => {
-
+        if (user?.id === id) {
+            setSelectedTab(0)
+        } else {
+            setSelectedTab(1)
+        }
     }, [location.pathname])
 
     return <div className="row" style={{ flex: 1 }}>
@@ -51,16 +58,19 @@ export default function SocialHome() {
                 </button>
             </div>
             <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto', gap: '1.2rem' }}>
-                <NavLink to={'/'} className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
+                {user?.id ? <NavLink to={`/${user.id}`} className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
+                    <div className="label-3">Trang cá nhân</div>
+                </NavLink> : null}
+                <NavLink to={'/'} className={`news-bookmark-tab ${selectedTab === 1 ? 'selected' : ''}`}>
                     <div className="label-3">Bảng tin</div>
                 </NavLink>
-                <NavLink to={'/social/my-news'} className={`news-bookmark-tab ${selectedTab === 1 ? 'selected' : ''}`}>
+                <NavLink to={'/social/my-news'} className={`news-bookmark-tab ${selectedTab === 2 ? 'selected' : ''}`}>
                     <div className="label-3">Đã lưu</div>
                 </NavLink>
             </div>
             <SidebarActions />
         </div>
-        {id ? <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
+        {id ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
     </div>
 }
 

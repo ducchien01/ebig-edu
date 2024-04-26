@@ -161,8 +161,8 @@ export const extendView = [
     },
     {
         name: 'news details',
-        path: 'social/news/:id',
-        link: 'social/news',
+        path: ':id',
+        link: 'my-page',
     },
     {
         name: 'news details',
@@ -202,7 +202,7 @@ export const extendView = [
     {
         name: 'cart',
         path: 'ecomerce/cart/payment/processing/:id',
-        link: 'social/ecomerce/cart/payment/processing',
+        link: 'ecomerce/cart/payment/processing',
     },
 ]
 

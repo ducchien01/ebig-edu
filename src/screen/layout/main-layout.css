@@ -16,7 +16,7 @@
     overflow: hidden auto;
 }
 
-.view:has(>.hero-header) {
+.view:has(>.img-header) {
     gap: 2.8rem;
 }
 

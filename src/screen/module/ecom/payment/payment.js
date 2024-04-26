@@ -282,7 +282,7 @@ const PopupPaymentSubmit = forwardRef(function PopupPaymentSubmit(data, ref) {
         <div className="row popup-footer" style={{ justifyContent: 'space-between' }}>
             {/* <Text style={{ opacity: 0.6 }}>Thay đổi nội dung đơn hàng</Text> */}
             <Text style={{ opacity: 0.6 }}></Text>
-            <NavLink to={'processing/' + data.orderItem.id} style={{ padding: '0.4rem 1.2rem', borderRadius: '2.4rem' }} className="button-primary row">
+            <NavLink to={'/ecomerce/cart/payment/processing/' + data.orderItem.id} style={{ padding: '0.4rem 1.2rem', borderRadius: '2.4rem' }} className="button-primary row">
                 <div className="button-text-3">Hoàn tất</div>
             </NavLink>
         </div>

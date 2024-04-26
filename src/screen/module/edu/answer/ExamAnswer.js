@@ -16,31 +16,35 @@ export default function ExamAnswerList({ examId }) {
     const [questionList, setQuestionList] = useState([])
     const [totalQuest, setTotalQuest] = useState(0)
 
-    const getExamAnswerData = () => {
-        ExamAnswerController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'examId', operator: '=', value: examId }] }).then(res => {
-            if (res) {
-                if (res.totalCount !== total) setTotal(res.totalCount)
-                const newData = [...data, ...res.data.filter(e => data.every(el => el.id !== e.id))]
-                setData(newData)
-            }
-        })
+    const getExamAnswerData = (onLoadMore = true) => {
+        if (onLoadMore) {
+            ExamAnswerController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'examId', operator: '=', value: examId }] }).then(res => {
+                if (res) {
+                    if (res.totalCount !== total) setTotal(res.totalCount)
+                    const newData = [...data, ...res.data.filter(e => data.every(el => el.id !== e.id))]
+                    setData(newData)
+                }
+            })
+        }
     }
 
-    const getQuestionData = () => {
-        QuestionController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }] }).then(res => {
-            if (res) {
-                if (res.totalCount !== totalQuest) setTotalQuest(res.totalCount)
-                setQuestionList([...questionList, ...res.data.filter(e => questionList.every(el => el.id !== e.id)).map(e => {
-                    try {
-                        var questionItem = JSON.parse(e.content)
-                    } catch (error) {
-                        console.log("????", e?.id, error)
-                    }
-                    e.questionItem = questionItem
-                    return e
-                })])
-            }
-        })
+    const getQuestionData = (onLoadMore = true) => {
+        if (onLoadMore) {
+            QuestionController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }] }).then(res => {
+                if (res) {
+                    if (res.totalCount !== totalQuest) setTotalQuest(res.totalCount)
+                    setQuestionList([...questionList, ...res.data.filter(e => questionList.every(el => el.id !== e.id)).map(e => {
+                        try {
+                            var questionItem = JSON.parse(e.content)
+                        } catch (error) {
+                            console.log("????", e?.id, error)
+                        }
+                        e.questionItem = questionItem
+                        return e
+                    })])
+                }
+            })
+        }
     }
 
     const addQuestionToExam = (questItem) => {

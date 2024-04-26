@@ -91,7 +91,7 @@ export default function ListAllCourse() {
                 <FontAwesomeIcon icon={faRotate} style={{ fontSize: '1.4rem' }} />
             </button>
         </div>
-        <InfiniteScroll handleScroll={total !== data.length ? getData : undefined} className="row" style={{ flexWrap: 'wrap', overflow: 'hidden auto', flex: 1, height: '100%', width: '100%', gap: '3.2rem 4rem', alignItems: 'stretch' }}>
+        <InfiniteScroll handleScroll={total !== data.length ? (onLoadMore) => { if (onLoadMore) getData() } : undefined} className="row" style={{ flexWrap: 'wrap', overflow: 'hidden auto', flex: 1, height: '100%', width: '100%', gap: '3.2rem 4rem', alignItems: 'stretch' }}>
             {data.map((item, i) => {
                 const customer = customerList.find(e => e.id === item.customerId)
                 return <PostCard

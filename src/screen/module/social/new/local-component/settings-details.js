@@ -1,18 +1,21 @@
 import { useForm } from "react-hook-form";
-import { CustomCKEditor, Popup, Text, TextArea, showPopup } from "../../../../../component/export-component";
+import { ComponentStatus, CustomCKEditor, Dialog, DialogAlignment, Popup, Text, TextArea, ToastMessage, showDialog, showPopup } from "../../../../../component/export-component";
 import { ImportFileForm, Select1Form, SelectMultipleForm } from "../../../../../project-component/component-form";
 import { uploadFiles } from "../../../../baseDA";
 import ConfigAPI from "../../../../../config/configApi";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { NewController } from "../controller";
 import { editorConfiguration } from "../../../../../assets/const/const-list";
 import PopupPublishNews from "./popup-publish";
 import { FilledTrashCan } from "../../../../../assets/const/icon";
+import { NewStatus } from "../da";
 
 export default function SettingsNews() {
     const { id } = useParams()
+    const navigate = useNavigate()
     const ref = useRef()
+    const dialogRef = useRef()
     const methods = useForm({ shouldFocusError: false })
     const [onEditTitle, setEditTitle] = useState(false)
 
@@ -23,6 +26,26 @@ export default function SettingsNews() {
             heading: <div className="heading-6 popup-header">Bước cuối trước khi đăng bài viết</div>,
             style: { width: '87.2rem' },
             content: <PopupPublishNews ref={ref} item={ev} />
+        })
+    }
+
+    const submitSaveDraft = () => {
+        showDialog({
+            ref: dialogRef,
+            alignment: DialogAlignment.center,
+            status: ComponentStatus.WARNING,
+            title: 'Bạn chắc chắn muốn lưu bài viết danh sách nháp',
+            onSubmit: () => {
+                let newData = methods.getValues()
+                newData.status = NewStatus.draft
+                delete newData.picture
+                NewController.add(newData).then(res => {
+                    if (res) {
+                        ToastMessage.success('Lưu nháp bài viết thành công')
+                        navigate('/')
+                    }
+                })
+            }
         })
     }
 
@@ -40,6 +63,7 @@ export default function SettingsNews() {
 
     return <form className="col" style={{ width: '100%', height: '100%', flex: 1 }}>
         <Popup ref={ref} />
+        <Dialog ref={dialogRef} />
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }} >
                 <div className="col col24 col16-xxl col16-xl col18-lg col20-md" style={{ padding: '2rem 3.2rem 1.6rem 3.2rem', '--gutter': '0px', gap: '3.2rem' }}>
@@ -102,7 +126,7 @@ export default function SettingsNews() {
         <div className="row" style={{ width: '100%', justifyContent: 'center', borderTop: '1px solid #00358014' }}>
             <div className="row col24 col16-xxl col16-xl col18-lg col20-md" style={{ '--gutter': '0px', gap: '0.8rem', padding: '1.6rem 3.2rem' }}>
                 <div style={{ flex: 1 }}></div>
-                {methods.watch('title') ? <button type="button" className="row button-grey">
+                {methods.watch('title') && !id ? <button type="button" onClick={submitSaveDraft} className="row button-grey">
                     <div className="button-text-3">Lưu nháp</div>
                 </button> : null}
                 <button type="submit" onClick={methods.handleSubmit(submitPublishNew)} className={`row ${methods.watch('title') && methods.watch('description') ? 'button-primary' : 'button-disabled'}`} style={{ padding: '0.6rem 1.2rem' }}>

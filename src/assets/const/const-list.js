@@ -136,7 +136,7 @@ export const extendView = [
         link: 'education/courses/details',
     },
     {
-        name: 'Bán kèm lớp học',
+        name: 'Cấu hình lớp học',
         slug: 'additional-class',
         path: 'education/courses/details/additional-class/:id',
         link: 'education/courses/details',

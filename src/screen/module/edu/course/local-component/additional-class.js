@@ -49,6 +49,6 @@ export default function AdditionalClass({ courseData }) {
                 <Text className="button-text-3" >Thêm lớp</Text>
             </button>
         </div>
-        <ListClass data={data} onDelete={onRemoveClass} />
+        <div style={{ padding: '0 2.4rem' }}><ListClass data={data} onDelete={onRemoveClass} /></div>
     </div>
 }

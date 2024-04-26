@@ -2,6 +2,7 @@ import { ToastMessage } from "../../../../component/export-component"
 import ConfigAPI from "../../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"
+import { AccountController } from "../../account/controller"
 import { RatingItem } from "./da"
 
 export class RatingController {
@@ -18,7 +19,7 @@ export class RatingController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
-        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'RatingAuth/GetListSimpleByRequestBase', params)
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + (AccountController.token() ? 'RatingAuth' : 'Rating') + '/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
                 return response
@@ -30,7 +31,7 @@ export class RatingController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'RatingAuth' : 'Rating') + `/GetById?Id=${id}`)
         if (response) {
             if (response.code === 200) {
                 return response.data as RatingItem
@@ -115,7 +116,7 @@ export class RatingController {
     }
 
     static getRatingLikeByIds = async (ids: Array<string>) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'RatingAuth/GetRatingLikeByIds', {
+        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'RatingAuth' : 'Rating') + '/GetRatingLikeByIds', {
             data: (ids ?? []).join(',')
         })
         if (response) {

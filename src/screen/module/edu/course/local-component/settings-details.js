@@ -56,7 +56,7 @@ export default function SettingsCourse() {
                 CourseController.edit(data).then(res => {
                     if (res) {
                         ToastMessage.success('Xuất bản khóa học thành công')
-                        naviagte(`/edu/course/preview/${id}`)
+                        naviagte(`/education/courses/preview/${id}`)
                     }
                 })
             }
@@ -86,7 +86,7 @@ export default function SettingsCourse() {
                 </div>
                 <div className='heading-6'>Thông tin chi tiết Course</div>
             </div>
-            {data?.status === CourseStatus.draft ? <button type='button' onClick={submitPublishedCourse} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-grey'} row`} style={{ padding: '0.6rem 1.2rem' }}>
+            {data?.status === CourseStatus.draft ? <button type='button' onClick={submitPublishedCourse} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-disabled'} row`} style={{ padding: '0.6rem 1.2rem' }}>
                 <FilledSendMessage color={listView.filter(e => !e.parentId).every(e => e.valid) ? 'white' : undefined} />
                 <div className='button-text-3'>Xuất bản khóa học</div>
             </button> : null}

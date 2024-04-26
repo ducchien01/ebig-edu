@@ -50,9 +50,9 @@ export default function SchoolCourse() {
         <div className='col'>
             <div className="view-header row" style={{ border: 'none' }}>
                 <div className="heading-4">Danh sách Course</div>
-                <button type="button" className="suffix-btn row" onClick={popupAddNewCourse} style={{ backgroundColor: 'var(--primary-color)' }}>
-                    <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
-                    <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
+                <button type="button" className="button-primary row" onClick={popupAddNewCourse}>
+                    <FontAwesomeIcon icon={faPlus} style={{  fontSize: '1.6rem' }} />
+                    <Text className="button-text-3" >Tạo mới</Text>
                 </button>
             </div>
             <div className="col tab-container">

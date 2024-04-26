@@ -299,6 +299,26 @@
     border-color: var(--primary-color);
 }
 
+.lesson-paragraph-ck-editor .ck-content p,strong,i {
+    font-size: 1.6rem;
+}
+
+.lesson-paragraph-ck-editor .ck-content h1 {
+    font-size: 3rem;
+}
+
+.lesson-paragraph-ck-editor .ck-content h2 {
+    font-size: 2.4rem;
+}
+
+.lesson-paragraph-ck-editor .ck-content h3 {
+    font-size: 2rem;
+}
+
+.lesson-paragraph-ck-editor .ck-content h4 {
+    font-size: 1.6rem;
+}
+
 @media only screen and (min-width: 992px) {
     .course-overview-form>.col:last-child {
         border-left: var(--border-grey1);

@@ -29,7 +29,9 @@ export default function CourseLessonsContent({ data, onEndLesson = () => { }, co
                 </div>;
             case LessonType.paragraph:
                 setTimeout(onEndLesson, 120000)
-                return <div style={{ width: '100%' }} dangerouslySetInnerHTML={{ __html: lessonData.content }}></div>
+                return <div className="lesson-paragraph-ck-editor" style={{ width: '100%' }}>
+                    <div className="ck-content" dangerouslySetInnerHTML={{ __html: lessonData.content }}></div>
+                </div>
             case LessonType.task:
                 try {
                     var quizz = JSON.parse(lessonData.content)

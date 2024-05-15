@@ -30,7 +30,7 @@ export default function ExamAnswerList({ examId }) {
 
     const getQuestionData = (onLoadMore = true) => {
         if (onLoadMore) {
-            QuestionController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }] }).then(res => {
+            QuestionController.getListSimple({ page: Math.floor((questionList.length / 50)) + 1, take: 50, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }] }).then(res => {
                 if (res) {
                     if (res.totalCount !== totalQuest) setTotalQuest(res.totalCount)
                     setQuestionList([...questionList, ...res.data.filter(e => questionList.every(el => el.id !== e.id)).map(e => {

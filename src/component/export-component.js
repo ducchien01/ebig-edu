@@ -15,12 +15,12 @@ import { RadioButton } from './radio-button/radio-button.tsx'
 import { TextArea } from './text-area/text-area.tsx'
 import { ImportFile } from './import-file/import-file.tsx'
 import { ToastMessage } from './toast-noti/toast-noti.tsx'
-import { CustomCKEditor } from './ckeditor/ck-editor.tsx'
-import { Calendar, CalendarType } from './calendar/calendar.tsx'
+import { Calendar, CalendarType } from './calendar/calendar'
 import { InfiniteScroll } from './infinite-scroll/infinite-scroll.tsx'
 import { Rating } from './rating/rating.tsx'
-import { CustomSlider } from './slider/slider.tsx'
 import { ProgressCircle } from './progress-circle/progress-circle.tsx'
+import { CustomCKEditor } from './ckeditor/ck-editor.tsx'
+import { CustomSlider } from './slider/slider.tsx'
 
 export {
     Calendar, CalendarType,
@@ -42,9 +42,9 @@ export {
     TextArea,
     ImportFile,
     ToastMessage,
-    CustomCKEditor,
     InfiniteScroll,
     Rating,
+    ProgressCircle,
+    CustomCKEditor,
     CustomSlider,
-    ProgressCircle
 }

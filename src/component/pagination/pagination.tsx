@@ -22,7 +22,7 @@ export function Pagination({ currentPage, itemPerPage, totalItem, onChangePage, 
                                 searchPlaceholder={'Search'}
                                 style={{ width: '8.6rem' }}
                                 placeholder={itemPerPage.toString()}
-                                options={[10, 20, 50, 100, 200].map((item, _) => { return { id: item, name: item } })}
+                                options={[10, 20, 50, 100, 200].map((item, _) => { return { id: item, name: `${item}` } })}
                                 onChange={(ev: any) => {
                                     onChangePage(currentPage, isNaN(parseInt(ev.id)) ? itemPerPage : parseInt(ev.id));
                                 }}

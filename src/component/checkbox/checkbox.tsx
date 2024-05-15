@@ -2,11 +2,11 @@ import React, { CSSProperties } from 'react';
 import './checkbox.css';
 
 interface CheckboxProps {
-    onChange?: (value: boolean) => {},
+    onChange?: (value: boolean) => void,
     value?: boolean,
     checkColor?: string,
-    disabled: false,
-    style: CSSProperties,
+    disabled?: false,
+    style?: CSSProperties,
     /** default 2.4rem **/ 
     size?: number | string,
 }

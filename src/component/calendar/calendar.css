@@ -58,7 +58,7 @@
 }
 
 .picker-time-container div[class*="scroll-picker-"]>button.selected {
-    background-color: var(--primary-background);
+    background-color: var(--infor-background);
     color: var(--primary-color);
 }
 

@@ -12,7 +12,7 @@ type TbCellProps = {
     children?: ReactNode,
     className?: string,
     style?: CSSProperties,
-    align?: CellAlignItems,
+    align?: CellAlignItems | string,
 }
 
 export class TbCell extends React.Component<TbCellProps> {

@@ -2,6 +2,7 @@ import React, { CSSProperties, ReactNode } from "react"
 import './calendar.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
+import { differenceInCalendarDays } from "date-fns"
 
 export const today = new Date()
 export const startDate = new Date(
@@ -15,9 +16,7 @@ export const endDate = new Date(
     today.getDate()
 )
 
-export const differentInDay = (date1: Date, date2: Date) => (date1.getTime() - date2.getTime()) / (1000 * 3600 * 24)
-
-export const inRangeTime = (date: Date, startDate: Date, endDate: Date) => (differentInDay(date, startDate) > -1 && differentInDay(endDate, date) > -1)
+export const inRangeTime = (date: Date, startDate: Date, endDate: Date) => (differenceInCalendarDays(date, startDate) > -1 && differenceInCalendarDays(endDate, date) > -1)
 
 export const enum CalendarType {
     DATE,

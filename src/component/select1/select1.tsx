@@ -1,14 +1,17 @@
 import React, { CSSProperties, FocusEvent } from 'react'
 import {
-    faCaretDown,
-    faCaretUp,
+    faChevronDown,
+    faChevronUp,
+    faSearch,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactDOM from 'react-dom'
 import './select1.css'
 
 interface ObjWithKnownKeys {
-    [k: string]: any;
+    id: string | number,
+    name: string,
+    title?: string
 }
 
 interface Select1Props {
@@ -22,10 +25,11 @@ interface Select1Props {
     helperTextColor?: string,
     style?: CSSProperties,
     searchPlaceholder?: string,
+    handleSearch?: (e: string) => Promise<Array<ObjWithKnownKeys>>
 };
 
 interface Select1State {
-    value: any,
+    value?: string | number,
     offset: DOMRect,
     isOpen: boolean,
     onSelect: any,
@@ -34,32 +38,36 @@ interface Select1State {
 };
 
 export class Select1 extends React.Component<Select1Props, Select1State> {
-    state: Select1State = {
-        value: this.props.value,
-        offset: {
-            x: 0,
-            y: 0,
-            height: 0,
-            width: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            top: 0,
-            toJSON: function () {
-                throw new Error('Function not implemented.')
-            }
-        },
-        isOpen: false,
-        onSelect: null,
+    constructor(props: Select1Props) {
+        super(props)
+        this.state = {
+            value: this.props.value,
+            offset: {
+                x: 0,
+                y: 0,
+                height: 0,
+                width: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                top: 0,
+                toJSON: function () {
+                    throw new Error('Function not implemented.')
+                }
+            },
+            isOpen: false,
+            onSelect: null,
+        }
+        this.parseValue = this.parseValue.bind(this)
+        this.onChangeValue = this.onChangeValue.bind(this)
+        this.search = this.search.bind(this)
     }
 
-    parseValue(value: any) {
+    private parseValue(value: any) {
         if (value === null || value === undefined || value === '') {
             return null
         }
         switch (typeof this.props.options[0].id) {
-            case 'boolean':
-                return value === 'true'
             case 'number':
                 return parseFloat(value)
             default:
@@ -101,7 +109,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
         }
     }
 
-    onChangeValue(ev: FocusEvent) {
+    private onChangeValue(ev: FocusEvent) {
         if (this.state.onSelect?.classList?.contains('select1-tile')) {
             const item = this.props.options.find(e => e.id === this.parseValue(this.state.onSelect.id))
             this.setState({
@@ -122,27 +130,63 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
         }
     }
 
+    private search(ev: React.ChangeEvent<HTMLInputElement>) {
+        if (ev.target.value.trim().length) {
+            if (this.props.handleSearch) {
+                this.props.handleSearch(ev.target.value.trim()).then(res => {
+                    this.setState({
+                        ...this.state,
+                        search: res
+                    })
+                })
+            } else {
+                this.setState({
+                    ...this.state,
+                    search: this.props.options.filter(e => e.name.toLowerCase().includes(ev.target.value.trim().toLowerCase()))
+                })
+            }
+        } else {
+            this.setState({
+                ...this.state,
+                search: undefined
+            })
+        }
+    }
+
     render() {
         const selectedValue: ObjWithKnownKeys | undefined = (this.props.options ?? []).find(e => e.id === this.state.value)
         return <div
-            className={`select1-container row ${this.props.className ?? 'regular1'} ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
+            className={`select1-container row ${this.props.className ?? 'placeholder-2'} ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
             helper-text={this.props.helperText}
             style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
             onClick={ev => {
                 if (!this.state.isOpen) {
-                    document.body.getBoundingClientRect()
-                    this.setState({
-                        ...this.state,
-                        isOpen: true,
-                        offset: ((ev.target as HTMLElement).closest('.select1-container') ?? (ev.target as HTMLElement)).getBoundingClientRect(),
-                        style: undefined
-                    })
+                    let _offset = ((ev.target as HTMLElement).closest('.select1-container') ?? (ev.target as HTMLElement)).getBoundingClientRect()
+                    if (_offset.bottom + 32 > document.body.offsetHeight) {
+                        this.setState({
+                            ...this.state,
+                            isOpen: true,
+                            offset: _offset,
+                            style: {
+                                left: _offset.x + 'px',
+                                bottom: (document.body.offsetHeight - _offset.y) + 'px',
+                                width: `${_offset.width / 10}rem`
+                            }
+                        })
+                    } else {
+                        this.setState({
+                            ...this.state,
+                            isOpen: true,
+                            offset: _offset,
+                            style: undefined
+                        })
+                    }
                 }
             }}
         >
             {selectedValue?.name ? (<div className='select1-value-name'>{selectedValue.name}</div>) : (<div className='select1-placeholder'>{this.props.placeholder}</div>)}
             <FontAwesomeIcon
-                icon={this.state.isOpen ? faCaretUp : faCaretDown}
+                icon={this.state.isOpen ? faChevronUp : faChevronDown}
                 style={{ fontSize: '1.2rem', color: '#888' }}
             />
             {this.state.isOpen &&
@@ -152,7 +196,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
                         style={this.state.style ?? {
                             top: this.state.offset.y + this.state.offset.height + 2 + 'px',
                             left: this.state.offset.x + 'px',
-                            width: `${this.state.offset.width / 10}rem`,
+                            width: this.state.offset.width,
                         }}
                         onMouseOver={ev => {
                             this.setState({
@@ -169,32 +213,17 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
                     >
                         <div className='row header-search'>
                             <input autoFocus={true} placeholder={this.props.searchPlaceholder ?? 'Tìm kiếm'}
-                                onChange={ev => {
-                                    if (ev.target.value.trim().length) {
-                                        this.setState({
-                                            ...this.state,
-                                            search: this.props.options.filter(e =>
-                                                e.name
-                                                    .toLowerCase()
-                                                    .includes(ev.target.value.trim().toLowerCase())
-                                            )
-                                        })
-                                    } else {
-                                        this.setState({
-                                            ...this.state,
-                                            search: undefined
-                                        })
-                                    }
-                                }}
+                                onChange={this.search}
                                 onBlur={ev => {
                                     this.onChangeValue(ev)
                                 }}
                             />
+                            <FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.2rem', color: '#161D24D9' }} />
                         </div>
                         <div className='col select1-body'>
                             <div className='col select1-scroll-view'>
                                 {(this.state.search ?? this.props.options).map(item => (
-                                    <button type='button' key={item.id} className='select1-tile regular1 row' id={item.id} >
+                                    <button type='button' key={item.id} className='select1-tile label-3 row' id={`${item.id}`} style={{ backgroundColor: selectedValue?.id === item.id ? 'var(--selected-background)' : '#00000000' }}>
                                         {item.title ?? item.name}
                                     </button>
                                 ))}

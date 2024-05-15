@@ -3,7 +3,8 @@ import React, { CSSProperties } from 'react'
 import ReactDOM from 'react-dom'
 import './date-picker.css'
 import { CalendarType, Calendar } from '../export-component'
-import { differentInDay, endDate, inRangeTime, startDate, today } from '../calendar/calendar'
+import { endDate, inRangeTime, startDate, today } from '../calendar/calendar'
+import { differenceInCalendarDays } from 'date-fns'
 
 const CalendarIcon = ({ color = '#00204D99', width = '1.6rem', height = '1.6rem' }: { color?: string, width?: string | number, height?: string | number }) => (
     <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 17 16' fill='none' style={{ width: width, height: height }}>
@@ -99,12 +100,13 @@ interface DatePickerProps {
     value?: string,
     min: Date,
     max: Date,
-    onChange?: Function,
+    onChange?: (e?: string) => void,
     disabled?: boolean,
     helperText?: string,
     helperTextColor?: string,
     placeholder?: string,
     className?: string,
+    hideButtonToday?: boolean,
     style?: CSSProperties,
     /* default: DATE */
     pickerType?: CalendarType,
@@ -177,7 +179,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                         right: document.body.offsetWidth - this.state.offset.left + 'px'
                     }
                 }
-                if (thisPopupRect.bottom > document.body.offsetHeight) {
+                if ((thisPopupRect.bottom - 20) > document.body.offsetHeight) {
                     style = style ? {
                         ...style,
                         top: undefined,
@@ -207,7 +209,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
             default:
                 break;
         }
-        return <label className={`date-picker-container row input-border ${this.props.className ?? 'regular1'} ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
+        return <label className={`date-picker-container row ${this.props.className ?? 'placeholder-2'} ${this.props.disabled ? 'disabled' : ''} ${this.props.helperText?.length && 'helper-text'}`}
             helper-text={this.props.helperText}
             style={this.props.style ? { ...({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties), ...this.props.style } : ({ '--helper-text-color': this.props.helperTextColor ?? '#e14337' } as CSSProperties)}
         >
@@ -237,7 +239,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                                     let dateValue = stringToDate(`1/${inputValue}`, 'dd/MM/yyyy', '/')
                                     if (inRangeTime(dateValue, this.props.min ?? startDate ?? startDate, this.props.min ?? endDate ?? endDate)) {
                                         this.setState({ ...this.state, isOpen: false, value: dateToString(dateValue) })
-                                        if (this.props.onChange) this.props.onChange(dateValue)
+                                        if (this.props.onChange) this.props.onChange(dateToString(dateValue))
                                     } else {
                                         this.setState({ ...this.state, isOpen: false, value: undefined })
                                         if (this.props.onChange) this.props.onChange(undefined)
@@ -248,49 +250,38 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                                 }
                                 break
                             case CalendarType.DATETIME:
+                                let dateTimeValue = undefined
                                 if (inputValue.match(/[0-9]{1,2}(\/|-)[0-9]{1,2}(\/|-)[0-9]{4}/g)) {
-                                    let dateValue = stringToDate(inputValue, this.props.formatDate, '/')
-                                    if (inRangeTime(dateValue, this.props.min ?? startDate, this.props.min ?? endDate)) {
-                                        const stateValue = dateToString(dateValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
-                                        this.setState({ ...this.state, isOpen: false, value: stateValue })
-                                        if (this.props.onChange) this.props.onChange(stateValue)
-                                    } else if (differentInDay(this.props.min ?? startDate, dateValue) > -1) {
-                                        const stateValue = dateToString(this.props.min ?? startDate, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
-                                        this.setState({ ...this.state, isOpen: false, value: stateValue })
-                                        if (this.props.onChange) this.props.onChange(stateValue)
-                                    } else if (differentInDay(dateValue, this.props.min ?? endDate) > -1) {
-                                        const stateValue = dateToString(this.props.min ?? endDate, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
-                                        this.setState({ ...this.state, isOpen: false, value: stateValue })
-                                        if (this.props.onChange) this.props.onChange(stateValue)
+                                    dateTimeValue = stringToDate(inputValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm', '/')
+                                    if (inRangeTime(dateTimeValue, this.props.min ?? startDate, this.props.min ?? endDate)) {
+                                    } else if (differenceInCalendarDays(this.props.min ?? startDate, dateTimeValue) > -1) {
+                                        dateTimeValue = this.props.min ?? startDate
+                                    } else if (differenceInCalendarDays(dateTimeValue, this.props.min ?? endDate) > -1) {
+                                        dateTimeValue = this.props.min ?? startDate
                                     } else {
-                                        this.setState({ ...this.state, isOpen: false, value: undefined })
-                                        if (this.props.onChange) this.props.onChange(undefined)
+                                        dateTimeValue = undefined
                                     }
-                                } else {
-                                    this.setState({ ...this.state, isOpen: false, value: undefined })
-                                    if (this.props.onChange) this.props.onChange(undefined)
                                 }
+                                const stateDateTimeValue = dateTimeValue ? dateToString(dateTimeValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm') : dateTimeValue
+                                this.setState({ ...this.state, isOpen: false, value: stateDateTimeValue })
+                                if (this.props.onChange) this.props.onChange(stateDateTimeValue)
                                 break;
                             default:
+                                let dateValue = undefined
                                 if (inputValue.match(/[0-9]{1,2}(\/|-)[0-9]{1,2}(\/|-)[0-9]{4}/g)) {
-                                    let dateValue = stringToDate(inputValue, 'dd/MM/yyyy', '/')
+                                    dateValue = stringToDate(inputValue, 'dd/MM/yyyy', '/')
                                     if (inRangeTime(dateValue, this.props.min ?? startDate, this.props.min ?? endDate)) {
-                                        this.setState({ ...this.state, isOpen: false, value: dateToString(dateValue) })
-                                        if (this.props.onChange) this.props.onChange(dateValue)
-                                    } else if (differentInDay(this.props.min ?? startDate, dateValue) > -1) {
-                                        this.setState({ ...this.state, isOpen: false, value: dateToString(this.props.min ?? startDate) })
-                                        if (this.props.onChange) this.props.onChange(this.props.min ?? startDate)
-                                    } else if (differentInDay(dateValue, this.props.min ?? endDate) > -1) {
-                                        this.setState({ ...this.state, isOpen: false, value: dateToString(this.props.min ?? endDate) })
-                                        if (this.props.onChange) this.props.onChange(this.props.min ?? endDate)
+                                    } else if (differenceInCalendarDays(this.props.min ?? startDate, dateValue) > -1) {
+                                        dateValue = this.props.min ?? startDate
+                                    } else if (differenceInCalendarDays(dateValue, this.props.min ?? endDate) > -1) {
+                                        dateValue = this.props.max ?? endDate
                                     } else {
-                                        this.setState({ ...this.state, isOpen: false, value: undefined })
-                                        if (this.props.onChange) this.props.onChange(undefined)
+                                        dateValue = undefined
                                     }
-                                } else {
-                                    this.setState({ ...this.state, isOpen: false, value: undefined })
-                                    if (this.props.onChange) this.props.onChange(undefined)
                                 }
+                                const stateDateValue = dateValue ? dateToString(dateValue) : dateValue
+                                this.setState({ ...this.state, isOpen: false, value: stateDateValue })
+                                if (this.props.onChange) this.props.onChange(stateDateValue)
                                 break;
                         }
                     }}
@@ -316,18 +307,18 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                             value={this.getNewValue()}
                             type={this.props.pickerType ?? CalendarType.DATE}
                             className='date-picker-popup-container'
-                            style={this.state.style ?? { top: this.state.offset.y + this.state.offset.height + 2 + 'px', left: this.state.offset.x + 'px' }}
+                            style={this.state.style ?? { top: this.state.offset.y + this.state.offset.height + 2 + 'px', left: this.state.offset.x + 'px', border: 'none', boxShadow: '-20px 20px 40px -4px rgba(145, 158, 171, 0.24), 0px 0px 2px 0px rgba(145, 158, 171, 0.24)' }}
                             onSelect={(dateValue: Date) => {
                                 switch (this.props.pickerType) {
                                     case CalendarType.YEAR:
                                         this.setState({ ...this.state, value: dateValue.getFullYear().toString(), isOpen: false })
                                         if (this.props.onChange) this.props.onChange(dateValue.getFullYear().toString())
-                                            break;
+                                        break;
                                     case CalendarType.MONTH:
                                         var newValue = dateToString(dateValue)
                                         this.setState({ ...this.state, value: newValue.split('/').slice(1).join('/'), isOpen: false })
                                         if (this.props.onChange) this.props.onChange(newValue.split('/').slice(1).join('/'))
-                                            break;
+                                        break;
                                     case CalendarType.DATETIME:
                                         var newValue = dateToString(dateValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
                                         this.setState({ ...this.state, value: newValue })
@@ -339,7 +330,7 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                                         break;
                                 }
                             }}
-                            footer={<div className='row picker-popup-footer' >
+                            footer={(this.props.pickerType === CalendarType.DATETIME || !this.props.hideButtonToday) && <div className='row picker-popup-footer' >
                                 {this.props.pickerType === undefined || this.props.pickerType === CalendarType.DATE || this.props.pickerType === CalendarType.DATETIME ?
                                     <button
                                         type='button'

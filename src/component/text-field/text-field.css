@@ -53,8 +53,12 @@
     color: var(--helper-text-color);
     position: absolute;
     left: 0;
-    bottom: -0.4rem;
+    bottom: 0;
     width: max-content;
-    font: inherit 1.2rem/1.6rem 'Inter';
+    font: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
     transform: translate(-7.5%, 92.5%) scale(0.85);
 }

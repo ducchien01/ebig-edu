@@ -39,7 +39,7 @@
 
 .date-picker-container.helper-text::after {
     content: attr(helper-text);
-    color: red;
+    color: #e14337;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -55,6 +55,14 @@
     flex: 1;
     width: 100%;
     background-color: transparent !important;
+    font: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    text-overflow: inherit;
 }
 
 .date-picker-container .input-field-value>input {
@@ -73,6 +81,10 @@
     line-height: inherit;
     text-align: inherit;
     text-overflow: inherit;
+}
+
+.date-picker-container .input-field-value>input::placeholder {
+    opacity: 0.6;
 }
 
 .date-picker-popup-container {

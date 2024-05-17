@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ConfigAPI from './config/configApi';
 import { modules } from './assets/const/const-list';
+import 'react-awesome-slider/dist/styles.css';
 
 function App() {
     return (

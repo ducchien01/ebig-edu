@@ -10,6 +10,7 @@ export default function ListExpertByTopic({ topic }) {
             {Array.from({ length: 3 }).map((item, i) => {
                 return <InforCard
                     key={'expert-' + i}
+                    to={`/${item.id}`}
                     className="row"
                     avatar={avatarDemo}
                     style={{ padding: 0, border: 'none' }}

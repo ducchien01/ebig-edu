@@ -186,8 +186,18 @@ export const extendView = [
     },
     {
         name: 'course details',
+        path: 'education/courses',
+        link: 'education/courses',
+    },
+    {
+        name: 'course details',
         path: 'education/course/:id',
         link: 'education/course',
+    },
+    {
+        name: 'course details',
+        path: 'education/exam/:id',
+        link: 'education/exam',
     },
     {
         name: 'cart',

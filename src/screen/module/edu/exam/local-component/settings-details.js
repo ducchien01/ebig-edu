@@ -133,7 +133,7 @@ const CommonTab = ({ data }) => {
                 label={'Loại bài thi'}
                 name={'status'}
                 value={methods.watch('status')}
-                options={[{ id: ExamStatus.test, name: 'Thi thử' }, { id: ExamStatus.real, name: 'Thi thật' }]}
+                options={[{ id: ExamStatus.test, name: 'Thi thử' }, { id: ExamStatus.real, name: 'Thi cấp chứng chỉ/bằng' }]}
                 onChange={onChangeExamData}
             />
         </div>
@@ -154,6 +154,17 @@ const CommonTab = ({ data }) => {
                 className={'row edit-infor-container'}
                 label={'Thời gian thi (Phút)'}
                 name={'time'}
+                register={methods.register}
+                type={'number'}
+                onBlur={onChangeExamData}
+            />
+        </div>
+        <div className="row exam-infor-tile" >
+            <TextFieldForm
+                className={'row edit-infor-container'}
+                label={'Số điểm đạt'}
+                name={'quantity'}
+                placeholder={'Số câu trả lời đúng'}
                 register={methods.register}
                 type={'number'}
                 onBlur={onChangeExamData}

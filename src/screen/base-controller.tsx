@@ -18,7 +18,7 @@ export const decryptData = (text: string) => {
 }
 
 interface FilterItem {
-    field: string,
+    field: string,  
     value: string,
     /** value: contains, startswith, endswith, notcontains, > , < , = , <>  */
     operator?: string,

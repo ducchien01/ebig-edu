@@ -97,7 +97,7 @@ export default function ExamManagment() {
                             <TbCell style={{ minWidth: 80, }} >{studentLevelList.find(e => e.id === item.level)?.name}</TbCell>
                             <TbCell style={{ minWidth: 120, }}>{listTopic.find(e => e.id === item.topicId)?.name}</TbCell>
                             <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>{item.time}</TbCell>
-                            <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center} >{item.status ? item.status === ExamStatus.real ? "Thi chính thức" : "Thi thử" : 'Bản nháp'}</TbCell>
+                            <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center} >{item.status ? item.status === ExamStatus.real ? "Thi cấp chứng chỉ/bằng" : "Thi thử" : 'Bản nháp'}</TbCell>
                             <TbCell fixed={true} style={{ minWidth: 80, }} >
                                 <div className="row" style={{ justifyContent: 'center' }}>
                                     <button type="button" className="row" onClick={() => { confirmDelete(item) }} style={{ padding: '0.6rem', width: 'fit-content' }}>

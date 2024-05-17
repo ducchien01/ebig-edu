@@ -17,9 +17,11 @@ export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, 
     </div>
 }
 
-export const InforCard = ({ className = 'col', style, avatar, avatarSize = '6.4rem', title, subTitle, content, actions }) => {
+export const InforCard = ({ className = 'col', style, avatar, avatarSize = '6.4rem', title, subTitle, content, actions, to }) => {
     return <div className={`${className} infor-card-container`} style={style}>
-        <img src={avatar} className="avatar" style={{ width: avatarSize, height: avatarSize, borderRadius: '50%' }} alt="" />
+        <NavLink to={to}>
+            <img src={avatar} className="avatar" style={{ width: avatarSize, height: avatarSize, borderRadius: '50%' }} alt="" />
+        </NavLink>
         <div className="col infor-details">
             {title && (typeof title === 'string' ? <Text className="heading-7" maxLine={2}>{title}</Text> : title)}
             {subTitle && (typeof subTitle === 'string' ? <Text className="subtitle-4" maxLine={2}>{subTitle}</Text> : subTitle)}

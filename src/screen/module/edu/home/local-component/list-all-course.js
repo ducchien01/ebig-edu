@@ -15,9 +15,15 @@ export default function ListAllCourse() {
     const [data, setData] = useState([])
     const [customerList, setCustomerList] = useState([])
     const [total, setTotal] = useState(0)
+    const searchParams = new URLSearchParams(window.location.search);
+
 
     const getData = async () => {
-        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 30)) + 1, take: 30, filter: [{ field: 'status', operator: '=', value: CourseStatus.published }] })
+        let listFilter = [{ field: 'status', operator: '=', value: CourseStatus.published }]
+        for (const [key, value] of searchParams) {
+            listFilter.push({ field: key, operator: '=', value: value })
+        }
+        const res = await CourseController.getListSimple({ page: Math.floor((data.length / 30)) + 1, take: 30, filter: listFilter })
         if (res) {
             if (total !== res.totalCount) setTotal(res.totalCount)
             let customerIds = res.data.map(e => e.customerId).filter(id => customerList.every(item => item.id !== id))
@@ -96,7 +102,7 @@ export default function ListAllCourse() {
                 const customer = customerList.find(e => e.id === item.customerId)
                 return <PostCard
                     key={item.id}
-                    to={'course/' + item.id}
+                    to={'/education/course/' + item.id}
                     style={{ '--gutter': '4rem', height: '100%', maxHeight: '40rem' }}
                     className="col col6 col8-sm col8-min"
                     imgStyle={{ height: '12rem' }}

@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from '../../../../component/export-component'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
@@ -7,7 +7,7 @@ import { PostCard } from '../../../../project-component/card'
 import courseThumbnail from '../../../../assets/demo-image2.png'
 import classThumbnail from '../../../../assets/demo-image3.png'
 import mentorThumbnail from '../../../../assets/demo-image4.png'
-import ListDiscountCourse from './local-component/list-discount-course'
+import ListCommonExam from './local-component/list-common-exam'
 import ListCommonCourse from './local-component/list-common-course'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AccountController } from '../../account/controller'
@@ -19,7 +19,6 @@ import ListAllCourse from './local-component/list-all-course'
 import { OrderController } from '../../ecom/order/controller'
 import { OrderType } from '../../ecom/order/da'
 import { CustomerController } from '../../customer/controller'
-import 'react-awesome-slider/dist/styles.css';
 import { CourseController } from '../course/controller'
 import ConfigAPI from '../../../../config/configApi'
 import { CustomerType } from '../../customer/da'
@@ -35,10 +34,10 @@ import QuestionManagment from '../question/question'
 import CurriculumManagment from '../curriculum/curriculum'
 
 export default function EduHome() {
-    const isLogin = AccountController.token()
     const expertRole = CustomerController.userInfor()?.type === CustomerType.expert
+    const location = useLocation()
 
-    return isLogin ? expertRole ? <HomeExpert /> : <HomeAuth /> : <HomeGuest />
+    return expertRole ? <HomeExpert /> : location.pathname.includes('courses') ? <HomeAuth /> : <HomeGuest />
 }
 
 const HomeGuest = () => {
@@ -49,7 +48,7 @@ const HomeGuest = () => {
                     <Text className='heading-3' maxLine={2} style={{ color: '#ffffff', width: 'max(56%, 60rem)' }}>eBig is a community of spreading the knowledge</Text>
                     <Text className='body-3' maxLine={2} style={{ color: '#ffffff', width: 'max(56%, 40rem)' }}>Learn from expert professionals and join the largest online community for creatives.</Text>
                 </div>
-                <NavLink className="row button-grey">
+                <NavLink to={'courses'} className="row button-primary">
                     <Text className='button-text-3'>Xem các khóa học</Text>
                 </NavLink>
             </div>
@@ -106,19 +105,19 @@ const HomeGuest = () => {
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
             <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Khoá học đang được ưu đãi</Text>
-                    <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
+                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Khoá học phổ biến nhất</Text>
+                    <NavLink to={'courses'} className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
                 </div>
-                <ListDiscountCourse />
+                <ListCommonCourse />
             </div>
         </div>
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
             <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Khoá học phổ biến nhất</Text>
-                    <NavLink to={'courses'} className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
+                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Bài thi thử phổ biến</Text>
+                    <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
                 </div>
-                <ListCommonCourse />
+                <ListCommonExam />
             </div>
         </div>
     </div>
@@ -128,8 +127,16 @@ const HomeAuth = () => {
     const [topicList, setTopicList] = useState([])
     const [openAll, setOpenAll] = useState(false)
     const [myCourses, setMyCourses] = useState([])
+    const searchParams = new URLSearchParams(window.location.search);
+    const [selectedTopics, setSelectedTopics] = useState([])
 
     useEffect(() => {
+        let listFilter = []
+        for (const [key, value] of searchParams) {
+            if (key === 'topicId')
+                listFilter.push(value)
+        }
+        setSelectedTopics(listFilter)
         TopicController.getAll().then(res => {
             if (res) setTopicList(res)
         })
@@ -147,7 +154,7 @@ const HomeAuth = () => {
                 }
             }
         })
-    }, [])
+    }, [window.location.search])
 
     return <div className='row' style={{ flex: 1, height: '100%', width: '100%', }}>
         <div className='col body-sidebar' >
@@ -163,7 +170,7 @@ const HomeAuth = () => {
                 <div className='col' style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
                     {topicList.slice(0, openAll ? topicList.length : 6).map((item, i) => {
                         return <div key={'filter-topic-' + i} className='row' style={{ gap: '0.8rem', padding: '1rem 1.6rem' }}>
-                            <Checkbox size='2rem' />
+                            <Checkbox size='2rem' value={selectedTopics.some(id => id === item.id)} />
                             <Text style={{ flex: 1, width: '100%' }} className='label-4' maxLine={1}>{item.name}</Text>
                         </div>
                     })}

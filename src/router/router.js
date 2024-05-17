@@ -12,6 +12,7 @@ import PaymentProcess from "../screen/module/ecom/payment/local-component/paymen
 import SettingsExam from "../screen/module/edu/exam/local-component/settings-details";
 import SettingsQuestion from "../screen/module/edu/question/local-component/settings-details";
 import SettingsNews from "../screen/module/social/new/local-component/settings-details";
+import ViewExamDetails from "../screen/module/edu/exam/exam-details";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -67,6 +68,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <SettingsQuestion />;
         case "education/courses/preview":
             return <Preview />;
+        case "education/exam":
+            return <ViewExamDetails />;
         // case "edu/user/profile":
         //     return <ProfileView />;
         // case "product-management":

@@ -13,6 +13,8 @@ import SettingsExam from "../screen/module/edu/exam/local-component/settings-det
 import SettingsQuestion from "../screen/module/edu/question/local-component/settings-details";
 import SettingsNews from "../screen/module/social/new/local-component/settings-details";
 import ViewExamDetails from "../screen/module/edu/exam/exam-details";
+import ViewTesting from "../screen/module/edu/exam/local-component/testing";
+import ExamResultView from "../screen/module/edu/exam/local-component/exam-result";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
@@ -70,6 +72,10 @@ export const getcomponentRouter = (moduleCode) => {
             return <Preview />;
         case "education/exam":
             return <ViewExamDetails />;
+        case "education/testing":
+            return <ViewTesting />;
+        case "education/exam-result":
+            return <ExamResultView />;
         // case "edu/user/profile":
         //     return <ProfileView />;
         // case "product-management":

@@ -47,7 +47,7 @@ export class QuestionController {
         })
         if (response) {
             if (response.code === 200) {
-                return response.data as ExamQuestionItem
+                return response.data as Array<ExamQuestionItem>
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -58,6 +58,20 @@ export class QuestionController {
     static add = async (examQuestionItem: ExamQuestionItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'LessonAuth/Action?action=add', {
             data: { data: examQuestionItem }
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<ExamQuestionItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getRandomExam = async (examId: string) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'LessonAuth/RandomLessonByExamId', {
+            data: examId
         })
         if (response) {
             if (response.code === 200) {

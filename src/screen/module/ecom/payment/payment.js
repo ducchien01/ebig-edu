@@ -9,6 +9,7 @@ import { CustomerController } from "../../customer/controller";
 import QRCode from '../../../../assets/qr-banking.png'
 import { differenceInSeconds } from "date-fns";
 import { OrderType } from "../order/da";
+import CoutDownText from "../../../../project-component/count-down-text";
 
 export default function EcomPayment() {
     const { state } = useLocation()
@@ -274,7 +275,10 @@ const PopupPaymentSubmit = forwardRef(function PopupPaymentSubmit(data, ref) {
                             <Text className="subtitle-4">Nội dung chuyển khoản</Text>
                             <Text className="heading-7">DH8374593458345</Text>
                         </div>
-                        <CoutDownText remain={data.timer} />
+                        <div className="body-3 row" style={{ gap: '0.6rem', padding: '1.2rem 1.6rem', marginTop: '1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--error-background)' }}>
+                            Vui lòng thanh toán trong
+                            <CoutDownText remain={data.timer} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -289,30 +293,3 @@ const PopupPaymentSubmit = forwardRef(function PopupPaymentSubmit(data, ref) {
     </div>
 })
 
-const CoutDownText = ({ remain = 0 }) => {
-    const [timer, setTimer] = useState(1800 - remain)
-
-    const getMinute = () => {
-        const mValue = Math.floor(timer / 60)
-        return mValue < 10 ? `0${mValue}` : mValue
-    }
-
-    const getSecond = () => {
-        const sValue = timer % 60
-        return sValue < 10 ? `0${sValue}` : sValue
-    }
-
-    useEffect(() => {
-        const interval = setInterval(function () {
-            if (timer) {
-                setTimer(timer - 1)
-            }
-        }, 1000)
-        return () => clearInterval(interval);
-    }, [timer])
-
-    return <div className="body-3 row" style={{ gap: '0.6rem', padding: '1.2rem 1.6rem', marginTop: '1.6rem', borderRadius: '0.8rem', backgroundColor: 'var(--error-background)' }}>
-        Vui lòng thanh toán trong
-        <div className="body-3" style={{ color: 'var(--error-color)' }}>{`${getMinute()}:${getSecond()}`}</div>
-    </div>
-}

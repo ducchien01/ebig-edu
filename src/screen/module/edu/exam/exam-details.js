@@ -211,7 +211,7 @@ const ResultTab = ({ exam, selectedTestId, testList = [] }) => {
                             <div className="row" style={{ gap: '1.4rem' }}>
                                 <div style={{ width: '1.4rem', height: '1.4rem', borderRadius: '50%', backgroundColor: 'var(--error-color)' }} />
                                 <Text className="label-1">Câu trả lời sai</Text>
-                            </div>z
+                            </div>
                             <div className="row" style={{ gap: '1.4rem' }}>
                                 <div style={{ width: '1.4rem', height: '1.4rem', borderRadius: '50%', backgroundColor: 'var(--success-color)' }} />
                                 <Text className="label-1">Câu trả lời đúng</Text>
@@ -224,15 +224,17 @@ const ResultTab = ({ exam, selectedTestId, testList = [] }) => {
                                     var _anwer = JSON.parse(userAnswer.result)
                                 }
                                 return <button type="button" onClick={() => { scrollToQuestion(e.id) }} key={e.id} className="col col6 col8-sm col8-min" style={{
-                                    '--gutter': '1.2rem', height: '2.4rem', alignItems: 'center', justifyContent: 'center', borderRadius: '0.4rem', backgroundColor: e.questionItem.answers.every(ans => {
+                                    '--gutter': '1.2rem', height: '2.4rem', alignItems: 'center', justifyContent: 'center', borderRadius: '0.4rem', backgroundColor: e.questionItem.answers.some(ans => {
                                         switch (e.questionItem.type) {
                                             case QuestionType.checkbox:
-                                                return _anwer?.some(id => ans.id === id)
+                                                var checked = _anwer?.some(id => ans.id === id)
                                             case QuestionType.radio:
-                                                return _anwer === ans.id
+                                                var checked = _anwer === ans.id
                                             default:
-                                                return false
+                                                checked = false
                                         }
+                                        if (checked) var checkedValue = ans.isCorrect
+                                        return checkedValue
                                     }) ? 'var(--success-color)' : 'var(--error-color)'
                                 }}>
                                     <Text className="regular2" style={{ color: '#fff' }}>{i + 1}</Text>
@@ -240,8 +242,8 @@ const ResultTab = ({ exam, selectedTestId, testList = [] }) => {
                             })}
                         </div>
                     </div>
-                    <div className="col" style={{ height: '100%', overflow: 'hidden auto', flex: 1, width: '100%' }}>
-                        <div className="popup-body col" ref={scrollRef} style={{ padding: '1.6rem 2.4rem', gap: '2rem', width: '100%' }}>
+                    <div className="col" ref={scrollRef} style={{ height: '60rem', overflow: 'hidden auto', flex: 1, width: '100%' }}>
+                        <div className="col" style={{ padding: '1.6rem 2.4rem', gap: '2rem', width: '100%' }}>
                             {questions.map((item, i) => {
                                 const userAnswer = res.data.find(e => e.answerId === item.id)
                                 if (userAnswer) {

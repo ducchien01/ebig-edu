@@ -8,3 +8,13 @@ export interface TestResultItem {
     dateStart?: number,
     score?: number
 }
+
+export interface TestResultDetailsItem {
+    id?: string,
+    name?: string,
+    dateCreated?: number,
+    answerId?: string,
+    testId?: string,
+    result?: string,
+    status?: number
+}

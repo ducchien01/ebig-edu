@@ -2,7 +2,7 @@ import { ToastMessage } from "../../../../component/export-component"
 import ConfigAPI from "../../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"
-import { TestResultItem } from "./da"
+import { TestResultDetailsItem, TestResultItem } from "./da"
 
 export class TestResultController {
     static getAll = async () => {
@@ -10,6 +10,30 @@ export class TestResultController {
         if (response) {
             if (response.code === 200) {
                 return response as Array<TestResultItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getAllTestAnswer = async () => {
+        const response = await postData(ConfigAPI.ebigUrl + 'TestLessonAuth/GetAll')
+        if (response) {
+            if (response.code === 200) {
+                return response as Array<TestResultItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getListSimpleTestAnswer = async (params?: FilterListSimpleBody) => {
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'TestLessonAuth/GetListSimpleByRequestBase', params)
+        if (response) {
+            if (response.code === 200) {
+                return response
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -44,6 +68,20 @@ export class TestResultController {
     static add = async (ratingItem: TestResultItem) => {
         const response = await postData(ConfigAPI.ebigUrl + 'TestAuth/Action?action=add', {
             data: { data: ratingItem }
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static addListTestAnswer = async (listAnwser: Array<TestResultDetailsItem>) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'TestLessonAuth/Action?action=add', {
+            data: { data: listAnwser }
         })
         if (response) {
             if (response.code === 200) {

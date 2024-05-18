@@ -14,6 +14,7 @@
 .custom-table>.tb-header>tr {
     border-top: var(--border-grey1);
     border-bottom: var(--border-grey1);
+    ---selected-tbrow-bg: #f5f7fa
 }
 
 .custom-table .tb-cell {
@@ -40,11 +41,11 @@
 }
 
 .custom-table tr.selected {
-    background-color: #f5f7fa !important;
+    background-color: var(--selected-tbrow-bg) !important;
 }
 
 .custom-table tr.selected>td {
-    background-color: #f5f7fa !important;
+    background-color: var(--selected-tbrow-bg) !important;
 }
 
 .tb-row>.tb-cell.tb-cell-fixed {

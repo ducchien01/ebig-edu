@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { NavLink, useLocation, useParams } from "react-router-dom"
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { ExamController } from "./controller"
 import { CellAlignItems, Table, TbBody, TbCell, TbHeader, TbRow, Text } from "../../../../component/export-component"
 import { OutlineCircleQuestion, OutlineForm, OutlinePeople, OutlineScoreAPlus, OutlineTimeAlarm, OutlineVerified } from "../../../../assets/const/icon"
@@ -12,6 +12,7 @@ export default function ViewExamDetails() {
     const { id } = useParams()
     const [data, setData] = useState()
     const location = useLocation()
+    const navigate = useNavigate()
     const [activeTab, setActiveTab] = useState(0)
 
     const renderUI = () => {
@@ -35,8 +36,8 @@ export default function ViewExamDetails() {
 
     useEffect(() => {
         if (location.state?.testId) {
-            debugger
             setActiveTab(1)
+            navigate(-1)
         }
     }, [location.state])
 
@@ -62,7 +63,7 @@ const OverviewTab = ({ exam }) => {
     useEffect(() => { setData(exam) }, [exam])
 
 
-    return <div className="tab-body-2 row" style={{ flex: 1, height: '100%', alignItems: 'start', flexWrap: 'wrap', gap: '1.6rem 2.4rem' }}>
+    return <div className="tab-body-2 row" style={{ alignItems: 'start', flexWrap: 'wrap', gap: '1.6rem 2.4rem' }}>
         <div className="row col12" style={{ padding: '0.8rem 1.6rem', gap: '0.8rem', '--gutter': '2.4rem' }}>
             <OutlineForm width="3.2rem" height="3.2rem" />
             <Text className="title-3">Hình thức: {data?.status ? data.status === ExamStatus.real ? "Thi cấp chứng chỉ/bằng" : "Thi thử" : 'Bản nháp'}</Text>
@@ -92,6 +93,7 @@ const OverviewTab = ({ exam }) => {
 
 const ResultTab = ({ exam, selectedTestId }) => {
     const [results, setResults] = useState()
+    const [selected, setSelected] = useState()
 
     useEffect(() => {
         if (exam) {
@@ -99,10 +101,11 @@ const ResultTab = ({ exam, selectedTestId }) => {
                 if (res) setResults(res.data)
             })
         }
+        if (selectedTestId) setSelected(selectedTestId)
     }, [exam])
 
 
-    return <div className="tab-body-2 col" style={{ flex: 1, height: '100%', overflow: 'auto', minHeight: 380 }}>
+    return <div className="tab-body-2 col" style={{ gap: '2rem' }}>
         <Table>
             <TbHeader>
                 <TbCell fixed={true} style={{ minWidth: '6rem' }}>STT</TbCell>
@@ -114,16 +117,18 @@ const ResultTab = ({ exam, selectedTestId }) => {
             </TbHeader>
             <TbBody>
                 {
-                    (results ?? []).map((item, i) => <TbRow key={item.id} style={{ borderTop: i > 0 ? 'var(--border-grey1)' : 'none', backgroundColor: selectedTestId === item.id ? 'var( --primary-background)' : undefined }} >
-                        <TbCell fixed={true} style={{ minWidth: '6rem' }}>{i + 1}</TbCell>
-                        <TbCell style={{ minWidth: '20rem', }} >{item.dateStart ? Ultis.datetoString(new Date(item.dateStart)) : '-'}</TbCell>
-                        <TbCell style={{ minWidth: '20rem', }}>{item.dateEnd ? Ultis.datetoString(new Date(item.dateEnd)) : '-'}</TbCell>
-                        <TbCell style={{ minWidth: '8rem', }}>{item?.score && exam?.quantityQuestion ? `${item?.score}/${exam?.quantityQuestion}` : '-'}</TbCell>
-                        <TbCell style={{ minWidth: '14rem', }}>{exam?.quantity && item?.score && exam.quantity <= item.score ? 'Đạt' : 'Không đạt'}</TbCell>
-                        <TbCell fixed={true} style={{ minWidth: '10rem', verticalAlign: 'top', padding: '1.2rem 2.4rem' }}>
+                    (results ?? []).map((item, i) => {
+                        return <TbRow key={item.id} className={`${selected === item.id ? 'selected' : ''}`} onClick={() => { setSelected(item.id) }} style={{ borderTop: i > 0 ? 'var(--border-grey1)' : 'none', '--selected-tbrow-bg': 'var( --primary-background)' }}>
+                            <TbCell fixed={true} style={{ minWidth: '6rem' }}>{i + 1}</TbCell>
+                            <TbCell style={{ minWidth: '20rem', }}>{item.dateStart ? Ultis.datetoString(new Date(item.dateStart), 'dd/mm/yyyy hh:mm') : '-'}</TbCell>
+                            <TbCell style={{ minWidth: '20rem', }}>{item.dateEnd ? Ultis.datetoString(new Date(item.dateEnd), 'dd/mm/yyyy hh:mm') : '-'}</TbCell>
+                            <TbCell style={{ minWidth: '8rem', }}>{item?.score != undefined && exam?.quantityQuestion ? `${item?.score}/${exam?.quantityQuestion}` : '-'}</TbCell>
+                            <TbCell style={{ minWidth: '14rem', }}>{exam?.quantity && item?.score && exam.quantity <= item.score ? 'Đạt' : 'Không đạt'}</TbCell>
+                            <TbCell fixed={true} style={{ minWidth: '10rem', verticalAlign: 'top', padding: '1.2rem 2.4rem' }}>
 
-                        </TbCell>
-                    </TbRow>
+                            </TbCell>
+                        </TbRow>
+                    }
                     )
                 }
             </TbBody>

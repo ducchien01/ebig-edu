@@ -52,10 +52,7 @@ export default function ViewTesting() {
                     }
                 }).length
             }).then(resultId => {
-                navigate(-1, {
-                    state: { testId: resultId },
-                    replace: true
-                })
+                navigate(`/education/exam/${id}`, { state: { testId: resultId }, replace: true })
             })
         }
         if (userAnswers) {

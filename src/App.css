@@ -836,6 +836,7 @@ button * {
 .tab-header-2 {
     column-gap: 2.4rem;
     border-bottom: var(--border-grey1);
+    border-bottom-style: inset;
     overflow: visible;
 }
 

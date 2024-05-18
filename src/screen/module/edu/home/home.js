@@ -111,15 +111,17 @@ const HomeGuest = () => {
                 <ListCommonCourse />
             </div>
         </div>
-        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
-                <div className='row' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Bài thi thử phổ biến</Text>
-                    <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
+        {
+            AccountController.token() ? <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
+                <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+                    <div className='row' style={{ gap: '0.8rem' }}>
+                        <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Bài thi thử phổ biến</Text>
+                        <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
+                    </div>
+                    <ListCommonExam />
                 </div>
-                <ListCommonExam />
-            </div>
-        </div>
+            </div> : undefined
+        }
     </div>
 }
 

@@ -201,12 +201,16 @@ const ResultTab = ({ exam, selectedTestId, testList = [] }) => {
             showPopup({
                 ref: ref,
                 heading: <div className='popup-header heading-7'>Kiểm tra câu trả lời</div>,
-                content: <div className="row" style={{ height: '60rem', flex: 1, alignItems: 'start' }}>
+                content: <div className="row" style={{ height: '68rem', flex: 1, alignItems: 'start' }}>
                     <div className="col" style={{ borderRight: 'var(--border-grey1)', height: '100%', overflow: 'hidden auto', justifyContent: 'start', width: '20rem' }}>
                         <div className="col" style={{ padding: '1.6rem 2.4rem', gap: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
                             <div className="row" style={{ gap: '1.4rem' }}>
                                 <div style={{ width: '1.4rem', height: '1.4rem', borderRadius: '50%', backgroundColor: 'var(--primary-color)' }} />
                                 <Text className="label-1">Đáp án đúng</Text>
+                            </div>
+                            <div className="row" style={{ gap: '1.4rem' }}>
+                                <div style={{ width: '1.4rem', height: '1.4rem', borderRadius: '50%', backgroundColor: 'var(--disabled-font-color)' }} />
+                                <Text className="label-1">Câu chưa trả lời</Text>
                             </div>
                             <div className="row" style={{ gap: '1.4rem' }}>
                                 <div style={{ width: '1.4rem', height: '1.4rem', borderRadius: '50%', backgroundColor: 'var(--error-color)' }} />
@@ -220,22 +224,8 @@ const ResultTab = ({ exam, selectedTestId, testList = [] }) => {
                         <div className="row" style={{ padding: '1.6rem', gap: '1.2rem', borderBottom: 'var(--border-grey1)', flexWrap: 'wrap' }}>
                             {questions.map((e, i) => {
                                 const userAnswer = res.data.find(el => el.answerId === e.id)
-                                if (userAnswer) {
-                                    var _anwer = JSON.parse(userAnswer.result)
-                                }
                                 return <button type="button" onClick={() => { scrollToQuestion(e.id) }} key={e.id} className="col col6 col8-sm col8-min" style={{
-                                    '--gutter': '1.2rem', height: '2.4rem', alignItems: 'center', justifyContent: 'center', borderRadius: '0.4rem', backgroundColor: e.questionItem.answers.some(ans => {
-                                        switch (e.questionItem.type) {
-                                            case QuestionType.checkbox:
-                                                var checked = _anwer?.some(id => ans.id === id)
-                                            case QuestionType.radio:
-                                                var checked = _anwer === ans.id
-                                            default:
-                                                checked = false
-                                        }
-                                        if (checked) var checkedValue = ans.isCorrect
-                                        return checkedValue
-                                    }) ? 'var(--success-color)' : 'var(--error-color)'
+                                    '--gutter': '1.2rem', height: '2.4rem', alignItems: 'center', justifyContent: 'center', borderRadius: '0.4rem', backgroundColor: userAnswer?.status === 1 ? 'var(--success-color)' : userAnswer ? 'var(--error-color)' : 'var(--disabled-font-color)'
                                 }}>
                                     <Text className="regular2" style={{ color: '#fff' }}>{i + 1}</Text>
                                 </button>

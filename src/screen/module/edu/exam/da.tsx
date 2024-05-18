@@ -16,6 +16,7 @@ export interface ExamItem {
     customerId?: string,
     status?: number,
     quantity?: number,
+    quantityQuestion?: number,
     time?: number,
     dateStart?: number,
     topicId?: string,

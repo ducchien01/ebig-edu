@@ -4,16 +4,16 @@ import { Checkbox, ComponentStatus, Dialog, DialogAlignment, Text, showDialog } 
 import { RadioButtonForm } from "../../../../../project-component/component-form"
 import { useForm } from "react-hook-form"
 import { ExamController } from "../controller"
-import { ExamAnswerController } from "../../answer/controller"
 import { QuestionController } from "../../question/controller"
 import ConfigAPI from "../../../../../config/configApi"
 import { QuestionType } from "../../lesson/da"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCalendar, faCalendarAlt, faChevronRight, faClock, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faCalendarAlt, faClock, faUser } from "@fortawesome/free-solid-svg-icons"
 import CoutDownText from "../../../../../project-component/count-down-text"
 import { CustomerController } from "../../../customer/controller"
 import { Ultis } from "../../../../../Utils"
 import { differenceInSeconds } from "date-fns"
+import { TestResultController } from "../../test-result/controller"
 
 export default function ViewTesting() {
     const { id } = useParams()
@@ -27,17 +27,35 @@ export default function ViewTesting() {
 
     const submitAnswer = (ev) => {
         let userAnswers = ev
-        function getScore() {
+        async function getScore() {
             const startTime = (new Date(parseInt(localStorage.getItem('startTime')))).getTime()
-            navigate('/education/exam-result/' + id, {
-                replace: true,
-                state: {
-                    startTime: startTime,
-                    endTime: (new Date()).getTime() - 300,
-                    answers: userAnswers,
-                    questionIds: questions.map(e => e.id),
-                    candidate: user
+            localStorage.removeItem('startTime')
+            const ansRes = await QuestionController.getByIds(questions.map(e => e.id))
+            const rightAnswers = ansRes.map(e => {
+                return {
+                    ...e,
+                    answer: e.answer ? JSON.parse(e.answer) : []
                 }
+            })
+            TestResultController.add({
+                customerId: user.id,
+                exampleId: id,
+                name: '',
+                dateStart: startTime,
+                dateEnd: (new Date()).getTime() - 300,
+                score: Object.keys(userAnswers).filter(props => {
+                    const quest = rightAnswers.find(e => e.id === props)
+                    if (typeof userAnswers[props] === 'string') {
+                        return quest.answer.includes(userAnswers[props])
+                    } else {
+                        return quest.answer.every(id => userAnswers[props].some(e => e === id)) && quest.answer.length === userAnswers[props].length
+                    }
+                }).length
+            }).then(resultId => {
+                navigate(-1, {
+                    state: { testId: resultId },
+                    replace: true
+                })
             })
         }
         if (userAnswers) {

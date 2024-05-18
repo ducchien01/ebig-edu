@@ -2,14 +2,14 @@ import { ToastMessage } from "../../../../component/export-component"
 import ConfigAPI from "../../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"
-import { ExamAnswerItem } from "./da"
+import { TestResultItem } from "./da"
 
-export class ExamAnswerController {
+export class TestResultController {
     static getAll = async () => {
-        const response = await postData(ConfigAPI.ebigUrl + 'AnswerAuth/GetAll')
+        const response = await postData(ConfigAPI.ebigUrl + 'TestAuth/GetAll')
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<ExamAnswerItem>
+                return response as Array<TestResultItem>
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -18,9 +18,9 @@ export class ExamAnswerController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
-        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'AnswerAuth/GetListSimpleByRequestBase', params)
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'TestAuth/GetListSimpleByRequestBase', params)
         if (response) {
-            if (response.code === 200) {    
+            if (response.code === 200) {
                 return response
             } else {
                 ToastMessage.errors(response.message)
@@ -30,10 +30,10 @@ export class ExamAnswerController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + `AnswerAuth/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + `TestAuth/GetById?Id=${id}`)
         if (response) {
             if (response.code === 200) {
-                return response.data as ExamAnswerItem
+                return response.data as TestResultItem
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -41,9 +41,9 @@ export class ExamAnswerController {
         return null
     }
 
-    static add = async (examAnswerItem: ExamAnswerItem) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'AnswerAuth/Action?action=add', {
-            data: { data: examAnswerItem }
+    static add = async (ratingItem: TestResultItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'TestAuth/Action?action=add', {
+            data: { data: ratingItem }
         })
         if (response) {
             if (response.code === 200) {
@@ -55,16 +55,16 @@ export class ExamAnswerController {
         return null
     }
 
-    static edit = async (examAnswerItem: ExamAnswerItem) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'AnswerAuth/Action?action=edit', {
+    static edit = async (ratingItem: TestResultItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'TestAuth/Action?action=edit', {
             data: {
-                id: examAnswerItem.id,
-                data: examAnswerItem
+                id: ratingItem.id,
+                data: ratingItem
             }
         })
         if (response) {
             if (response.code === 200) {
-                return response.data as ExamAnswerItem
+                return response.data as TestResultItem
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -72,9 +72,9 @@ export class ExamAnswerController {
         return null
     }
 
-    static delete = async (listExamAnswerId: Array<string>) => {
-        const response = await postData(ConfigAPI.ebigUrl + 'AnswerAuth/Action?action=delete', {
-            data: { ids: listExamAnswerId }
+    static delete = async (listRatingId: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'TestAuth/Action?action=delete', {
+            data: { ids: listRatingId }
         })
         if (response) {
             if (response.code === 200) {

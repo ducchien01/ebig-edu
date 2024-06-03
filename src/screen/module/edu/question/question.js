@@ -9,9 +9,10 @@ import { useNavigate } from "react-router-dom";
 import ConfigAPI from "../../../../config/configApi";
 import PopupAddNewQuestion from "./local-component/popup-add-new-question";
 import { Ultis } from "../../../../Utils";
-import { CustomerController } from "../../customer/controller";
+import { useSelector } from "react-redux";
 
 export default function QuestionManagment() {
+    const userInfor = useSelector((state) => state.account.data)
     const ref = useRef()
     const dialogRef = useRef()
     const navigate = useNavigate()
@@ -27,7 +28,7 @@ export default function QuestionManagment() {
     }
 
     const getData = async (page, size) => {
-        const res = await QuestionController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'type', operator: '=', value: LessonType.examTask },{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] })
+        const res = await QuestionController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'type', operator: '=', value: LessonType.examTask },{ field: 'customerId', operator: '=', value: userInfor.id }] })
         if (res) {
             setData({
                 ...res, data: res.data.map(e => {

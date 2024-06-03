@@ -5,12 +5,12 @@ import { CellAlignItems, Checkbox, Dialog, Popup, RadioButton, Table, TbBody, Tb
 import { FilledLogoFacebook, OutLineGoToExam, OutlineCircleQuestion, OutlineFileCopy, OutlineForm, OutlinePeople, OutlineScoreAPlus, OutlineSharing, OutlineTimeAlarm, OutlineVerified } from "../../../../assets/const/icon"
 import { ExamStatus } from "./da"
 import { TestResultController } from "../test-result/controller"
-import { CustomerController } from "../../customer/controller"
 import { Ultis } from "../../../../Utils"
 import { differenceInSeconds } from "date-fns"
 import { QuestionController } from "../question/controller"
 import { QuestionType } from "../lesson/da"
 import ConfigAPI from "../../../../config/configApi"
+import { useSelector } from "react-redux"
 
 export default function ViewExamDetails() {
     const { id } = useParams()
@@ -19,7 +19,7 @@ export default function ViewExamDetails() {
     const navigate = useNavigate()
     const ref = useRef()
     const dialogRef = useRef()
-    const user = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
     const [activeTab, setActiveTab] = useState(0)
     const [testList, setTestList] = useState([])
 
@@ -41,7 +41,7 @@ export default function ViewExamDetails() {
         const inTesting = testList.filter(e => differenceInSeconds(_now, new Date(e.dateEnd)) < 0)
         function createNewTest() {
             TestResultController.add({
-                customerId: user.id,
+                customerId: userInfor.id,
                 exampleId: id,
                 name: '',
                 score: 0
@@ -84,7 +84,7 @@ export default function ViewExamDetails() {
         ExamController.getById(id).then(res => {
             if (res) setData(res)
         })
-        TestResultController.getListSimple({ page: 1, take: 50, sort: ['dateStart'], filter: [{ field: 'customerId', operator: '=', value: user.id }, { field: 'exampleId', operator: '=', value: id }] }).then(res => {
+        TestResultController.getListSimple({ page: 1, take: 50, sort: ['dateStart'], filter: [{ field: 'customerId', operator: '=', value: userInfor.id }, { field: 'exampleId', operator: '=', value: id }] }).then(res => {
             if (res) setTestList(res.data)
         })
     }, [])

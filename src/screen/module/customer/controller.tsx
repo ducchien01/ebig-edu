@@ -1,4 +1,3 @@
-import { Ultis } from "../../../Utils"
 import { ToastMessage } from "../../../component/export-component"
 import ConfigAPI from "../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../base-controller"
@@ -7,12 +6,10 @@ import { AccountController } from "../account/controller"
 import { UserInforItem } from "./da"
 
 export class CustomerController {
-    static userInfor = () => JSON.parse(Ultis.getStorage('userInfor') ?? '{}') as UserInforItem
     static getInfor = async () => {
         const response = await postData(ConfigAPI.ebigUrl + 'CustomerAuth/GetInfo')
         if (response) {
             if (response.code === 200) {
-                Ultis.setStorage('userInfor', JSON.stringify(response.data))
                 return response.data as UserInforItem
             } else {
                 ToastMessage.errors(response.message)

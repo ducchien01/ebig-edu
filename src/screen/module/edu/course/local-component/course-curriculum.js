@@ -9,7 +9,7 @@ import { faCheck, faCirclePlus, faCircleXmark, faEllipsisVertical } from "@forta
 import { NavLink, useNavigate } from "react-router-dom";
 import { LessonController } from "../../lesson/controller";
 import { LessonType } from "../../lesson/da";
-import { CustomerController } from "../../../customer/controller";
+import { useSelector } from "react-redux";
 
 export default function CourseCurriculum({ data, onChangeRequired }) {
     const ref = useRef()
@@ -247,12 +247,13 @@ const EmptyLessons = ({ addManual, addByTemplate, upload }) => {
 }
 
 const PopupAddNewLesson = forwardRef(function PopupAddNewLesson(data, ref) {
+    const userInfor = useSelector((state) => state.account.data)
     const methods = useForm({ shouldFocusError: false, defaultValues: { name: '' } })
     const navigate = useNavigate()
 
     const onSubmit = (ev) => {
         console.log(ev)
-        LessonController.add({ id: uuidv4(), name: ev.name.trim(), type: data.type, customerId: CustomerController.userInfor().id, dateCreated: (new Date()).getTime() }).then(async (id) => {
+        LessonController.add({ id: uuidv4(), name: ev.name.trim(), type: data.type, customerId: userInfor.id, dateCreated: (new Date()).getTime() }).then(async (id) => {
             const res = await LessonController.addToCourse({ ...data, name: ev.name.trim(), lessonId: id })
             if (res)
                 navigate(`/edu/course/details/textbook/lesson-content/${data.courseId}/${id}`)

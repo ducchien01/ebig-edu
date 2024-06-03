@@ -9,10 +9,11 @@ import PopupAddEditNote from "./local-component/add-edit-note";
 import Teachingcalendar from "./local-component/filter-teaching-calendar";
 import { ClassController } from "../class/controller";
 import { MentorController } from "../mentor/controller";
-import { CustomerController } from "../../customer/controller";
 import { differenceInMinutes } from "date-fns";
+import { useSelector } from "react-redux";
 
 export default function EduSchedule() {
+    const userInfor = useSelector((state) => state.account.data)
     const _now = new Date()
     const ref = useRef()
     const [classList, setClassList] = useState([])
@@ -59,15 +60,15 @@ export default function EduSchedule() {
                 return item
             }))
         })
-        MentorController.getListSimpleAuth({ page: 1, take: 100, filter: [{ field: 'endDate', operator: '>', value: _now.getTime() }, { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
+        MentorController.getListSimpleAuth({ page: 1, take: 100, filter: [{ field: 'endDate', operator: '>', value: _now.getTime() }, { field: 'customerId', operator: '=', value: userInfor.id }] }).then(res => {
             if (res) setMentorList(res.data)
         })
     }, [])
 
-    return <div className="col view-container" style={{ gap: '2.4rem', padding: '1.6rem 3.2rem', flex: 1, width: '100%', height: '100%', overflow: 'hidden auto' }}>
+    return <div className="col view-container" style={{ gap: '2.4rem', padding: '1.6rem 2.4rem' }}>
         <Popup ref={ref} />
-        <div className="view-header row">
-            <div className="heading-4">Giảng dạy</div>
+        <div className="row" style={{ borderBottom: 'var(--border-grey1)', paddingBottom: '1.6rem' }}>
+            <div className="heading-5" style={{ flex: 1 }}>Giảng dạy</div>
             <button type="button" className="suffix-btn row" onClick={addNotePopup}>
                 <FilledTimeAlarm />
                 <div className="button-text-3">Tạo nhắc nhở</div>

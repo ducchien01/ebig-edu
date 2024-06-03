@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { RatingController } from "../../../edu/rating/controller"
-import { Pagination, Rating, Text, TextArea } from "../../../../../component/export-component"
+import { Pagination, Popup, Rating, Text, TextArea, showPopup } from "../../../../../component/export-component"
 import { CustomerController } from "../../../customer/controller"
 import { useForm } from "react-hook-form"
 import { Ultis } from "../../../../../Utils"
 import { OutlineChat, OutlineHeart } from "../../../../../assets/const/icon"
 import { LikeController } from "../../../like/controller"
+import { useSelector } from "react-redux"
+import PopupLogin from "../../../account/popup-login"
 
 export default function ListComment({ rating = false }) {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })
     const { id } = useParams()
-    const user = CustomerController.userInfor()
+    const ref = useRef()
+    const userInfor = useSelector((state) => state.account.data)
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
     const [data, setData] = useState()
     const [customerList, setCustomerList] = useState([])
@@ -19,7 +22,7 @@ export default function ListComment({ rating = false }) {
 
     const getListCommnet = async (page, size) => {
         const filterList = [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }]
-        if (rating) filterList.push({ field: 'customerId', operator: "<>", value: user.id })
+        if (rating) filterList.push({ field: 'customerId', operator: "<>", value: userInfor.id })
         const res = await RatingController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: filterList, sort: ['dateCreated'] })
         if (res) {
             let customerIds = res.data.map(e => e.customerId)
@@ -31,27 +34,34 @@ export default function ListComment({ rating = false }) {
     }
 
     const sendRating = async (ev) => {
-        const newRating = {
-            ...ev,
-            dateCreated: (new Date()).getTime(),
-            customerId: user?.id,
-            linkId: id,
-        }
-        const newId = await RatingController.add(newRating)
-        if (newId) {
-            newRating.id = newId
-            if (rating) {
-                setMyRating(newRating)
-            } else {
-                getListCommnet()
-                methods.reset()
+        if (userInfor) {
+            const newRating = {
+                ...ev,
+                dateCreated: (new Date()).getTime(),
+                customerId: userInfor.id,
+                linkId: id,
             }
+            const newId = await RatingController.add(newRating)
+            if (newId) {
+                newRating.id = newId
+                if (rating) {
+                    setMyRating(newRating)
+                } else {
+                    getListCommnet()
+                    methods.reset()
+                }
+            }
+        } else {
+            showPopup({
+                ref: ref,
+                content: <PopupLogin ref={ref} />
+            })
         }
     }
 
     useEffect(() => {
         if (rating) {
-            RatingController.getListSimple({ filter: [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }, { field: 'customerId', operator: "=", value: user.id }] }).then(res => {
+            RatingController.getListSimple({ filter: [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }, { field: 'customerId', operator: "=", value: userInfor.id }] }).then(res => {
                 if (res?.data?.length) setMyRating(res.data[0])
             })
         }
@@ -59,14 +69,15 @@ export default function ListComment({ rating = false }) {
     }, [])
 
     return <div className="col" style={{ gap: '2.4rem' }}>
+        <Popup ref={ref} />
         {myRating ?
-            <RatingCard ratingItem={myRating} customer={user} isRating={rating} showDivider={false} user={user} /> :
+            <RatingCard ratingItem={myRating} customer={userInfor} isRating={rating} showDivider={false} user={userInfor} /> :
             <form className="col" style={{ gap: '1.2rem' }}>
                 <div className="row">
-                    <div className="row" style={{ gap: '0.8rem', flex: 1, width: '100%' }}>
-                        <img src={user?.avatarUrl} alt="" style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%' }} />
-                        <Text className="label-3">{user?.name}</Text>
-                    </div>
+                    {userInfor != null ? <div className="row" style={{ gap: '0.8rem', flex: 1, width: '100%' }}>
+                        <img src={userInfor.avatarUrl} alt="" style={{ width: '3.2rem', height: '3.2rem', borderRadius: '50%' }} />
+                        <Text className="label-3">{userInfor.name}</Text>
+                    </div> : undefined}
                     {rating && <Rating value={methods.watch('value')} onChange={(rate) => {
                         methods.setValue('value', rate)
                         if (!methods.getValues('message')?.length) {
@@ -108,7 +119,7 @@ export default function ListComment({ rating = false }) {
             </form>}
         {(data?.data ?? []).filter(e => !e.parentId).map((item) => {
             const customer = customerList.find(e => e.id === item.customerId)
-            return <RatingCard key={item.id} ratingItem={item} customer={customer} isRating={rating} showDivider user={user} />
+            return <RatingCard key={item.id} ratingItem={item} customer={customer} isRating={rating} showDivider user={userInfor} />
         })}
         <div className="row" style={{ height: 'fit-content' }}>
             <div style={{ flex: 1 }}></div>

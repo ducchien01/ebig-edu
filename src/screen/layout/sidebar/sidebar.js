@@ -5,8 +5,11 @@ import './sidebar.css'
 import { OutlineCircleArrowLeft } from '../../../assets/const/icon';
 import { AccountController } from '../../module/account/controller';
 import { ComponentStatus, Dialog, DialogAlignment, showDialog } from '../../../component/export-component';
+import { useSelector } from 'react-redux';
+import { CustomerType } from '../../module/customer/da';
 
 export default function SideBar({ menu = [] }) {
+    const userInfor = useSelector((state) => state.account.data)
     const dialogRef = useRef()
     const location = useLocation()
     const [selected, setSelected] = useState([])
@@ -40,7 +43,7 @@ export default function SideBar({ menu = [] }) {
                         setIsExpand(!isExpand)
                     }
                 }} className={`sidebar-item ${isSelected ? 'selected' : ''}`}>
-                    {selected.some(e => e.id === item.id) ? item.selectedIcon : item.icon}
+                    {selected.some(e => e.id === item.id) ? (userInfor?.type === CustomerType.expert && item.selectedExpertIcon ? item.selectedExpertIcon : item.selectedIcon) : (userInfor?.type === CustomerType.expert && item.expertIcon ? item.expertIcon : item.icon)}
                 </NavLink>
             })}
         </div>

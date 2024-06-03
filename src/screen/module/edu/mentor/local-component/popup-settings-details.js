@@ -9,9 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight, faCirclePlus, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { differenceInMinutes } from "date-fns"
 import { MentorController } from "../controller"
-import { CustomerController } from "../../../customer/controller"
+import { useSelector } from "react-redux"
 
 const PopupSettingsMentor = forwardRef(function PopupSettingsMentor(data, ref) {
+    const userInfor = useSelector((state) => state.account.data)
     const _now = new Date()
     const methods = useForm({ shouldFocusError: false, defaultValues: { schedule: [] } })
 
@@ -163,7 +164,7 @@ const PopupSettingsMentor = forwardRef(function PopupSettingsMentor(data, ref) {
                 return {
                     name: mentorData.name,
                     price: mentorData.price,
-                    customerId: CustomerController.userInfor().id,
+                    customerId: userInfor.id,
                     startDate: e.time,
                     endDate: newTime.getTime()
                 }

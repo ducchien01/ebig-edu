@@ -12,8 +12,8 @@ import ListExpertByTopic from "./local-component/list-expert"
 import NewsDetails from "../new/news-details"
 import SidebarActions from "../../../layout/sidebar/sidebar-actions"
 import PopupLogin from "../../account/popup-login"
-import { CustomerController } from "../../customer/controller"
 import CustomerPage from "./local-component/customer-page"
+import { useSelector } from "react-redux"
 
 export default function SocialHome({ customerPage = false }) {
     const { id } = useParams()
@@ -21,18 +21,18 @@ export default function SocialHome({ customerPage = false }) {
     const navigate = useNavigate()
     const ref = useRef()
     const isLogin = AccountController.token()
-    const user = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
     const [selectedTab, setSelectedTab] = useState(1)
 
     useEffect(() => {
-        if (user?.id === id) {
+        if (userInfor?.id === id) {
             setSelectedTab(0)
         } else {
             setSelectedTab(1)
         }
     }, [location.pathname])
 
-    return <div className="row" style={{ flex: 1 }}>
+    return <div>
         <Popup ref={ref} />
         <div className="col body-sidebar" >
             <TextField
@@ -58,7 +58,7 @@ export default function SocialHome({ customerPage = false }) {
                 </button>
             </div>
             <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto', gap: '1.2rem' }}>
-                {user?.id ? <NavLink to={`/${user.id}`} className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
+                {userInfor?.id ? <NavLink to={`/${userInfor.id}`} className={`news-bookmark-tab ${selectedTab === 0 ? 'selected' : ''}`}>
                     <div className="label-3">Trang cá nhân</div>
                 </NavLink> : null}
                 <NavLink to={'/'} className={`news-bookmark-tab ${selectedTab === 1 ? 'selected' : ''}`}>
@@ -70,13 +70,14 @@ export default function SocialHome({ customerPage = false }) {
             </div>
             <SidebarActions />
         </div>
-        {id ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
+        <div style={{ float: 'right' }}>
+            {id ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
+        </div>
     </div>
 }
 
 const HomeNewsInfor = ({ isLogin = false }) => {
     return <>
-        <ListNews isLogin={isLogin} />
         <div className="additional-infor-view col">
             <div className="col" style={{ gap: '1.6rem' }}>
                 <Text className="heading-7" >Top bài viết trong tuần</Text>
@@ -106,5 +107,6 @@ const HomeNewsInfor = ({ isLogin = false }) => {
             </div>
             {isLogin && <ListExpertByTopic />}
         </div>
+        <ListNews isLogin={isLogin} />
     </>
 }

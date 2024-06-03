@@ -18,12 +18,11 @@ import SidebarActions from '../../../layout/sidebar/sidebar-actions'
 import ListAllCourse from './local-component/list-all-course'
 import { OrderController } from '../../ecom/order/controller'
 import { OrderType } from '../../ecom/order/da'
-import { CustomerController } from '../../customer/controller'
 import { CourseController } from '../course/controller'
 import ConfigAPI from '../../../../config/configApi'
 import { CustomerType } from '../../customer/da'
 import { eduExpertModules } from '../../../../assets/const/const-list'
-import EduDashboard from '../dashboard/dashboard'
+import CenterHome from '../center/home'
 import EduSchedule from '../schedule/schedule'
 import EduStudent from '../student/student'
 import SchoolCourse from '../course/course'
@@ -32,12 +31,13 @@ import SchoolMentor from '../mentor/mentor'
 import ExamManagment from '../exam/exam'
 import QuestionManagment from '../question/question'
 import CurriculumManagment from '../curriculum/curriculum'
+import { useSelector } from 'react-redux'
 
 export default function EduHome() {
-    const expertRole = CustomerController.userInfor()?.type === CustomerType.expert
+    const userInfor = useSelector((state) => state.account.data)
     const location = useLocation()
 
-    return expertRole ? <HomeExpert /> : location.pathname.includes('courses') ? <HomeAuth /> : <HomeGuest />
+    return userInfor?.type === CustomerType.expert ? <HomeCenter /> : location.pathname.includes('courses') ? <HomeAuth /> : <HomeGuest />
 }
 
 const HomeGuest = () => {
@@ -62,7 +62,7 @@ const HomeGuest = () => {
                 <ListTopic />
             </div>
         </div>
-        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem', backgroundColor: 'var(--dark-background)' }}>
+        {/* <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem', backgroundColor: 'var(--dark-background)' }}>
             <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <Text className='heading-4' maxLine={2} style={{ flex: 1, color: '#ffffff' }}>Học cùng chuyên gia hàng đầu</Text>
@@ -70,7 +70,7 @@ const HomeGuest = () => {
                 </div>
                 <ListExpert />
             </div>
-        </div>
+        </div> */}
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
             <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <Text className='heading-4' maxLine={2}>Chủ động lựa chọn loại hình lớp học</Text>
@@ -184,7 +184,7 @@ const HomeAuth = () => {
                 <SidebarActions />
             </div>
         </div>
-        <div className='row' style={{ flex: 1, padding: '2.4rem 0', width: '100%', height: '100%', overflow: 'hidden auto', justifyContent: 'center', alignItems: 'start' }}>
+        <div className='row' style={{ padding: '2.4rem 0', width: '100%', justifyContent: 'center', alignItems: 'start' }}>
             <div className='col col24-md col24-sm col24-min' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
                 {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
                     {myCourses.map(e => {
@@ -224,7 +224,7 @@ const HomeAuth = () => {
     </div>
 }
 
-const HomeExpert = () => {
+const HomeCenter = () => {
     const location = useLocation()
     const [modules, setModules] = useState(eduExpertModules)
     const [selectedId, setSelectedId] = useState()
@@ -250,8 +250,8 @@ const HomeExpert = () => {
 
     const renderUI = () => {
         switch (location.pathname) {
-            case '/education/dashboard':
-                return <EduDashboard />
+            case '/education/home':
+                return <CenterHome />
             case '/education/schedule':
                 return <EduSchedule />
             case '/education/students':
@@ -269,7 +269,7 @@ const HomeExpert = () => {
             case '/education/questions':
                 return <QuestionManagment />
             default:
-                return <EduDashboard />
+                return <CenterHome />
         }
     }
 
@@ -284,14 +284,16 @@ const HomeExpert = () => {
         }
     }, [location.pathname])
 
-    return <div className='row' style={{ flex: 1, width: '100%', height: '100%' }}>
+    return <div>
         <div className='col body-sidebar'>
-            <Text className='heading-6'>Education Management</Text>
+            <Text className='heading-6'>Center Management</Text>
             <div className='col' style={{ gap: '1.2rem', flex: 1, height: '100%', overflow: 'hidden auto' }}>
                 {modules.filter(e => !e.parentId).map(item => moduleTile(item))}
             </div>
             <SidebarActions />
         </div>
-        {renderUI()}
+        <div style={{ float: 'right' }}>
+            {renderUI()}
+        </div>
     </div>
 }

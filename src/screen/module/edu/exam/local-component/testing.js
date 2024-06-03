@@ -10,10 +10,10 @@ import { QuestionType } from "../../lesson/da"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendarAlt, faClock, faUser } from "@fortawesome/free-solid-svg-icons"
 import CoutDownText from "../../../../../project-component/count-down-text"
-import { CustomerController } from "../../../customer/controller"
 import { Ultis } from "../../../../../Utils"
 import { differenceInSeconds } from "date-fns"
 import { TestResultController } from "../../test-result/controller"
+import { useSelector } from "react-redux"
 
 export default function ViewTesting() {
     const { id } = useParams()
@@ -22,7 +22,7 @@ export default function ViewTesting() {
     const [questions, setQuestions] = useState([])
     const [data, setData] = useState()
     const [testData, setTestData] = useState()
-    const user = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
     const scrollRef = useRef()
     const dialogRef = useRef()
 
@@ -141,7 +141,7 @@ export default function ViewTesting() {
                 </div>
                 <div className="row" style={{ padding: '1.6rem', gap: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
                     <FontAwesomeIcon icon={faUser} style={{ color: "#667994", fontSize: '1.6rem' }} />
-                    <Text className="label-1">{user.name}</Text>
+                    <Text className="label-1">{userInfor.name}</Text>
                 </div>
                 <div className="row" style={{ padding: '1.6rem', gap: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
                     <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "#667994", fontSize: '1.6rem' }} />

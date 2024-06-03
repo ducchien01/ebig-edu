@@ -1,4 +1,4 @@
-import { OutlineBooks, FilledBooks, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat, FilledShop } from './icon'
+import { OutlineBooks, FilledBooks, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat, FilledShop, OutlineGroup, FilledGroup } from './icon'
 import MyUploadAdapter from '../../project-component/ckeditor';
 export const modules = [
     {
@@ -17,6 +17,8 @@ export const modules = [
         link: 'education',
         icon: <OutlineBooks width='2.4rem' height='2.4rem' />,
         selectedIcon: <FilledBooks width='2.4rem' height='2.4rem' />,
+        expertIcon: <OutlineGroup width='2.4rem' height='2.4rem' />,
+        selectedExpertIcon: <FilledGroup width='2.4rem' height='2.4rem' />,
     },
     {
         id: 4,
@@ -34,14 +36,14 @@ export const modules = [
         icon: <OutlineCompass width='2.4rem' height='2.4rem' />,
         selectedIcon: <OutlineCompass width='2.4rem' height='2.4rem' />,
     },
-    {
-        id: 6,
-        parentId: 1,
-        name: 'Notification',
-        link: 'notification',
-        icon: <OutlineBell width='2.4rem' height='2.4rem' />,
-        selectedIcon: <FilledBell width='2.4rem' height='2.4rem' />,
-    },
+    // {
+    //     id: 6,
+    //     parentId: 1,
+    //     name: 'Notification',
+    //     link: 'notification',
+    //     icon: <OutlineBell width='2.4rem' height='2.4rem' />,
+    //     selectedIcon: <FilledBell width='2.4rem' height='2.4rem' />,
+    // },
     {
         id: 7,
         parentId: 1,
@@ -55,8 +57,8 @@ export const modules = [
 export const eduExpertModules = [
     {
         id: 1,
-        name: 'Dashboard',
-        link: 'education/dashboard',
+        name: 'Home',
+        link: 'education/home',
     },
     {
         id: 2,

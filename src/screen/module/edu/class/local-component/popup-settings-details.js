@@ -10,8 +10,10 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { differenceInMinutes } from "date-fns"
 import { ClassController } from "../controller"
 import { CustomerController } from "../../../customer/controller"
+import { useSelector } from "react-redux"
 
 const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
+    const userInfor = useSelector((state) => state.account.data)
     const _now = new Date()
     const methods = useForm({ shouldFocusError: false, defaultValues: { schedule: [], startDate: Ultis.datetoString(_now) } })
 
@@ -139,7 +141,7 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
                 closePopup(ref)
             })
         } else {
-            classData.customerId = CustomerController.userInfor()?.id
+            classData.customerId = userInfor?.id
             ClassController.add(classData).then(res => {
                 if (res) {
                     if (data.onChange) data.onChange()

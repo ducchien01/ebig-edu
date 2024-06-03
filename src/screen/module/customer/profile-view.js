@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import banner from '../../../assets/banner2.png'
 import { Text } from '../../../component/export-component'
-import { CustomerController } from './controller'
 import './customer.css'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function ProfileView() {
-    const userInfor = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
     return <div className="profile-view">
         <img src={banner} alt='' />
         <div className='col profile-infor-container'>

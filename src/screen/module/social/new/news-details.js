@@ -11,10 +11,11 @@ import { CustomerController } from "../../customer/controller"
 import { Ultis } from "../../../../Utils"
 import { RatingController } from "../../edu/rating/controller"
 import ConfigAPI from "../../../../config/configApi"
+import { useSelector } from "react-redux"
 
 export default function NewsDetails({ id, isLogin = false }) {
     const ref = useRef()
-    const user = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
     const [data, setData] = useState()
     const [customer, setCustomer] = useState()
 
@@ -51,12 +52,12 @@ export default function NewsDetails({ id, isLogin = false }) {
                         })
                     }
                 })
-                if (res.customerId !== user.id) {
+                if (res.customerId !== userInfor?.id) {
                     CustomerController.getById(res.customerId).then(cusRes => {
                         if (cusRes) setCustomer(cusRes)
                     })
                 } else {
-                    setCustomer(user)
+                    setCustomer(userInfor)
                 }
             }
         })
@@ -74,7 +75,7 @@ export default function NewsDetails({ id, isLogin = false }) {
                                 {data.newsTags.map(e => <Text key={e.id} className="button-text-3" style={{ color: 'var(--primary-color)' }}>{e.name}</Text>)}
                             </div> : null}
                         </div>
-                        {user.id === customer?.id && <div className="row" style={{ gap: '0.8rem' }}>
+                        {userInfor?.id === customer?.id && <div className="row" style={{ gap: '0.8rem' }}>
                             <NavLink to={`/social/news/edit/${id}`} className="row button-grey" style={{ backgroundColor: 'transparent', padding: '0.4rem' }}>
                                 <FilledSEdit width="2.4rem" height="2.4rem" />
                             </NavLink>
@@ -90,7 +91,7 @@ export default function NewsDetails({ id, isLogin = false }) {
                                 <div className="row" style={{ gap: '0.8rem' }}>
                                     <Text className="heading-7">{customer?.name}</Text>
                                     <Text className="heading-7">.</Text>
-                                    {user.id !== customer?.id && <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }}>Theo dõi</Text>}
+                                    {userInfor?.id !== customer?.id && <Text onClick={() => { }} className="button-text-3" style={{ color: 'var(--primary-color)' }}>Theo dõi</Text>}
                                 </div>
                                 <div className="row" style={{ gap: '0.8rem' }}>
                                     <Text className="subtitle-4">Đăng ngày</Text>

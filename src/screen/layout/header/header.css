@@ -1,8 +1,15 @@
 .main-layout>.header {
+    position: sticky;
     padding: 1.2rem 3.2rem;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     justify-content: space-between;
     border-bottom: var(--border-grey1);
+    background-color: #fff;
+    /* z-index > z-index of slider 10 */
+    z-index: 11
 }
 
 .main-layout>.header>.logo {
@@ -28,8 +35,6 @@
     max-width: 33.4rem;
 }
 
-@media only screen and (max-width: 576px) {
-    .main-layout>.header {
-        padding: 0.8rem 1.6rem;
-    }
+.header>button:first-child {
+    display: none;
 }

@@ -32,7 +32,7 @@ export default class MyUploadAdapter {
         // integration to choose the right communication channel. This example uses
         // a POST request with JSON as a data structure but your configuration
         // could be different.
-        xhr.open('POST', ConfigAPI.ebigUrl + 'UploadFileAuth/Upload', true);
+        xhr.open('POST', ConfigAPI.fileUrl + 'SystemFileAuth/upload', true);
         xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem("token"));
         xhr.responseType = 'json';
     }

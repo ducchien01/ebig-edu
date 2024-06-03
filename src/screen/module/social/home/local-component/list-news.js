@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
-import { InfiniteScroll, Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
+import { Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
 import { TopicController } from "../../../topic/controller"
 import { PostCard } from "../../../../../project-component/card"
@@ -79,11 +79,16 @@ export default function ListNews({ isLogin = false }) {
         TopicController.getAll().then(res => {
             if (res) setTopicList(res)
         })
+        document.body.querySelector('.main-layout').onscroll = (ev) => {
+            if(total !== newsData.length) {
+                if(Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) getData()
+            }
+        }
     }, [])
 
     return <>
         <Popup ref={ref} />
-        <InfiniteScroll handleScroll={total !== newsData.length ? (onLoadMore) => { if (onLoadMore) getData() } : undefined} className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+        <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
                 <div className="col col24 col20-xxl" style={{ padding: '2rem 3.2rem', gap: '2.4rem', '--gutter': '0px' }}>
                     {isLogin && <div className="row filter-news-container">
@@ -147,7 +152,7 @@ export default function ListNews({ isLogin = false }) {
                     </div>
                 </div>
             </div>
-        </InfiniteScroll>
+        </div>
     </>
 }
 

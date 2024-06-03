@@ -5,11 +5,12 @@ import { CellAlignItems, ComponentStatus, Dialog, DialogAlignment, Pagination, P
 import { FilledEdit, FilledSetupPreferences, FilledTrashCan } from '../../../../assets/const/icon'
 import { useEffect, useRef, useState } from 'react'
 import { MentorController } from './controller'
-import { CustomerController } from '../../customer/controller'
 import { Ultis } from '../../../../Utils'
 import PopupSettingsMentor from './local-component/popup-settings-details'
+import { useSelector } from 'react-redux'
 
 export default function SchoolMentor() {
+    const userInfor = useSelector((state) => state.account.data)
     const ref = useRef()
     const dialogRef = useRef()
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 })
@@ -19,7 +20,7 @@ export default function SchoolMentor() {
         MentorController.getListSimpleAuth({
             page: page ?? pageDetails.page,
             take: size ?? pageDetails.size,
-            filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }]
+            filter: [{ field: 'customerId', operator: '=', value: userInfor.id }]
         }).then(res => {
             if (res) setData(res)
         })

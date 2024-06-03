@@ -10,20 +10,21 @@ import QRCode from '../../../../assets/qr-banking.png'
 import { differenceInSeconds } from "date-fns";
 import { OrderType } from "../order/da";
 import CoutDownText from "../../../../project-component/count-down-text";
+import { useSelector } from "react-redux";
 
 export default function EcomPayment() {
+    const userInfor = useSelector((state) => state.account.data)
     const { state } = useLocation()
     const ref = useRef()
     const [timer, setTimer] = useState()
     const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm({ shouldFocusError: false, defaultValues: { method: 'banking' } })
 
     const onSubmit = (ev) => {
-        const user = CustomerController.userInfor()
         let newOrder = ev
         newOrder.shopId = state.from.id
         newOrder.statusPayment = 0
-        newOrder.customerId = user.id
-        newOrder.email = user.email
+        newOrder.customerId = userInfor.id
+        newOrder.email = userInfor.email
         newOrder.type = OrderType.course
         newOrder.totalPrice = state.products?.length ? state.products.map(e => e.price).reduce((a, b) => a + b) : 0
         if (newOrder.id) {

@@ -20,9 +20,11 @@ import CourseLessonsContent from "./local-component/course-lessons-tab";
 import CourseRatingTab from "./local-component/rating-tab";
 import { CustomerLessonController } from "../customer-lesson/controller";
 import PopupListClass from "../class/local-component/popup-list-class";
+import { useSelector } from "react-redux";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
+    const userInfor = useSelector((state) => state.account.data)
     const isLogin = AccountController.token() != null
     const { id } = useParams()
     const navigate = useNavigate()
@@ -42,7 +44,7 @@ export default function ViewCourseDetails() {
                 name: selectedCLesson.name,
                 lessonId: selectedCLesson.lessonId,
                 courseId: id,
-                customerId: CustomerController.userInfor().id
+                customerId: userInfor.id
             }
             CustomerLessonController.add(newProgress).then(res => {
                 if (res) {

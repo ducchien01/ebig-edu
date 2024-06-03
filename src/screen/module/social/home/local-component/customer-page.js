@@ -5,10 +5,11 @@ import expertBg from '../../../../../assets/expert-bg.png'
 import { Text } from "../../../../../component/export-component"
 import ListCustomerNews from "./list-customer-news"
 import { NewStatus } from "../../new/da"
+import { useSelector } from "react-redux"
 
 export default function CustomerPage() {
     const { id } = useParams()
-    const user = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
     const [customer, setCustomer] = useState()
     const [selectedTab, setSelectedTab] = useState(0)
     const [height, setHeight] = useState(0)
@@ -40,8 +41,8 @@ export default function CustomerPage() {
     }
 
     useEffect(() => {
-        if (user?.id === id) {
-            setCustomer(user)
+        if (userInfor?.id === id) {
+            setCustomer(userInfor)
         } else {
             CustomerController.getById(id).then(res => {
                 if (res) setCustomer(res)
@@ -49,7 +50,7 @@ export default function CustomerPage() {
         }
     }, [])
 
-    return <div className="col" style={{ flex: 1, height: '100%', width: '100%', position: 'relative' }}>
+    return <div className="col" style={{ position: 'relative' }}>
         <div className="col hero-header" style={{ position: 'absolute', top: `max(-${height}, -22.4rem)`, left: 0, right: 0, gap: '2.4rem' }}>
             <img src={expertBg} alt="" style={{ width: '100%', height: '20rem' }} />
             <div className="row filter-news-container" style={{ padding: '0 2rem', zIndex: 2 }}>
@@ -63,7 +64,7 @@ export default function CustomerPage() {
                     <div className={`filter-news-tab ${selectedTab === 2 ? 'selected' : ''}`} onClick={() => { setSelectedTab(2) }}>
                         <Text className="label-4">Danh sách khóa học</Text>
                     </div>
-                    {user?.id === id ? <div className={`filter-news-tab ${selectedTab === 3 ? 'selected' : ''}`} onClick={() => { setSelectedTab(3) }}>
+                    {userInfor?.id === id ? <div className={`filter-news-tab ${selectedTab === 3 ? 'selected' : ''}`} onClick={() => { setSelectedTab(3) }}>
                         <Text className="label-4">Nháp</Text>
                     </div> : null}
                 </div>

@@ -12,10 +12,11 @@ import { CourseController } from "../controller";
 import ConfigAPI from "../../../../../config/configApi";
 import { uploadFiles } from "../../../../baseDA";
 import { CategoryController } from "../../../category/controller";
-import { CustomerController } from "../../../customer/controller";
+import { useSelector } from "react-redux";
 
 export default function Overview({ data, onChangeRequired }) {
     const { control, formState: { errors }, watch, setValue, getValues, register } = useForm({ shouldFocusError: false, defaultValues: { targets: [{ id: uuidv4() }, { id: uuidv4() }] } })
+    const userInfor = useSelector((state) => state.account.data)
     const [listTopic, setListTopic] = useState([])
     const [listTag, setListTag] = useState([])
     const [listCate, setListCate] = useState([])
@@ -48,7 +49,7 @@ export default function Overview({ data, onChangeRequired }) {
             TagController.getAll().then(res => {
                 if (res) setListTag(res)
             })
-            CategoryController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
+            CategoryController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'customerId', operator: '=', value: userInfor.id }] }).then(res => {
                 if (res) setListCate(res.data)
             })
             Object.keys(data).forEach(props => {
@@ -73,7 +74,7 @@ export default function Overview({ data, onChangeRequired }) {
     return <form className="col" style={{ width: '100%', flex: 1, height: '100%' }} >
         <div className="heading-5 row" style={{ padding: '2.4rem' }}>Tổng quan</div>
         <div className="row course-overview-form" >
-            <div className="col col8-xxl col12 col24-md col24-sm" style={{ '--gutter': '4rem', gap: '2rem' }}>
+            <div className="col col12 col24-md col24-sm" style={{ '--gutter': '4rem', gap: '2rem' }}>
                 <ImportFileForm
                     control={control}
                     name={'pictureFile'}
@@ -175,7 +176,7 @@ export default function Overview({ data, onChangeRequired }) {
                     onChange={onChangeData}
                 />
             </div>
-            <div className="col col8-xxl col12 col24-md col24-sm" style={{ '--gutter': '4rem', gap: '2rem' }}>
+            <div className="col col12 col24-md col24-sm" style={{ '--gutter': '4rem', gap: '2rem' }}>
                 <Select1Form
                     required
                     control={control}

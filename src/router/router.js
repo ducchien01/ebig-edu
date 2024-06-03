@@ -34,7 +34,7 @@ export const getcomponentRouter = (moduleCode) => {
             return <DiscoverTopicDetails />
         case 'education':
             return <EduHome />
-        case "education/dashboard":
+        case "education/home":
             return <EduHome />;
         case "education/schedule":
             return <EduHome />;

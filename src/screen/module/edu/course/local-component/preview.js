@@ -3,17 +3,17 @@ import mediaImg from '../../../../../assets/media.png'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CourseController } from "../controller";
-import { CustomerController } from "../../../customer/controller";
 import { Ultis } from "../../../../../Utils";
 import { InforCard } from "../../../../../project-component/card";
 import OverallTab from "./overall-tab";
 import ConfigAPI from "../../../../../config/configApi";
+import { useSelector } from "react-redux";
 
 export default function Preview() {
     const { id } = useParams()
     const [data, setData] = useState()
     const [activeFilterTab, setActiveFilterTab] = useState(0)
-    const user = CustomerController.userInfor()
+    const userInfor = useSelector((state) => state.account.data)
 
     const renderTabView = () => {
         switch (activeFilterTab) {
@@ -38,8 +38,8 @@ export default function Preview() {
                 <div className="header-text col" style={{ gap: '1.2rem', width: '100%' }}>
                     <Text className="heading-3">{data.name}</Text>
                     <div className="row" style={{ gap: '0.8rem' }}>
-                        <img src={user.avatarUrl} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-                        <Text className="label-2">{user.name ?? user.userName}</Text>
+                        <img src={userInfor.avatarUrl} alt="" style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                        <Text className="label-2">{userInfor.name ?? userInfor.userName}</Text>
                         <div className="label-4">.</div>
                         <div className="row tag-infor">Course</div>
                     </div>
@@ -79,9 +79,9 @@ export default function Preview() {
                     </div>
                     <InforCard
                         style={{ border: 'none', alignItems: 'start', textAlign: 'start' }}
-                        avatar={user.avatarUrl}
+                        avatar={userInfor.avatarUrl}
                         avatarSize="8rem"
-                        title={user.name}
+                        title={userInfor.name}
                         subTitle={`${200} bài viết . ${12} khóa học . ${334} người theo dõi`}
                         content={'Data Guy working Banking & Finance I write (randomly & sporadically) about anything and everything that interests me or worth sharing/analysing.'}
                         actions={<button type="button" className="row button-primary" style={{ width: 'fit-content' }}>

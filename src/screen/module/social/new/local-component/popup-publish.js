@@ -10,8 +10,10 @@ import { CustomerController } from "../../../customer/controller";
 import { NewController } from "../controller";
 import { useNavigate } from "react-router-dom";
 import { NewStatus } from "../da";
+import { useSelector } from "react-redux";
 
 const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
+    const userInfor = useSelector((state) => state.account.data)
     const navigate = useNavigate()
     const methods = useForm({ shouldFocusError: false })
     const [listTopic, setListTopic] = useState([])
@@ -46,7 +48,7 @@ const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
         TagController.getAll().then(res => {
             if (res) setListTag(res)
         })
-        CategoryController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
+        CategoryController.getListSimpleAuth({ page: 1, take: 50, filter: [{ field: 'customerId', operator: '=', value: userInfor.id }] }).then(res => {
             if (res) setListCate(res.data)
         })
         Object.keys(data.item).forEach(props => {

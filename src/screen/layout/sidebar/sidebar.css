@@ -1,8 +1,9 @@
 .sidebar {
-    height: 100%;
+    left: 0;
     gap: 1.2rem;
-    padding: 2.4rem 1.6rem;
+    padding: 1.6rem;
     border-right: 1px solid #00358014;
+    z-index: 12;
 }
 
 .sidebar>col:has(> .sidebar-item) {
@@ -25,17 +26,38 @@
 }
 
 .body-sidebar {
-    margin-left: max(min(-20%, -30rem), -36.6rem);
+    width: min(max(20%, 30rem), 36.6rem);
+    min-width: 30rem;
+    max-width: 36.6rem;
+    padding: 3.2rem 1.6rem 2.4rem;
+    gap: 2.4rem;
+    border-right: var(--border-grey1);
+}
+
+.body-sidebar,
+.sidebar {
+    position: fixed;
+    height: calc(100% - 5.6rem - 1px);
+    background-color: #fff;
+}
+
+.body-sidebar {
+    left: 8.1rem;
+    margin-left: calc(0px - min(max(20%, 30rem), 36.6rem));
     transition: margin-left ease-in-out 0.8s;
     -webkit-transition: margin-left ease-in-out 0.8s;
+    z-index: 11;
 }
 
 .sidebar.expand+div .body-sidebar {
     margin-left: 0px;
 }
 
-@media only screen and (max-width: 576px) {
-    .sidebar {
-        padding: 1.6rem 0.4rem;
-    }
+div .body-sidebar+* {
+    width: 100%;
+    transition: width ease-in-out 0.8s;
+}
+
+.sidebar.expand+div .body-sidebar+* {
+    width: calc(100% - min(max(20%, 30rem), 36.6rem));
 }

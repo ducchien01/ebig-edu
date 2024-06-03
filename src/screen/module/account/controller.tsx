@@ -5,7 +5,6 @@ import { postData } from "../../baseDA";
 import { ToastMessage } from "../../../component/export-component";
 import { CustomerController } from "../customer/controller";
 import { BaseDA } from "../../../da/baseDA";
-import { CustomerType } from "../customer/da";
 
 const setToken = (txt: string) => Ultis.setStorage('token', txt)
 const setTimeRefresh = () => {

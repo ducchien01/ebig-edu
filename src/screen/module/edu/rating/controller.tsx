@@ -57,7 +57,7 @@ export class RatingController {
     }
 
     static getByLinkIds = async (ids: Array<string>) => {
-        const response = await postData(ConfigAPI.ebigUrl + `RatingAuth/GetListRatingByIds`, {
+        const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'RatingAuth' : 'Rating') + `/GetListRatingByIds`, {
             data: (ids ?? []).join(',')
         })
         if (response) {

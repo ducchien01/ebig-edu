@@ -10,6 +10,7 @@ import { studentLevelList } from "../../../../assets/const/const-list";
 import { TopicController } from "../../topic/controller";
 import { ExamStatus } from "./da";
 import './exam.css'
+import { CustomerController } from "../../customer/controller";
 
 export default function ExamManagment() {
     const ref = useRef()
@@ -27,7 +28,7 @@ export default function ExamManagment() {
     }
 
     const getData = async (page, size) => {
-        const res = await ExamController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size })
+        const res = await ExamController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] })
         if (res) {
             const topicIds = (res.data ?? []).map(e => e.topicId).filter(id => id != null && listTopic.every(e => e.id !== id))
             if (topicIds.length) {

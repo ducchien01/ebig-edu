@@ -18,7 +18,7 @@ export default function ExamAnswerList({ examId }) {
 
     const getExamAnswerData = (onLoadMore = true) => {
         if (onLoadMore) {
-            ExamAnswerController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'examId', operator: '=', value: examId }] }).then(res => {
+            ExamAnswerController.getListSimple({ page: Math.floor((data.length / 50)) + 1, take: 50, filter: [{ field: 'examId', operator: '=', value: examId }, { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
                 if (res) {
                     if (res.totalCount !== total) setTotal(res.totalCount)
                     const newData = [...data, ...res.data.filter(e => data.every(el => el.id !== e.id))]
@@ -30,7 +30,7 @@ export default function ExamAnswerList({ examId }) {
 
     const getQuestionData = (onLoadMore = true) => {
         if (onLoadMore) {
-            QuestionController.getListSimple({ page: Math.floor((questionList.length / 50)) + 1, take: 50, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }] }).then(res => {
+            QuestionController.getListSimple({ page: Math.floor((questionList.length / 50)) + 1, take: 50, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }, { field: 'customerId', operator: '=', value: CustomerController.userInfor().id }] }).then(res => {
                 if (res) {
                     if (res.totalCount !== totalQuest) setTotalQuest(res.totalCount)
                     setQuestionList([...questionList, ...res.data.filter(e => questionList.every(el => el.id !== e.id)).map(e => {

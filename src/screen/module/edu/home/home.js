@@ -22,7 +22,7 @@ import { CourseController } from '../course/controller'
 import ConfigAPI from '../../../../config/configApi'
 import { CustomerType } from '../../customer/da'
 import { eduExpertModules } from '../../../../assets/const/const-list'
-import CenterHome from '../center/home'
+import CenterHome from '../../center/home'
 import EduSchedule from '../schedule/schedule'
 import EduStudent from '../student/student'
 import SchoolCourse from '../course/course'
@@ -34,10 +34,9 @@ import CurriculumManagment from '../curriculum/curriculum'
 import { useSelector } from 'react-redux'
 
 export default function EduHome() {
-    const userInfor = useSelector((state) => state.account.data)
     const location = useLocation()
 
-    return userInfor?.type === CustomerType.expert ? <HomeCenter /> : location.pathname.includes('courses') ? <HomeAuth /> : <HomeGuest />
+    return location.pathname.includes('courses') ? <HomeAuth /> : <HomeGuest />
 }
 
 const HomeGuest = () => {
@@ -224,76 +223,3 @@ const HomeAuth = () => {
     </div>
 }
 
-const HomeCenter = () => {
-    const location = useLocation()
-    const [modules, setModules] = useState(eduExpertModules)
-    const [selectedId, setSelectedId] = useState()
-    const moduleTile = (item) => {
-        console.log(location.pathname)
-        if (!item.link) {
-            var children = modules.filter(e => e.parentId === item.id)
-            item.isOpen ??= false
-        }
-        return <div key={'m-' + item.id} className='col'>
-            <NavLink to={item.link ? ('/' + item.link) : null} onClick={children ? () => {
-                setModules(modules.map(e => {
-                    if (e.id === item.id) e.isOpen = !item.isOpen
-                    return e
-                }))
-            } : null} className={`row expert-module-tile ${selectedId === item.id ? 'selected' : ''}`} style={{ paddingLeft: item.parentId ? '4rem' : '1.6rem' }}>
-                <Text maxLine={1} className='label-3' style={{ flex: 1, width: '100%' }}>{item.name}</Text>
-                {children ? <FontAwesomeIcon icon={item.isOpen ? faChevronUp : faChevronDown} style={{ fontSize: '1.6rem', color: '#00204D99' }} /> : null}
-            </NavLink>
-            {children && item.isOpen ? <div className='col'>{children.map(e => moduleTile(e))}</div> : null}
-        </div>
-    }
-
-    const renderUI = () => {
-        switch (location.pathname) {
-            case '/education/home':
-                return <CenterHome />
-            case '/education/schedule':
-                return <EduSchedule />
-            case '/education/students':
-                return <EduStudent />
-            case '/education/courses':
-                return <SchoolCourse />
-            case '/education/classes':
-                return <SchoolClass />
-            case '/education/mentors':
-                return <SchoolMentor />
-            case '/education/curriculum':
-                return <CurriculumManagment />
-            case '/education/exams':
-                return <ExamManagment />
-            case '/education/questions':
-                return <QuestionManagment />
-            default:
-                return <CenterHome />
-        }
-    }
-
-    useEffect(() => {
-        const selectedModule = eduExpertModules.find(e => e.link && location.pathname.includes(e.link))
-        setSelectedId(selectedModule?.id ?? 1)
-        if (selectedModule?.parentId) {
-            setModules(modules.map(e => {
-                if (e.id === selectedModule.parentId) e.isOpen = true
-                return e
-            }))
-        }
-    }, [location.pathname])
-
-    return <div>
-        <div className='col body-sidebar'>
-            <Text className='heading-6'>Center Management</Text>
-            <div className='col' style={{ gap: '1.2rem', flex: 1, height: '100%', overflow: 'hidden auto' }}>
-                {modules.filter(e => !e.parentId).map(item => moduleTile(item))}
-            </div>
-            <SidebarActions />
-        </div>
-        <div style={{ float: 'right' }}>
-            {renderUI()}
-        </div>
-    </div>
-}

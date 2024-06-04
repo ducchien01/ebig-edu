@@ -7,7 +7,7 @@ export default function ListTopic() {
     const [data, setData] = useState([])
     useEffect(() => {
         TopicController.getListSimple({ page: 1, take: 8 }).then(res => {
-            if (res) setData(res)
+            if (res) setData(res.data)
         })
     }, [])
 

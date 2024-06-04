@@ -22,7 +22,7 @@ export class TopicController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + (AccountController.token() ? 'TopicAuth' : 'Topic') + '/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response.data as Array<TopicItem>
+                return response as {totalCount: number, data: Array<TopicItem>}
             } else {
                 ToastMessage.errors(response.message)
             }

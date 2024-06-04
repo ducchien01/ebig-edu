@@ -80,7 +80,7 @@ export function DatePickerForm({ control, label, required = false, name, placeho
     />
 }
 
-export function Select1Form({ value, options, control, label, required = false, name, placeholder, searchPlaceholder, errors, disabled = false, onChange, width = '100%', helperText, className }) {
+export function Select1Form({ options, control, label, required = false, name, placeholder, searchPlaceholder, errors, disabled = false, onChange, width = '100%', helperText, className, handleLoadmore, handleSearch }) {
     return <Controller
         name={name}
         control={control}
@@ -93,10 +93,12 @@ export function Select1Form({ value, options, control, label, required = false, 
             <Select1
                 style={{ width: '100%', flex: className?.includes('row') ? 1 : null }}
                 placeholder={placeholder ? placeholder : label ? `Chọn ${label.toLowerCase()}` : ''}
-                value={value}
+                value={field.value}
                 searchPlaceholder={searchPlaceholder}
                 options={options}
                 disabled={disabled}
+                handleLoadmore={handleLoadmore}
+                handleSearch={handleSearch}
                 onChange={(ev) => {
                     field.onChange(ev.id)
                     if (onChange) onChange(ev)

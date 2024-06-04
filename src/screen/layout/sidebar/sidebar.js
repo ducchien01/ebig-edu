@@ -31,7 +31,7 @@ export default function SideBar({ menu = [] }) {
             return location.pathname.startsWith('/' + e.link);
         })
         setSelected(newSelectedList.length ? newSelectedList : menu.slice(0, 1))
-    }, [location.pathname])
+    }, [location.pathname, menu])
 
     return <div className={`col sidebar ${isExpand ? 'expand' : ''}`} >
         <Dialog ref={dialogRef} />

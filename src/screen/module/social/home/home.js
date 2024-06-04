@@ -25,12 +25,12 @@ export default function SocialHome({ customerPage = false }) {
     const [selectedTab, setSelectedTab] = useState(1)
 
     useEffect(() => {
-        if (userInfor?.id === id) {
+        if (id && userInfor?.id === id) {
             setSelectedTab(0)
         } else {
             setSelectedTab(1)
         }
-    }, [location.pathname])
+    }, [location.pathname, userInfor])
 
     return <div>
         <Popup ref={ref} />

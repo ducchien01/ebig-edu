@@ -13,15 +13,21 @@ export const modules = [
     {
         id: 3,
         parentId: 1,
+        name: 'Center',
+        link: 'center',
+        icon: <OutlineGroup width='2.4rem' height='2.4rem' />,
+        selectedIcon: <FilledGroup width='2.4rem' height='2.4rem' />,
+    },
+    {
+        id: 4,
+        parentId: 1,
         name: 'Education',
         link: 'education',
         icon: <OutlineBooks width='2.4rem' height='2.4rem' />,
         selectedIcon: <FilledBooks width='2.4rem' height='2.4rem' />,
-        expertIcon: <OutlineGroup width='2.4rem' height='2.4rem' />,
-        selectedExpertIcon: <FilledGroup width='2.4rem' height='2.4rem' />,
     },
     {
-        id: 4,
+        id: 5,
         parentId: 1,
         name: 'Shop',
         link: 'ecomerce',
@@ -29,7 +35,7 @@ export const modules = [
         selectedIcon: <FilledShop width='2.4rem' height='2.4rem' />,
     },
     {
-        id: 5,
+        id: 6,
         parentId: 1,
         name: 'Discovery',
         link: 'discovery',

@@ -21,7 +21,7 @@ interface FilterItem {
     field: string,  
     value: string,
     /** value: contains, startswith, endswith, notcontains, > , < , = , <>  */
-    operator?: string,
+    operator?: 'contains' | 'startswith' | 'endswith' | 'notcontains' | '>' | '<' | '=' | '<>',
 }
 
 export interface FilterListSimpleBody {

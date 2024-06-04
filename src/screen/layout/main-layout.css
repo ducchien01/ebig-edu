@@ -1,8 +1,28 @@
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 0.4rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 0.4rem;
+    background-color: #c1c1c1;
+    /* visibility: hidden; */
+}
+
+/* ::-webkit-scrollbar-thumb:hover {
+    visibility: visible;
+} */
+
 .main-layout {
     width: 100%;
     height: 100%;
     overflow: hidden auto;
-    scrollbar-width: auto;
+    scrollbar-width: thin;
 }
 
 .main-layout>.main-layout-body {
@@ -25,7 +45,7 @@
     background-color: rgba(0, 0, 0, 0.1);
     width: 1000%;
     height: 1000%;
-    top: calc(6.2rem + 1px);
+    top: calc(5.6rem + 1px);
     left: 0;
     z-index: 8;
 }
@@ -38,13 +58,7 @@
     .sidebar,
     .body-sidebar {
         display: none !important;
-    }
-
-    .header>.logo {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        top: calc(5.6rem + 1px);
     }
 
     .header.expand+.main-layout-body .sidebar {
@@ -67,6 +81,15 @@
         width: 100% !important
     }
 
+    .header>button:first-child {
+        display: flex !important;
+        margin-right: 1.2rem;
+    }
+
+    .header>.action {
+        gap: 0.8rem !important;
+    }
+
     .header>.action>* {
         display: none !important;
     }
@@ -75,15 +98,7 @@
         display: flex !important;
     }
 
-    .header>button:first-child {
-        display: flex !important;
-    }
-
-    .header>.action>.row:last-child>* {
-        display: none !important;
-    }
-
-    .header>.action>.row:last-child>.icon-button32 {
+    .header>.action>*:last-child {
         display: flex !important;
     }
 

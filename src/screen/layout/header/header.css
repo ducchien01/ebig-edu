@@ -5,7 +5,6 @@
     left: 0;
     right: 0;
     width: 100%;
-    justify-content: space-between;
     border-bottom: var(--border-grey1);
     background-color: #fff;
     /* z-index > z-index of slider 10 */
@@ -16,7 +15,8 @@
     background-image: url("../../../assets/eBig-logo.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center;
+    background-position: left;
+    flex: 1;
     width: 11.261rem;
     height: 2.8rem;
 }

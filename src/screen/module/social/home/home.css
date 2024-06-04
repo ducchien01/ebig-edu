@@ -24,12 +24,12 @@
     width: min(max(24%, 28rem), 44rem);
     min-width: 28rem;
     height: calc(100% - 6rem);
-    margin-right: 16px;
+    margin-right: 12px;
     overflow: hidden auto;
 }
 
 div:has(> .additional-infor-view) {
-    padding-right: calc(min(max(24%, 28rem), 44rem) + 16px);
+    padding-right: calc(min(max(24%, 28rem), 44rem) + 12px);
 }
 
 .filter-news-container {

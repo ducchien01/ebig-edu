@@ -15,11 +15,14 @@ import SettingsNews from "../screen/module/social/new/local-component/settings-d
 import ViewExamDetails from "../screen/module/edu/exam/exam-details";
 import ViewTesting from "../screen/module/edu/exam/local-component/testing";
 import ExamResultView from "../screen/module/edu/exam/local-component/exam-result";
+import CenterHome from "../screen/module/center/home";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
+        case "center":
+            return <CenterHome />;
         case 'social':
-            return <SocialHome />
+            return <SocialHome />;
         case 'my-page':
             return <SocialHome customerPage={true} />
         case 'social/news':

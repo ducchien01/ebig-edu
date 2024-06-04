@@ -657,7 +657,6 @@ body * {
     background-color: transparent;
     outline: none;
     padding: 0;
-    scrollbar-width: thin;
 }
 
 button,

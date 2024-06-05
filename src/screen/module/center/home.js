@@ -7,12 +7,12 @@ import { Select1Form, TextFieldForm } from '../../../project-component/component
 import { useEffect, useRef, useState } from 'react';
 import { TopicController } from '../topic/controller';
 import { RootState } from '../../../store';
-import { FilledPhone, OutlineLocation } from '../../../assets/const/icon';
+import { FilledPeople, FilledPhone, OutlineLocation, OutlineSharing } from '../../../assets/const/icon';
 import { CenterController } from './controller';
 import { uuidv4 } from '../../../Utils';
 import { CenterPermisson } from './da';
 import { NavLink, useLocation } from 'react-router-dom';
-import { eduExpertModules } from '../../../assets/const/const-list';
+import { centerModules } from '../../../assets/const/const-list';
 import EduSchedule from '../edu/schedule/schedule';
 import EduStudent from '../edu/student/student';
 import SchoolCourse from '../edu/course/course';
@@ -23,7 +23,9 @@ import ExamManagment from '../edu/exam/exam';
 import QuestionManagment from '../edu/question/question';
 import SidebarActions from '../../layout/sidebar/sidebar-actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { CustomerController } from '../customer/controller';
+import CommonTab from './local-component/common';
 
 export default function CenterHome() {
     const userInfor = useSelector((state) => state.account.data)
@@ -84,11 +86,6 @@ const CenterRegister = () => {
     useEffect(() => {
         getTopics()
     }, [])
-
-    useEffect(() => {
-
-        console.log("??????: ", userInfor)
-    }, [userInfor])
 
     return <div>
         <Dialog ref={dialogRef} />
@@ -166,13 +163,7 @@ const CenterRegister = () => {
                     </div>
                 </div>
             </div>
-            {/* <div style={{ position: 'relative' }}>
-                <img src={GroupDefaultBg} alt='' style={{ width: '100%' }} />
-                <button type='button' className='row edit-button'>
-                    <FontAwesomeIcon icon={faEdit} style={{ fontSize: '2rem', color: '#fff' }} />
-                    <Text className='button-text-2' style={{ color: '#fff' }}>Chỉnh sửa</Text>
-                </button>
-            </div> */}
+
             <div>
 
             </div>
@@ -180,80 +171,136 @@ const CenterRegister = () => {
     </div>
 }
 
+// const renderUI = () => {
+//     switch (location.pathname) {
+//         case '/center/home':
+//             return <Home />
+//         case '/center/schedule':
+//             return <EduSchedule />
+//         case '/center/students':
+//             return <EduStudent />
+//         case '/center/courses':
+//             return <SchoolCourse />
+//         case '/center/classes':
+//             return <SchoolClass />
+//         case '/center/mentors':
+//             return <SchoolMentor />
+//         case '/center/curriculum':
+//             return <CurriculumManagment />
+//         case '/center/exams':
+//             return <ExamManagment />
+//         case '/center/questions':
+//             return <QuestionManagment />
+//         default:
+//             return <Home />
+//     }
+// }
 const CenterManagement = () => {
-    const location = useLocation()
-    const [modules, setModules] = useState(eduExpertModules)
-    const [selectedId, setSelectedId] = useState()
-    const moduleTile = (item) => {
-        console.log(location.pathname)
-        if (!item.link) {
-            var children = modules.filter(e => e.parentId === item.id)
-            item.isOpen ??= false
+    const userInfor = useSelector((state) => state.account.data)
+    const [centerData, setCenterData] = useState()
+    const [activeTab, setActiveTab] = useState(0)
+    const [members, setMembers] = useState({ totalCount: undefined, data: [] })
+
+    const getData = async () => {
+        const centerId = userInfor.customerCenters[0]?.centerId
+        if (centerId) {
+            const centerItem = await CenterController.getById(centerId)
+            CenterController.getListSimpleMember({ page: 1, take: 8, filter: [{ field: 'centerId', operator: '=', value: centerId }] }).then(async (memRes) => {
+                if (memRes) {
+                    const customerIds = memRes.data.map(e => e.customerId).filter(id => members.data.every(e => e.id !== id))
+                    if (customerIds.length) {
+                        const customerItems = await CustomerController.getByIds(customerIds)
+                        if (!customerItems) return
+                        setMembers({
+                            totalCount: memRes.totalCount,
+                            data: [...members.data, ...customerItems]
+                        })
+                    }
+                }
+            })
+            if (!centerItem) return
+            if (centerItem.topicId) {
+                const res = await TopicController.getById(centerItem.topicId)
+                if (res) centerItem.topicName = res.name
+            }
+            setCenterData(centerItem)
         }
-        return <div key={'m-' + item.id} className='col'>
-            <NavLink to={item.link ? ('/' + item.link) : null} onClick={children ? () => {
-                setModules(modules.map(e => {
-                    if (e.id === item.id) e.isOpen = !item.isOpen
-                    return e
-                }))
-            } : null} className={`row expert-module-tile ${selectedId === item.id ? 'selected' : ''}`} style={{ paddingLeft: item.parentId ? '4rem' : '1.6rem' }}>
-                <Text maxLine={1} className='label-3' style={{ flex: 1, width: '100%' }}>{item.name}</Text>
-                {children ? <FontAwesomeIcon icon={item.isOpen ? faChevronUp : faChevronDown} style={{ fontSize: '1.6rem', color: '#00204D99' }} /> : null}
-            </NavLink>
-            {children && item.isOpen ? <div className='col'>{children.map(e => moduleTile(e))}</div> : null}
-        </div>
     }
 
     const renderUI = () => {
-        switch (location.pathname) {
-            case '/education/home':
-                return <Home />
-            case '/education/schedule':
-                return <EduSchedule />
-            case '/education/students':
-                return <EduStudent />
-            case '/education/courses':
-                return <SchoolCourse />
-            case '/education/classes':
-                return <SchoolClass />
-            case '/education/mentors':
-                return <SchoolMentor />
-            case '/education/curriculum':
-                return <CurriculumManagment />
-            case '/education/exams':
-                return <ExamManagment />
-            case '/education/questions':
-                return <QuestionManagment />
-            default:
-                return <Home />
+        switch (activeTab) {
+            case 1: // Thành viên
+                return <div></div>;
+            case 2: // Đào tạo
+                return <div></div>;
+            case 3: // Sản phẩm
+                return <div></div>;
+            case 4: // Doanh thu
+                return <div></div>;
+            default: // 0: Bài viết
+                return <CommonTab centerItem={centerData} />;
         }
     }
 
     useEffect(() => {
-        const selectedModule = eduExpertModules.find(e => e.link && location.pathname.includes(e.link))
-        setSelectedId(selectedModule?.id ?? 1)
-        if (selectedModule?.parentId) {
-            setModules(modules.map(e => {
-                if (e.id === selectedModule.parentId) e.isOpen = true
-                return e
-            }))
+        if (userInfor) getData()
+        document.body.querySelector('.main-layout').onscroll = (ev) => {
+            // if (total !== newsData.length) {
+            //     if (Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) getData()
+            // }
         }
-    }, [location.pathname])
+    }, [userInfor])
 
-    return <div>
-        <div className='col body-sidebar'>
-            <Text className='heading-6'>Center Management</Text>
-            <div className='col' style={{ gap: '1.2rem', flex: 1, height: '100%', overflow: 'hidden auto' }}>
-                {modules.filter(e => !e.parentId).map(item => moduleTile(item))}
+    return <div className='row' style={{ justifyContent: 'center' }}>
+        <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
+            <div style={{ position: 'relative' }}>
+                <img src={GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem', borderRadius: '0 0 0.8rem 0.8rem' }} />
+                <button type='button' className='row edit-button'>
+                    <FontAwesomeIcon icon={faEdit} style={{ fontSize: '2rem', color: '#fff' }} />
+                    <Text className='button-text-2' style={{ color: '#fff' }}>Chỉnh sửa</Text>
+                </button>
             </div>
-            <SidebarActions />
-        </div>
-        <div style={{ float: 'right' }}>
+            <div className='col' style={{ padding: '1.6rem 2.4rem', gap: '0.6rem' }}>
+                <div className='row' style={{ gap: '0.4rem 0.8rem', flexWrap: 'wrap' }}>
+                    <Text className='heading-4'>{centerData?.name ?? '-'}</Text>
+                    {centerData?.topicName ? <div className='tag-infor'><Text className='button-text-3'>{centerData?.topicName ?? '-'}</Text></div> : undefined}
+                </div>
+                <div className='row' style={{ gap: '0.8rem' }}>
+                    <FilledPeople />
+                    <Text className='button-text-3'>{members.totalCount > 1000 ? (members.totalCount / 1000).toFixed(1) : members.totalCount} thành viên</Text>
+                </div>
+                <div className='row' style={{ gap: '0.8rem', padding: '0.8rem 0' }}>
+                    <div style={{ flex: 1, position: 'relative', height: '3.6rem' }}>
+                        {
+                            members.data.map((e, i) => {
+                                return <img
+                                    key={e.id}
+                                    alt=''
+                                    src={e.avatarUrl}
+                                    style={{ position: 'absolute', width: '3.6rem', height: '3.6rem', borderRadius: '3.6rem', top: 0, left: `${2.4 * i}rem`, border: '1px solid #fff' }}
+                                />
+                            })
+                        }
+                    </div>
+                    <button type='button' className='row button-primary' style={{ borderRadius: '0.8rem' }}>
+                        <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem' }} />
+                        <Text className='button-text-3'>Mời</Text>
+                    </button>
+                    <button type="button" className="row button-grey" style={{ borderRadius: '0.8rem', padding: '0.8rem 1.6rem' }} onClick={(ev) => { }} >
+                        <OutlineSharing width="2rem" height="2rem" />
+                        <Text className='button-text-3'>Chia sẻ</Text>
+                    </button>
+                </div>
+                <div className="tab-header-2 row" style={{ overflow: 'auto hidden', scrollbarWidth: 'none', gap: '0.8rem' }}>
+                    <div className={`tab-btn label-4 row ${activeTab === 0 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 0 ? 'bold' : '400' }} onClick={() => { setActiveTab(0) }}>Bài viết</div>
+                    <div className={`tab-btn label-4 row ${activeTab === 1 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 1 ? 'bold' : '400' }} onClick={() => { setActiveTab(2) }}>Thành viên</div>
+                    <div className={`tab-btn label-4 row ${activeTab === 2 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 2 ? 'bold' : '400' }} onClick={() => { setActiveTab(1) }}>Đào tạo</div>
+                    <div className={`tab-btn label-4 row ${activeTab === 3 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 3 ? 'bold' : '400' }} onClick={() => { setActiveTab(3) }}>Sản phẩm</div>
+                    <div className={`tab-btn label-4 row ${activeTab === 4 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 4 ? 'bold' : '400' }} onClick={() => { setActiveTab(4) }}>Doanh thu</div>
+                </div>
+
+            </div>
             {renderUI()}
         </div>
     </div>
-}
-
-const Home = () => {
-    return <div className='kjdsgfiudsgfiuws'></div>
 }

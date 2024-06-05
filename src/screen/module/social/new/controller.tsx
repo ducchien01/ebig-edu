@@ -31,22 +31,10 @@ export class NewController {
     }
 
     static getListSimple = async (params?: FilterListSimpleBody) => {
-        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'New/GetListSimpleByRequestBase', params)
+        const response = await getListSimpleBase(ConfigAPI.ebigUrl +(AccountController.token() ? 'NewAuth' : 'New') + '/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response
-            } else {
-                ToastMessage.errors(response.message)
-            }
-        }
-        return null
-    }
-
-    static getListSimpleAuth = async (params?: FilterListSimpleBody) => {
-        const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'NewAuth/GetListSimpleByRequestBase', params)
-        if (response) {
-            if (response.code === 200) {
-                return response
+                return response as {totalCount: number, data: Array<NewItem>}
             } else {
                 ToastMessage.errors(response.message)
             }

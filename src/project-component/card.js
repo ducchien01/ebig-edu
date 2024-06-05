@@ -12,6 +12,7 @@ export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, 
                 <Text maxLine={2} className="heading-6" style={{ width: '100%' }}>{title}</Text>
             </NavLink> : title}
             {content && typeof content === 'string' ? <Text maxLine={3} className="body-2" style={{ width: '100%' }}>{content}</Text> : content}
+            <div style={{ flex: 1 }} />
             {actions}
         </div>
     </div>

@@ -25,6 +25,7 @@ export interface NewItem {
     topicId?: string,
     status?: number,
     cateId?: string,
+    centerId?: string,
     newsTags?: Array<TagItem>,
 }
 

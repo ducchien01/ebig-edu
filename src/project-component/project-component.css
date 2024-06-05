@@ -20,6 +20,17 @@
     color: #00204D99;
 }
 
+.icon-button28 {
+    width: 2.8rem;
+    height: 2.8rem;
+    justify-content: center;
+}
+
+.icon-button28>* {
+    font-size: 1.8rem;
+    color: #00204D99;
+}
+
 .icon-button24 {
     width: 2.4rem;
     height: 2.4rem;
@@ -266,6 +277,7 @@
 .post-card-container {
     gap: 2.4rem;
     height: fit-content;
+    align-items: stretch;
 }
 
 .post-card-container.row>.thumbnail {

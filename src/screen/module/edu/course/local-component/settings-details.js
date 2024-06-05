@@ -18,7 +18,7 @@ export default function SettingsCourse() {
     const naviagte = useNavigate()
     const location = useLocation()
     const [selectedView, setSelectedView] = useState({ slug: 'overview' })
-    const [listView, setListView] = useState(extendView.filter(e => e.link === 'education/courses/details').map(e => JSON.parse(JSON.stringify(e))))
+    const [listView, setListView] = useState(extendView.filter(e => e.link === 'center/courses/details').map(e => JSON.parse(JSON.stringify(e))))
     const [data, setData] = useState()
 
     const checkValidInforToExport = (courseItem) => {

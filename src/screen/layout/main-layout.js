@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react'
 import './main-layout.css'
-import { eduExpertModules, extendView } from '../../assets/const/const-list';
+import { centerModules, extendView } from '../../assets/const/const-list';
 import { Route, Routes } from 'react-router-dom';
 import { getcomponentRouter } from '../../router/router';
 import HeaderView from './header/header';
@@ -37,7 +37,7 @@ export default function MainLayout({ menu = [] }) {
                         />;
                     }
                     )}
-                    {[...eduExpertModules, ...extendView].map((prop, key) => <Route
+                    {[...centerModules, ...extendView].map((prop, key) => <Route
                         path={prop.path ?? prop.link}
                         element={getcomponentRouter(prop.link)}
                         key={`extend-${key}`}

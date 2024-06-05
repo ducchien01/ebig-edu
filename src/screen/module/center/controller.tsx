@@ -31,9 +31,9 @@ export class CenterController {
     }
 
     static getById = async (id: string) => {
-        const response = await postData(ConfigAPI.ebigUrl + `Center/GetById?Id=${id}`)
+        const response = await postData(ConfigAPI.ebigUrl + `Center/GetItemById?Id=${id}`)
         if (response) {
-            return response as CenterItem
+            return response.data as CenterItem
         }
         return null
     }

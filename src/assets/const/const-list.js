@@ -60,16 +60,16 @@ export const modules = [
     },
 ]
 
-export const eduExpertModules = [
+export const centerModules = [
     {
         id: 1,
         name: 'Home',
-        link: 'education/home',
+        link: 'center/home',
     },
     {
         id: 2,
         name: 'Teaching Schedule',
-        link: 'education/schedule',
+        link: 'center/schedule',
     },
     {
         id: 3,
@@ -82,43 +82,43 @@ export const eduExpertModules = [
     {
         id: 5,
         name: 'Student Management',
-        link: 'education/students',
+        link: 'center/students',
     },
     {
         id: 6,
         parentId: 3,
         name: 'Course',
-        link: 'education/courses',
+        link: 'center/courses',
     },
     {
         id: 7,
         parentId: 3,
         name: 'Class',
-        link: 'education/classes',
+        link: 'center/classes',
     },
     {
         id: 8,
         parentId: 3,
         name: 'Mentor',
-        link: 'education/mentors',
+        link: 'center/mentors',
     },
     {
         id: 9,
         parentId: 3,
         name: 'Curriculum',
-        link: 'education/curriculum',
+        link: 'center/curriculum',
     },
     {
         id: 10,
         parentId: 4,
         name: 'Exam',
-        link: 'education/exams',
+        link: 'center/exams',
     },
     {
         id: 11,
         parentId: 4,
         name: 'Question',
-        link: 'education/questions',
+        link: 'center/questions',
     },
 ]
 
@@ -128,44 +128,44 @@ export const extendView = [
         name: 'Chỉnh sửa bài học',
         slug: 'lessons-settings',
         parentId: 'lessons',
-        path: 'education/courses/details/lessons-settings/:id/:lessonid',
-        link: 'education/courses/details',
+        path: 'center/courses/details/lessons-settings/:id/:lessonid',
+        link: 'center/courses/details',
     },
     {
         name: 'Tổng quan',
         slug: 'overview',
-        path: 'education/courses/details/overview/:id',
-        link: 'education/courses/details',
+        path: 'center/courses/details/overview/:id',
+        link: 'center/courses/details',
     },
     {
         name: 'Danh sách bài học',
         slug: 'lessons',
-        path: 'education/courses/details/lessons/:id',
-        link: 'education/courses/details',
+        path: 'center/courses/details/lessons/:id',
+        link: 'center/courses/details',
     },
     {
         name: 'Cấu hình lớp học',
         slug: 'additional-class',
-        path: 'education/courses/details/additional-class/:id',
-        link: 'education/courses/details',
+        path: 'center/courses/details/additional-class/:id',
+        link: 'center/courses/details',
     },
     {
         name: 'Xem trước khóa học',
         // slug: 'certificate',
-        path: 'education/courses/preview/:id',
-        link: 'education/courses/preview',
+        path: 'center/courses/preview/:id',
+        link: 'center/courses/preview',
     },
     {
         name: 'exam details',
         // slug: 'certificate',
-        path: 'education/exams/details/:id',
-        link: 'education/exams/details',
+        path: 'center/exams/details/:id',
+        link: 'center/exams/details',
     },
     {
         name: 'question details',
         // slug: 'certificate',
-        path: 'education/questions/details/:id',
-        link: 'education/questions/details',
+        path: 'center/questions/details/:id',
+        link: 'center/questions/details',
     },
     {
         name: 'news details',

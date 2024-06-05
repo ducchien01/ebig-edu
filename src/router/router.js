@@ -37,24 +37,24 @@ export const getcomponentRouter = (moduleCode) => {
             return <DiscoverTopicDetails />
         case 'education':
             return <EduHome />
-        case "education/home":
-            return <EduHome />;
-        case "education/schedule":
-            return <EduHome />;
-        case "education/courses":
-            return <EduHome />;
-        case "education/students":
-            return <EduHome />;
-        case "education/classes":
-            return <EduHome />;
-        case "education/mentors":
-            return <EduHome />;
-        case "education/curriculum":
-            return <EduHome />;
-        case "education/exams":
-            return <EduHome />;
-        case "education/questions":
-            return <EduHome />;
+        case "center/home":
+            return <CenterHome />;
+        case "center/schedule":
+            return <CenterHome />;
+        case "center/courses":
+            return <CenterHome />;
+        case "center/students":
+            return <CenterHome />;
+        case "center/classes":
+            return <CenterHome />;
+        case "center/mentors":
+            return <CenterHome />;
+        case "center/curriculum":
+            return <CenterHome />;
+        case "center/exams":
+            return <CenterHome />;
+        case "center/questions":
+            return <CenterHome />;
         case "education/course":
             return <ViewCourseDetails />;
         case 'ecomerce':
@@ -65,13 +65,13 @@ export const getcomponentRouter = (moduleCode) => {
             return <EcomPayment />
         case 'ecomerce/cart/payment/processing':
             return <PaymentProcess />
-        case "education/courses/details":
+        case "center/courses/details":
             return <SettingsCourse />;
-        case "education/exams/details":
+        case "center/exams/details":
             return <SettingsExam />;
-        case "education/questions/details":
+        case "center/questions/details":
             return <SettingsQuestion />;
-        case "education/courses/preview":
+        case "center/courses/preview":
             return <Preview />;
         case "education/exam":
             return <ViewExamDetails />;

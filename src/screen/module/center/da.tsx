@@ -18,8 +18,7 @@ export interface CenterItem {
 export enum CenterPermisson {
     owner = 0,
     admin = 1,
-    expert = 2,
-    teacher = 3,
+    member = 2,
 }
 
 export interface CustomerCenterItem {

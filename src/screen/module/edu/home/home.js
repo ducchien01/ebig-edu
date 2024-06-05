@@ -2,7 +2,6 @@ import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-d
 import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from '../../../../component/export-component'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
-import ListExpert from '../../social/discovery/local-component/list-expert'
 import { PostCard } from '../../../../project-component/card'
 import courseThumbnail from '../../../../assets/demo-image2.png'
 import classThumbnail from '../../../../assets/demo-image3.png'
@@ -12,7 +11,7 @@ import ListCommonCourse from './local-component/list-common-course'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AccountController } from '../../account/controller'
 import { faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TopicController } from '../../topic/controller'
 import SidebarActions from '../../../layout/sidebar/sidebar-actions'
 import ListAllCourse from './local-component/list-all-course'
@@ -20,18 +19,6 @@ import { OrderController } from '../../ecom/order/controller'
 import { OrderType } from '../../ecom/order/da'
 import { CourseController } from '../course/controller'
 import ConfigAPI from '../../../../config/configApi'
-import { CustomerType } from '../../customer/da'
-import { eduExpertModules } from '../../../../assets/const/const-list'
-import CenterHome from '../../center/home'
-import EduSchedule from '../schedule/schedule'
-import EduStudent from '../student/student'
-import SchoolCourse from '../course/course'
-import SchoolClass from '../class/class'
-import SchoolMentor from '../mentor/mentor'
-import ExamManagment from '../exam/exam'
-import QuestionManagment from '../question/question'
-import CurriculumManagment from '../curriculum/curriculum'
-import { useSelector } from 'react-redux'
 
 export default function EduHome() {
     const location = useLocation()
@@ -61,15 +48,6 @@ const HomeGuest = () => {
                 <ListTopic />
             </div>
         </div>
-        {/* <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem', backgroundColor: 'var(--dark-background)' }}>
-            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
-                <div className='row' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-4' maxLine={2} style={{ flex: 1, color: '#ffffff' }}>Học cùng chuyên gia hàng đầu</Text>
-                    <NavLink className='button-text-3' style={{ color: '#ffffff' }}>Xem tất cả</NavLink>
-                </div>
-                <ListExpert />
-            </div>
-        </div> */}
         <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
             <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
                 <Text className='heading-4' maxLine={2}>Chủ động lựa chọn loại hình lớp học</Text>
@@ -192,11 +170,6 @@ const HomeAuth = () => {
                             <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
                                 <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>
                                 <div className='col' style={{ gap: '1.6rem' }}>
-                                    {/* <div className='col' style={{ gap: '0.4rem' }}> */}
-                                    {/* <div className='row' style={{ gap: '0.8rem' }}>
-                                            <img src='' alt='' style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
-                                            <div className='label-4' style={{ color: '#ffffff' }}>Phan Minh Anh</div>
-                                        </div> */}
                                     <Text className='heading-4' maxLine={2} style={{ color: '#ffffff' }}>{e.name}</Text>
                                     {/* </div> */}
                                     <div className='col'>
@@ -208,10 +181,6 @@ const HomeAuth = () => {
                                     <NavLink to={'course/' + e.id} className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
                                         <div className='button-text-3'>{myProgress ? 'Học tiếp' : 'Bắt đầu học'}</div>
                                     </NavLink>
-                                    {/* <NavLink className='button-primary row' style={{ backgroundColor: "#00000000", padding: 0 }}>
-                                        <div className='button-text-3'>Xem tất cả khóa học</div>
-                                        <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '1.4rem' }} />
-                                    </NavLink> */}
                                 </div>
                             </div>
                         </div>

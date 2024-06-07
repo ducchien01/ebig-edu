@@ -18,7 +18,7 @@ export default function SettingsCourse() {
     const naviagte = useNavigate()
     const location = useLocation()
     const [selectedView, setSelectedView] = useState({ slug: 'overview' })
-    const [listView, setListView] = useState(extendView.filter(e => e.link === 'center/courses/details').map(e => JSON.parse(JSON.stringify(e))))
+    const [listView, setListView] = useState(extendView.filter(e => e.link === 'center/course').map(e => JSON.parse(JSON.stringify(e))))
     const [data, setData] = useState()
 
     const checkValidInforToExport = (courseItem) => {
@@ -46,21 +46,25 @@ export default function SettingsCourse() {
     }
 
     const submitPublishedCourse = () => {
-        showDialog({
-            ref: ref,
-            alignment: DialogAlignment.center,
-            status: ComponentStatus.WARNING,
-            title: 'Bạn chắc chắn muốn xuất bản khóa học này',
-            onSubmit: () => {
-                data.status = CourseStatus.published
-                CourseController.edit(data).then(res => {
-                    if (res) {
-                        ToastMessage.success('Xuất bản khóa học thành công')
-                        naviagte(`/education/courses/preview/${id}`)
-                    }
-                })
-            }
-        })
+        if (data?.status === CourseStatus.draft) {
+            showDialog({
+                ref: ref,
+                alignment: DialogAlignment.center,
+                status: ComponentStatus.WARNING,
+                title: 'Bạn chắc chắn muốn xuất bản khóa học này',
+                onSubmit: () => {
+                    data.status = CourseStatus.published
+                    CourseController.edit(data).then(res => {
+                        if (res) {
+                            ToastMessage.success('Xuất bản khóa học thành công')
+                            naviagte(`/education/course/${id}`)
+                        }
+                    })
+                }
+            })
+        } else {
+            naviagte(`/education/course/${id}`)
+        }
     }
 
     useEffect(() => {
@@ -82,16 +86,16 @@ export default function SettingsCourse() {
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <div className='button-text-6'>Danh sách Course</div>
                     <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.2rem' }} />
-                    <div className='button-text-6 selected'>Chỉnh sửa Course</div>
+                    <div className='button-text-6 selected'>Chỉnh sửa khóa học</div>
                 </div>
-                <div className='heading-6'>Thông tin chi tiết Course</div>
+                <div className='heading-6'>Thông tin chi tiết khóa học</div>
             </div>
-            {data?.status === CourseStatus.draft ? <button type='button' onClick={submitPublishedCourse} className={`${listView.filter(e => !e.parentId).every(e => e.valid) ? 'button-primary' : 'button-disabled'} row`} style={{ padding: '0.6rem 1.2rem' }}>
-                <FilledSendMessage color={listView.filter(e => !e.parentId).every(e => e.valid) ? 'white' : undefined} />
-                <div className='button-text-3'>Xuất bản khóa học</div>
-            </button> : null}
+            <button type='button' onClick={submitPublishedCourse} className={`${listView.filter(e => !e.parentId).slice(0, 2).every(e => e.valid) ? 'button-primary' : 'button-disabled'} row`} style={{ padding: '0.6rem 1.2rem' }}>
+                <FilledSendMessage color={listView.filter(e => !e.parentId).slice(0, 2).every(e => e.valid) ? 'white' : undefined} />
+                <div className='button-text-3'>{data?.status === CourseStatus.draft ? 'Xuất bản khóa học' : 'Xem khóa học'}</div>
+            </button>
         </div>
-        <div className='details-view-body row' style={{ width: '100%', height: '100%', flex: 1 }}>
+        <div className='details-view-body row' style={{height: '100%'}}>
             <div className='details-view-body-sidebar col'>
                 <Text className='heading-7'>{data?.name}</Text>
                 <div className='col' >

@@ -29,6 +29,7 @@ import CommonTab from './local-component/common';
 import { ValidateType, validateForm } from '../../../project-component/validate';
 import CenterRegister from './local-component/register';
 import ListMember from './local-component/list-member';
+import ListCourse from '../edu/course/local-component/list-course';
 
 export default function CenterHome() {
     const { id } = useParams()
@@ -44,6 +45,7 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
     const [fixedTabbar, setFixedTabbar] = useState()
     const [members, setMembers] = useState({ totalCount: undefined, data: [] })
     const ref = useRef()
+    const location = useLocation()
 
     const getMembers = async () => {
         const res = await CenterController.getListSimpleMember({ page: 1, take: 8, filter: [{ field: 'centerId', operator: '=', value: centerId }] })
@@ -76,26 +78,13 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
             case 1: // Thành viên
                 return <ListMember centerItem={centerData} permisson={permisson} reloadMember={members} onDelete={getMembers} />;
             case 2: // Đào tạo
-                return <div></div>;
+                return <ListCourse centerItem={centerData} permisson={permisson} />;
             case 3: // Sản phẩm
                 return <div></div>;
             case 4: // Doanh thu
                 return <div></div>;
             default: // 0: Bài viết
                 return <CommonTab centerItem={centerData} userInfor={userInfor} permisson={permisson} />;
-        }
-    }
-
-    const handleScroll = () => {
-        let _tabbar = document.getElementById('handle-tabbar')
-        if (_tabbar) {
-            _tabbar = _tabbar.getBoundingClientRect()
-            const _header = document.body.querySelector('.header').getBoundingClientRect()
-            if (_tabbar.y < _header.height) {
-                setFixedTabbar({ position: 'fixed', top: _header.height, width: _tabbar.width, zIndex: 2 })
-            } else if (_tabbar.y >= _header.height) {
-                setFixedTabbar(undefined)
-            }
         }
     }
 
@@ -124,8 +113,25 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
 
     useEffect(() => {
         getData()
-        document.body.querySelector('.main-layout').onscroll = handleScroll
     }, [userInfor])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.location.pathname !== location.pathname) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', handleScroll)
+                return
+            }
+            let _tabbar = document.getElementById('handle-tabbar')
+            _tabbar = _tabbar.getBoundingClientRect()
+            const _header = document.body.querySelector('.header').getBoundingClientRect()
+            if (_tabbar.y < _header.height) {
+                setFixedTabbar({ position: 'fixed', top: _header.height, width: _tabbar.width, zIndex: 2 })
+            } else if (_tabbar.y >= _header.height) {
+                setFixedTabbar(undefined)
+            }
+        }
+        document.body.querySelector('.main-layout').addEventListener('scroll', handleScroll)
+    }, [])
 
     return <div className='col'>
         <Popup ref={ref} />

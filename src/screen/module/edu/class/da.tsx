@@ -3,6 +3,7 @@ export interface ClassItem {
     name?: string,
     dateCreated?: number,
     content?: string,
+    customerId?: string,
     startDate?: number,
     endDate?: number,
     price?: number,

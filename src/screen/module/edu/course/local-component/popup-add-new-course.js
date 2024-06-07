@@ -13,8 +13,8 @@ const PopupAddNewCourse = forwardRef(function PopupAddNewCourse(data, ref) {
 
     const onSubmit = (ev) => {
         console.log(ev)
-        CourseController.add({ id: uuidv4(), name: ev.name.trim(), status: CourseStatus.draft }).then(id => {
-            navigate('details/overview/' + id)
+        CourseController.add({ id: uuidv4(), name: ev.name.trim(), status: CourseStatus.draft, centerId: data.centerId, customerId: data.customerId }).then(id => {
+            navigate('/center/course/overview/' + id)
         })
     }
 

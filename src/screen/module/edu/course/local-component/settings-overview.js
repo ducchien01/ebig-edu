@@ -42,7 +42,7 @@ export default function Overview({ data, onChangeRequired }) {
     }
 
     useEffect(() => {
-        if (data) {
+        if (data && userInfor) {
             TopicController.getAll().then(res => {
                 if (res) setListTopic(res)
             })
@@ -69,7 +69,7 @@ export default function Overview({ data, onChangeRequired }) {
                 }
             })
         }
-    }, [data])
+    }, [data, userInfor])
 
     return <form className="col" style={{ width: '100%', flex: 1, height: '100%' }} >
         <div className="heading-5 row" style={{ padding: '2.4rem' }}>Tổng quan</div>

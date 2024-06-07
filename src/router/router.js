@@ -1,5 +1,4 @@
 import EduHome from "../screen/module/edu/home/home";
-import Preview from "../screen/module/edu/course/local-component/preview";
 import SocialDiscoveryView from "../screen/module/social/discovery/discovery";
 import DiscoverTopicDetails from "../screen/module/social/discovery/local-component/topic-details";
 import SocialHome from "../screen/module/social/home/home";
@@ -48,8 +47,8 @@ export const getcomponentRouter = (moduleCode) => {
             return <CenterHome />;
         case "center/schedule":
             return <CenterHome />;
-        case "center/courses":
-            return <CenterHome />;
+        case "education/courses":
+            return <EduHome />;
         case "center/students":
             return <CenterHome />;
         case "center/classes":
@@ -72,14 +71,14 @@ export const getcomponentRouter = (moduleCode) => {
             return <EcomPayment />
         case 'ecomerce/cart/payment/processing':
             return <PaymentProcess />
-        case "center/courses/details":
+        case "center/course":
             return <SettingsCourse />;
         case "center/exams/details":
             return <SettingsExam />;
         case "center/questions/details":
             return <SettingsQuestion />;
-        case "center/courses/preview":
-            return <Preview />;
+        // case "center/course":
+        //     return <Preview />;
         case "education/exam":
             return <ViewExamDetails />;
         case "education/testing":

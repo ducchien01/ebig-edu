@@ -5,7 +5,7 @@ import { Popup, Text, TextField, ToastMessage, closePopup, showPopup } from "../
 import { CenterPermisson } from "../da"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsisH, faSearch } from "@fortawesome/free-solid-svg-icons"
-import { OutlineChat } from "../../../../assets/const/icon"
+import { FilledSetupPreferences, OutlineChat } from "../../../../assets/const/icon"
 import { AccountActions } from "../../account/reducer"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -195,11 +195,17 @@ export default function ListMember({ centerItem, permisson, onDelete, reloadMemb
     return <div className="col" style={{ alignItems: 'center' }}>
         <Popup ref={ref} />
         <div className='col' style={{ padding: '2.4rem', margin: '2.4rem 0', backgroundColor: '#fff', borderRadius: '0.8rem', width: 'calc(100% - 11.2rem)', minWidth: '56rem', gap: '0.8rem' }}>
-            <TextField
-                style={{ border: 'none', borderRadius: '2.4rem', backgroundColor: 'var(--background)', height: '4rem' }}
-                prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#667994', marginTop: '0.1rem' }} />}
-                placeholder="Tìm thành viên"
-            />
+        <div className="row" style={{ gap: '1.6rem' }}>
+                <TextField
+                    style={{ backgroundColor: 'var(--background)', height: '4rem', flex: 1, maxWidth: '40rem' }}
+                    prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#667994', marginTop: '0.1rem' }} />}
+                    placeholder="Tìm khóa học"
+                />
+                <button type="button" className="row" style={{ gap: '0.8rem' }}>
+                    <FilledSetupPreferences width="2.4rem" height="2.4rem" />
+                    <Text className="button-text-2" style={{ color: '#00204D99' }}>Bộ lọc</Text>
+                </button>
+            </div>
             <div className="col" style={{ padding: '2rem 0', borderBottom: 'var(--border-grey1)' }}>
                 <Text className="heading-7">Quản trị viên</Text>
                 {owner ? memberTile(owner, CenterPermisson.owner) : undefined}

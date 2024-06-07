@@ -41,7 +41,7 @@ export const CourseCard = ({ className = 'col', imgUrl, imgStyle, title, content
             <div className="row" style={{ flex: 1, gap: '1.6rem', alignItems: 'start' }}>
                 <div className="col" style={{ gap: '0.4rem', flex: 1 }}>
                     {title && typeof title === 'string' ? <NavLink to={to}>
-                        <Text maxLine={2} className="heading-6" style={{ width: '100%' }}>{title}</Text>
+                        <Text maxLine={2} className="heading-7" style={{ width: '100%' }}>{title}</Text>
                     </NavLink> : title}
                     {subtitle && typeof subtitle === 'string' ? <Text maxLine={2} className="subtitle-4" style={{ width: '100%' }}>{subtitle}</Text> : subtitle}
                     {content}

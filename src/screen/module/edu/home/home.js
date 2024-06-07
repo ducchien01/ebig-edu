@@ -27,7 +27,7 @@ export default function EduHome() {
 }
 
 const HomeGuest = () => {
-    return <div className='col' style={{backgroundColor: '#fff'}}>
+    return <div className='col' style={{ backgroundColor: '#fff' }}>
         <div className="row" style={{ width: '100%', justifyContent: 'center', backgroundColor: 'var(--main-color)' }}>
             <div className="col col24 col20-xxl col20-xl" style={{ padding: '6.4rem 3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
                 <div className='col' style={{ gap: '0.8rem' }}>
@@ -135,7 +135,7 @@ const HomeAuth = () => {
         })
     }, [window.location.search])
 
-    return <div className='row' style={{ flex: 1, height: '100%', width: '100%', }}>
+    return <div style={{height: '100%'}}>
         <div className='col body-sidebar' >
             <TextField
                 className='search-default placeholder-2'
@@ -161,32 +161,34 @@ const HomeAuth = () => {
                 <SidebarActions />
             </div>
         </div>
-        <div className='row' style={{ padding: '2.4rem 0', width: '100%', justifyContent: 'center', alignItems: 'start' }}>
-            <div className='col col24-md col24-sm col24-min' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
-                {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
-                    {myCourses.map(e => {
-                        const myProgress = e.countLessonUsed ? Math.round((e.countLessonUsed / e.countLesson) * 100) : 0
-                        return <div key={e.id} style={{ backgroundImage: `url(${ConfigAPI.imgUrl + e.pictureId})`, backgroundSize: 'cover' }}>
-                            <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
-                                <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>
-                                <div className='col' style={{ gap: '1.6rem' }}>
-                                    <Text className='heading-4' maxLine={2} style={{ color: '#ffffff' }}>{e.name}</Text>
-                                    {/* </div> */}
-                                    <div className='col'>
-                                        <ProgressBar percentColor='#ffffff' fullColor='#00000000' progressBarOnly percent={myProgress} progressBarStyle={{ border: '1px solid #ffffff' }} />
-                                        <div className='label-5' style={{ color: "#ffffff" }}>{myProgress ? `Bạn đã hoàn thành ${myProgress}% khóa học này` : 'Bạn chưa bắt đầu học khóa học này'}</div>
+        <div style={{ float: 'right', height: '100%' }}>
+            <div className='row' style={{ padding: '2.4rem 0', width: '100%', justifyContent: 'center', alignItems: 'start', backgroundColor: '#fff', height: '100%' }}>
+                <div className='col col24-md col24-sm col24-min' style={{ gap: '4.8rem', width: '90%', padding: '0 1.6rem', minHeight: myCourses.length ? 'calc(100% - 40rem)' : null }}>
+                    {myCourses.length ? <CustomSlider style={{ height: '30.8rem', borderRadius: '0.8rem', overflow: 'hidden' }}>
+                        {myCourses.map(e => {
+                            const myProgress = e.countLessonUsed ? Math.round((e.countLessonUsed / e.countLesson) * 100) : 0
+                            return <div key={e.id} style={{ backgroundImage: `url(${ConfigAPI.imgUrl + e.pictureId})`, backgroundSize: 'cover' }}>
+                                <div className='col' style={{ width: '100%', height: '100%', justifyContent: 'center', padding: '1.6rem 8rem', gap: '2.4rem' }}>
+                                    <div className='heading-6' style={{ color: '#ffffff' }}>Khóa học của tôi</div>
+                                    <div className='col' style={{ gap: '1.6rem' }}>
+                                        <Text className='heading-4' maxLine={2} style={{ color: '#ffffff' }}>{e.name}</Text>
+                                        {/* </div> */}
+                                        <div className='col'>
+                                            <ProgressBar percentColor='#ffffff' fullColor='#00000000' progressBarOnly percent={myProgress} progressBarStyle={{ border: '1px solid #ffffff' }} />
+                                            <div className='label-5' style={{ color: "#ffffff" }}>{myProgress ? `Bạn đã hoàn thành ${myProgress}% khóa học này` : 'Bạn chưa bắt đầu học khóa học này'}</div>
+                                        </div>
+                                    </div>
+                                    <div className='row' style={{ gap: '1.2rem' }}>
+                                        <NavLink to={'course/' + e.id} className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
+                                            <div className='button-text-3'>{myProgress ? 'Học tiếp' : 'Bắt đầu học'}</div>
+                                        </NavLink>
                                     </div>
                                 </div>
-                                <div className='row' style={{ gap: '1.2rem' }}>
-                                    <NavLink to={'course/' + e.id} className='button-primary row' style={{ backgroundColor: '#00000000', border: '1px solid #ffffff' }}>
-                                        <div className='button-text-3'>{myProgress ? 'Học tiếp' : 'Bắt đầu học'}</div>
-                                    </NavLink>
-                                </div>
                             </div>
-                        </div>
-                    })}
-                </CustomSlider> : null}
-                <ListAllCourse />
+                        })}
+                    </CustomSlider> : null}
+                    <ListAllCourse />
+                </div>
             </div>
         </div>
     </div>

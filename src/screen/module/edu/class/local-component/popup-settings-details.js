@@ -1,8 +1,8 @@
-import { forwardRef, useEffect } from "react"
+import { forwardRef, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import WeekCalendar from "../../../../../project-component/week-calendar"
 import { Checkbox, Text, ToastMessage, closePopup } from "../../../../../component/export-component"
-import { DatePickerForm, TextFieldForm } from "../../../../../project-component/component-form"
+import { DatePickerForm, Select1Form, TextFieldForm } from "../../../../../project-component/component-form"
 import { Ultis } from "../../../../../Utils"
 import InputTime from "../../../../../project-component/input-time"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -11,10 +11,12 @@ import { differenceInMinutes } from "date-fns"
 import { ClassController } from "../controller"
 import { CustomerController } from "../../../customer/controller"
 import { useSelector } from "react-redux"
+import { CenterController } from "../../../center/controller"
 
 const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
     const userInfor = useSelector((state) => state.account.data)
     const _now = new Date()
+    const [teachers, setTeachers] = useState({ totalCount: undefined, data: [] })
     const methods = useForm({ shouldFocusError: false, defaultValues: { schedule: [], startDate: Ultis.datetoString(_now) } })
 
     const renderWeekDaySchedule = (i) => {
@@ -152,8 +154,56 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
         }
     }
 
+    const getTeachers = async (page, nameSearch) => {
+        let _filter = [{ field: 'centerId', operator: '=', value: data.centerId }]
+        if (nameSearch?.length) _filter.push({ field: 'name', operator: 'contains', value: nameSearch })
+        if (page) {
+            const res = await CenterController.getListSimpleMember({ page: page, take: 10, filter: _filter })
+            if (res) {
+                const newCustomerIds = res.data.map(e => e.customerId).filter(id => teachers.data.every(el => el.id !== id))
+                if (newCustomerIds.length) {
+                    const _customers = await CustomerController.getByIds(newCustomerIds)
+                    if (_customers) {
+                        const newList = [...teachers.data, ..._customers]
+                        setTeachers({
+                            totalCount: res.totalCount,
+                            data: newList
+                        })
+                        return newList
+                    }
+                }
+            }
+            return []
+        } else {
+            const res = await CenterController.getListSimpleMember({ page: 1, take: 10, filter: _filter })
+            let newList = []
+            if (res) {
+                const customerIds = res.data.map(e => e.customerId).filter(id => id !== userInfor.id)
+                if (customerIds.length) {
+                    const _customers = await CustomerController.getByIds(customerIds)
+                    if (_customers) {
+                        newList = [userInfor, ..._customers]
+                        setTeachers({
+                            totalCount: res.totalCount,
+                            data: newList
+                        })
+                    }
+                } else {
+                    setTeachers({
+                        totalCount: 1,
+                        data: [userInfor]
+                    })
+                    newList = [userInfor]
+                }
+            }
+            return newList
+        }
+    }
+
     useEffect(() => {
+        getTeachers()
         if (data.classItem) {
+            data.classItem.customerId ??= userInfor.id
             Object.keys(data.classItem).forEach(props => {
                 if (data.classItem[props]) {
                     if (props === 'startDate') {
@@ -191,6 +241,21 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
                         name={'name'}
                         register={methods.register}
                         errors={methods.formState.errors}
+                    />
+                    <Select1Form
+                        required
+                        label={'Giáo viên'}
+                        name={'customerId'}
+                        control={methods.control}
+                        errors={methods.formState.errors}
+                        options={teachers.data}
+                        handleLoadmore={async (ev, searchLength) => {
+                            const _tmpPage = searchLength ?? teachers.data.length
+                            if (_tmpPage !== teachers.totalCount) {
+                                const res = await getTeachers(Math.floor(_tmpPage / 20 + 1), ev)
+                                return res
+                            }
+                        }}
                     />
                     <TextFieldForm
                         required

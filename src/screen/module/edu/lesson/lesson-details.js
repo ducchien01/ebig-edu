@@ -190,7 +190,7 @@ export default function FormEditLesson({ courseData }) {
                     <div className="subtitle-3">Embed</div>
                 </button>
             </div>
-            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} onSelected={(item) => { navigate(`/education/courses/details/lessons-settings/${item.courseId}/${item.lessonId}`) }} /> : null}
+            {showListLesson ? <ListLessonTile courseLessons={courseData?.courseLessons} onSelected={(item) => { navigate(`/center/course/lessons-settings/${item.courseId}/${item.lessonId}`) }} /> : null}
         </div>
     </div>
 }

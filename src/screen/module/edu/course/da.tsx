@@ -36,6 +36,7 @@ export interface CourseItem {
     countLesson?: number,
     countLessonUsed?: number,
     cateId?: string,
+    centerId?:string,
     courseTags?: Array<TagItem>,
     courseLessons?: Array<CourseLessonItem>,
     classes?: Array<ClassItem>,

@@ -71,7 +71,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
             </> : <>
                 {prefixIcon ?? null}
                 <Text className={item.parentId ? 'button-text-3' : "highlight-6"}>{item.name}</Text>
-                {item.parentId ? <NavLink to={`/education/courses/details/lessons-settings/${data.id}/${item.lessonId}`}>
+                {item.parentId ? <NavLink to={`/center/course/lessons-settings/${data.id}/${item.lessonId}`}>
                     <FilledOpenLink />
                 </NavLink> : null}
                 <button type="button" onClick={() => {
@@ -158,7 +158,7 @@ export default function CourseCurriculum({ data, onChangeRequired }) {
         <Popup ref={ref} />
         <Dialog ref={dialogRef} />
         <div className="col" style={{ gap: '1.6rem' }}>
-            <div className="heading-5">Danh sách bài học</div>
+            <div className="heading-5">Giáo trình</div>
             <SwitchForm
                 control={control}
                 label={'Lưu vào danh sách template giáo trình'}
@@ -256,7 +256,7 @@ const PopupAddNewLesson = forwardRef(function PopupAddNewLesson(data, ref) {
         LessonController.add({ id: uuidv4(), name: ev.name.trim(), type: data.type, customerId: userInfor.id, dateCreated: (new Date()).getTime() }).then(async (id) => {
             const res = await LessonController.addToCourse({ ...data, name: ev.name.trim(), lessonId: id })
             if (res)
-                navigate(`/edu/course/details/textbook/lesson-content/${data.courseId}/${id}`)
+                navigate(`/edu/course/textbook/lesson-content/${data.courseId}/${id}`)
         })
     }
 

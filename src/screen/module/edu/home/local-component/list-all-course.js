@@ -49,9 +49,9 @@ export default function ListAllCourse() {
     }, [])
 
     return <div className="col" style={{ gap: '2rem', flex: 1 }}>
-        <Text className="heading-4">Khám phá tất cả khoá học</Text>
+        <Text className="heading-5">Khám phá tất cả khoá học</Text>
         <div className="row" style={{ gap: '3.2rem', padding: '1.2rem 0', width: '100%', borderTop: 'var(--border-grey1)', borderBottom: 'var(--border-grey1)' }}>
-            <div className="row" style={{ flex: 1 }}>
+            <div className="row" style={{ flex: 1, overflow: 'auto hidden', scrollbarWidth: 'none' }}>
                 <button className="col" style={{ gap: '0.4rem' }}>
                     <div className="row" style={{ gap: '0.8rem' }}>
                         <div className="body-3">Khoảng giá</div>
@@ -97,14 +97,14 @@ export default function ListAllCourse() {
                 <FontAwesomeIcon icon={faRotate} style={{ fontSize: '1.4rem' }} />
             </button>
         </div>
-        <InfiniteScroll handleScroll={total !== data.length ? (onLoadMore) => { if (onLoadMore) getData() } : undefined} className="row" style={{ flexWrap: 'wrap', overflow: 'hidden auto', flex: 1, height: '100%', width: '100%', gap: '3.2rem 4rem', alignItems: 'stretch' }}>
+        <div className="row" style={{ flexWrap: 'wrap', gap: '3.2rem 4rem', alignItems: 'stretch' }}>
             {data.map((item, i) => {
                 const customer = customerList.find(e => e.id === item.customerId)
                 return <PostCard
                     key={item.id}
                     to={'/education/course/' + item.id}
                     style={{ '--gutter': '4rem', height: '100%', maxHeight: '40rem' }}
-                    className="col col6 col8-sm col8-min"
+                    className="col col6-xxl col6-xl col8-lg col8-md col12"
                     imgStyle={{ height: '12rem' }}
                     imgUrl={ConfigAPI.imgUrl + item.thumbnailId}
                     heading={<div className="row" style={{ gap: '0.8rem' }}>
@@ -129,6 +129,6 @@ export default function ListAllCourse() {
                     </div>}
                 />
             })}
-        </InfiniteScroll>
+        </div>
     </div>
 }

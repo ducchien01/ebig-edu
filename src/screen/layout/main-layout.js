@@ -2,32 +2,30 @@ import React, { useState } from 'react';
 import { useEffect } from 'react'
 import './main-layout.css'
 import { centerModules, extendView } from '../../assets/const/const-list';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { getcomponentRouter } from '../../router/router';
 import HeaderView from './header/header';
 import SideBar from './sidebar/sidebar';
 import { AccountActions } from '../module/account/reducer';
 import { useDispatch } from 'react-redux';
 import { AccountController } from '../module/account/controller';
+
 export default function MainLayout({ menu = [] }) {
     const [modules, setModules] = useState([])
     const dispatch = useDispatch()
+    const location = useLocation()
 
     useEffect(() => {
         if (AccountController.token()) {
             AccountActions.getInfor(dispatch)
             setModules(menu)
         } else {
-            if (window.location.pathname.startsWith('/center')) window.location.replace('/')
+            if (location.pathname.startsWith('/center')) window.location.replace('/')
             setModules(menu.filter(e => e.link !== 'center'))
         }
     }, [menu])
 
-    useEffect(() => {
-        document.body.querySelector('.main-layout').onscroll = undefined
-    }, [window.location.pathname])
-
-    return <div className="main-layout col">
+    return <div id='main-layout' className="main-layout col">
         <HeaderView />
         <div className='main-layout-body'>
             <SideBar menu={modules} />

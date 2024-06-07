@@ -13,11 +13,12 @@ import ConfigAPI from "../../../../../config/configApi"
 import { RatingController } from "../../../edu/rating/controller"
 import { CustomerController } from "../../../customer/controller"
 import { NewStatus } from "../../new/da"
+import { useLocation } from "react-router-dom"
 
 export default function ListNews({ isLogin = false }) {
     const ref = useRef()
-    const [newsData, setNewsData] = useState([])
-    const [total, setTotal] = useState()
+    const location = useLocation()
+    const [newsData, setNewsData] = useState({ totalCount: undefined, data: [] })
     const [interactInfor, setInteractInfor] = useState([])
     const [customerList, setCustomerList] = useState([])
     const [topicList, setTopicList] = useState([])
@@ -53,17 +54,19 @@ export default function ListNews({ isLogin = false }) {
         })
     }
 
-    const getData = () => {
-        NewController.getListSimple({ page: Math.floor((newsData.length / 30)) + 1, take: 30, filter: [{ field: 'status', operator: '=', value: NewStatus.published }] }).then(res => {
+    const getData = async (page) => {
+        NewController.getListSimple({ page: page ?? Math.floor((newsData.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }] }).then(res => {
             if (res) {
-                if (res.totalCount !== total) setTotal(res.totalCount)
-                const newList = res.data.filter(e => newsData.every(el => el.id !== e.id))
+                const newList = res.data.filter(e => newsData.data.every(el => el.id !== e.id))
                 getInteractInfor(newList)
                 const customerIds = newList.map(e => e.customerId).filter(id => id && customerList.every(e => e.id !== id))
                 CustomerController.getByIds(customerIds).then(cusRes => {
                     if (cusRes) setCustomerList(cusRes)
                 })
-                setNewsData([...newsData, ...newList])
+                setNewsData({
+                    totalCount: res.totalCount,
+                    data: [...newsData.data, ...newList]
+                })
             }
         })
     }
@@ -75,16 +78,24 @@ export default function ListNews({ isLogin = false }) {
     }
 
     useEffect(() => {
-        getData()
+        getData(1)
         TopicController.getAll().then(res => {
             if (res) setTopicList(res)
         })
-        document.body.querySelector('.main-layout').onscroll = (ev) => {
-            if (total !== newsData.length) {
-                if (Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) getData()
+    }, [])
+
+    useEffect(() => {
+        const loadMore = (ev) => {
+            if (Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', loadMore)
+                getData()
+            } else if (window.location.pathname !== location.pathname) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', loadMore)
             }
         }
-    }, [])
+        if (newsData.totalCount > 10 && newsData.totalCount !== newsData.data.length)
+            document.body.querySelector('.main-layout').addEventListener('scroll', loadMore)
+    }, [newsData])
 
     return <>
         <Popup ref={ref} />
@@ -109,7 +120,7 @@ export default function ListNews({ isLogin = false }) {
                         </button>
                     </div>}
                     <div className="col" style={{ gap: '2.4rem', padding: '2rem', paddingTop: 0 }}>
-                        {newsData.map((item, i) => {
+                        {newsData.data.map((item, i) => {
                             const itemInteractInfor = interactInfor.find(e => e.linkId === item.id)
                             const customer = customerList.find(e => e.id === item.customerId)
                             return <PostCard

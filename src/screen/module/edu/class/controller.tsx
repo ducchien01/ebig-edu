@@ -45,7 +45,7 @@ export class ClassController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ClassAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response
+                return response as {totalCount: number, data: Array<ClassItem>}
             } else {
                 ToastMessage.errors(response.message)
             }

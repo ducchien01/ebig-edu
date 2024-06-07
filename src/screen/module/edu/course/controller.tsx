@@ -34,7 +34,7 @@ export class CourseController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'Course/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response
+                return response as {totalCount: number, data: Array<CourseItem>}
             } else {
                 ToastMessage.errors(response.message)
             }

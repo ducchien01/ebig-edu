@@ -14,7 +14,7 @@ import ConfigAPI from "../../../../config/configApi"
 import { Ultis } from "../../../../Utils"
 import { useNavigate } from "react-router-dom"
 
-export default function CommonTab({ centerItem, userInfor, permisson }) {
+export default function CommonTab({ centerItem, userInfor }) {
     const navigate = useNavigate()
     const [centerData, setCenterData] = useState()
     const [news, setNews] = useState({ totalCount: undefined, data: [] })
@@ -49,9 +49,8 @@ export default function CommonTab({ centerItem, userInfor, permisson }) {
         })
     }
 
-    const getNews = async () => {
-        // const res = await NewController.getListSimple({ page: Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }] })
-        const res = await NewController.getListSimple({ page: Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }, { field: 'centerId', operator: '=', value: centerItem.id }] })
+    const getNews = async (page) => {
+        const res = await NewController.getListSimple({ page: page ?? Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }, { field: 'centerId', operator: '=', value: centerItem.id }] })
         if (res) {
             const newList = res.data.filter(e => news.data.every(el => el.id !== e.id))
             getInteractInfor(newList)
@@ -86,11 +85,26 @@ export default function CommonTab({ centerItem, userInfor, permisson }) {
     useEffect(() => {
         if (centerItem) {
             setCenterData(centerItem)
-            getNews()
+            getNews(1)
         }
     }, [centerItem])
 
-    return centerData ? <div className="col">
+    useEffect(() => {
+        const loadMore = (ev) => {
+            if (!document.getElementById('center-common-tab')) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', loadMore)
+                return
+            }
+            if (Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', loadMore)
+                getNews()
+            }
+        }
+        if (news.totalCount > 10 && news.totalCount !== news.data.length)
+            document.body.querySelector('.main-layout').addEventListener('scroll', loadMore)
+    }, [news])
+
+    return centerData ? <div id="center-common-tab" className="col">
         <Popup ref={ref} />
         <div className='col' style={{ padding: '2.4rem', margin: '2.4rem 4.8rem 0.8rem', backgroundColor: '#fff', borderRadius: '0.8rem', width: 'calc(100% - 9.6rem)', gap: '0.8rem' }}>
             <Text className='heading-6'>Giới thiệu</Text>

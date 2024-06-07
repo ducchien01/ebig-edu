@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react"
 import { ComponentStatus, Dialog, DialogAlignment, Text, showDialog } from "../../../../../component/export-component"
 import { FilledEdit, FilledTrashCan } from "../../../../../assets/const/icon"
 import { Ultis } from "../../../../../Utils"
+import { CustomerController } from "../../../customer/controller"
 
 export default function ListClass({ data = [], onEdit, onDelete }) {
     const [list, setList] = useState([])
     const ref = useRef()
+    const [teachers, setTeachers] = useState([])
 
     const submitDelete = (item) => {
         showDialog({
@@ -18,6 +20,12 @@ export default function ListClass({ data = [], onEdit, onDelete }) {
     }
 
     useEffect(() => {
+        const customerIds = data.map(e => e.customerId)
+        if (customerIds.length) {
+            CustomerController.getByIds(customerIds).then(cusRes => {
+                if (cusRes) setTeachers(cusRes)
+            })
+        }
         setList(data.map(e => {
             if (e.content) {
                 try {
@@ -34,11 +42,16 @@ export default function ListClass({ data = [], onEdit, onDelete }) {
     return <div className="row" style={{ gap: '2.4rem', flexWrap: 'wrap', alignItems: 'stretch' }}>
         <Dialog ref={ref} />
         {list.map((item) => {
+            const _teacher = teachers.find(e => e.id === item.customerId)
             return <div key={item.id} className="col class-infor-container col8 col12-lg col12-md col12-sm col12-min" >
                 <div className="row" style={{ gap: '0.8rem' }}>
                     <Text className="heading-7" style={{ flex: 1, width: '100%' }} maxLine={2}>{item.name}</Text>
                     {onEdit ? <button className="row icon-button16" onClick={() => { onEdit(item) }}><FilledEdit /></button> : null}
                     <button className="row icon-button16" onClick={() => { submitDelete(item) }} ><FilledTrashCan /></button>
+                </div>
+                <div className="row" style={{ gap: '0.4rem' }}>
+                    <Text className="label-5" style={{marginTop: '0.2rem'}}>Giáo viên:</Text>
+                    <Text className="heading-8" maxLine={1} style={{ width: '100%' }}>{_teacher?.name}</Text>
                 </div>
                 <div className="row" style={{ alignItems: 'start', gap: '2.4rem' }}>
                     <div className="col" style={{ flex: 1, gap: '1.6rem' }}>

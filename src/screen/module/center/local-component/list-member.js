@@ -7,10 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsisH, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { OutlineChat } from "../../../../assets/const/icon"
 import { AccountActions } from "../../account/reducer"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
-export default function ListMember({ centerItem, userInfor, permisson, onDelete, reloadMember }) {
+export default function ListMember({ centerItem, permisson, onDelete, reloadMember }) {
+    const userInfor = useSelector((state) => state.account.data)
     const [owner, setOwner] = useState()
     const [admins, setAdmins] = useState([])
     const [members, setMembers] = useState({ totalCount: undefined, data: [] })

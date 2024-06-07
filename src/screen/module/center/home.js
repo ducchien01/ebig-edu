@@ -74,7 +74,7 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
     const renderUI = () => {
         switch (activeTab) {
             case 1: // Thành viên
-                return <ListMember centerItem={centerData} userInfor={userInfor} permisson={permisson} reloadMember={members} onDelete={getMembers} />;
+                return <ListMember centerItem={centerData} permisson={permisson} reloadMember={members} onDelete={getMembers} />;
             case 2: // Đào tạo
                 return <div></div>;
             case 3: // Sản phẩm

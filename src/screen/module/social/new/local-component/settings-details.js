@@ -4,7 +4,7 @@ import { ImportFileForm, Select1Form, SelectMultipleForm } from "../../../../../
 import { uploadFiles } from "../../../../baseDA";
 import ConfigAPI from "../../../../../config/configApi";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { NewController } from "../controller";
 import { editorConfiguration } from "../../../../../assets/const/const-list";
 import PopupPublishNews from "./popup-publish";
@@ -13,6 +13,7 @@ import { NewStatus } from "../da";
 
 export default function SettingsNews() {
     const { id } = useParams()
+    const location = useLocation()
     const navigate = useNavigate()
     const ref = useRef()
     const dialogRef = useRef()
@@ -61,10 +62,20 @@ export default function SettingsNews() {
         }
     }, [])
 
-    return <form className="col" style={{ width: '100%', height: '100%', flex: 1 }}>
+    useEffect(() => {
+        if (location.pathname.startsWith('/center')) {
+            if (location.state?.centerId) {
+                methods.setValue('centerId', location.state?.centerId)
+            } else {
+                window.location.replace(location.pathname.replace('/center/', '/social/'))
+            }
+        }
+    }, [location.state])
+
+    return <form className="col" style={{ width: '100%', backgroundColor: '#fff' }}>
         <Popup ref={ref} />
         <Dialog ref={dialogRef} />
-        <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+        <div className="col" style={{ paddingBottom: '6rem' }} >
             <div className="row" style={{ width: '100%', justifyContent: 'center' }} >
                 <div className="col col24 col16-xxl col16-xl col18-lg col20-md" style={{ padding: '2rem 3.2rem 1.6rem 3.2rem', '--gutter': '0px', gap: '3.2rem' }}>
                     {onEditTitle ? <TextArea
@@ -123,8 +134,8 @@ export default function SettingsNews() {
                 </div>
             </div>
         </div>
-        <div className="row" style={{ width: '100%', justifyContent: 'center', borderTop: '1px solid #00358014' }}>
-            <div className="row col24 col16-xxl col16-xl col18-lg col20-md" style={{ '--gutter': '0px', gap: '0.8rem', padding: '1.6rem 3.2rem' }}>
+        <div className="row fixed-footer" style={{ width: '100%', justifyContent: 'center', borderTop: '1px solid #00358014', backgroundColor: '#fff' }}>
+            <div className="row col24 col16-xxl col16-xl col18-lg col20-md" style={{ '--gutter': '0px', gap: '0.8rem', padding: '0.8rem 3.2rem' }}>
                 <div style={{ flex: 1 }}></div>
                 {methods.watch('title') && !id ? <button type="button" onClick={submitSaveDraft} className="row button-grey">
                     <div className="button-text-3">Lưu nháp</div>

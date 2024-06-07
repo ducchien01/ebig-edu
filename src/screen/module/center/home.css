@@ -27,3 +27,17 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.input-invite-member {
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    flex: 1;
+    padding: 0.4rem 1.2rem;
+    border: var(--border-grey1);
+    border-radius: 0.4rem;
+    min-height: 4rem;
+}
+
+.input-invite-member:focus-within {
+    border-color: var(--primary-color);
+}

@@ -27,7 +27,7 @@ export default function EduHome() {
 }
 
 const HomeGuest = () => {
-    return <div className='col'>
+    return <div className='col' style={{backgroundColor: '#fff'}}>
         <div className="row" style={{ width: '100%', justifyContent: 'center', backgroundColor: 'var(--main-color)' }}>
             <div className="col col24 col20-xxl col20-xl" style={{ padding: '6.4rem 3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
                 <div className='col' style={{ gap: '0.8rem' }}>

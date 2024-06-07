@@ -149,7 +149,9 @@ export class CenterController {
 
     static deleteMember = async (memberIds: Array<string>) => {
         const response = await postData(ConfigAPI.ebigUrl + 'CustomerCenter/Action?action=delete', {
-            data: { ids: memberIds }
+            data: { 
+                data: [],
+                ids: memberIds }
         })
         if (response) {
             if (response.code === 200) {

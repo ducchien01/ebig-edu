@@ -1,9 +1,9 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../social/new/controller"
-import { Popup, Text, ToastMessage, closePopup, showPopup } from "../../../../component/export-component"
+import { Popup, Text, TextField, ToastMessage, closePopup, showPopup } from "../../../../component/export-component"
 import { FilledLogoFacebook, FilledPhone, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineLocation, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEdit } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight, faEdit } from "@fortawesome/free-solid-svg-icons"
 import { useForm } from "react-hook-form"
 import { CenterController } from "../controller"
 import { RatingController } from "../../edu/rating/controller"
@@ -12,8 +12,10 @@ import { CustomerController } from "../../customer/controller"
 import { PostCard } from "../../../../project-component/card"
 import ConfigAPI from "../../../../config/configApi"
 import { Ultis } from "../../../../Utils"
+import { useNavigate } from "react-router-dom"
 
-export default function CommonTab({ centerItem }) {
+export default function CommonTab({ centerItem, userInfor, permisson }) {
+    const navigate = useNavigate()
     const [centerData, setCenterData] = useState()
     const [news, setNews] = useState({ totalCount: undefined, data: [] })
     const [customerList, setCustomerList] = useState([])
@@ -48,8 +50,8 @@ export default function CommonTab({ centerItem }) {
     }
 
     const getNews = async () => {
-        const res = await NewController.getListSimple({ page: Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }] })
-        // const res = await NewController.getListSimple({ page: Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }, { field: 'centerId', operator: '=', value: centerData.id }] })
+        // const res = await NewController.getListSimple({ page: Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }] })
+        const res = await NewController.getListSimple({ page: Math.floor((news.data.length / 10)) + 1, take: 10, filter: [{ field: 'status', operator: '=', value: NewStatus.published }, { field: 'centerId', operator: '=', value: centerItem.id }] })
         if (res) {
             const newList = res.data.filter(e => news.data.every(el => el.id !== e.id))
             getInteractInfor(newList)
@@ -67,7 +69,7 @@ export default function CommonTab({ centerItem }) {
     const showPopupEditDescription = () => {
         showPopup({
             ref: ref,
-            style: { width: '80%', maxWidth: '48rem', backgroundColor: '#fff' },
+            style: { width: '80%', maxWidth: '68rem', backgroundColor: '#fff' },
             heading: <div className="heading-6 popup-header" style={{ textAlign: 'center' }}>Viết mô tả</div>,
             content: <PopupEditDescription description={centerData.description} ref={ref} onSubmit={(vl) => {
                 const newCenterData = { ...centerData, description: vl }
@@ -87,9 +89,10 @@ export default function CommonTab({ centerItem }) {
             getNews()
         }
     }, [centerItem])
+
     return centerData ? <div className="col">
         <Popup ref={ref} />
-        <div className='col' style={{ padding: '2.4rem', margin: '0 4.8rem', backgroundColor: 'var(--disabled-background)', borderRadius: '0.8rem', width: 'calc(100% - 9.6rem)', gap: '0.8rem' }}>
+        <div className='col' style={{ padding: '2.4rem', margin: '2.4rem 4.8rem 0.8rem', backgroundColor: '#fff', borderRadius: '0.8rem', width: 'calc(100% - 9.6rem)', gap: '0.8rem' }}>
             <Text className='heading-6'>Giới thiệu</Text>
             <div className="col divider" style={{ margin: '0.4rem 0', height: 1, backgroundColor: '#00358014' }} />
             <div className='row' style={{ gap: '0.8rem' }}>
@@ -104,12 +107,19 @@ export default function CommonTab({ centerItem }) {
                 <Text className='heading-6' style={{ marginTop: '0.2rem' }}>Mô tả</Text>
                 <button type="button" onClick={showPopupEditDescription} className="row icon-button28"><FontAwesomeIcon icon={faEdit} /></button>
             </div>
-            {centerData.description?.length ? <Text className="regular2" maxLine={4} style={{width: '100%'}}>{centerData.description}</Text> : undefined}
+            {centerData.description?.length ? <Text className="regular2" showMore maxLine={4} style={{ width: '100%' }}>{centerData.description}</Text> : undefined}
         </div>
         <div className="col" style={{ gap: '3.2rem', padding: '2.4rem' }}>
-            <div className='col' style={{ backgroundColor: 'var(--disabled-background)', borderRadius: '0.8rem', width: '100%', gap: '0.8rem' }}>
-
-            </div>
+            <button type="button" onClick={() => { navigate('/center/news/create', { state: { centerId: centerItem.id } }) }} className='row' style={{ backgroundColor: '#fff', borderRadius: '1.2rem', width: 'calc(100% - 4.8rem)', margin: '0 2.4rem', gap: '1.6rem', padding: '1.6rem 2.4rem' }}>
+                <img src={userInfor.avatarUrl} alt="" style={{ width: '4.4rem', height: '4.4rem', borderRadius: '50%' }} />
+                <TextField
+                    className="regular3"
+                    style={{ flex: 1, border: 'none', borderRadius: '2.4rem', height: '4.8rem', padding: '0 1.6rem', textAlign: 'start' }}
+                    placeholder="Đăng bài viết mới..."
+                    disabled
+                />
+                <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '2.4rem', color: '#667994' }} />
+            </button>
             {news.data.map((item, i) => {
                 const itemInteractInfor = interactInfor.find(e => e.linkId === item.id)
                 const customer = customerList.find(e => e.id === item.customerId)
@@ -117,7 +127,8 @@ export default function CommonTab({ centerItem }) {
                     key={item.id}
                     className="row"
                     style={{ gap: '4rem', alignItems: 'start' }}
-                    to={`social/news/${item.id}`}
+                    to={`/center/news/${item.id}`}
+                    state={{ centerId: centerItem.id }}
                     imgUrl={ConfigAPI.imgUrl + item.pictureId}
                     imgStyle={{ width: '16.2rem', height: '16.2rem' }}
                     heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>
@@ -127,11 +138,8 @@ export default function CommonTab({ centerItem }) {
                         <Text className="subtitle-3">{item.dateCreated ? Ultis.datetoString(new Date(item.dateCreated)) : '-'}</Text>
                     </div>}
                     title={item.title}
-                    content={<div dangerouslySetInnerHTML={{ __html: item.description }} className="news-show-ckeditor-content"></div>}
+                    content={<div style={{ maxHeight: '16rem' }} dangerouslySetInnerHTML={{ __html: item.description.replace(/(<figure)(.*?)(<\/figure>)/g, '') }} className="comp-text news-show-ckeditor-content"></div>}
                     actions={<div className="row" style={{ gap: '1.2rem', width: '100%' }}>
-                        {/* <div className="tag-disabled row">
-                            <div className="button-text-3">{topicList.find(e => e.id === item.topicId)?.name ?? ''}</div>
-                        </div> */}
                         <div className="row" style={{ flex: 1, width: '100%' }}>
                             <div className="tag-disabled row" style={{ backgroundColor: 'transparent' }}>
                                 <OutlineThumbUp width="1.6rem" height="1.6rem" />

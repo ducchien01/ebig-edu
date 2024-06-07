@@ -1,17 +1,17 @@
 import { useSelector } from 'react-redux';
-import { ComponentStatus, Dialog, DialogAlignment, Text, ToastMessage, showDialog } from '../../../component/export-component';
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Select1, Text, TextField, ToastMessage, closePopup, showDialog, showPopup } from '../../../component/export-component';
 import './home.css'
 import GroupDefaultBg from '../../../assets/groups-bg.png'
 import { useForm } from 'react-hook-form';
 import { Select1Form, TextFieldForm } from '../../../project-component/component-form';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { TopicController } from '../topic/controller';
 import { RootState } from '../../../store';
 import { FilledPeople, FilledPhone, OutlineLocation, OutlineSharing } from '../../../assets/const/icon';
 import { CenterController } from './controller';
 import { uuidv4 } from '../../../Utils';
 import { CenterPermisson } from './da';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { centerModules } from '../../../assets/const/const-list';
 import EduSchedule from '../edu/schedule/schedule';
 import EduStudent from '../edu/student/student';
@@ -23,153 +23,327 @@ import ExamManagment from '../edu/exam/exam';
 import QuestionManagment from '../edu/question/question';
 import SidebarActions from '../../layout/sidebar/sidebar-actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faEdit, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CustomerController } from '../customer/controller';
 import CommonTab from './local-component/common';
+import { ValidateType, validateForm } from '../../../project-component/validate';
+import CenterRegister from './local-component/register';
+import ListMember from './local-component/list-member';
 
 export default function CenterHome() {
+    const { id } = useParams()
     const userInfor = useSelector((state) => state.account.data)
 
-    return userInfor?.customerCenters ? <CenterManagement /> : <CenterRegister />
+    return id ? <CenterManagement centerId={id} userInfor={userInfor} permisson={userInfor?.customerCenters?.find(e => e.centerId === id)?.permisson} /> : <CenterRegister />
 
 }
 
-const CenterRegister = () => {
-    const userInfor = useSelector((state) => state.account.data)
-    const methods = useForm({ shouldFocusError: false })
-    const dialogRef = useRef()
-    const [topics, setTopics] = useState({ data: [] })
+const CenterManagement = ({ userInfor, centerId, permisson }) => {
+    const [centerData, setCenterData] = useState()
+    const [activeTab, setActiveTab] = useState(0)
+    const [fixedTabbar, setFixedTabbar] = useState()
+    const [members, setMembers] = useState({ totalCount: undefined, data: [] })
+    const ref = useRef()
 
-    const createCenter = (ev) => {
-        showDialog({
-            ref: dialogRef,
-            alignment: DialogAlignment.center,
-            status: ComponentStatus.WARNING,
-            title: 'Bạn chắc chắn muốn đăng ký trung tâm mới',
-            onSubmit: async () => {
-                console.log(ev)
-                ev.ownerId = userInfor.id
-                ev.id = uuidv4()
-                const res = await CenterController.add(ev)
-                if (!res) return
-                const customerCenterRes = await CenterController.addMember([{
-                    id: uuidv4(),
-                    centerId: res[0],
-                    customerId: userInfor.id,
-                    permisson: CenterPermisson.owner,
-                    name: userInfor.name ?? userInfor.userName,
-                }])
-                if (!customerCenterRes) return
-                ToastMessage.success('Bạn đã đăng ký trung tâm thành công')
-                window.location.reload()
+    const getMembers = async () => {
+        const res = await CenterController.getListSimpleMember({ page: 1, take: 8, filter: [{ field: 'centerId', operator: '=', value: centerId }] })
+        if (res) {
+            const customerIds = res.data.map(e => e.customerId)
+            if (customerIds.length) {
+                const customerItems = await CustomerController.getByIds(customerIds)
+                if (!customerItems) return
+                setMembers({
+                    totalCount: res.totalCount,
+                    data: customerItems
+                })
             }
-        })
-    }
-
-    const getTopics = async (page, nameSearch) => {
-        if (nameSearch?.length) var filter = [{ field: 'name', operator: 'contains', value: nameSearch }]
-        if (page) {
-            const res = await TopicController.getListSimple({ page: page, take: 20, filter: filter })
-            if (res) {
-                const newList = [...topics.data, ...res.data.filter(e => topics.data.every(el => el.id !== e.id))]
-                setTopics({ totalCount: res.totalCount, data: newList })
-                return newList
-            }
-            return []
-        } else {
-            const res = await TopicController.getListSimple({ page: 1, take: 20, filter: filter })
-            if (res) setTopics(res)
-            return res.data
         }
     }
 
-    useEffect(() => {
-        getTopics()
-    }, [])
+    const getData = async () => {
+        const centerItem = await CenterController.getById(centerId)
+        getMembers()
+        if (!centerItem) return
+        if (centerItem.topicId) {
+            const res = await TopicController.getById(centerItem.topicId)
+            if (res) centerItem.topicName = res.name
+        }
+        setCenterData(centerItem)
+    }
 
-    return <div>
-        <Dialog ref={dialogRef} />
-        <div className="col body-sidebar" >
-            <Text className='heading-5'>Đăng ký trung tâm</Text>
-            <div className='row' style={{ gap: '0.8rem' }}>
-                <img src={userInfor?.avatarUrl} alt='' style={{ width: '4.8rem', height: '4.8rem', borderRadius: '50%' }} />
-                <div className='col' style={{ gap: '0.2rem' }}>
-                    <Text className='title-3'>{userInfor?.name ?? userInfor?.userName ?? '-'}</Text>
-                    <Text className='subtitle-3'>Chủ trung tâm</Text>
+    const renderUI = () => {
+        switch (activeTab) {
+            case 1: // Thành viên
+                return <ListMember centerItem={centerData} userInfor={userInfor} permisson={permisson} reloadMember={members} onDelete={getMembers} />;
+            case 2: // Đào tạo
+                return <div></div>;
+            case 3: // Sản phẩm
+                return <div></div>;
+            case 4: // Doanh thu
+                return <div></div>;
+            default: // 0: Bài viết
+                return <CommonTab centerItem={centerData} userInfor={userInfor} permisson={permisson} />;
+        }
+    }
+
+    const handleScroll = () => {
+        let _tabbar = document.getElementById('handle-tabbar')
+        if (_tabbar) {
+            _tabbar = _tabbar.getBoundingClientRect()
+            const _header = document.body.querySelector('.header').getBoundingClientRect()
+            if (_tabbar.y < _header.height) {
+                setFixedTabbar({ position: 'fixed', top: _header.height, width: _tabbar.width, zIndex: 2 })
+            } else if (_tabbar.y >= _header.height) {
+                setFixedTabbar(undefined)
+            }
+        }
+    }
+
+    const showPopupAddMember = () => {
+        showPopup({
+            ref: ref,
+            style: { width: '80%', maxWidth: '60rem', backgroundColor: '#fff' },
+            heading: <div className="heading-6 popup-header" style={{ textAlign: 'center' }}>Thêm thành viên</div>,
+            content: <PopupAddMember
+                ref={ref}
+                centerId={centerData.id}
+                permisson={permisson}
+                onClose={async (newCustomerIds) => {
+                    if (newCustomerIds?.length) {
+                        const customerItems = await CustomerController.getByIds(newCustomerIds)
+                        if (!customerItems) return
+                        setMembers({
+                            totalCount: members.totalCount + newCustomerIds.length,
+                            data: [...customerItems, ...members.data.slice(0, members.data.length - newCustomerIds.length + 1)]
+                        })
+                    }
+                }}
+            />
+        })
+    }
+
+    useEffect(() => {
+        getData()
+        document.body.querySelector('.main-layout').onscroll = handleScroll
+    }, [userInfor])
+
+    return <div className='col'>
+        <Popup ref={ref} />
+        <div className='row' style={{ justifyContent: 'center', backgroundColor: '#fff' }}>
+            <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
+                <div style={{ position: 'relative' }}>
+                    <img src={GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem' }} />
+                    <button type='button' className='row edit-button'>
+                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: '2rem', color: '#fff' }} />
+                        <Text className='button-text-2' style={{ color: '#fff' }}>Chỉnh sửa</Text>
+                    </button>
                 </div>
-            </div>
-            <div className='col' style={{ flex: 1, overflow: 'hidden auto', gap: '1.6rem' }}>
-                <TextFieldForm
-                    placeholder={'Tên trung tâm'}
-                    name={'name'}
-                    register={methods.register}
-                    errors={methods.formState.errors}
-                />
-                <TextFieldForm
-                    placeholder={'Số điện thoại'}
-                    name={'phone'}
-                    register={methods.register}
-                    errors={methods.formState.errors}
-                />
-                <Select1Form
-                    placeholder={'Lĩnh vực'}
-                    name={'topicId'}
-                    control={methods.control}
-                    errors={methods.formState.errors}
-                    options={topics.data}
-                    handleLoadmore={async (ev, searchLength) => {
-                        const _tmpPage = searchLength ?? topics.data.length
-                        if (_tmpPage !== topics.totalCount) {
-                            const res = await getTopics(Math.floor(_tmpPage / 20 + 1), ev)
-                            return res
-                        }
-                    }}
-                />
-                <TextFieldForm
-                    placeholder={'Địa chỉ'}
-                    name={'address'}
-                    register={methods.register}
-                    errors={methods.formState.errors}
-                />
-            </div>
-            <button type='button' onClick={methods.handleSubmit(createCenter)} className={`row ${methods.watch('name') && methods.watch('topicId') && methods.watch('phone') && methods.watch('address') ? 'button-primary' : 'button-disabled'}`} style={{ width: '100%' }}>
-                <Text className='button-text-3'>Tạo</Text>
-            </button>
-        </div>
-        <div style={{ float: 'right' }}>
-            <div className='row' style={{ width: '100%', justifyContent: 'center' }}>
-                <div className='col preview-center-container col20-xxl col20-xl col24' style={{ '--gutter': '0px', padding: '2.4rem' }}>
-                    <div className='col' style={{ borderRadius: '0.8rem', border: 'var(--border-grey1)', padding: '1.6rem', gap: '2rem' }}>
-                        <Text className='heading-7' style={{ color: '#00204D' }}>Xem trước</Text>
-                        <div className='center-bg col'>
-                            <img src={GroupDefaultBg} alt='' style={{ width: '100%', borderRadius: '0.8rem' }} />
+                <div className='col' style={{ padding: '1.6rem 2.4rem 0', gap: '0.6rem' }}>
+                    <div className='row' style={{ gap: '0.4rem 0.8rem', flexWrap: 'wrap' }}>
+                        <Text className='heading-4'>{centerData?.name ?? '-'}</Text>
+                        {centerData?.topicName ? <div className='tag-infor'><Text className='button-text-3'>{centerData?.topicName ?? '-'}</Text></div> : undefined}
+                    </div>
+                    <div className='row' style={{ gap: '0.8rem' }}>
+                        <FilledPeople />
+                        <Text className='button-text-3'>{members.totalCount > 1000 ? (members.totalCount / 1000).toFixed(1) : members.totalCount} thành viên</Text>
+                    </div>
+                    <div className='row' style={{ gap: '0.8rem', padding: '0.8rem 0' }}>
+                        <div style={{ flex: 1, position: 'relative', height: '3.6rem' }}>
+                            {
+                                members.data.map((e, i) => {
+                                    return <img
+                                        key={e.id}
+                                        alt=''
+                                        src={e.avatarUrl}
+                                        style={{ position: 'absolute', width: '3.6rem', height: '3.6rem', borderRadius: '3.6rem', top: 0, left: `${2.4 * i}rem`, border: '1px solid #fff' }}
+                                    />
+                                })
+                            }
                         </div>
-                        <div className='row' style={{ gap: '1.2rem' }}>
-                            <Text className='heading-5'>{methods.watch('name')?.length ? methods.watch('name') : 'Tên trung tâm'}</Text>
-                            {methods.watch('topicId')?.length ? <div className='tag-disabled'><Text className='button-text-3'>{topics.data.find(e => e.id === methods.watch('topicId'))?.name ?? '-'}</Text></div> : undefined}
-                        </div>
-                        <div className='row' style={{ gap: '0.8rem' }}>
-                            <FilledPhone />
-                            <Text className='button-text-3'>Số điện thoại liên hệ: {methods.watch('phone')}</Text>
-                        </div>
-                        <div className='row' style={{ gap: '0.8rem' }}>
-                            <OutlineLocation />
-                            <Text className='button-text-3'>Địa chỉ: {methods.watch('address')}</Text>
-                        </div>
-                        <div className='col divider' style={{ margin: '0.4rem 0', height: '1.6px' }} />
-                        <div className='row' style={{ padding: '1.6rem', margin: '0 1.6rem', backgroundColor: 'var(--disabled-background)', borderRadius: '0.8rem', width: 'calc(100% - 3.2rem)' }}>
-                            <Text className='heading-6'>Giới thiệu</Text>
-                        </div>
+                        <button type='button' onClick={showPopupAddMember} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
+                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem' }} />
+                            <Text className='button-text-3'>Mời</Text>
+                        </button>
+                        <button type="button" className="row button-grey" style={{ borderRadius: '0.8rem', padding: '0.8rem 1.6rem' }} onClick={(ev) => { }} >
+                            <OutlineSharing width="2rem" height="2rem" />
+                            <Text className='button-text-3'>Chia sẻ</Text>
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div>
-
+        </div>
+        <div id='handle-tabbar' style={{ height: '4rem' }}>
+            <div className='row' style={{ justifyContent: 'center', backgroundColor: '#fff', ...(fixedTabbar ?? {}) }}>
+                <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
+                    <div className="tab-header-2 row" style={{ overflow: 'auto hidden', scrollbarWidth: 'none', gap: '0.8rem' }}>
+                        <div className={`tab-btn label-4 row ${activeTab === 0 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 0 ? 'bold' : '400' }} onClick={() => { setActiveTab(0) }}>Bài viết</div>
+                        <div className={`tab-btn label-4 row ${activeTab === 1 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 1 ? 'bold' : '400' }} onClick={() => { setActiveTab(1) }}>Thành viên</div>
+                        <div className={`tab-btn label-4 row ${activeTab === 2 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 2 ? 'bold' : '400' }} onClick={() => { setActiveTab(2) }}>Đào tạo</div>
+                        <div className={`tab-btn label-4 row ${activeTab === 3 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 3 ? 'bold' : '400' }} onClick={() => { setActiveTab(3) }}>Sản phẩm</div>
+                        <div className={`tab-btn label-4 row ${activeTab === 4 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 4 ? 'bold' : '400' }} onClick={() => { setActiveTab(4) }}>Doanh thu</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className='row' style={{ justifyContent: 'center' }}>
+            <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
+                {renderUI()}
             </div>
         </div>
     </div>
 }
+
+const PopupAddMember = forwardRef(function PopupAddMember(data, ref) {
+    const [emails, setEmails] = useState([])
+    const [valid, setValid] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const methods = useForm({ shouldFocusError: false, defaultValues: { mail: '' } })
+
+    const checkValidEmail = (value) => {
+        const checkEmail = validateForm({ list: [{ Name: 'mail', Validate: [{ type: ValidateType.email }] }], formdata: { mail: value.trim() } })
+        return !checkEmail
+    }
+
+    const searchCustomer = async (value) => {
+        const _mail = value.trim()
+        if (_mail.length) {
+            if (emails.some(e => e.email === _mail)) {
+                methods.setValue('mail', '')
+                return
+            }
+            if (valid) {
+                const res = await CustomerController.getIDByEmail(_mail)
+                if (res) {
+                    const ids = res.split(",")
+                    CustomerController.getByIds(ids).then(cusRes => {
+                        if (cusRes) setEmails([...emails, ...cusRes])
+                    })
+                }
+            } else {
+                setEmails([...emails, { email: _mail, invalid: true }])
+            }
+            methods.setValue('mail', '')
+        } else {
+            setValid(false)
+        }
+    }
+
+    const submitInvite = async () => {
+        setLoading(true)
+        const _mail = methods.getValues('mail').trim()
+        const newCustomerCenters = []
+        if (valid && _mail.length && emails.every(e => e.email !== _mail)) {
+            const ids = await CustomerController.getIDByEmail(_mail)
+            if (ids?.length) {
+                const _newMember = await CustomerController.getById(ids[0])
+                if (_newMember.customerCenters?.some(el => el.centerId === data.centerId)) {
+                    setLoading(false)
+                    ToastMessage.errors(_mail + ' đã là thành viên trong trung tâm')
+                    return
+                }
+                newCustomerCenters.push({
+                    id: uuidv4(),
+                    name: _newMember.name ?? 'member',
+                    dateCreated: (new Date()).getTime(),
+                    customerId: _newMember.id,
+                    centerId: data.centerId,
+                    permisson: CenterPermisson.member,
+                })
+            }
+        }
+        newCustomerCenters.push(...emails.filter(e => !e.invalid && (!e.customerCenters?.length || e.customerCenters.every(el => el.centerId !== data.centerId))).map(e => {
+            return {
+                id: uuidv4(),
+                name: e.name ?? 'member',
+                dateCreated: (new Date()).getTime(),
+                customerId: e.id,
+                centerId: data.centerId,
+                permisson: e.permisson ?? CenterPermisson.member,
+            }
+        }))
+        if (!newCustomerCenters.length) {
+            setLoading(false)
+            ToastMessage.errors('Tài khoản đã là thành viên trong trung tâm')
+            return
+        }
+        const res = await CenterController.addMember(newCustomerCenters)
+        if (res) {
+            ToastMessage.success('Thêm thành viên mới thành công')
+            data.onClose(newCustomerCenters.map(e => e.customerId))
+            closePopup(ref)
+        } else {
+            setLoading(false)
+        }
+    }
+
+    return <div className="col">
+        <div className='row' style={{ gap: '1.6rem', flex: 1, padding: '0.8rem' }}>
+            <div className='row input-invite-member'>
+                {
+                    emails.map((e, i) => {
+                        return <div key={e.id ?? e.mail + '-' + i} className={`row ${e.invalid ? 'tag-error' : 'button-grey'}`} style={{ padding: '0.4rem', borderRadius: '0.2rem' }}>
+                            <Text className='button-text-3'>{e.email}</Text>
+                            <button type='button' onClick={() => {
+                                setEmails(emails.filter(el => el.email !== e.email))
+                            }} style={{ padding: '0.4rem' }}>
+                                <FontAwesomeIcon icon={faXmark} style={{ fontSize: '1.4rem' }} />
+                            </button>
+                        </div>
+                    })
+                }
+                <input
+                    style={{ flex: 1, minWidth: '12rem' }}
+                    className='regular2'
+                    placeholder='Nhập email'
+                    onKeyDown={(ev) => {
+                        if (ev.key.toLowerCase() === 'enter') searchCustomer(ev.target.value)
+                    }}
+                    name='mail'
+                    {...methods.register('mail', {
+                        onChange: (ev) => {
+                            const _tmp = checkValidEmail(ev.target.value)
+                            if (valid !== _tmp) setValid(_tmp)
+                        },
+                    })}
+                />
+            </div>
+            <button type='button' onClick={submitInvite} className={`row ${((emails.length && emails.every(e => !e.invalid)) || valid) && !loading ? 'button-primary' : 'button-disabled'}`} style={{ borderRadius: '0.4rem', padding: '0.8rem 1.6rem' }}>
+                <Text className='button-text-3'>Mời</Text>
+            </button>
+        </div>
+        <div className='col' style={{ padding: '1.6rem' }}>
+            {
+                emails.filter(e => !e.invalid).map(e => {
+                    return <div key={e.id} className='row' style={{ gap: '0.8rem', height: '6rem', borderBottom: 'var(--border-grey1  )' }}>
+                        <img src={e.avatarUrl} alt='' style={{ borderRadius: '50%', width: '4rem', height: '4rem' }} />
+                        <div className='col' style={{ gap: '0.4rem', flex: 1 }}>
+                            <Text className='title-3'>{e.name ?? e.userName}</Text>
+                            <Text className='subtitle-3'>{e.email}</Text>
+                        </div>
+                        {
+                            e.customerCenters?.some(el => el.centerId === data.centerId) ?
+                                <Text className='semibold2'>Đã là thành viên</Text> :
+                                <Select1
+                                    className='regular2'
+                                    style={{ border: 'none', width: '12rem' }}
+                                    hideSearch
+                                    disabled={data.permisson == undefined || data.permisson === CenterPermisson.member}
+                                    options={[{ id: CenterPermisson.admin, name: 'Quản trị viên' }, { id: CenterPermisson.member, name: 'Thành viên' }]}
+                                    value={e.permisson ?? CenterPermisson.member}
+                                    onChange={(vl) => {
+                                        setEmails(emails.map(el => {
+                                            if (el.id === e.id) el.permisson = vl.id
+                                            return el
+                                        }))
+                                    }}
+                                />
+                        }
+                    </div>
+                })
+            }
+        </div>
+    </div>
+})
 
 // const renderUI = () => {
 //     switch (location.pathname) {
@@ -195,112 +369,3 @@ const CenterRegister = () => {
 //             return <Home />
 //     }
 // }
-const CenterManagement = () => {
-    const userInfor = useSelector((state) => state.account.data)
-    const [centerData, setCenterData] = useState()
-    const [activeTab, setActiveTab] = useState(0)
-    const [members, setMembers] = useState({ totalCount: undefined, data: [] })
-
-    const getData = async () => {
-        const centerId = userInfor.customerCenters[0]?.centerId
-        if (centerId) {
-            const centerItem = await CenterController.getById(centerId)
-            CenterController.getListSimpleMember({ page: 1, take: 8, filter: [{ field: 'centerId', operator: '=', value: centerId }] }).then(async (memRes) => {
-                if (memRes) {
-                    const customerIds = memRes.data.map(e => e.customerId).filter(id => members.data.every(e => e.id !== id))
-                    if (customerIds.length) {
-                        const customerItems = await CustomerController.getByIds(customerIds)
-                        if (!customerItems) return
-                        setMembers({
-                            totalCount: memRes.totalCount,
-                            data: [...members.data, ...customerItems]
-                        })
-                    }
-                }
-            })
-            if (!centerItem) return
-            if (centerItem.topicId) {
-                const res = await TopicController.getById(centerItem.topicId)
-                if (res) centerItem.topicName = res.name
-            }
-            setCenterData(centerItem)
-        }
-    }
-
-    const renderUI = () => {
-        switch (activeTab) {
-            case 1: // Thành viên
-                return <div></div>;
-            case 2: // Đào tạo
-                return <div></div>;
-            case 3: // Sản phẩm
-                return <div></div>;
-            case 4: // Doanh thu
-                return <div></div>;
-            default: // 0: Bài viết
-                return <CommonTab centerItem={centerData} />;
-        }
-    }
-
-    useEffect(() => {
-        if (userInfor) getData()
-        document.body.querySelector('.main-layout').onscroll = (ev) => {
-            // if (total !== newsData.length) {
-            //     if (Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) getData()
-            // }
-        }
-    }, [userInfor])
-
-    return <div className='row' style={{ justifyContent: 'center' }}>
-        <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
-            <div style={{ position: 'relative' }}>
-                <img src={GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem', borderRadius: '0 0 0.8rem 0.8rem' }} />
-                <button type='button' className='row edit-button'>
-                    <FontAwesomeIcon icon={faEdit} style={{ fontSize: '2rem', color: '#fff' }} />
-                    <Text className='button-text-2' style={{ color: '#fff' }}>Chỉnh sửa</Text>
-                </button>
-            </div>
-            <div className='col' style={{ padding: '1.6rem 2.4rem', gap: '0.6rem' }}>
-                <div className='row' style={{ gap: '0.4rem 0.8rem', flexWrap: 'wrap' }}>
-                    <Text className='heading-4'>{centerData?.name ?? '-'}</Text>
-                    {centerData?.topicName ? <div className='tag-infor'><Text className='button-text-3'>{centerData?.topicName ?? '-'}</Text></div> : undefined}
-                </div>
-                <div className='row' style={{ gap: '0.8rem' }}>
-                    <FilledPeople />
-                    <Text className='button-text-3'>{members.totalCount > 1000 ? (members.totalCount / 1000).toFixed(1) : members.totalCount} thành viên</Text>
-                </div>
-                <div className='row' style={{ gap: '0.8rem', padding: '0.8rem 0' }}>
-                    <div style={{ flex: 1, position: 'relative', height: '3.6rem' }}>
-                        {
-                            members.data.map((e, i) => {
-                                return <img
-                                    key={e.id}
-                                    alt=''
-                                    src={e.avatarUrl}
-                                    style={{ position: 'absolute', width: '3.6rem', height: '3.6rem', borderRadius: '3.6rem', top: 0, left: `${2.4 * i}rem`, border: '1px solid #fff' }}
-                                />
-                            })
-                        }
-                    </div>
-                    <button type='button' className='row button-primary' style={{ borderRadius: '0.8rem' }}>
-                        <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem' }} />
-                        <Text className='button-text-3'>Mời</Text>
-                    </button>
-                    <button type="button" className="row button-grey" style={{ borderRadius: '0.8rem', padding: '0.8rem 1.6rem' }} onClick={(ev) => { }} >
-                        <OutlineSharing width="2rem" height="2rem" />
-                        <Text className='button-text-3'>Chia sẻ</Text>
-                    </button>
-                </div>
-                <div className="tab-header-2 row" style={{ overflow: 'auto hidden', scrollbarWidth: 'none', gap: '0.8rem' }}>
-                    <div className={`tab-btn label-4 row ${activeTab === 0 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 0 ? 'bold' : '400' }} onClick={() => { setActiveTab(0) }}>Bài viết</div>
-                    <div className={`tab-btn label-4 row ${activeTab === 1 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 1 ? 'bold' : '400' }} onClick={() => { setActiveTab(2) }}>Thành viên</div>
-                    <div className={`tab-btn label-4 row ${activeTab === 2 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 2 ? 'bold' : '400' }} onClick={() => { setActiveTab(1) }}>Đào tạo</div>
-                    <div className={`tab-btn label-4 row ${activeTab === 3 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 3 ? 'bold' : '400' }} onClick={() => { setActiveTab(3) }}>Sản phẩm</div>
-                    <div className={`tab-btn label-4 row ${activeTab === 4 ? 'selected' : ''}`} style={{ width: '8.8rem', justifyContent: 'center', fontWeight: activeTab === 4 ? 'bold' : '400' }} onClick={() => { setActiveTab(4) }}>Doanh thu</div>
-                </div>
-
-            </div>
-            {renderUI()}
-        </div>
-    </div>
-}

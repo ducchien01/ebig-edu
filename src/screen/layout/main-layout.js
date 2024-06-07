@@ -18,9 +18,14 @@ export default function MainLayout({ menu = [] }) {
             AccountActions.getInfor(dispatch)
             setModules(menu)
         } else {
+            if (window.location.pathname.startsWith('/center')) window.location.replace('/')
             setModules(menu.filter(e => e.link !== 'center'))
         }
     }, [menu])
+
+    useEffect(() => {
+        document.body.querySelector('.main-layout').onscroll = undefined
+    }, [window.location.pathname])
 
     return <div className="main-layout col">
         <HeaderView />
@@ -31,7 +36,7 @@ export default function MainLayout({ menu = [] }) {
                     {modules.filter(e => modules.every(el => e.id !== el.parentId)).map(function (prop, key) {
                         return <Route
                             path={prop.path ?? prop.link}
-                            element={getcomponentRouter(prop.link)}
+                            element={getcomponentRouter(prop.path ?? prop.link)}
                             key={key + '-' + prop.link}
                             exact
                         />;

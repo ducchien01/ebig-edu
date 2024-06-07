@@ -38,6 +38,18 @@ export class CustomerController {
         return null
     }
 
+    static getIDByEmail = async (email: string) => {
+        const response = await postData(ConfigAPI.ebigUrl + `CustomerAuth/GetIDbyEmail?email=${email}`)
+        if (response) {
+            if (response.code === 200) {
+                return response.data
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
     static getByIds = async (ids: Array<string>) => {
         const response = await postData(ConfigAPI.ebigUrl + (AccountController.token() ? 'CustomerAuth' : 'Customer') + `/ListItemByIds`, {
             data: ids

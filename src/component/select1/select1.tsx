@@ -7,7 +7,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactDOM from 'react-dom'
 import './select1.css'
-import { Text } from '../export-component'
 
 interface ObjWithKnownKeys {
     id: string | number,
@@ -26,8 +25,8 @@ interface Select1Props {
     helperTextColor?: string,
     style?: CSSProperties,
     searchPlaceholder?: string,
-    handleSearch?: (e: string) => Promise<Array<ObjWithKnownKeys>>,
-    handleLoadmore?: (e: string, searchLength?: number) => Promise<Array<ObjWithKnownKeys>>
+    hideSearch?: boolean,
+    handleSearch?: (e: string) => Promise<Array<ObjWithKnownKeys>>
 };
 
 interface Select1State {
@@ -78,7 +77,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
     }
 
     componentDidUpdate(prevProps: Select1Props, prevState: Select1State) {
-        if (prevProps.value !== this.props.value || prevProps.options !== this.props.options) {
+        if (prevProps.value !== this.props.value) {
             this.setState({
                 ...this.state,
                 value: this.props.value
@@ -112,7 +111,6 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
     }
 
     private onChangeValue(ev: FocusEvent) {
-        this._tmpSearch = ''
         if (this.state.onSelect?.classList?.contains('select1-tile')) {
             const item = this.props.options.find(e => e.id === this.parseValue(this.state.onSelect.id))
             this.setState({
@@ -133,10 +131,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
         }
     }
 
-    private _tmpSearch = ''
-
     private search(ev: React.ChangeEvent<HTMLInputElement>) {
-        this._tmpSearch = ev.target.value.trim()
         if (ev.target.value.trim().length) {
             if (this.props.handleSearch) {
                 this.props.handleSearch(ev.target.value.trim()).then(res => {
@@ -190,7 +185,7 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
                 }
             }}
         >
-            {selectedValue?.name ? (<Text maxLine={1} className='select1-value-name'>{selectedValue.name}</Text>) : (<Text maxLine={1} className='select1-placeholder'>{this.props.placeholder}</Text>)}
+            {selectedValue?.name ? (<div className='select1-value-name'>{selectedValue.name}</div>) : (<div className='select1-placeholder'>{this.props.placeholder}</div>)}
             <FontAwesomeIcon
                 icon={this.state.isOpen ? faChevronUp : faChevronDown}
                 style={{ fontSize: '1.2rem', color: '#888' }}
@@ -217,27 +212,17 @@ export class Select1 extends React.Component<Select1Props, Select1State> {
                             })
                         }
                     >
-                        <div className='row header-search'>
+                        <div className='row header-search' style={this.props.hideSearch ? { marginTop: '-4rem' } : undefined}>
                             <input autoFocus={true} placeholder={this.props.searchPlaceholder ?? 'Tìm kiếm'}
                                 onChange={this.search}
-                                onBlur={this.onChangeValue}
+                                onBlur={ev => {
+                                    this.onChangeValue(ev)
+                                }}
                             />
                             <FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.2rem', color: '#161D24D9' }} />
                         </div>
                         <div className='col select1-body'>
-                            <div className='col select1-scroll-view' onScroll={this.props.handleLoadmore ? (ev) => {
-                                if (this.props.handleLoadmore) {
-                                    let scrollElement = ev.target as HTMLDivElement
-                                    if (Math.round(scrollElement.offsetHeight + scrollElement.scrollTop) >= (scrollElement.scrollHeight - 1)) {
-                                        this.props.handleLoadmore(this._tmpSearch, this.state.search?.length).then(res => {
-                                            this.setState({
-                                                ...this.state,
-                                                search: res
-                                            })
-                                        })
-                                    }
-                                }
-                            } : undefined}>
+                            <div className='col select1-scroll-view'>
                                 {(this.state.search ?? this.props.options).map(item => (
                                     <button type='button' key={item.id} className='select1-tile label-3 row' id={`${item.id}`} style={{ backgroundColor: selectedValue?.id === item.id ? 'var(--selected-background)' : '#00000000' }}>
                                         {item.title ?? item.name}

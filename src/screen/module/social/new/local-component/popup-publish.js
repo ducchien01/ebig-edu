@@ -28,14 +28,14 @@ const PopupPublishNews = forwardRef(function PopupPublishNews(data, ref) {
             NewController.edit(newData).then(res => {
                 if (res) {
                     ToastMessage.success('Chỉnh sửa bài viết thành công')
-                    navigate('/')
+                    navigate(-1)
                 }
             })
         } else {
             NewController.add(newData).then(res => {
                 if (res) {
                     ToastMessage.success('Đăng bài viết thành công')
-                    navigate('/')
+                    navigate(-1)
                 }
             })
         }

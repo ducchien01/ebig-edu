@@ -16,9 +16,12 @@ import ViewExamDetails from "../screen/module/edu/exam/exam-details";
 import ViewTesting from "../screen/module/edu/exam/local-component/testing";
 import ExamResultView from "../screen/module/edu/exam/local-component/exam-result";
 import CenterHome from "../screen/module/center/home";
+import ListCenter from "../screen/module/center/local-component/list-center";
 
 export const getcomponentRouter = (moduleCode) => {
     switch (moduleCode) {
+        case "centers":
+            return <ListCenter />;
         case "center":
             return <CenterHome />;
         case 'social':
@@ -30,6 +33,10 @@ export const getcomponentRouter = (moduleCode) => {
         case 'social/news/create':
             return <SettingsNews />
         case 'social/news/edit':
+            return <SettingsNews />
+        case 'center/news/create':
+            return <SettingsNews />
+        case 'center/news/edit':
             return <SettingsNews />
         case 'discovery':
             return <SocialDiscoveryView />

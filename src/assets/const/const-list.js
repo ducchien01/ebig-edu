@@ -13,8 +13,9 @@ export const modules = [
     {
         id: 3,
         parentId: 1,
-        name: 'Center',
+        name: 'Centers',
         link: 'center',
+        path: 'centers',
         icon: <OutlineGroup width='2.4rem' height='2.4rem' />,
         selectedIcon: <FilledGroup width='2.4rem' height='2.4rem' />,
     },
@@ -64,7 +65,8 @@ export const centerModules = [
     {
         id: 1,
         name: 'Home',
-        link: 'center/home',
+        link: 'center',
+        path: 'center/:id?',
     },
     {
         id: 2,
@@ -122,7 +124,7 @@ export const centerModules = [
     },
 ]
 
-// react-router-dom use path params: exp with params id & type => ...link/:id/:type => make optional ...link/(/:id)(/:type)
+// react-router-dom use path params: exp with params id & type => ...link/:id/:type => make optional ...link/:id?/:type?
 export const extendView = [
     {
         name: 'Chỉnh sửa bài học',
@@ -169,13 +171,23 @@ export const extendView = [
     },
     {
         name: 'news details',
-        path: ':id',
+        path: '/:id?',
         link: 'my-page',
     },
     {
         name: 'news details',
         path: 'social/news/:id',
         link: 'social/news',
+    },
+    {
+        name: 'news add edit',
+        path: 'center/news/create',
+        link: 'center/news/create',
+    },
+    {
+        name: 'news add edit',
+        path: 'center/news/edit/:id',
+        link: 'center/news/edit',
     },
     {
         name: 'news add edit',

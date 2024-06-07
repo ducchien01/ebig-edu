@@ -9,7 +9,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import ListTopic from './local-component/list-topic'
 
 export default function SocialDiscoveryView() {
-    return <div className="col">
+    return <div className="col" style={{backgroundColor: '#fff'}}>
         <div className="col" style={{ padding: '5.6rem 0', alignItems: 'center', gap: '2rem' }}>
             <Text maxLine={1} className="heading-4">Khám phá những điều hay nhất trên EBig</Text>
             <TextField

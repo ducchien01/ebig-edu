@@ -14,6 +14,7 @@ import SidebarActions from "../../../layout/sidebar/sidebar-actions"
 import PopupLogin from "../../account/popup-login"
 import CustomerPage from "./local-component/customer-page"
 import { useSelector } from "react-redux"
+import { tab } from "@testing-library/user-event/dist/tab"
 
 export default function SocialHome({ customerPage = false }) {
     const { id } = useParams()
@@ -22,7 +23,7 @@ export default function SocialHome({ customerPage = false }) {
     const ref = useRef()
     const isLogin = AccountController.token()
     const userInfor = useSelector((state) => state.account.data)
-    const [selectedTab, setSelectedTab] = useState(1)
+    const [selectedTab, setSelectedTab] = useState()
 
     useEffect(() => {
         if (id && userInfor?.id === id) {
@@ -32,7 +33,7 @@ export default function SocialHome({ customerPage = false }) {
         }
     }, [location.pathname, userInfor])
 
-    return <div>
+    return selectedTab != undefined ? <div>
         <Popup ref={ref} />
         <div className="col body-sidebar" >
             <TextField
@@ -71,9 +72,9 @@ export default function SocialHome({ customerPage = false }) {
             <SidebarActions />
         </div>
         <div style={{ float: 'right' }}>
-            {id ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
+            {id?.match(/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/g) ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
         </div>
-    </div>
+    </div> : <div />
 }
 
 const HomeNewsInfor = ({ isLogin = false }) => {

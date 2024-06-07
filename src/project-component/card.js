@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom"
 import { Text } from "../component/export-component"
 
-export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, content, actions, style, to }) => {
+export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, content, actions, style, to, state }) => {
     return <div className={`${className} post-card-container`} style={style}>
-        <NavLink to={to} className="row thumbnail" style={imgStyle}>
+        <NavLink to={to} state={state} className="row thumbnail" style={imgStyle}>
             <img src={imgUrl} style={{ width: '100%', height: '100%' }} alt="" />
         </NavLink>
         <div className="col" style={{ gap: '0.8rem', flex: 1 }}>

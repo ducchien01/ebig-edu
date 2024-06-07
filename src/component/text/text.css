@@ -14,3 +14,20 @@
 .comp-text.type-button {
     cursor: pointer;
 }
+
+.comp-text:has(> .get-more) {
+    position: relative;
+}
+
+.get-more {
+    display: flex;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: -0.4rem;
+}
+
+.get-more::before {
+    content: '.....';
+    color: inherit;
+}

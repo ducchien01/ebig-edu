@@ -36,13 +36,13 @@
 }
 
 .regular2 {
-    line-height: 2.2rem;
+    line-height: 2rem;
     font-size: 1.4rem;
     color: #00204D;
 }
 
 .regular3 {
-    line-height: 2.8rem;
+    line-height: 2.4rem;
     font-size: 1.6rem;
     color: #00204D;
 }
@@ -105,14 +105,14 @@
 }
 
 .semibold2 {
-    line-height: 2.2rem;
+    line-height: 2ksrem;
     font-size: 1.4rem;
     color: #00204D;
     font-weight: 600;
 }
 
 .semibold3 {
-    line-height: 2.8rem;
+    line-height: 2.4rem;
     font-size: 1.6rem;
     color: #00204D;
     font-weight: 600;

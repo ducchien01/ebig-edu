@@ -123,6 +123,22 @@
     border: 1px solid var(--primary-color);
 }
 
+.button-error,
+.tag-error {
+    color: var(--error-color) !important;
+    background-color: var(--error-background);
+    padding: 0.4rem 0.8rem;
+    gap: 0.8rem;
+    border-radius: 10rem;
+    width: fit-content;
+    justify-content: center;
+}
+
+.button-error *,
+.tag-error * {
+    color: var(--error-color);
+}
+
 .button-warning,
 .tag-warning {
     color: var(--warning-color) !important;
@@ -183,8 +199,9 @@
     border: none !important;
 }
 
-.search-default > svg {
-    font-size: 1.2rem; color: #00204D99
+.search-default>svg {
+    font-size: 1.2rem;
+    color: #00204D99
 }
 
 .week-calendar {
@@ -277,7 +294,10 @@
 .post-card-container {
     gap: 2.4rem;
     height: fit-content;
-    align-items: stretch;
+    align-items: stretch !important;
+    background-color: #fff;
+    padding: 2.4rem;
+    border-radius: 0.8rem;
 }
 
 .post-card-container.row>.thumbnail {

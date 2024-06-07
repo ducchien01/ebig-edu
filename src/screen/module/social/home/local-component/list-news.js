@@ -80,8 +80,8 @@ export default function ListNews({ isLogin = false }) {
             if (res) setTopicList(res)
         })
         document.body.querySelector('.main-layout').onscroll = (ev) => {
-            if(total !== newsData.length) {
-                if(Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) getData()
+            if (total !== newsData.length) {
+                if (Math.round(ev.target.offsetHeight + ev.target.scrollTop) >= (ev.target.scrollHeight - 1)) getData()
             }
         }
     }, [])
@@ -90,8 +90,8 @@ export default function ListNews({ isLogin = false }) {
         <Popup ref={ref} />
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-                <div className="col col24 col20-xxl" style={{ padding: '2rem 3.2rem', gap: '2.4rem', '--gutter': '0px' }}>
-                    {isLogin && <div className="row filter-news-container">
+                <div className="col col24 col20-xxl" style={{ gap: '2.4rem', '--gutter': '0px' }}>
+                    {isLogin && <div className="row filter-news-container" style={{ backgroundColor: '#fff', padding: '2rem', paddingBottom: 0 }}>
                         <button type="button" className="row">
                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
                         </button>
@@ -108,7 +108,7 @@ export default function ListNews({ isLogin = false }) {
                             <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
                         </button>
                     </div>}
-                    <div className="col" style={{ gap: '3.2rem' }}>
+                    <div className="col" style={{ gap: '2.4rem', padding: '2rem', paddingTop: 0 }}>
                         {newsData.map((item, i) => {
                             const itemInteractInfor = interactInfor.find(e => e.linkId === item.id)
                             const customer = customerList.find(e => e.id === item.customerId)

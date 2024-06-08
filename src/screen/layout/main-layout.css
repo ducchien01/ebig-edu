@@ -9,7 +9,6 @@ div:has(table) {
 /* Track */
 ::-webkit-scrollbar-track {
     border-radius: 0.4rem;
-    z-index: 99;
 }
 
 /* Handle */
@@ -23,11 +22,18 @@ div:has(table) {
     visibility: visible;
 } */
 
+.main-layout::-webkit-scrollbar {
+    width: 1.2rem;
+}
+
+.main-layout::-webkit-scrollbar-thumb {
+    border-radius: 0;
+}
+
 .main-layout {
     width: 100%;
     height: 100%;
     overflow: hidden auto;
-    scrollbar-width: thin;
 }
 
 .main-layout>.main-layout-body {
@@ -54,7 +60,7 @@ div:has(table) {
 .fixed-footer {
     position: fixed;
     bottom: 0;
-    right: 1.4rem;
+    right: 1rem;
 }
 
 @media only screen and (max-width: 576px) {
@@ -120,6 +126,29 @@ div:has(table) {
 
     div .body-sidebar+* {
         width: 100% !important;
+    }
+
+    .col:has(> .settings-course-header) {
+        padding: 0 1.6rem !important;
+    }
+
+    .settings-course-header+.row {
+        padding-top: 11.2rem !important;
+    }
+
+    .settings-course-header {
+        display: none !important;
+    }
+
+    .settings-body-sidebar {
+        position: fixed;
+        top: 5.6rem;
+        height: fit-content !important;
+        width: calc(100% - 3.2rem) !important;
+        padding: 1.6rem 0 !important;
+        border-right: none !important;
+        background-color: #fff;
+        z-index: 2;
     }
 }
 

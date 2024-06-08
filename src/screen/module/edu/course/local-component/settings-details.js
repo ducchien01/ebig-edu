@@ -79,9 +79,9 @@ export default function SettingsCourse() {
         }
     }, [location.pathname, id])
 
-    return <div className="details-view-container col" >
+    return <div className="col" style={{ padding: '0 3.2rem', width: '100%', height: '100%', backgroundColor: '#fff' }} >
         <Dialog ref={ref} />
-        <div className='details-view-header row' >
+        <div className='row settings-course-header' >
             <div className='col header-breadcum' >
                 <div className='row' style={{ gap: '0.8rem' }}>
                     <div className='button-text-6'>Danh sách Course</div>
@@ -90,18 +90,25 @@ export default function SettingsCourse() {
                 </div>
                 <div className='heading-6'>Thông tin chi tiết khóa học</div>
             </div>
+            <div style={{ flex: 1 }} />
             <button type='button' onClick={submitPublishedCourse} className={`${listView.filter(e => !e.parentId).slice(0, 2).every(e => e.valid) ? 'button-primary' : 'button-disabled'} row`} style={{ padding: '0.6rem 1.2rem' }}>
                 <FilledSendMessage color={listView.filter(e => !e.parentId).slice(0, 2).every(e => e.valid) ? 'white' : undefined} />
                 <div className='button-text-3'>{data?.status === CourseStatus.draft ? 'Xuất bản khóa học' : 'Xem khóa học'}</div>
             </button>
         </div>
-        <div className='details-view-body row' style={{height: '100%'}}>
-            <div className='details-view-body-sidebar col'>
-                <Text className='heading-7'>{data?.name}</Text>
-                <div className='col' >
+        <div className='row'>
+            <div className='settings-body-sidebar col'>
+                <div className='row' style={{ gap: '0.8rem' }}>
+                    <Text className='heading-7' style={{ flex: 1 }} maxLine={2}>{data?.name}</Text>
+                    <button type='button' onClick={submitPublishedCourse} className={`${listView.filter(e => !e.parentId).slice(0, 2).every(e => e.valid) ? 'button-primary' : 'button-disabled'} row col0-xxl col0-xl col0-lg col0-md col3-sm col6-min`} style={{ '--gutter': '0.8rem', padding: '0.6rem 1.2rem' }}>
+                        <FilledSendMessage color={listView.filter(e => !e.parentId).slice(0, 2).every(e => e.valid) ? 'white' : undefined} />
+                        <div className='button-text-3'>{data?.status === CourseStatus.draft ? 'Xuất bản khóa học' : 'Xem khóa học'}</div>
+                    </button>
+                </div>
+                <div className='row tabbar' >
                     {listView.filter(e => !e.parentId).map(function (item, i) {
                         const isSelected = selectedView?.slug === item.slug || selectedView?.parentId === item.slug
-                        return <NavLink key={'nav-to-' + i} to={`/${item.path.replace(':id', id)}`} className={`row details-sidebar-tile ${isSelected ? 'selected' : ''}`}>
+                        return <NavLink key={'nav-to-' + i} to={`/${item.path.replace(':id', id)}`} className={`row tab-tile ${isSelected ? 'selected' : ''} col24 col8-sm col8-min`}>
                             <Checkbox style={{ borderRadius: '50%' }} size={'2rem'} disabled value={item.valid} />
                             <Text className='label-3' maxLine={1} style={{ flex: 1, with: '100%' }}>{item.name}</Text>
                         </NavLink>;

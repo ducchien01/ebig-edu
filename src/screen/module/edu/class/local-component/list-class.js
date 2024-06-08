@@ -43,7 +43,7 @@ export default function ListClass({ data = [], onEdit, onDelete }) {
         <Dialog ref={ref} />
         {list.map((item) => {
             const _teacher = teachers.find(e => e.id === item.customerId)
-            return <div key={item.id} className="col class-infor-container col8 col12-lg col12-md col12-sm col12-min" >
+            return <div key={item.id} className="col class-infor-container col8 col12-lg col12-md col12-sm col24-min" >
                 <div className="row" style={{ gap: '0.8rem' }}>
                     <Text className="heading-7" style={{ flex: 1, width: '100%' }} maxLine={2}>{item.name}</Text>
                     {onEdit ? <button className="row icon-button16" onClick={() => { onEdit(item) }}><FilledEdit /></button> : null}

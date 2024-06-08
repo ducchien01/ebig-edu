@@ -23,14 +23,13 @@
     gap: 4rem;
     width: min(max(24%, 28rem), 44rem);
     background-color: #fff;
-    min-width: 28rem;
     height: calc(100% - 6rem);
-    margin-right: 1.4rem;
+    margin-right: 1.2rem;
     overflow: hidden auto;
 }
 
 div:has(> .additional-infor-view) {
-    padding-right: calc(min(max(24%, 28rem), 44rem) + 0.4rem);
+    padding-right: calc(min(max(24%, 28rem), 44rem) + 2.4rem);
 }
 
 .filter-news-container {

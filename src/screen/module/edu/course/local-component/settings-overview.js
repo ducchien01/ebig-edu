@@ -74,7 +74,7 @@ export default function Overview({ data, onChangeRequired }) {
     return <form className="col" style={{ width: '100%', flex: 1, height: '100%' }} >
         <div className="heading-5 row" style={{ padding: '2.4rem' }}>Tổng quan</div>
         <div className="row course-overview-form" >
-            <div className="col col12 col24-md col24-sm" style={{ '--gutter': '4rem', gap: '2rem' }}>
+            <div className="col col12 col24-md col24-sm col24-min" style={{ '--gutter': '4rem', gap: '2rem' }}>
                 <ImportFileForm
                     control={control}
                     name={'pictureFile'}
@@ -176,7 +176,7 @@ export default function Overview({ data, onChangeRequired }) {
                     onChange={onChangeData}
                 />
             </div>
-            <div className="col col12 col24-md col24-sm" style={{ '--gutter': '4rem', gap: '2rem' }}>
+            <div className="col col12 col24-md col24-sm col24-min" style={{ '--gutter': '4rem', gap: '2rem' }}>
                 <Select1Form
                     required
                     control={control}

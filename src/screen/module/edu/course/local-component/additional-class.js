@@ -38,13 +38,6 @@ export default function AdditionalClass({ courseData }) {
         }
     }
 
-    // const onRemoveClass = (item) => {
-    //     item.courseId = null
-    //     ClassController.edit([item]).then(res => {
-    //         if (res) getData()
-    //     })
-    // }
-
     useEffect(() => {
         getData()
     }, [courseData])

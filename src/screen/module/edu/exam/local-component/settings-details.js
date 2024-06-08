@@ -43,7 +43,7 @@ export default function SettingsExam() {
         })
     }, [])
 
-    return <div className="col" style={{ width: '100%', height: '100%', flex: 1, gap: '1.6rem', padding: '1.2rem 4.8rem' }}>
+    return <div className="col" style={{ width: '100%', height: '100%', flex: 1, gap: '1.6rem', padding: '1.2rem 4.8rem', backgroundColor: '#fff' }}>
         <div className='details-view-header row' style={{ width: '100%', justifyContent: 'space-between', paddingTop: '2rem' }}>
             <div className='col header-breadcum' style={{ gap: '0.4rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>

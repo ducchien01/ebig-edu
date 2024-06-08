@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import avatarDemo2 from '../../../../assets/demo-avatar2.png';
 import ListStudent from './local-component/table-list-student'
 
-export default function EduStudent() {
+export default function EduStudent({ courseData }) {
     return <div className='col edu-student view-container'>
         <div className="view-header row" style={{ marginRight: '11.2rem' }}>
             <div className="heading-4">Quản lý học viên</div>

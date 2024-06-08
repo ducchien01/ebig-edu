@@ -11,6 +11,8 @@ import CourseCurriculum from './course-curriculum';
 import Overview from './settings-overview';
 import { CourseStatus } from '../da';
 import AdditionalClass from './additional-class';
+import ExamManagment from '../../exam/exam';
+import EduStudent from '../../student/student';
 
 export default function SettingsCourse() {
     const { id } = useParams()
@@ -132,6 +134,14 @@ export default function SettingsCourse() {
                     {
                         slug: 'additional-class',
                         element: <AdditionalClass courseData={data} />
+                    },
+                    {
+                        slug: 'exams',
+                        element: <ExamManagment courseData={data} />
+                    },
+                    {
+                        slug: 'students',
+                        element: <EduStudent courseData={data} />
                     },
                 ].find(e => e.slug === selectedView.slug)?.element}
             </div>

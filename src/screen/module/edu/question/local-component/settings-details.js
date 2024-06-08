@@ -126,131 +126,133 @@ export default function SettingsQuestion() {
         })
     }, [])
 
-    return <div className="col" style={{ width: '100%', maxWidth: '106.8rem', height: 'fit-content', gap: '3.2rem', padding: '3.2rem' }}>
-        <div className='details-view-header row' >
-            <div className='col header-breadcum' style={{ gap: '0.4rem' }}>
-                <div className='row' style={{ gap: '0.8rem' }}>
-                    <div className='button-text-6'>Danh sách câu hỏi</div>
-                    <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.2rem' }} />
-                    <div className='button-text-6 selected'>Chỉnh sửa câu hỏi</div>
-                </div>
-                <div className="row" style={{ gap: '0.8rem' }}>
-                    {editName != null ? <TextField
-                        autoFocus
-                        defaultValue={data?.name}
-                        className="heading-6"
-                        onChange={(ev) => { setEditName(ev.target.value.trim() ?? '') }}
-                    /> : <div className='heading-6 row' style={{ padding: '1rem 0' }}>{data?.name}</div>}
-                    <button type="button" className="row icon-button24" onClick={async () => {
-                        if (editName != null) {
-                            if (editName.length) {
-                                const res = await QuestionController.edit({ ...data, name: editName })
-                                if (res) setData({ ...data, name: editName })
-                            }
-                            setEditName(null)
-                        } else {
-                            setEditName(data?.name)
-                        }
-                    }}>{editName != null ? <FontAwesomeIcon icon={faCheck} style={{ fontSize: '1.8rem', color: 'var(--success-color)' }} /> : <FilledEdit width="2rem" height="2rem" />}</button>
-                </div>
-            </div>
-        </div>
-        <form className='col' style={{ width: '100%', gap: '1.6rem', height: 'fit-content', }}>
-            <TextAreaForm
-                required
-                label={'Câu hỏi'}
-                name={'question'}
-                register={methods.register}
-                errors={methods.error}
-                placeholder={'Nhập nội dung câu hỏi'}
-                onBlur={(ev) => {
-                    if (ev.target.value) onChangeData()
-                    else {
-                        if (data.content?.length) {
-                            try {
-                                var jsonData = JSON.parse(data.content)
-                            } catch (error) {
-                                console.log(error)
-                            }
-                        }
-                        if (jsonData) methods.setValue('question', jsonData.question ?? '')
-                    }
-                }}
-            />
-            <div className="row" style={{ gap: '2rem' }}>
-                <RadioButtonForm
-                    register={methods.register}
-                    value={QuestionType.checkbox.toString()}
-                    name={'type'}
-                    size={'2rem'}
-                    label={'Chọn nhiều đáp án'}
-                    onChange={onChangeData}
-                />
-                <RadioButtonForm
-                    register={methods.register}
-                    value={QuestionType.radio.toString()}
-                    name={'type'}
-                    size={'2rem'}
-                    label={'Chọn 1 đáp án'}
-                    onChange={onChangeData}
-                />
-            </div>
-            <ImportFileForm
-                control={methods.control}
-                name={'file'}
-                value={methods.watch('file')}
-                allowType={['image/jpg', 'image/png', 'image/jpeg']}
-                subTitle={'1840x380 pixels (PNG, JPG)'}
-                width={'100%'}
-                title={'Thêm hình ảnh'}
-                onChange={(newFile) => {
-                    uploadFiles([newFile]).then(res => {
-                        if (res) {
-                            methods.setValue('fileId', res[0].id)
-                            methods.setValue('file', { url: ConfigAPI.imgUrl + res[0].id, type: 'image' })
-                            onChangeData()
-                        }
-                    })
-                }}
-            />
-            <div className="col" style={{ gap: '1.2rem' }}>
-                {methods.watch('answers').map((ans, i) => {
-                    return <div key={ans.id} className="row" style={{ gap: '1.2rem' }}>
-                        <div style={{ flex: 1, width: '100%' }}>
-                            <TextFieldForm
-                                required
-                                className={'row'}
-                                label={`Đáp án ${i + 1 > 9 ? (i + 1) : `0${i + 1}`}`}
-                                register={methods.register}
-                                name={`answers[${i}].content`}
-                                placeholder={`Câu trả lời ${i + 1}`}
-                                onBlur={onChangeData}
-                            />
-                        </div>
-                        <button type="button"
-                            style={{ visibility: methods.watch('answers').length > 1 ? 'visible' : 'hidden' }}
-                            onClick={() => {
-                                let listAnswer = methods.getValues('answers')
-                                methods.setValue('answers', [...listAnswer.slice(0, i), ...listAnswer.slice(i + 1)])
-                                if (methods.getValues(`answers[${i}].content`)?.length) onChangeData()
-                            }}
-                        >
-                            <FilledTrashCan width="2rem" height="2rem" />
-                        </button>
+    return <div style={{backgroundColor: '#fff', width: '100%', height: '100%' }}>
+        <div className="col" style={{ width: '100%', maxWidth: '106.8rem', gap: '3.2rem', padding: '3.2rem', }}>
+            <div className='details-view-header row' >
+                <div className='col header-breadcum' style={{ gap: '0.4rem' }}>
+                    <div className='row' style={{ gap: '0.8rem' }}>
+                        <div className='button-text-6'>Danh sách câu hỏi</div>
+                        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.2rem' }} />
+                        <div className='button-text-6 selected'>Chỉnh sửa câu hỏi</div>
                     </div>
-                })}
+                    <div className="row" style={{ gap: '0.8rem' }}>
+                        {editName != null ? <TextField
+                            autoFocus
+                            defaultValue={data?.name}
+                            className="heading-6"
+                            onChange={(ev) => { setEditName(ev.target.value.trim() ?? '') }}
+                        /> : <div className='heading-6 row' style={{ padding: '1rem 0' }}>{data?.name}</div>}
+                        <button type="button" className="row icon-button24" onClick={async () => {
+                            if (editName != null) {
+                                if (editName.length) {
+                                    const res = await QuestionController.edit({ ...data, name: editName })
+                                    if (res) setData({ ...data, name: editName })
+                                }
+                                setEditName(null)
+                            } else {
+                                setEditName(data?.name)
+                            }
+                        }}>{editName != null ? <FontAwesomeIcon icon={faCheck} style={{ fontSize: '1.8rem', color: 'var(--success-color)' }} /> : <FilledEdit width="2rem" height="2rem" />}</button>
+                    </div>
+                </div>
             </div>
-            <button type="button" className="row"
-                style={{ width: '100%', borderRadius: '0.8rem', border: '1px dashed #00358033', padding: '0.9rem 1.2rem', gap: '0.8rem', justifyContent: 'center' }}
-                onClick={() => {
-                    methods.setValue('answers', [...methods.getValues('answers'), { id: uuidv4() }])
-                }}>
-                <FilledSettings />
-                <div className="button-text-3">Thêm câu trả lời</div>
-            </button>
-            <div className="col" style={{ paddingTop: '0.8rem' }}>
-                {renderCorrectAnswer()}
-            </div>
-        </form>
+            <form className='col' style={{ width: '100%', gap: '1.6rem', height: 'fit-content', }}>
+                <TextAreaForm
+                    required
+                    label={'Câu hỏi'}
+                    name={'question'}
+                    register={methods.register}
+                    errors={methods.error}
+                    placeholder={'Nhập nội dung câu hỏi'}
+                    onBlur={(ev) => {
+                        if (ev.target.value) onChangeData()
+                        else {
+                            if (data.content?.length) {
+                                try {
+                                    var jsonData = JSON.parse(data.content)
+                                } catch (error) {
+                                    console.log(error)
+                                }
+                            }
+                            if (jsonData) methods.setValue('question', jsonData.question ?? '')
+                        }
+                    }}
+                />
+                <div className="row" style={{ gap: '2rem' }}>
+                    <RadioButtonForm
+                        register={methods.register}
+                        value={QuestionType.checkbox.toString()}
+                        name={'type'}
+                        size={'2rem'}
+                        label={'Chọn nhiều đáp án'}
+                        onChange={onChangeData}
+                    />
+                    <RadioButtonForm
+                        register={methods.register}
+                        value={QuestionType.radio.toString()}
+                        name={'type'}
+                        size={'2rem'}
+                        label={'Chọn 1 đáp án'}
+                        onChange={onChangeData}
+                    />
+                </div>
+                <ImportFileForm
+                    control={methods.control}
+                    name={'file'}
+                    value={methods.watch('file')}
+                    allowType={['image/jpg', 'image/png', 'image/jpeg']}
+                    subTitle={'1840x380 pixels (PNG, JPG)'}
+                    width={'100%'}
+                    title={'Thêm hình ảnh'}
+                    onChange={(newFile) => {
+                        uploadFiles([newFile]).then(res => {
+                            if (res) {
+                                methods.setValue('fileId', res[0].id)
+                                methods.setValue('file', { url: ConfigAPI.imgUrl + res[0].id, type: 'image' })
+                                onChangeData()
+                            }
+                        })
+                    }}
+                />
+                <div className="col" style={{ gap: '1.2rem' }}>
+                    {methods.watch('answers').map((ans, i) => {
+                        return <div key={ans.id} className="row" style={{ gap: '1.2rem' }}>
+                            <div style={{ flex: 1, width: '100%' }}>
+                                <TextFieldForm
+                                    required
+                                    className={'row'}
+                                    label={`Đáp án ${i + 1 > 9 ? (i + 1) : `0${i + 1}`}`}
+                                    register={methods.register}
+                                    name={`answers[${i}].content`}
+                                    placeholder={`Câu trả lời ${i + 1}`}
+                                    onBlur={onChangeData}
+                                />
+                            </div>
+                            <button type="button"
+                                style={{ visibility: methods.watch('answers').length > 1 ? 'visible' : 'hidden' }}
+                                onClick={() => {
+                                    let listAnswer = methods.getValues('answers')
+                                    methods.setValue('answers', [...listAnswer.slice(0, i), ...listAnswer.slice(i + 1)])
+                                    if (methods.getValues(`answers[${i}].content`)?.length) onChangeData()
+                                }}
+                            >
+                                <FilledTrashCan width="2rem" height="2rem" />
+                            </button>
+                        </div>
+                    })}
+                </div>
+                <button type="button" className="row"
+                    style={{ width: '100%', borderRadius: '0.8rem', border: '1px dashed #00358033', padding: '0.9rem 1.2rem', gap: '0.8rem', justifyContent: 'center' }}
+                    onClick={() => {
+                        methods.setValue('answers', [...methods.getValues('answers'), { id: uuidv4() }])
+                    }}>
+                    <FilledSettings />
+                    <div className="button-text-3">Thêm câu trả lời</div>
+                </button>
+                <div className="col" style={{ paddingTop: '0.8rem' }}>
+                    {renderCorrectAnswer()}
+                </div>
+            </form>
+        </div>
     </div>
 }

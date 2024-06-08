@@ -61,69 +61,6 @@ export const modules = [
     },
 ]
 
-export const centerModules = [
-    {
-        id: 1,
-        name: 'Home',
-        link: 'center',
-        path: 'center/:id?',
-    },
-    {
-        id: 2,
-        name: 'Teaching Schedule',
-        link: 'center/schedule',
-    },
-    {
-        id: 3,
-        name: 'Course Management',
-    },
-    {
-        id: 4,
-        name: 'Exam Management',
-    },
-    {
-        id: 5,
-        name: 'Student Management',
-        link: 'center/students',
-    },
-    {
-        id: 6,
-        parentId: 3,
-        name: 'Course',
-        link: 'center/courses',
-    },
-    {
-        id: 7,
-        parentId: 3,
-        name: 'Class',
-        link: 'center/classes',
-    },
-    {
-        id: 8,
-        parentId: 3,
-        name: 'Mentor',
-        link: 'center/mentors',
-    },
-    {
-        id: 9,
-        parentId: 3,
-        name: 'Curriculum',
-        link: 'center/curriculum',
-    },
-    {
-        id: 10,
-        parentId: 4,
-        name: 'Exam',
-        link: 'center/exams',
-    },
-    {
-        id: 11,
-        parentId: 4,
-        name: 'Question',
-        link: 'center/questions',
-    },
-]
-
 // react-router-dom use path params: exp with params id & type => ...link/:id/:type => make optional ...link/:id?/:type?
 export const extendView = [
     {
@@ -151,23 +88,34 @@ export const extendView = [
         path: 'center/course/additional-class/:id',
         link: 'center/course',
     },
-    {
-        name: 'Xem trước khóa học',
-        // slug: 'certificate',
-        path: 'center/course/preview/:id',
-        link: 'center/course/preview',
-    },
+    // {
+    //     name: 'Câu hỏi và đề thi',
+    //     slug: 'exams',
+    //     path: 'center/course/exams/:id',
+    //     link: 'center/course',
+    // },
+    // {
+    //     name: 'Danh sách học viên',
+    //     slug: 'students',
+    //     path: 'center/course/students/:id',
+    //     link: 'center/course',
+    // },
     {
         name: 'exam details',
         // slug: 'certificate',
-        path: 'center/exams/details/:id',
-        link: 'center/exams/details',
+        path: 'center/exam/:id',
+        link: 'center/exam',
+    },
+    {
+        name: 'Home',
+        link: 'center',
+        path: 'center/:id?',
     },
     {
         name: 'question details',
         // slug: 'certificate',
-        path: 'center/questions/details/:id',
-        link: 'center/questions/details',
+        path: 'center/question/:id',
+        link: 'center/question',
     },
     {
         name: 'news details',

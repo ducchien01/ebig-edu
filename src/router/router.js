@@ -73,9 +73,9 @@ export const getcomponentRouter = (moduleCode) => {
             return <PaymentProcess />
         case "center/course":
             return <SettingsCourse />;
-        case "center/exams/details":
+        case "center/exam":
             return <SettingsExam />;
-        case "center/questions/details":
+        case "center/question":
             return <SettingsQuestion />;
         // case "center/course":
         //     return <Preview />;

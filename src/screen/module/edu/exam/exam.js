@@ -6,7 +6,6 @@ import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import PopupAddNewExam from "./local-component/popup-add-new-exam";
 import { ExamController } from "./controller";
-import { studentLevelList } from "../../../../assets/const/const-list";
 import { TopicController } from "../../topic/controller";
 import { ExamStatus } from "./da";
 import './exam.css'
@@ -60,16 +59,9 @@ export default function ExamManagment() {
         getData()
     }, [])
 
-    return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '2rem', padding: '2.4rem 3.2rem' }}>
+    return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '1.6rem', padding: '1.2rem 2.4rem' }}>
         <Popup ref={ref} />
         <Dialog ref={dialogRef} />
-        <div className="row" style={{ justifyContent: 'space-between' }}>
-            <div className="heading-4">Danh sách bài thi</div>
-            <button type="button" className="button-primary row" onClick={popupAddNewExam} style={{ backgroundColor: 'var(--primary-color)' }}>
-                <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
-                <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
-            </button>
-        </div>
         <div className="row filter-header-container">
             <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#00204D99' }} />} />
             <div style={{ height: '1.6rem', width: 1, backgroundColor: '#00358033' }} ></div>
@@ -77,30 +69,33 @@ export default function ExamManagment() {
                 <FilledSetupPreferences />
                 <Text className="button-text-3" style={{ color: '#00204D99' }}>Bộ lọc</Text>
             </button>
+            <div style={{ flex: 1 }} />
+            <button type="button" className="button-primary row" onClick={popupAddNewExam} style={{ backgroundColor: 'var(--primary-color)' }}>
+                <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
+                <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
+            </button>
         </div>
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'auto' }}>
             <Table>
                 <TbHeader>
-                    <TbCell fixed={true} style={{ minWidth: 360 }}>Tên</TbCell>
-                    <TbCell style={{ minWidth: 150, }} >Mã đề</TbCell>
-                    <TbCell style={{ minWidth: 80, }}>Trình độ</TbCell>
-                    <TbCell style={{ minWidth: 120, }} >Chủ đề</TbCell>
-                    <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>Thời gian thi (Phút)</TbCell>
-                    <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center}>Trạng thái</TbCell>
-                    <TbCell fixed={true} style={{ minWidth: 180, }} align={CellAlignItems.center}>Action</TbCell>
+                    <TbCell fixed={true} style={{ minWidth: '20rem' }}>Tên</TbCell>
+                    <TbCell style={{ minWidth: '15rem', }} >Mã đề</TbCell>
+                    <TbCell style={{ minWidth: '16rem', }} >Chủ đề</TbCell>
+                    <TbCell style={{ minWidth: '12rem', }} align={CellAlignItems.center}>Thời gian thi (Phút)</TbCell>
+                    <TbCell style={{ minWidth: '10rem', }} align={CellAlignItems.center}>Trạng thái</TbCell>
+                    <TbCell fixed={true} style={{ minWidth: '8rem', }} align={CellAlignItems.center}>Action</TbCell>
                 </TbHeader>
                 <TbBody>
                     {
                         (data?.data ?? []).map((item) => <TbRow key={item.id} >
-                            <TbCell fixed={true} style={{ minWidth: 360, }} >
-                                <NavLink to={`details/` + item.id} style={{ color: 'var(--primary-color)' }}>{item.name}</NavLink>
+                            <TbCell fixed={true} style={{ minWidth: '20rem' }} >
+                                <NavLink to={`/center/exam/` + item.id} style={{ color: 'var(--primary-color)' }}>{item.name}</NavLink>
                             </TbCell>
-                            <TbCell style={{ minWidth: 150, }} ><Text style={{ width: '100%' }}>{item.code?.toUpperCase()?.replaceAll('-', '')}</Text></TbCell>
-                            <TbCell style={{ minWidth: 80, }} >{studentLevelList.find(e => e.id === item.level)?.name}</TbCell>
-                            <TbCell style={{ minWidth: 120, }}>{listTopic.find(e => e.id === item.topicId)?.name}</TbCell>
-                            <TbCell style={{ minWidth: 120, }} align={CellAlignItems.center}>{item.time}</TbCell>
-                            <TbCell style={{ minWidth: 160, }} align={CellAlignItems.center} >{item.status ? item.status === ExamStatus.real ? "Thi cấp chứng chỉ/bằng" : "Thi thử" : 'Bản nháp'}</TbCell>
-                            <TbCell fixed={true} style={{ minWidth: 80, }} >
+                            <TbCell style={{ minWidth: '15rem', }} ><Text style={{ width: '100%' }}>{item.code?.toUpperCase()?.replaceAll('-', '')}</Text></TbCell>
+                            <TbCell style={{ minWidth: '16rem', }}>{listTopic.find(e => e.id === item.topicId)?.name}</TbCell>
+                            <TbCell style={{ minWidth: '12rem', }} align={CellAlignItems.center}>{item.time}</TbCell>
+                            <TbCell style={{ minWidth: '10rem', }} align={CellAlignItems.center} >{item.status ? item.status === ExamStatus.real ? "Thi cấp chứng chỉ/bằng" : "Thi thử" : 'Bản nháp'}</TbCell>
+                            <TbCell fixed={true} style={{ minWidth: '8rem', }} >
                                 <div className="row" style={{ justifyContent: 'center' }}>
                                     <button type="button" className="row" onClick={() => { confirmDelete(item) }} style={{ padding: '0.6rem', width: 'fit-content' }}>
                                         <FilledTrashCan width='2rem' height='2rem' />

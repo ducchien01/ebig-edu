@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useEffect } from 'react'
 import './main-layout.css'
-import { centerModules, extendView } from '../../assets/const/const-list';
+import { extendView } from '../../assets/const/const-list';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { getcomponentRouter } from '../../router/router';
 import HeaderView from './header/header';
@@ -14,6 +14,7 @@ export default function MainLayout({ menu = [] }) {
     const [modules, setModules] = useState([])
     const dispatch = useDispatch()
     const location = useLocation()
+    const ref = useRef()
 
     useEffect(() => {
         if (AccountController.token()) {
@@ -25,9 +26,14 @@ export default function MainLayout({ menu = [] }) {
         }
     }, [menu])
 
+    useEffect(() => {
+        if (ref.current)
+            ref.current.scrollTo(0, 0)
+    }, [location.pathname])
+
     return <div id='main-layout' className="main-layout col">
         <HeaderView />
-        <div className='main-layout-body'>
+        <div ref={ref} className='main-layout-body'>
             <SideBar menu={modules} />
             <div className="view col">
                 <Routes>
@@ -40,7 +46,7 @@ export default function MainLayout({ menu = [] }) {
                         />;
                     }
                     )}
-                    {[...centerModules, ...extendView].map((prop, key) => <Route
+                    {extendView.map((prop, key) => <Route
                         path={prop.path ?? prop.link}
                         element={getcomponentRouter(prop.link)}
                         key={`extend-${key}`}

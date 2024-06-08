@@ -28,7 +28,7 @@ export default function QuestionManagment() {
     }
 
     const getData = async (page, size) => {
-        const res = await QuestionController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'type', operator: '=', value: LessonType.examTask },{ field: 'customerId', operator: '=', value: userInfor.id }] })
+        const res = await QuestionController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }, { field: 'customerId', operator: '=', value: userInfor.id }] })
         if (res) {
             setData({
                 ...res, data: res.data.map(e => {
@@ -63,16 +63,9 @@ export default function QuestionManagment() {
         getData()
     }, [])
 
-    return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '0.8rem', padding: '2.4rem 3.2rem 0 3.2rem' }}>
+    return <div className='col' style={{ width: '100%', height: '100%', flex: 1, gap: '1.6rem', padding: '1.2rem 2.4rem' }}>
         <Popup ref={ref} />
         <Dialog ref={dialogRef} />
-        <div className="row" style={{ justifyContent: 'space-between' }}>
-            <div className="heading-4">Danh sách câu hỏi</div>
-            <button type="button" className="button-primary row" onClick={popupAddNewQuestion} style={{ backgroundColor: 'var(--primary-color)' }}>
-                <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
-                <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
-            </button>
-        </div>
         <div className="row filter-header-container">
             <TextField style={{ border: 'none', maxWidth: '32rem' }} placeholder="Tìm kiếm " prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#00204D99' }} />} />
             <div style={{ height: '1.6rem', width: 1, backgroundColor: '#00358033' }} ></div>
@@ -80,22 +73,27 @@ export default function QuestionManagment() {
                 <FilledSetupPreferences />
                 <Text className="button-text-3" style={{ color: '#00204D99' }}>Bộ lọc</Text>
             </button>
+            <div style={{ flex: 1 }} />
+            <button type="button" className="button-primary row" onClick={popupAddNewQuestion} style={{ backgroundColor: 'var(--primary-color)', padding: '0.6rem 1.2rem' }}>
+                <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff', fontSize: '1.6rem' }} />
+                <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
+            </button>
         </div>
         <div className="col" style={{ flex: 1, height: '100%', overflow: 'auto' }}>
             <Table>
                 <TbHeader>
-                    <TbCell fixed={true} style={{ minWidth: 60 }}>STT</TbCell>
-                    <TbCell style={{ minWidth: 200, }} >Tiêu đề</TbCell>
-                    <TbCell style={{ minWidth: 400, }}>Nội dung câu hỏi</TbCell>
-                    <TbCell style={{ minWidth: 120, }}>Thông tin</TbCell>
-                    <TbCell fixed={true} style={{ minWidth: 180, }} align={CellAlignItems.center}>Action</TbCell>
+                    <TbCell fixed={true} style={{ minWidth: '5rem' }}>STT</TbCell>
+                    <TbCell style={{ minWidth: '18rem', }} >Tiêu đề</TbCell>
+                    <TbCell style={{ minWidth: '40rem', }}>Nội dung câu hỏi</TbCell>
+                    <TbCell style={{ minWidth: '12rem', }}>Thông tin</TbCell>
+                    <TbCell fixed={true} style={{ minWidth: '18rem', }} align={CellAlignItems.center}>Action</TbCell>
                 </TbHeader>
                 <TbBody>
                     {
                         (data?.data ?? []).map((item, i) => <TbRow key={item.id} style={{ borderTop: i > 0 ? 'var(--border-grey1)' : 'none' }} >
-                            <TbCell fixed={true} style={{ minWidth: 60, verticalAlign: 'top', padding: '1.2rem 2.4rem' }} >{i + 1}</TbCell>
-                            <TbCell style={{ minWidth: 200, verticalAlign: 'top', padding: '1.2rem 2.4rem' }} ><Text style={{ width: '100%' }} maxLine={3}>{item.name}</Text></TbCell>
-                            <TbCell style={{ minWidth: 400, padding: '1.2rem 2.4rem' }} align={CellAlignItems.center}>
+                            <TbCell fixed={true} style={{ minWidth: '5rem', verticalAlign: 'top', padding: '1.2rem 2.4rem' }} >{i + 1}</TbCell>
+                            <TbCell style={{ minWidth: '18rem', verticalAlign: 'top', padding: '1.2rem 2.4rem' }} ><Text style={{ width: '100%' }} maxLine={3}>{item.name}</Text></TbCell>
+                            <TbCell style={{ minWidth: '40rem', padding: '1.2rem 2.4rem' }} align={CellAlignItems.center}>
                                 <div className="col" style={{ width: '100%', gap: '1.2rem' }}>
                                     <Text className="button-text-1" maxLine={4} style={{ width: '100%' }}>{item.questionItem?.question}</Text>
                                     {item.questionItem?.fileId && <img src={ConfigAPI.imgUrl + item.fileId} alt="" style={{ width: '100%', borderRadius: '0.4rem' }} />}
@@ -107,15 +105,15 @@ export default function QuestionManagment() {
                                     })}
                                 </div>
                             </TbCell>
-                            <TbCell style={{ minWidth: 160, verticalAlign: 'top', padding: '1.2rem 2.4rem' }}>
+                            <TbCell style={{ minWidth: '12rem', verticalAlign: 'top', padding: '1.2rem 2.4rem' }}>
                                 <div className="col" style={{ width: '100%', gap: '1.2rem' }}>
                                     <Text className="body-3">Loại: {item?.questionItem?.type === QuestionType.radio ? 'Chọn 1 đáp án' : 'Chọn nhiều đáp án'}</Text>
                                     <Text className="body-3">Ngày tạo: {Ultis.datetoString(new Date(item.dateCreated), 'dd/mm/yyyy hh:mm')}</Text>
                                 </div>
                             </TbCell>
-                            <TbCell fixed={true} style={{ minWidth: 180, verticalAlign: 'top', padding: '1.2rem 2.4rem' }}>
+                            <TbCell fixed={true} style={{ minWidth: '18rem', verticalAlign: 'top', padding: '1.2rem 2.4rem' }}>
                                 <div className="row" style={{ gap: '0.8rem', justifyContent: 'center' }}>
-                                    <button type="button" className="row" onClick={() => { navigate('details/' + item.id) }} style={{ padding: '0.6rem' }}>
+                                    <button type="button" className="row" onClick={() => { navigate('/center/question/' + item.id) }} style={{ padding: '0.6rem' }}>
                                         <FilledEdit width='2rem' height='2rem' />
                                     </button>
                                     <button type="button" className="row" onClick={() => { confirmDelete(item) }} style={{ padding: '0.6rem' }}>

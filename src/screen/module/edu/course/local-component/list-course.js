@@ -1,8 +1,8 @@
 import { faEllipsisV, faEye, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useRef, useState } from "react"
-import { Popup, Text, TextField, closePopup, showPopup } from "../../../../../component/export-component"
-import { FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledSetupPreferences, FilledTrashCan, OutlineStar } from "../../../../../assets/const/icon"
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from "../../../../../component/export-component"
+import { FilledBook, FilledClock, FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledSetupPreferences, FilledTrashCan, OutlineStar } from "../../../../../assets/const/icon"
 import { CourseController } from "../controller"
 import { CourseStatus } from "../da"
 import { NavLink, useNavigate } from "react-router-dom"
@@ -12,17 +12,24 @@ import ConfigAPI from "../../../../../config/configApi"
 import { useSelector } from "react-redux"
 import { CenterPermisson } from "../../../center/da"
 import PopupAddNewCourse from "./popup-add-new-course"
+import { ExamController } from "../../exam/controller"
+import { ExamStatus } from "../../exam/da"
+import PopupAddNewExam from "../../exam/local-component/popup-add-new-exam"
+import ExamManagment from "../../exam/exam"
+import QuestionManagment from "../../question/question"
 
 export default function ListCourse({ centerItem, permisson }) {
     const userInfor = useSelector((state) => state.account.data)
-    const ref = useRef()
     const navigate = useNavigate()
     const [myCourses, setMyCourses] = useState([])
     const [courses, setCourses] = useState({ totalCount: undefined, data: [] })
+    const [commonExams, setCommonExams] = useState([])
+    const ref = useRef()
+    const dialogRef = useRef()
 
     const getCourses = async (page) => {
-        // let _filter = [{ field: 'centerId', operator: '=', value: centerItem.id }, { field: 'customerId', operator: '<>', value: userInfor.id }]
-        let _filter = [{ field: 'customerId', operator: '<>', value: userInfor.id }]
+        let _filter = [{ field: 'centerId', operator: '=', value: centerItem.id }, { field: 'customerId', operator: '<>', value: userInfor.id }]
+        // let _filter = [{ field: 'customerId', operator: '<>', value: userInfor.id }]
         if (permisson === CenterPermisson.member) {
             _filter.push({
                 field: 'status',
@@ -40,10 +47,18 @@ export default function ListCourse({ centerItem, permisson }) {
     }
 
     const getMyCourses = async () => {
-        const res = await CourseController.getListSimple({ page: 1, take: 10, filter: [{ field: 'customerId', operator: '=', value: userInfor.id }] })
-        // const res = await CourseController.getListSimple({ page: 1, take: 10, filter: [{ field: 'centerId', operator: '=', value: centerItem.id }, { field: 'customerId', operator: '=', value: userInfor.id }] })
+        // const res = await CourseController.getListSimple({ page: 1, take: 10, filter: [{ field: 'customerId', operator: '=', value: userInfor.id }] })
+        const res = await CourseController.getListSimple({ page: 1, take: 10, filter: [{ field: 'centerId', operator: '=', value: centerItem.id }, { field: 'customerId', operator: '=', value: userInfor.id }] })
         if (res) {
             setMyCourses(res.data)
+        }
+    }
+
+    const getCommonExams = async () => {
+        const res = await ExamController.getListSimple({ page: 1, take: 5 })
+        // const res = await CourseController.getListSimple({ page: 1, take: 5, filter: [{ field: 'centerId', operator: '=', value: centerItem.id }] })
+        if (res) {
+            setCommonExams(res.data)
         }
     }
 
@@ -70,19 +85,28 @@ export default function ListCourse({ centerItem, permisson }) {
                     <Text className="label-4">Chia sẻ</Text>
                 </button>
                 {permisson === CenterPermisson.owner || item.customerId === userInfor.id ? <button type="button" className="row" onClick={() => {
-                    CourseController.delete([item.id]).then((res) => {
-                        if (res) {
-                            if (item.customerId === userInfor.id) {
-                                setMyCourses(myCourses.filter(e => e.id !== item.id))
-                            } else {
-                                setCourses({
-                                    totalCount: courses.totalCount - 1,
-                                    data: courses.data.filter(e => e.id !== item.id)
-                                })
-                            }
+                    closePopup(ref)
+                    showDialog({
+                        ref: dialogRef,
+                        status: ComponentStatus.WARNING,
+                        alignment: DialogAlignment.center,
+                        title: 'Bạn chắc chắn muốn xóa khóa học này',
+                        onSubmit: () => {
+                            CourseController.delete([item.id]).then((res) => {
+                                if (res) {
+                                    if (item.customerId === userInfor.id) {
+                                        setMyCourses(myCourses.filter(e => e.id !== item.id))
+                                    } else {
+                                        setCourses({
+                                            totalCount: courses.totalCount - 1,
+                                            data: courses.data.filter(e => e.id !== item.id)
+                                        })
+                                    }
+                                }
+                            })
                         }
                     })
-                    closePopup(ref)
+
                 }}>
                     <FilledTrashCan color="#E14337" />
                     <Text className="label-4" style={{ color: '#E14337' }}>Xóa</Text>
@@ -147,15 +171,107 @@ export default function ListCourse({ centerItem, permisson }) {
         })
     }
 
+    const popupAddNewExam = () => {
+        showPopup({
+            ref: ref,
+            heading: <div className='popup-header heading-7'>Tạo mới đề thi</div>,
+            content: <PopupAddNewExam ref={ref} />,
+        })
+    }
+
+    const confirmDelete = (item) => {
+        showDialog({
+            ref: dialogRef,
+            status: ComponentStatus.WARNING,
+            alignment: DialogAlignment.center,
+            title: 'Bạn chắc chắn muốn xóa đề thi này',
+            content: 'Đề thi này sẽ bị xóa khỏi thư viện đề thi của bạn',
+            onSubmit: () => {
+                ExamController.delete([item.id]).then(res => {
+                    if (res) getCommonExams()
+                })
+            }
+        })
+    }
+
+    const showStoreExams = () => {
+        showPopup({
+            ref: ref,
+            style: { height: '80%', width: '80%' },
+            heading: <div className="heading-6 popup-header">Kho đề thi</div>,
+            content: <ExamManagment />
+        })
+    }
+
+    const showStoreQuestion = () => {
+        showPopup({
+            ref: ref,
+            style: { height: '80%', width: '80%' },
+            heading: <div className="heading-6 popup-header">Kho câu hỏi</div>,
+            content: <QuestionManagment />
+        })
+    }
+
     useEffect(() => {
         if (centerItem) {
             getCourses(1)
             if (permisson !== CenterPermisson.member) getMyCourses()
+            getCommonExams()
         }
     }, [centerItem])
 
     return <div className="col" style={{ alignItems: 'center' }}>
         <Popup ref={ref} />
+        <Dialog ref={dialogRef} />
+        <div className='col' style={{ padding: '2.4rem', margin: '2.4rem 0', backgroundColor: '#fff', borderRadius: '0.8rem', width: 'calc(100% - 11.2rem)', minWidth: '56rem', gap: '0.8rem' }}>
+            <div className="row" style={{ gap: '0.8rem' }}>
+                <Text className="heading-6" style={{ flex: 1, gap: '0.8rem' }}>Đề thi phổ biến</Text>
+                <button type="button" onClick={showStoreExams} className="row button-primary" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem' }}>
+                    <Text className="button-text-3">Kho đề</Text>
+                </button>
+                <button type="button" onClick={showStoreQuestion} className="row button-grey" style={{ borderRadius: '0.8rem' }}>
+                    <Text className="button-text-3">Kho câu hỏi</Text>
+                </button>
+            </div>
+            <div className="col" style={{ alignItems: 'center', gap: '0.8rem' }}>
+                {
+                    commonExams.length ? commonExams.map((item, i) => {
+                        return <div key={item.id} className="row" style={{ gap: '1.6rem', padding: '1.6rem', borderBottom: 'var(--border-grey1)', width: '100%' }}>
+                            <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
+                                <div className="row" style={{ gap: '0.8rem' }}>
+                                    <Text className="heading-7">{item.name}</Text>
+                                    <Text className="semibold2" style={{ color: item.status === ExamStatus.real ? 'var(--primary-color)' : '#00204D99' }}>
+                                        {item.status ? item.status === ExamStatus.real ? "Cấp chứng chỉ" : "Thi thử" : 'Bản nháp'}
+                                    </Text>
+                                </div>
+                                <div className="row" style={{ gap: '1.2rem' }}>
+                                    <div className="row" style={{ gap: '0.4rem' }}>
+                                        <FilledClock />
+                                        <Text className="subtitle-3">{item.time} phút</Text>
+                                    </div>
+                                    <div className="row" style={{ gap: '0.4rem' }}>
+                                        <FilledBook />
+                                        <Text className="subtitle-3">{item.quantityQuestion}</Text>
+                                    </div>
+                                    <div className="row" style={{ gap: '0.4rem' }}>
+                                        <OutlineStar />
+                                        <Text className="subtitle-3">0(0)</Text>
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="row icon-button32" onClick={() => { navigate('/center/exam/' + item.id) }}><FilledEdit width="2rem" height="2rem" /></button>
+                            <button className="row icon-button32" onClick={() => { confirmDelete(item) }} ><FilledTrashCan width="2rem" height="2rem" /></button>
+                        </div>
+                    }) : <>
+                        <Text className="semibold2">Trung tâm chưa có đề thi nào.</Text>
+                        <button type="button" className="row button-primary" style={{ borderRadius: '0.8rem' }} onClick={popupAddNewExam}>
+                            <FontAwesomeIcon icon={faPlus} />
+                            <Text className="button-text-3">Tạo mới</Text>
+                        </button>
+                    </>
+                }
+            </div>
+        </div>
         <div className='col' style={{ padding: '2.4rem', margin: '2.4rem 0', backgroundColor: '#fff', borderRadius: '0.8rem', width: 'calc(100% - 11.2rem)', minWidth: '56rem', gap: '0.8rem' }}>
             <div className="row" style={{ gap: '1.6rem' }}>
                 <TextField
@@ -172,7 +288,7 @@ export default function ListCourse({ centerItem, permisson }) {
                 permisson !== CenterPermisson.member ? <div className="col" style={{ padding: '1.6rem 0', borderBottom: 'var(--border-grey1)' }}>
                     <div className="row" style={{ gap: '1.6rem' }}>
                         <Text className="heading-6" style={{ flex: 1 }}>Khóa học của bạn</Text>
-                        <button type="button" className="row button-primary" style={{ gap: '0.8rem' }} onClick={popupAddNewCourse}>
+                        <button type="button" className="row button-primary" style={{ borderRadius: '0.8rem' }} onClick={popupAddNewCourse}>
                             <FontAwesomeIcon icon={faPlus} />
                             <Text className="button-text-3">Tạo mới</Text>
                         </button>

@@ -12,7 +12,6 @@ import { CenterController } from './controller';
 import { uuidv4 } from '../../../Utils';
 import { CenterPermisson } from './da';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
-import { centerModules } from '../../../assets/const/const-list';
 import EduSchedule from '../edu/schedule/schedule';
 import EduStudent from '../edu/student/student';
 import SchoolCourse from '../edu/course/course';

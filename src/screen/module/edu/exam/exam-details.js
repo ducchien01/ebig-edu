@@ -96,7 +96,7 @@ export default function ViewExamDetails() {
         }
     }, [location.state])
 
-    return <div className="col" style={{ width: '100%', height: '100%', flex: 1, gap: '1.2rem', padding: '1.2rem max(10%, 4.8rem)', overflow: 'hidden auto' }}>
+    return <div className="col" style={{ width: '100%', height: '100%', flex: 1, gap: '1.2rem', padding: '1.2rem max(10%, 4.8rem)', backgroundColor: '#fff' }}>
         <Popup ref={ref} />
         <Dialog ref={dialogRef} />
         <div className="row" style={{ width: '100%', gap: '0.8rem' }}>

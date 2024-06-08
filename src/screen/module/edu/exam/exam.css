@@ -3,10 +3,16 @@
     border-bottom: var(--border-grey1);
 }
 
-.exam-infor-tile > .edit-infor-container {
+.exam-infor-tile>.edit-infor-container {
     gap: 1.2rem;
 }
 
-.exam-infor-tile > .edit-infor-container > div:first-child {
+.exam-infor-tile>.edit-infor-container>div:first-child {
     width: 16rem;
+}
+
+.main-layout:has(.testing-view),
+.main-layout-body:has(.testing-view) {
+    overflow: hidden;
+    height: 100%;
 }

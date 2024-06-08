@@ -123,7 +123,7 @@ export default function ViewTesting() {
         })
     }, [])
 
-    return <div className="col" style={{ flex: 1, height: '100%', width: '100%' }}>
+    return <div className="col testing-view" style={{ flex: 1, height: '100%', width: '100%', backgroundColor: '#fff' }}>
         <Dialog ref={dialogRef} />
         <div className='details-view-header row' style={{ width: '100%', padding: '2rem max(2.4rem, 4%)' }}>
             <Text className='heading-5' style={{ flex: 1 }}>{data?.name}</Text>
@@ -141,7 +141,7 @@ export default function ViewTesting() {
                 </div>
                 <div className="row" style={{ padding: '1.6rem', gap: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
                     <FontAwesomeIcon icon={faUser} style={{ color: "#667994", fontSize: '1.6rem' }} />
-                    <Text className="label-1">{userInfor.name}</Text>
+                    <Text className="label-1">{userInfor?.name}</Text>
                 </div>
                 <div className="row" style={{ padding: '1.6rem', gap: '1.2rem', borderBottom: 'var(--border-grey1)' }}>
                     <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "#667994", fontSize: '1.6rem' }} />

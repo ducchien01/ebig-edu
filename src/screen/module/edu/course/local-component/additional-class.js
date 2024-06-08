@@ -19,7 +19,7 @@ export default function AdditionalClass({ courseData }) {
             ref: ref,
             heading: <div className='popup-header heading-7'>Tạo lớp</div>,
             style: { width: '152rem' },
-            content: <PopupSettingsClass ref={ref} centerId={courseData.centerId} classItem={classItem} onChange={getData} />
+            content: <PopupSettingsClass ref={ref} centerId={courseData.centerId} courseId={courseData.id} classItem={classItem} onChange={getData} />
         })
     }
 

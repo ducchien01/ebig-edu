@@ -60,13 +60,13 @@ export default function ListComment({ rating = false }) {
     }
 
     useEffect(() => {
-        if (rating) {
+        if (rating && userInfor) {
             RatingController.getListSimple({ filter: [{ field: 'linkId', operator: '=', value: id }, { field: 'parentId', operator: "=", value: null }, { field: 'customerId', operator: "=", value: userInfor.id }] }).then(res => {
                 if (res?.data?.length) setMyRating(res.data[0])
             })
         }
         getListCommnet()
-    }, [])
+    }, [userInfor])
 
     return <div className="col" style={{ gap: '2.4rem' }}>
         <Popup ref={ref} />

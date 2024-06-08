@@ -30,6 +30,8 @@ import { ValidateType, validateForm } from '../../../project-component/validate'
 import CenterRegister from './local-component/register';
 import ListMember from './local-component/list-member';
 import ListCourse from '../edu/course/local-component/list-course';
+import ConfigAPI from '../../../config/configApi';
+import { uploadFiles } from '../../baseDA';
 
 export default function CenterHome() {
     const { id } = useParams()
@@ -45,7 +47,7 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
     const [fixedTabbar, setFixedTabbar] = useState()
     const [members, setMembers] = useState({ totalCount: undefined, data: [] })
     const ref = useRef()
-    const location = useLocation()
+    const filePickerRef = useRef()
 
     const getMembers = async () => {
         const res = await CenterController.getListSimpleMember({ page: 1, take: 8, filter: [{ field: 'centerId', operator: '=', value: centerId }] })
@@ -111,17 +113,36 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
         })
     }
 
+    const pickThumbnail = async (ev) => {
+        if (ev.target.files && ev.target.files[0]) {
+            const res = await uploadFiles([ev.target.files[0]])
+            if (res) {
+                const editRes = await CenterController.edit({
+                    ...centerData,
+                    thumbnailId: res[0].id
+                })
+                if (editRes) {
+                    ToastMessage.success('Cập nhật ảnh bìa trung tâm thành công')
+                    setCenterData({
+                        ...centerData,
+                        thumbnailId: res[0].id
+                    })
+                }
+            }
+        }
+    }
+
     useEffect(() => {
         getData()
     }, [userInfor])
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.location.pathname !== location.pathname) {
+            let _tabbar = document.getElementById('handle-tabbar')
+            if (!_tabbar) {
                 document.body.querySelector('.main-layout').removeEventListener('scroll', handleScroll)
                 return
             }
-            let _tabbar = document.getElementById('handle-tabbar')
             _tabbar = _tabbar.getBoundingClientRect()
             const _header = document.body.querySelector('.header').getBoundingClientRect()
             if (_tabbar.y < _header.height) {
@@ -138,8 +159,9 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
         <div className='row' style={{ justifyContent: 'center', backgroundColor: '#fff' }}>
             <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
                 <div style={{ position: 'relative' }}>
-                    <img src={GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem' }} />
-                    <button type='button' className='row edit-button'>
+                    <img src={centerData?.thumbnailId ? (ConfigAPI.imgUrl + centerData.thumbnailId) : GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem' }} />
+                    <button type='button' className='row edit-button' onClick={() => { filePickerRef.current.click() }}>
+                        <input accept={'image/jpg, image/png, image/jpeg'} ref={filePickerRef} type='file' hidden onChange={pickThumbnail} />
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: '2rem', color: '#fff' }} />
                         <Text className='button-text-2' style={{ color: '#fff' }}>Chỉnh sửa</Text>
                     </button>

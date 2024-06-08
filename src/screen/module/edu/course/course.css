@@ -248,9 +248,9 @@
 .img-header {
     background-repeat: no-repeat;
     background-size: cover;
-    height: 32%;
-    min-height: 16rem;
-    max-height: 38rem;
+    height: min(max(32%, 16rem), 38rem);
+    /* min-height: 16rem; */
+    /* max-height: 38rem; */
     padding: 0 24% 2.4rem 8%;
     justify-content: end;
 }

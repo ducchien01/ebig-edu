@@ -25,12 +25,12 @@
     background-color: #fff;
     min-width: 28rem;
     height: calc(100% - 6rem);
-    margin-right: 12px;
+    margin-right: 1.4rem;
     overflow: hidden auto;
 }
 
 div:has(> .additional-infor-view) {
-    padding-right: calc(min(max(24%, 28rem), 44rem) + 12px);
+    padding-right: calc(min(max(24%, 28rem), 44rem) + 0.4rem);
 }
 
 .filter-news-container {

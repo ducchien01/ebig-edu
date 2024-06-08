@@ -106,6 +106,8 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
 
     const onSubmit = (ev) => {
         let classData = ev
+        classData.centerId = data.centerId
+        classData.courseId = data.courseId
         if (classData.startDate) {
             var _startDate = Ultis.stringToDate(classData.startDate)
             classData.startDate = _startDate.getTime()
@@ -143,7 +145,6 @@ const PopupSettingsClass = forwardRef(function PopupSettingsClass(data, ref) {
                 closePopup(ref)
             })
         } else {
-            classData.customerId = userInfor?.id
             ClassController.add(classData).then(res => {
                 if (res) {
                     if (data.onChange) data.onChange()

@@ -307,7 +307,7 @@ export default function ViewCourseDetails() {
                 </div>
             </div>
         </div>
-        <div className="row" >
+        <div className="row" style={{ backgroundColor: '#fff', padding: '2.4rem 0' }}>
             <div className="details-block col">
                 <div className="col tab-container">
                     <div className="tab-header-2 row">

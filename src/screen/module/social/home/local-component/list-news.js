@@ -23,6 +23,7 @@ export default function ListNews({ isLogin = false }) {
     const [customerList, setCustomerList] = useState([])
     const [topicList, setTopicList] = useState([])
     const [filterTab, setFilterTab] = useState(0)
+    const [fixedTabbar, setFixedTabbar] = useState()
 
     const showShareOptions = (ev, newId) => {
         showPopup({
@@ -97,29 +98,52 @@ export default function ListNews({ isLogin = false }) {
             document.body.querySelector('.main-layout').addEventListener('scroll', loadMore)
     }, [newsData])
 
+    useEffect(() => {
+        const handleScroll = () => {
+            let _tabbar = document.getElementById('handle-tabbar')
+            if (!_tabbar) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', handleScroll)
+                return
+            }
+            _tabbar = _tabbar.getBoundingClientRect()
+            const _header = document.body.querySelector('.header').getBoundingClientRect()
+            if (_tabbar.y < _header.height) {
+                setFixedTabbar({ position: 'fixed', top: _header.height, width: _tabbar.width, zIndex: 2 })
+            } else if (_tabbar.y >= _header.height) {
+                setFixedTabbar(undefined)
+            }
+        }
+        document.body.querySelector('.main-layout').addEventListener('scroll', handleScroll)
+    }, [])
+
     return <>
         <Popup ref={ref} />
-        <div className="col" style={{ flex: 1, height: '100%', overflow: 'hidden auto' }}>
+        <div className="col">
+            {isLogin &&
+                <div id='handle-tabbar' style={{ height: '6rem' }}>
+                    <div className='row' style={{ justifyContent: 'center', backgroundColor: '#fff', ...(fixedTabbar ?? {}) }}>
+                        <div className="row filter-news-container col24 col20-xxl" style={{ backgroundColor: '#fff', padding: '2rem', paddingBottom: 0 }}>
+                            <button type="button" className="row">
+                                <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
+                            </button>
+                            <div className="row">
+                                {Array.from({ length: 10 }).map((e, i) => {
+                                    return <div key={'tab-' + i} className={`filter-news-tab ${filterTab === i ? 'selected' : ''}`} onClick={() => {
+                                        setFilterTab(i)
+                                    }}>
+                                        <Text className="label-4">Bài viết xu hướng</Text>
+                                    </div>
+                                })}
+                            </div>
+                            {/* <button type="button" className="row">
+                                <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
+                            </button> */}
+                        </div>
+                    </div>
+                </div>}
             <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
                 <div className="col col24 col20-xxl" style={{ gap: '2.4rem', '--gutter': '0px' }}>
-                    {isLogin && <div className="row filter-news-container" style={{ backgroundColor: '#fff', padding: '2rem', paddingBottom: 0 }}>
-                        <button type="button" className="row">
-                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem', color: 'var(--primary-color)' }} />
-                        </button>
-                        <div className="row">
-                            {Array.from({ length: 10 }).map((e, i) => {
-                                return <div key={'tab-' + i} className={`filter-news-tab ${filterTab === i ? 'selected' : ''}`} onClick={() => {
-                                    setFilterTab(i)
-                                }}>
-                                    <Text className="label-4">Bài viết xu hướng</Text>
-                                </div>
-                            })}
-                        </div>
-                        <button type="button" className="row">
-                            <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '1.4rem', color: '#00204D99' }} />
-                        </button>
-                    </div>}
-                    <div className="col" style={{ gap: '2.4rem', padding: '2rem', paddingTop: 0 }}>
+                    <div className="col" style={{ gap: '2.4rem', padding: '2rem' }}>
                         {newsData.data.map((item, i) => {
                             const itemInteractInfor = interactInfor.find(e => e.linkId === item.id)
                             const customer = customerList.find(e => e.id === item.customerId)

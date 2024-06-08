@@ -9,12 +9,14 @@ import { Select1Form, TextFieldForm } from "../../../../project-component/compon
 import { FilledPhone, OutlineLocation } from "../../../../assets/const/icon"
 import GroupDefaultBg from '../../../../assets/groups-bg.png'
 import { CenterPermisson } from "../da"
+import { useNavigate } from "react-router-dom"
 
 export default function CenterRegister() {
     const userInfor = useSelector((state) => state.account.data)
     const methods = useForm({ shouldFocusError: false })
     const dialogRef = useRef()
     const [topics, setTopics] = useState({ data: [] })
+    const navigate = useNavigate()
 
     const createCenter = (ev) => {
         showDialog({
@@ -29,14 +31,14 @@ export default function CenterRegister() {
                 if (!res) return
                 const customerCenterRes = await CenterController.addMember([{
                     id: uuidv4(),
-                    centerId: res[0],
+                    centerId: ev.id,
                     customerId: userInfor.id,
                     permisson: CenterPermisson.owner,
                     name: userInfor.name ?? userInfor.userName,
                 }])
                 if (!customerCenterRes) return
                 ToastMessage.success('Bạn đã đăng ký trung tâm thành công')
-                window.location.reload()
+                navigate(`/center/${ev.id}`, { replace: true })
             }
         })
     }

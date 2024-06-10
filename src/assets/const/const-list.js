@@ -1,4 +1,4 @@
-import { OutlineBooks, FilledBooks, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineBell, FilledBell, OutlineChat, FilledChat, FilledShop, OutlineGroup, FilledGroup } from './icon'
+import { OutlineBooks, FilledBooks, OutlineUserProfile, OutlineStar, OutlineVideoPlaylist, OutlineGChart, OutlineVerified, OutlineTimeAlarm, OutlineHome, FilledHome, OutlineShop, OutlineCompass, OutlineChat, FilledChat, FilledShop, OutlineGroup, FilledGroup } from './icon'
 import MyUploadAdapter from '../../project-component/ckeditor';
 export const modules = [
     {

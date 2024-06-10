@@ -309,22 +309,23 @@ export class DatePicker extends React.Component<DatePickerProps, DatePickerState
                             className='date-picker-popup-container'
                             style={this.state.style ?? { top: this.state.offset.y + this.state.offset.height + 2 + 'px', left: this.state.offset.x + 'px', border: 'none', boxShadow: '-20px 20px 40px -4px rgba(145, 158, 171, 0.24), 0px 0px 2px 0px rgba(145, 158, 171, 0.24)' }}
                             onSelect={(dateValue: Date) => {
+                                var newValue = ''
                                 switch (this.props.pickerType) {
                                     case CalendarType.YEAR:
                                         this.setState({ ...this.state, value: dateValue.getFullYear().toString(), isOpen: false })
                                         if (this.props.onChange) this.props.onChange(dateValue.getFullYear().toString())
                                         break;
                                     case CalendarType.MONTH:
-                                        var newValue = dateToString(dateValue)
+                                        newValue = dateToString(dateValue)
                                         this.setState({ ...this.state, value: newValue.split('/').slice(1).join('/'), isOpen: false })
                                         if (this.props.onChange) this.props.onChange(newValue.split('/').slice(1).join('/'))
                                         break;
                                     case CalendarType.DATETIME:
-                                        var newValue = dateToString(dateValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
+                                        newValue = dateToString(dateValue, this.props.formatDate ?? 'dd/mm/yyyy hh:mm')
                                         this.setState({ ...this.state, value: newValue })
                                         break;
                                     default:
-                                        var newValue = dateToString(dateValue)
+                                        newValue = dateToString(dateValue)
                                         this.setState({ ...this.state, value: newValue, isOpen: false })
                                         if (this.props.onChange) this.props.onChange(newValue)
                                         break;

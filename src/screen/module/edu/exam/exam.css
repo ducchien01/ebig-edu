@@ -10,9 +10,3 @@
 .exam-infor-tile>.edit-infor-container>div:first-child {
     width: 16rem;
 }
-
-.main-layout:has(.testing-view),
-.main-layout-body:has(.testing-view) {
-    overflow: hidden;
-    height: 100%;
-}

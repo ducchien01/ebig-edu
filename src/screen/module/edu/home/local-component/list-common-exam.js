@@ -1,21 +1,21 @@
-import demoImage from '../../../../../assets/demo-image5.png'
-import avatarDemo from '../../../../../assets/demo-avatar2.png'
-import { PostCard } from "../../../../../project-component/card"
 import { Text } from '../../../../../component/export-component'
-import { OutlineHeart, OutlineLightning, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from '../../../../../assets/const/icon'
+import { FilledBook, FilledClock, OutlineStar } from '../../../../../assets/const/icon'
 import { useEffect, useState } from 'react'
 import { ExamController } from '../../exam/controller'
-import { CustomerController } from '../../../customer/controller'
+import { CenterController } from '../../../center/controller'
+import { NavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function ListCommonExam() {
     const [data, setData] = useState([])
-    const [listCustomer, setListCustomer] = useState([])
+    const [listCenter, setListCenter] = useState([])
 
     useEffect(() => {
         ExamController.getListSimple({ page: 1, take: 4, filter: [{ field: 'status', operator: '=', value: 1 }] }).then(res => {
-            const customerIds = res.data.map(e => e.customerId)
-            if (customerIds) CustomerController.getByIds(customerIds).then(cusRes => {
-                if (cusRes) setListCustomer(cusRes)
+            const centerIds = res.data.map(e => e.centerId)
+            if (centerIds) CenterController.getByIds(centerIds).then(cusRes => {
+                if (cusRes) setListCenter(cusRes)
             })
             if (res) setData(res.data)
         })
@@ -23,30 +23,35 @@ export default function ListCommonExam() {
 
     return <div className="row" style={{ gap: '4rem', alignItems: 'stretch' }}>
         {data.map((item, i) => {
-            const customer = listCustomer.find(e => e.id === item.customerId)
-            return <PostCard
-                to={`exam/${item.id}`}
-                key={'discount-course-' + i}
-                className={`col col6 ${i < 3 ? i < 2 ? 'col8-sm col12-min' : 'col8-sm col0-min' : 'col0-sm col0-min'}`}
-                style={{ '--gutter': '4rem' }}
-                imgUrl={demoImage}
-                imgStyle={{ height: '18.4rem' }}
-                heading={<div className="row" style={{ gap: '0.8rem', paddingBottom: '1.6rem' }}>
-                    <img src={customer?.avatarUrl} alt="" style={{ width: '2.4rem', height: '2.4rem', borderRadius: '50%' }} />
-                    <Text className='label-4' maxLine={1} style={{ flex: 1, width: '100%' }}>{customer?.name}</Text>
-                </div>}
-                title={item.name}
-                // content={'Create a CD cover by photographing day-to-day objects'}
-                actions={<div className='col' style={{ gap: '2.4rem' }}>
-                    <div className='row' style={{ gap: '0.8rem' }}>
-                        <OutlineUserProfile />
-                        <Text className='button-text-3'>1k2</Text>
-                        <Text className='button-text-3'>-</Text>
-                        <OutlineLightning />
-                        <Text className='button-text-3'>{item.time}phút</Text>
+            const centerItem = listCenter.find(e => e.id === item.centerId)
+            return <div key={item.id} className="row" style={{ gap: '1.6rem', padding: '1.6rem', borderBottom: 'var(--border-grey1)', width: '100%' }}>
+                <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
+                    <div className="div" style={{ gap: '1.2rem' }}>
+                        <Text className="heading-7">{item.name}</Text>
+                        <NavLink to={'/center/' + centerItem?.id} className="semibold2" style={{ color: 'var(--primary-color)' }}>
+                            {centerItem?.name ?? '-'}
+                        </NavLink>
                     </div>
-                </div>}
-            />
+                    <div className="row" style={{ gap: '1.2rem' }}>
+                        <div className="row" style={{ gap: '0.4rem' }}>
+                            <FilledClock />
+                            <Text className="subtitle-3">{item.time} phút</Text>
+                        </div>
+                        <div className="row" style={{ gap: '0.4rem' }}>
+                            <FilledBook />
+                            <Text className="subtitle-3">{item.quantityQuestion}</Text>
+                        </div>
+                        <div className="row" style={{ gap: '0.4rem' }}>
+                            <OutlineStar />
+                            <Text className="subtitle-3">0(0)</Text>
+                        </div>
+                    </div>
+                </div>
+                <NavLink to={`/education/exam/${item.id}`} className={'row button-infor border'} style={{ borderRadius: '0.8rem' }}>
+                    <Text className="button-text-3">Vào thi</Text>
+                    <FontAwesomeIcon icon={faArrowRight} />
+                </NavLink>
+            </div>
         })}
     </div >
 }

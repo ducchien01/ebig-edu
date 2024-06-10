@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from '../../../../component/export-component'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
@@ -40,17 +40,17 @@ const HomeGuest = () => {
             </div>
         </div>
         <div className="row" style={{ width: '100%', justifyContent: 'center' }}>
-            <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '3.2rem', '--gutter': '0px' }}>
+            <div className="col col24 col20-xxl col20-xl" style={{ padding: '3.2rem', gap: '2.4rem', '--gutter': '0px' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Học theo chủ đề</Text>
+                    <Text className='heading-5' maxLine={2} style={{ flex: 1 }}>Học theo chủ đề</Text>
                     <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
                 </div>
                 <ListTopic />
             </div>
         </div>
-        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
-                <Text className='heading-4' maxLine={2}>Chủ động lựa chọn loại hình lớp học</Text>
+        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '3.2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '2.4rem', padding: '0 2rem' }}>
+                <Text className='heading-5' maxLine={2}>Chủ động lựa chọn loại hình lớp học</Text>
                 <div className='row' style={{ gap: '4rem', width: '100%', alignItems: 'stretch' }}>
                     <PostCard
                         imgUrl={courseThumbnail}
@@ -79,20 +79,20 @@ const HomeGuest = () => {
                 </div>
             </div>
         </div>
-        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+        <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '3.2rem' }}>
+            <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '2.42rem', padding: '0 2rem' }}>
                 <div className='row' style={{ gap: '0.8rem' }}>
-                    <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Khoá học phổ biến nhất</Text>
+                    <Text className='heading-5' maxLine={2} style={{ flex: 1 }}>Khoá học phổ biến nhất</Text>
                     <NavLink to={'courses'} className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
                 </div>
                 <ListCommonCourse />
             </div>
         </div>
         {
-            AccountController.token() ? <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '6rem 3.2rem' }}>
-                <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '3.2rem', padding: '0 2rem' }}>
+            AccountController.token() ? <div className='row' style={{ width: '100%', justifyContent: 'center', padding: '3.2rem' }}>
+                <div className='col col16-xxl col18 col24-md col24-sm col24-min' style={{ '--gutter': '0px', gap: '2.4rem', padding: '0 2rem' }}>
                     <div className='row' style={{ gap: '0.8rem' }}>
-                        <Text className='heading-4' maxLine={2} style={{ flex: 1 }}>Bài thi thử phổ biến</Text>
+                        <Text className='heading-5' maxLine={2} style={{ flex: 1 }}>Đề thi thử phổ biến</Text>
                         <NavLink className='button-text-3' style={{ color: 'var(--primary-color)' }}>Xem tất cả</NavLink>
                     </div>
                     <ListCommonExam />

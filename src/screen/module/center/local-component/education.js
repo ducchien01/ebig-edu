@@ -1,22 +1,22 @@
-import { faEllipsisV, faEye, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight, faEllipsisV, faEye, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useRef, useState } from "react"
-import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from "../../../../../component/export-component"
-import { FilledBook, FilledClock, FilledCoins, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledSetupPreferences, FilledTrashCan, OutlineStar } from "../../../../../assets/const/icon"
-import { CourseController } from "../controller"
-import { CourseStatus } from "../da"
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from "../../../../component/export-component"
+import { FilledBook, FilledClock, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledSetupPreferences, FilledTrashCan, OutlineStar } from "../../../../assets/const/icon"
+import { CourseController } from "../../edu/course/controller"
+import { CourseStatus } from "../../edu/course/da"
 import { NavLink, useNavigate } from "react-router-dom"
-import { Ultis } from "../../../../../Utils"
-import { CourseCard } from "../../../../../project-component/card"
-import ConfigAPI from "../../../../../config/configApi"
+import { Ultis } from "../../../../Utils"
+import { CourseCard } from "../../../../project-component/card"
+import ConfigAPI from "../../../../config/configApi"
 import { useSelector } from "react-redux"
-import { CenterPermisson } from "../../../center/da"
-import PopupAddNewCourse from "./popup-add-new-course"
-import { ExamController } from "../../exam/controller"
-import { ExamStatus } from "../../exam/da"
-import PopupAddNewExam from "../../exam/local-component/popup-add-new-exam"
-import ExamManagment from "../../exam/exam"
-import QuestionManagment from "../../question/question"
+import { CenterPermisson } from "../da"
+import PopupAddNewCourse from "../../edu/course/local-component/popup-add-new-course"
+import { ExamController } from "../../edu/exam/controller"
+import { ExamStatus } from "../../edu/exam/da"
+import PopupAddNewExam from "../../edu/exam/local-component/popup-add-new-exam"
+import ExamManagment from "../../edu/exam/exam"
+import QuestionManagment from "../../edu/question/question"
 
 export default function ListCourse({ centerItem, permisson }) {
     const userInfor = useSelector((state) => state.account.data)
@@ -55,8 +55,8 @@ export default function ListCourse({ centerItem, permisson }) {
     }
 
     const getCommonExams = async () => {
-        const res = await ExamController.getListSimple({ page: 1, take: 5 })
-        // const res = await CourseController.getListSimple({ page: 1, take: 5, filter: [{ field: 'centerId', operator: '=', value: centerItem.id }] })
+        // const res = await ExamController.getListSimple({ page: 1, take: 5 })
+        const res = await ExamController.getListSimple({ page: 1, take: 5, filter: [{ field: 'centerId', operator: '=', value: centerItem.id }] })
         if (res) {
             setCommonExams(res.data)
         }
@@ -68,14 +68,10 @@ export default function ListCourse({ centerItem, permisson }) {
             clickOverlayClosePopup: true,
             style: { left: `${ev.pageX + 4}px`, top: `${ev.pageY}px` },
             content: <div className="more-action-popup col">
-                {permisson === CenterPermisson.owner || item.customerId === userInfor.id ? <button type="button" className="row"
-                    onClick={() => {
-                        navigate('/center/course/overview/' + item.id)
-                    }}
-                >
+                {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <NavLink to={'/center/course/overview/' + item.id} className="row">
                     <FilledEdit />
                     <Text className="label-4">Chỉnh sửa</Text>
-                </button> : undefined}
+                </NavLink> : undefined}
                 <button className="row" >
                     <FilledFileCopy />
                     <Text className="label-4">Nhân bản</Text>
@@ -84,7 +80,7 @@ export default function ListCourse({ centerItem, permisson }) {
                     <FilledNetworkCommunication />
                     <Text className="label-4">Chia sẻ</Text>
                 </button>
-                {permisson === CenterPermisson.owner || item.customerId === userInfor.id ? <button type="button" className="row" onClick={() => {
+                {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type="button" className="row" onClick={() => {
                     closePopup(ref)
                     showDialog({
                         ref: dialogRef,
@@ -131,7 +127,7 @@ export default function ListCourse({ centerItem, permisson }) {
     const courseInfor = (item) => {
         return <CourseCard
             key={item.id}
-            to={permisson === CenterPermisson.owner || item.customerId === userInfor.id ? `/center/course/overview/${item.id}` : `/education/course/${item.id}`}
+            to={permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? `/center/course/overview/${item.id}` : `/education/course/${item.id}`}
             style={{ '--gutter': '2.4rem' }}
             className='col col12 col24-sm col24-min'
             imgUrl={ConfigAPI.imgUrl + item.thumbnailId}
@@ -199,7 +195,7 @@ export default function ListCourse({ centerItem, permisson }) {
             ref: ref,
             style: { height: '80%', width: '80%' },
             heading: <div className="heading-6 popup-header">Kho đề thi</div>,
-            content: <ExamManagment />
+            content: <ExamManagment centerId={centerItem.id} permisson={permisson} />
         })
     }
 
@@ -208,14 +204,14 @@ export default function ListCourse({ centerItem, permisson }) {
             ref: ref,
             style: { height: '80%', width: '80%' },
             heading: <div className="heading-6 popup-header">Kho câu hỏi</div>,
-            content: <QuestionManagment />
+            content: <QuestionManagment centerId={centerItem.id} />
         })
     }
 
     useEffect(() => {
         if (centerItem) {
             getCourses(1)
-            if (permisson !== CenterPermisson.member) getMyCourses()
+            if (permisson === CenterPermisson.owner || permisson === CenterPermisson.admin) getMyCourses()
             getCommonExams()
         }
     }, [centerItem])
@@ -229,9 +225,9 @@ export default function ListCourse({ centerItem, permisson }) {
                 <button type="button" onClick={showStoreExams} className="row button-primary" style={{ padding: '0.6rem 1.2rem', borderRadius: '0.8rem' }}>
                     <Text className="button-text-3">Kho đề</Text>
                 </button>
-                <button type="button" onClick={showStoreQuestion} className="row button-grey" style={{ borderRadius: '0.8rem' }}>
+                {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type="button" onClick={showStoreQuestion} className="row button-grey" style={{ borderRadius: '0.8rem' }}>
                     <Text className="button-text-3">Kho câu hỏi</Text>
-                </button>
+                </button> : undefined}
             </div>
             <div className="col" style={{ alignItems: 'center', gap: '0.8rem' }}>
                 {
@@ -259,16 +255,17 @@ export default function ListCourse({ centerItem, permisson }) {
                                     </div>
                                 </div>
                             </div>
-                            <button className="row icon-button32" onClick={() => { navigate('/center/exam/' + item.id) }}><FilledEdit width="2rem" height="2rem" /></button>
-                            <button className="row icon-button32" onClick={() => { confirmDelete(item) }} ><FilledTrashCan width="2rem" height="2rem" /></button>
+                            {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <>
+                                <button className="row icon-button32" onClick={() => { navigate('/center/exam/' + item.id) }}><FilledEdit width="2rem" height="2rem" /></button>
+                                <button className="row icon-button32" onClick={() => { confirmDelete(item) }} ><FilledTrashCan width="2rem" height="2rem" /></button>
+                            </> : <NavLink to={`/education/exam/${item.id}`} className={'row button-infor border'} style={{ borderRadius: '0.8rem' }}>
+                                <Text className="button-text-3">Vào thi</Text>
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </NavLink>}
                         </div>
-                    }) : <>
+                    }) : <div className="row" style={{ justifyContent: 'center' }}>
                         <Text className="semibold2">Trung tâm chưa có đề thi nào.</Text>
-                        <button type="button" className="row button-primary" style={{ borderRadius: '0.8rem' }} onClick={popupAddNewExam}>
-                            <FontAwesomeIcon icon={faPlus} />
-                            <Text className="button-text-3">Tạo mới</Text>
-                        </button>
-                    </>
+                    </div>
                 }
             </div>
         </div>
@@ -285,7 +282,12 @@ export default function ListCourse({ centerItem, permisson }) {
                 </button>
             </div>
             {
-                permisson !== CenterPermisson.member ? <div className="col" style={{ padding: '1.6rem 0', borderBottom: 'var(--border-grey1)' }}>
+                myCourses.length || courses.data.length ? undefined : <div className="row" style={{ justifyContent: 'center', padding: '1.6rem' }}>
+                    <Text className="semibold2">Trung tâm chưa có khóa học nào.</Text>
+                </div>
+            }
+            {
+                permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <div className="col" style={{ padding: '1.6rem 0', borderBottom: 'var(--border-grey1)' }}>
                     <div className="row" style={{ gap: '1.6rem' }}>
                         <Text className="heading-6" style={{ flex: 1 }}>Khóa học của bạn</Text>
                         <button type="button" className="row button-primary" style={{ borderRadius: '0.8rem' }} onClick={popupAddNewCourse}>
@@ -299,7 +301,7 @@ export default function ListCourse({ centerItem, permisson }) {
                 </div> : undefined
             }
             <div className="col" style={{ paddingTop: '1.6rem' }}>
-                {permisson !== CenterPermisson.member ? <Text className="heading-6">Các khóa học khác</Text> : undefined}
+                {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <Text className="heading-6">Các khóa học khác</Text> : undefined}
                 <div className="row" style={{ padding: '1.2rem 0', gap: '2.4rem', flexWrap: 'wrap', alignItems: 'stretch' }}>
                     {courses.data.map((item, i) => courseInfor(item))}
                 </div>

@@ -28,7 +28,7 @@ import CommonTab from './local-component/common';
 import { ValidateType, validateForm } from '../../../project-component/validate';
 import CenterRegister from './local-component/register';
 import ListMember from './local-component/list-member';
-import ListCourse from '../edu/course/local-component/list-course';
+import ListCourse from './local-component/education';
 import ConfigAPI from '../../../config/configApi';
 import { uploadFiles } from '../../baseDA';
 
@@ -158,12 +158,12 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
         <div className='row' style={{ justifyContent: 'center', backgroundColor: '#fff' }}>
             <div className='col col18-xxl col18-xl col20-lg col24' style={{ '--gutter': '0px' }}>
                 <div style={{ position: 'relative' }}>
-                    <img src={centerData?.thumbnailId ? (ConfigAPI.imgUrl + centerData.thumbnailId) : GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem' }} />
-                    <button type='button' className='row edit-button' onClick={() => { filePickerRef.current.click() }}>
+                    <img src={centerData?.thumbnailId ? (ConfigAPI.imgUrl + centerData.thumbnailId) : GroupDefaultBg} alt='' style={{ width: '100%', maxHeight: '30rem', objectFit: 'cover', borderRadius: '0 0 0.8rem 0.8rem' }} />
+                    {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type='button' className='row edit-button' onClick={() => { filePickerRef.current.click() }}>
                         <input accept={'image/jpg, image/png, image/jpeg'} ref={filePickerRef} type='file' hidden onChange={pickThumbnail} />
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: '2rem', color: '#fff' }} />
                         <Text className='button-text-2' style={{ color: '#fff' }}>Chỉnh sửa</Text>
-                    </button>
+                    </button> : undefined}
                 </div>
                 <div className='col' style={{ padding: '1.6rem 2.4rem 0', gap: '0.6rem' }}>
                     <div className='row' style={{ gap: '0.4rem 0.8rem', flexWrap: 'wrap' }}>
@@ -187,10 +187,12 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
                                 })
                             }
                         </div>
-                        <button type='button' onClick={showPopupAddMember} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
+                        {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type='button' onClick={showPopupAddMember} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem' }} />
                             <Text className='button-text-3'>Mời</Text>
-                        </button>
+                        </button> : <button type='button' onClick={() => {}} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
+                            <Text className='button-text-3'>Xin vào</Text>
+                        </button>}
                         <button type="button" className="row button-grey" style={{ borderRadius: '0.8rem', padding: '0.8rem 1.6rem' }} onClick={(ev) => { }} >
                             <OutlineSharing width="2rem" height="2rem" />
                             <Text className='button-text-3'>Chia sẻ</Text>
@@ -371,28 +373,3 @@ const PopupAddMember = forwardRef(function PopupAddMember(data, ref) {
         </div>
     </div>
 })
-
-// const renderUI = () => {
-//     switch (location.pathname) {
-//         case '/center/home':
-//             return <Home />
-//         case '/center/schedule':
-//             return <EduSchedule />
-//         case '/center/students':
-//             return <EduStudent />
-//         case '/center/courses':
-//             return <SchoolCourse />
-//         case '/center/classes':
-//             return <SchoolClass />
-//         case '/center/mentors':
-//             return <SchoolMentor />
-//         case '/center/curriculum':
-//             return <CurriculumManagment />
-//         case '/center/exams':
-//             return <ExamManagment />
-//         case '/center/questions':
-//             return <QuestionManagment />
-//         default:
-//             return <Home />
-//     }
-// }

@@ -13,8 +13,9 @@ import { PostCard } from "../../../../project-component/card"
 import ConfigAPI from "../../../../config/configApi"
 import { Ultis } from "../../../../Utils"
 import { useNavigate } from "react-router-dom"
+import { CenterPermisson } from "../da"
 
-export default function CommonTab({ centerItem, userInfor }) {
+export default function CommonTab({ centerItem, userInfor, permisson }) {
     const navigate = useNavigate()
     const [centerData, setCenterData] = useState()
     const [news, setNews] = useState({ totalCount: undefined, data: [] })
@@ -119,13 +120,13 @@ export default function CommonTab({ centerItem, userInfor }) {
             </div>
             <div className="row" style={{ gap: '0.8rem', paddingTop: '0.8rem' }}>
                 <Text className='heading-6' style={{ marginTop: '0.2rem' }}>Mô tả</Text>
-                <button type="button" onClick={showPopupEditDescription} className="row icon-button28"><FontAwesomeIcon icon={faEdit} /></button>
+                {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type="button" onClick={showPopupEditDescription} className="row icon-button28"><FontAwesomeIcon icon={faEdit} /></button> : undefined}
             </div>
             {centerData.description?.length ? <Text className="regular2" showMore maxLine={4} style={{ width: '100%' }}>{centerData.description}</Text> : undefined}
         </div>
         <div className="col" style={{ gap: '3.2rem', padding: '2.4rem' }}>
-            <button type="button" onClick={() => { navigate('/center/news/create', { state: { centerId: centerItem.id } }) }} className='row' style={{ backgroundColor: '#fff', borderRadius: '1.2rem', width: 'calc(100% - 4.8rem)', margin: '0 2.4rem', gap: '1.6rem', padding: '1.6rem 2.4rem' }}>
-                <img src={userInfor.avatarUrl} alt="" style={{ width: '4.4rem', height: '4.4rem', borderRadius: '50%' }} />
+            {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type="button" onClick={() => { navigate('/center/news/create', { state: { centerId: centerItem.id } }) }} className='row' style={{ backgroundColor: '#fff', borderRadius: '1.2rem', width: 'calc(100% - 4.8rem)', margin: '0 2.4rem', gap: '1.6rem', padding: '1.6rem 2.4rem' }}>
+                <img src={userInfor?.avatarUrl} alt="" style={{ width: '4.4rem', height: '4.4rem', borderRadius: '50%' }} />
                 <TextField
                     className="regular3"
                     style={{ flex: 1, border: 'none', borderRadius: '2.4rem', height: '4.8rem', padding: '0 1.6rem', textAlign: 'start' }}
@@ -133,7 +134,7 @@ export default function CommonTab({ centerItem, userInfor }) {
                     disabled
                 />
                 <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: '2.4rem', color: '#667994' }} />
-            </button>
+            </button> : undefined}
             {news.data.map((item, i) => {
                 const itemInteractInfor = interactInfor.find(e => e.linkId === item.id)
                 const customer = customerList.find(e => e.id === item.customerId)

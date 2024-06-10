@@ -13,7 +13,7 @@ const PopupAddNewQuestion = forwardRef(function PopupAddNewQuestion(data, ref) {
 
     const onSubmit = (ev) => {
         console.log(ev)
-        QuestionController.add({ id: uuidv4(), name: ev.name.trim(), type: LessonType.examTask }).then(id => {
+        QuestionController.add({ id: uuidv4(), name: ev.name.trim(), type: LessonType.examTask, centerId: data.centerId }).then(id => {
             if(id) {
                 ToastMessage.success('Tạo mới câu hỏi thành công')
                 navigate('details/' + id)

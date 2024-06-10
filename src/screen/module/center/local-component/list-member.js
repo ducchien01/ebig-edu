@@ -154,12 +154,13 @@ export default function ListMember({ centerItem, permisson, onDelete, reloadMemb
             <button type="button" className="row icon-button40" style={{ backgroundColor: 'var(--background)', borderRadius: '0.8rem' }}>
                 <OutlineChat width="2rem" height="2rem" />
             </button>
-            {permisson !== CenterPermisson.member && per !== CenterPermisson.owner ?
-                <button onClick={(ev) => {
+            {
+                permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button onClick={(ev) => {
                     showActionOptions(ev, per, mem)
-                }} type="button" className="row icon-button40" style={{ backgroundColor: 'var(--background)', borderRadius: '0.8rem' }}>
+                }} type="button" className="row icon-button40" style={{ backgroundColor: 'var(--background)', borderRadius: '0.8rem', visibility: per === CenterPermisson.owner ? 'hidden' : 'visible' }}>
                     <FontAwesomeIcon icon={faEllipsisH} />
-                </button> : <div style={{ width: '4rem' }} />}
+                </button> : undefined
+            }
         </div>
     }
 
@@ -195,7 +196,7 @@ export default function ListMember({ centerItem, permisson, onDelete, reloadMemb
     return <div className="col" style={{ alignItems: 'center' }}>
         <Popup ref={ref} />
         <div className='col' style={{ padding: '2.4rem', margin: '2.4rem 0', backgroundColor: '#fff', borderRadius: '0.8rem', width: 'calc(100% - 11.2rem)', minWidth: '56rem', gap: '0.8rem' }}>
-        <div className="row" style={{ gap: '1.6rem' }}>
+            <div className="row" style={{ gap: '1.6rem' }}>
                 <TextField
                     style={{ backgroundColor: 'var(--background)', height: '4rem', flex: 1, maxWidth: '40rem' }}
                     prefix={<FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.4rem', color: '#667994', marginTop: '0.1rem' }} />}

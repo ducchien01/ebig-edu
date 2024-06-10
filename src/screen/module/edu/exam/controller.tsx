@@ -21,7 +21,7 @@ export class ExamController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + 'ExamAuth/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response
+                return response as { totalCount: number, data: Array<ExamItem> }
             } else {
                 ToastMessage.errors(response.message)
             }

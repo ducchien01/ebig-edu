@@ -63,6 +63,12 @@ div:has(table) {
     right: 1rem;
 }
 
+.main-layout:has(.flex-view),
+.main-layout-body:has(.flex-view) {
+    overflow: hidden;
+    height: 100%;
+}
+
 @media only screen and (max-width: 576px) {
 
     .main-layout {

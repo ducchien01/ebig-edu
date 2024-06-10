@@ -11,8 +11,7 @@ import PopupAddNewQuestion from "./local-component/popup-add-new-question";
 import { Ultis } from "../../../../Utils";
 import { useSelector } from "react-redux";
 
-export default function QuestionManagment() {
-    const userInfor = useSelector((state) => state.account.data)
+export default function QuestionManagment({ centerId }) {
     const ref = useRef()
     const dialogRef = useRef()
     const navigate = useNavigate()
@@ -23,12 +22,12 @@ export default function QuestionManagment() {
         showPopup({
             ref: ref,
             heading: <div className='popup-header heading-7'>Tạo mới câu hỏi</div>,
-            content: <PopupAddNewQuestion ref={ref} />,
+            content: <PopupAddNewQuestion ref={ref} centerId={centerId} />,
         })
     }
 
     const getData = async (page, size) => {
-        const res = await QuestionController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }, { field: 'customerId', operator: '=', value: userInfor.id }] })
+        const res = await QuestionController.getListSimple({ page: page ?? pageDetails.page, take: size ?? pageDetails.size, filter: [{ field: 'type', operator: '=', value: LessonType.examTask }, { field: 'centerId', operator: '=', value: centerId }] })
         if (res) {
             setData({
                 ...res, data: res.data.map(e => {
@@ -79,7 +78,7 @@ export default function QuestionManagment() {
                 <Text className="button-text-3" style={{ color: '#ffffff' }}>Tạo mới</Text>
             </button>
         </div>
-        <div className="col" style={{ flex: 1, height: '100%', overflow: 'auto' }}>
+        {data?.data?.length ? <><div className="col" style={{ flex: 1, height: '100%', overflow: 'auto' }}>
             <Table>
                 <TbHeader>
                     <TbCell fixed={true} style={{ minWidth: '5rem' }}>STT</TbCell>
@@ -127,23 +126,25 @@ export default function QuestionManagment() {
                 </TbBody>
             </Table>
         </div>
-        <div className="row">
-            <Pagination
-                /// Size
-                currentPage={pageDetails.page}
-                /// pageSize
-                itemPerPage={pageDetails.size}
-                // data.total
-                totalItem={data?.totalCount}
-                /// action
-                onChangePage={(page, size) => {
-                    if (pageDetails.page !== page || pageDetails.size !== size) {
-                        setPageDetails({ page: page, size: size });
-                        getData(page, size)
-                    }
-                }}
-            />
-        </div>
+            <div className="row">
+                <Pagination
+                    /// Size
+                    currentPage={pageDetails.page}
+                    /// pageSize
+                    itemPerPage={pageDetails.size}
+                    // data.total
+                    totalItem={data?.totalCount}
+                    /// action
+                    onChangePage={(page, size) => {
+                        if (pageDetails.page !== page || pageDetails.size !== size) {
+                            setPageDetails({ page: page, size: size });
+                            getData(page, size)
+                        }
+                    }}
+                />
+            </div></> : <div className="row" style={{ flex: 1, justifyContent: 'center' }}>
+                <Text className="semibold3">Kho câu hỏi của trung tâm đang trống</Text>
+                </div>}
     </div>
 }
 

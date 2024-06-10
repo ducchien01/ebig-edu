@@ -40,12 +40,7 @@ export function Pagination({ currentPage, itemPerPage, totalItem, onChangePage, 
                         pageCount={Math.ceil(totalItem / itemPerPage)}
                         previousLabel="Previous"
                         containerClassName="pagination row"
-                        pageClassName=""
-                        pageLinkClassName="nav-link"
-                        previousClassName="nav-link"
-                        previousLinkClassName="nav-link"
-                        nextClassName="nav-link regular2"
-                        nextLinkClassName="nav-link"
+                        nextClassName="regular2"
                         activeClassName="active"
                         hrefBuilder={(page, pageCount, selected) =>
                             page >= 1 && page <= pageCount ? `/page/${page}` : '#'

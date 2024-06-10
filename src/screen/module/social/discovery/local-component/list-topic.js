@@ -11,13 +11,13 @@ export default function ListTopic() {
         })
     }, [])
 
-    return <div className='row' style={{ flexWrap: 'wrap', gap: '3.2rem 4rem', width: '100%', alignItems: 'stretch' }}>
+    return <div className='row' style={{ flexWrap: 'wrap', gap: '3.2rem', width: '100%', alignItems: 'stretch' }}>
         {data.map((item, i) => {
             return <PostCard
                 key={'topic-' + i}
                 className={`col col6 ${i < 8 ? i < 6 ? 'col6-md col8-sm col8-min' : 'col6-md col0-sm col0-min' : "col0-md col0-sm col0-min"}`}
                 to={`courses?topicId=${item.id}`}
-                style={{ '--gutter': '4rem', gap: '2rem' }}
+                style={{ '--gutter': '3.2rem', gap: '2rem' }}
                 imgUrl={topicThumnailDemo}
                 imgStyle={{ height: '20rem' }}
                 title={item.name}

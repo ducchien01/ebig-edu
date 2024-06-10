@@ -123,7 +123,7 @@ export default function ViewTesting() {
         })
     }, [])
 
-    return <div className="col testing-view" style={{ flex: 1, height: '100%', width: '100%', backgroundColor: '#fff' }}>
+    return <div className="col flex-view" style={{ flex: 1, height: '100%', width: '100%', backgroundColor: '#fff' }}>
         <Dialog ref={dialogRef} />
         <div className='details-view-header row' style={{ width: '100%', padding: '2rem max(2.4rem, 4%)' }}>
             <Text className='heading-5' style={{ flex: 1 }}>{data?.name}</Text>

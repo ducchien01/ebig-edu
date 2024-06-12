@@ -9,7 +9,7 @@ export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, 
         <div className="col" style={{ gap: '0.8rem', flex: 1 }}>
             {heading}
             {title && typeof title === 'string' ? <NavLink to={to}>
-                <Text maxLine={2} className="heading-6" style={{ width: '100%' }}>{title}</Text>
+                <Text maxLine={2} className="heading-7" style={{ width: '100%' }}>{title}</Text>
             </NavLink> : title}
             {content && typeof content === 'string' ? <Text maxLine={3} className="body-2" style={{ width: '100%' }}>{content}</Text> : content}
             <div style={{ flex: 1 }} />

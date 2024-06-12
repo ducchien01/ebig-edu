@@ -53,18 +53,18 @@ export default function CustomerPage() {
     return <div className="col" style={{ position: 'relative' }}>
         <div className="col hero-header" style={{ position: 'absolute', top: `max(-${height}, -22.4rem)`, left: 0, right: 0, gap: '2.4rem' }}>
             <img src={expertBg} alt="" style={{ width: '100%', height: '20rem' }} />
-            <div className="row filter-news-container" style={{ padding: '0 2rem', zIndex: 2 }}>
+            <div className="row filter-container" style={{ padding: '0 2rem', zIndex: 2 }}>
                 <div className="row" style={{ gap: '1.6rem', borderBottom: '1px inset #00358014', backgroundColor: '#ffffff' }}>
-                    <div className={`filter-news-tab ${selectedTab === 0 ? 'selected' : ''}`} onClick={() => { setSelectedTab(0) }}>
+                    <div className={`filter-tab ${selectedTab === 0 ? 'selected' : ''}`} onClick={() => { setSelectedTab(0) }}>
                         <Text className="label-4">Bài viết</Text>
                     </div>
-                    <div className={`filter-news-tab ${selectedTab === 1 ? 'selected' : ''}`} onClick={() => { setSelectedTab(1) }}>
+                    <div className={`filter-tab ${selectedTab === 1 ? 'selected' : ''}`} onClick={() => { setSelectedTab(1) }}>
                         <Text className="label-4">Danh mục bài viết</Text>
                     </div>
-                    <div className={`filter-news-tab ${selectedTab === 2 ? 'selected' : ''}`} onClick={() => { setSelectedTab(2) }}>
+                    <div className={`filter-tab ${selectedTab === 2 ? 'selected' : ''}`} onClick={() => { setSelectedTab(2) }}>
                         <Text className="label-4">Danh sách khóa học</Text>
                     </div>
-                    {userInfor?.id === id ? <div className={`filter-news-tab ${selectedTab === 3 ? 'selected' : ''}`} onClick={() => { setSelectedTab(3) }}>
+                    {userInfor?.id === id ? <div className={`filter-tab ${selectedTab === 3 ? 'selected' : ''}`} onClick={() => { setSelectedTab(3) }}>
                         <Text className="label-4">Nháp</Text>
                     </div> : null}
                 </div>

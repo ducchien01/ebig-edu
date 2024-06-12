@@ -63,4 +63,21 @@ export class CustomerController {
         }
         return null
     }
+
+    static edit = async (customerItem: UserInforItem) => {
+        const response = await postData(ConfigAPI.ebigUrl + 'CustomerAuth/Action?action=edit', {
+            data: {
+                id: customerItem.id,
+                data: [customerItem]
+            }
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
 }

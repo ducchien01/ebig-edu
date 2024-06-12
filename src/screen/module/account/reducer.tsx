@@ -24,6 +24,9 @@ export const accountSlice = createSlice({
                 case 'GETINFOR':
                     state.data = action.payload.data
                     break;
+                case 'UPDATE':
+                    state.data = action.payload.data
+                    break;
                 case 'LOGOUT':
                     state.data = undefined
                     state.onLoading = false
@@ -61,6 +64,18 @@ export class AccountActions {
                 dispatch(handleActions({
                     type: 'GETINFOR',
                     data: res,
+                }))
+            }
+        })
+    }
+
+    static update = (dispatch: Dispatch<UnknownAction>, userInfor: UserInforItem) => {
+        dispatch(onFetching())
+        CustomerController.edit(userInfor).then(res => {
+            if (res) {
+                dispatch(handleActions({
+                    type: 'UPDATE',
+                    data: userInfor,
                 }))
             }
         })

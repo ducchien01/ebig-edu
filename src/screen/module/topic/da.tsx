@@ -8,10 +8,10 @@ export interface TopicItem {
     score?: number,
     totalPosts?: number,
     totalFollowers?: number,
-    isDeleted?: true,
     isActive?: true,
     dateActive?: number,
     userActive?: string,
     customerId?: string,
-    type?: number
+    type?: number,
+    countNews?: number
 }

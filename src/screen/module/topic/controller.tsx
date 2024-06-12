@@ -1,7 +1,7 @@
 import { ToastMessage } from "../../../component/export-component"
 import ConfigAPI from "../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../base-controller"
-import { postData } from "../../baseDA"
+import { getData, postData } from "../../baseDA"
 import { AccountController } from "../account/controller"
 import { TopicItem } from "./da"
 
@@ -22,7 +22,7 @@ export class TopicController {
         const response = await getListSimpleBase(ConfigAPI.ebigUrl + (AccountController.token() ? 'TopicAuth' : 'Topic') + '/GetListSimpleByRequestBase', params)
         if (response) {
             if (response.code === 200) {
-                return response as {totalCount: number, data: Array<TopicItem>}
+                return response as { totalCount: number, data: Array<TopicItem> }
             } else {
                 ToastMessage.errors(response.message)
             }
@@ -48,7 +48,33 @@ export class TopicController {
         })
         if (response) {
             if (response.code === 200) {
-                return response.data as TopicItem
+                return response.data as Array<TopicItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getByParentIds = async (ids: Array<string>) => {
+        const response = await postData(ConfigAPI.ebigUrl + `TopicAuth/ListItembyParentIds`, {
+            data: ids ?? []
+        })
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<TopicItem>
+            } else {
+                ToastMessage.errors(response.message)
+            }
+        }
+        return null
+    }
+
+    static getFields = async () => {
+        const response = await getData(ConfigAPI.ebigUrl + 'TopicAuth/GetField')
+        if (response) {
+            if (response.code === 200) {
+                return response.data as Array<TopicItem>
             } else {
                 ToastMessage.errors(response.message)
             }

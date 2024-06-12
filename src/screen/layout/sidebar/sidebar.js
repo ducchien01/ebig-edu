@@ -50,6 +50,6 @@ export default function SideBar({ menu = [] }) {
                 </button>
             })}
         </div>
-        {AccountController.token() ? <button type='button' onClick={dialogLogout}><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button> : null}
+        {/* {AccountController.token() ? <button type='button' onClick={dialogLogout}><OutlineCircleArrowLeft width={"2.4rem"} height={"2.4rem"} /></button> : null} */}
     </div>
 }

@@ -29,7 +29,7 @@
     width: min(max(20%, 30rem), 36.6rem);
     min-width: 30rem;
     max-width: 36.6rem;
-    padding: 3.2rem 1.6rem 2.4rem;
+    padding: 1.6rem;
     gap: 2.4rem;
     border-right: var(--border-grey1);
 }

@@ -10,6 +10,7 @@ export interface UserInforItem {
     userName?: string,
     gender?: true,
     birthday?: number,
+    listTopic?: string,
     address?: string,
     email?: string,
     peoplesIdentity?: string,

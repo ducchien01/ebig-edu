@@ -42,7 +42,7 @@
 }
 
 .body-sidebar {
-    left: 8.1rem;
+    left: 8rem;
     margin-left: calc(0px - min(max(20%, 30rem), 36.6rem));
     transition: margin-left ease-in-out 0.8s;
     -webkit-transition: margin-left ease-in-out 0.8s;

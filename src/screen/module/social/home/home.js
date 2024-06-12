@@ -15,6 +15,7 @@ import PopupLogin from "../../account/popup-login"
 import CustomerPage from "./local-component/customer-page"
 import { useSelector } from "react-redux"
 import { tab } from "@testing-library/user-event/dist/tab"
+import { uuidRegex } from "../../../../assets/const/const-list"
 
 export default function SocialHome({ customerPage = false }) {
     const { id } = useParams()
@@ -71,10 +72,10 @@ export default function SocialHome({ customerPage = false }) {
             </div>
             <SidebarActions />
         </div>
-        <div style={{ float: 'right' }}>
-            {id?.match(/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/g) ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
+        <div style={{ float: 'right', paddingRight: `var(${document.body})` }}>
+            {id?.match(uuidRegex) ? customerPage ? <CustomerPage /> : <NewsDetails id={id} isLogin={isLogin} /> : <HomeNewsInfor isLogin={isLogin} />}
         </div>
-    </div> : <div />
+    </div> : <div/>
 }
 
 const HomeNewsInfor = ({ isLogin = false }) => {

@@ -43,7 +43,7 @@ div:has(table) {
 
 .main-layout>.main-layout-body>.view {
     float: right;
-    width: calc(100% - 8.1rem);
+    width: calc(100% - 8rem);
     height: 100%;
 }
 

@@ -21,7 +21,7 @@
     border-left: var(--border-grey1);
     padding: 3.2rem;
     gap: 4rem;
-    width: min(max(24%, 28rem), 44rem);
+    width: min(max(calc(100% - 8rem) * 24 / 100, 28rem), 44rem);
     background-color: #fff;
     height: calc(100% - 6rem);
     margin-right: 1.4rem;
@@ -29,7 +29,7 @@
 }
 
 div:has(> .additional-infor-view) {
-    padding-right: calc(min(max(24%, 28rem), 44rem) + 1.4rem);
+    padding-right: calc(min(max(24%, 28rem), 44rem) + 0.4rem);
 }
 
 .filter-news-container {
@@ -72,6 +72,6 @@ div:has(> .additional-infor-view) {
     }
 
     div:has(> .additional-infor-view) {
-        padding-right: 0;
+        padding-right: 0 !important;
     }
 }

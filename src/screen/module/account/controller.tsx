@@ -5,6 +5,7 @@ import { postData } from "../../baseDA";
 import { ToastMessage } from "../../../component/export-component";
 import { CustomerController } from "../customer/controller";
 import { BaseDA } from "../../../da/baseDA";
+import { showLoginPopup } from "../../layout/main-layout";
 
 const setToken = (txt: string) => Ultis.setStorage('token', txt)
 const setTimeRefresh = () => {
@@ -29,7 +30,8 @@ export class AccountController {
         } else if (response.code === 404) {
             ToastMessage.errors('Phiên đăng nhập của bạn đã hết hạn')
             Ultis.clearStorage()
-            window.location.reload()
+            // window.location.reload()
+            showLoginPopup()
         } else {
             ToastMessage.errors(response.message)
         }

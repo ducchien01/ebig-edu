@@ -9,7 +9,6 @@ import ConfigAPI from "../../../../config/configApi";
 import { ClassController } from "../class/controller";
 import { MentorController } from "../mentor/controller";
 import { AccountController } from "../../account/controller";
-import PopupLogin from "../../account/popup-login";
 import { InforCard } from "../../../../project-component/card";
 import { OrderType } from "../../ecom/order/da";
 import { RatingController } from "../rating/controller";
@@ -21,6 +20,7 @@ import CourseRatingTab from "./local-component/rating-tab";
 import { CustomerLessonController } from "../customer-lesson/controller";
 import PopupListClass from "../class/local-component/popup-list-class";
 import { useSelector } from "react-redux";
+import { showLoginPopup } from "../../../layout/main-layout";
 
 export default function ViewCourseDetails() {
     const ref = useRef()
@@ -126,10 +126,7 @@ export default function ViewCourseDetails() {
                 }
             })
         } else {
-            showPopup({
-                ref: ref,
-                content: <PopupLogin ref={ref} />
-            })
+            showLoginPopup()
         }
     }
 

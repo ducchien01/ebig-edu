@@ -1,25 +1,24 @@
 import { FilledSEdit } from "../../../../assets/const/icon"
-import { Popup, Text, TextField, showPopup } from "../../../../component/export-component"
+import { Text, TextField } from "../../../../component/export-component"
 import { AccountController } from "../../account/controller"
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import './home.css'
 import ListNews from "./local-component/list-news"
 import NewsDetails from "../new/news-details"
 import SidebarActions from "../../../layout/sidebar/sidebar-actions"
-import PopupLogin from "../../account/popup-login"
 import CustomerPage from "./local-component/customer-page"
 import { useSelector } from "react-redux"
 import { uuidRegex } from "../../../../assets/const/const-list"
 import RightSidebar from "./local-component/right-sidebar"
+import { showLoginPopup } from "../../../layout/main-layout"
 
 export default function SocialHome({ customerPage = false }) {
     const { id } = useParams()
     const location = useLocation()
     const navigate = useNavigate()
-    const ref = useRef()
     const isLogin = AccountController.token()
     const userInfor = useSelector((state) => state.account.data)
     const [selectedTab, setSelectedTab] = useState()
@@ -33,7 +32,6 @@ export default function SocialHome({ customerPage = false }) {
     }, [location.pathname, userInfor])
 
     return selectedTab != undefined ? <div>
-        <Popup ref={ref} />
         <div className="col body-sidebar" >
             <TextField
                 prefix={<FontAwesomeIcon icon={faSearch} />}
@@ -47,10 +45,7 @@ export default function SocialHome({ customerPage = false }) {
                     if (isLogin) {
                         navigate('/social/news/create')
                     } else {
-                        showPopup({
-                            ref: ref,
-                            content: <PopupLogin ref={ref} />
-                        })
+                        showLoginPopup()
                     }
                 }} className="row button-infor" style={{ backgroundColor: 'transparent' }}>
                     <FilledSEdit width="1.4rem" height="1.4rem" color="#366AE2" />

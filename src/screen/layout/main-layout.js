@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { createRef, useRef, useState } from 'react';
 import { useEffect } from 'react'
 import './main-layout.css'
 import { extendView } from '../../assets/const/const-list';
@@ -9,12 +9,16 @@ import SideBar from './sidebar/sidebar';
 import { AccountActions } from '../module/account/reducer';
 import { useDispatch } from 'react-redux';
 import { AccountController } from '../module/account/controller';
+import { Popup, showPopup } from '../../component/export-component';
+import PopupLogin from '../module/account/popup-login';
 
+const loginPopupRef = createRef()
 export default function MainLayout({ menu = [] }) {
     const [modules, setModules] = useState([])
     const dispatch = useDispatch()
     const location = useLocation()
     const ref = useRef()
+    const loginRef = useRef()
 
     useEffect(() => {
         if (AccountController.token()) {
@@ -27,11 +31,23 @@ export default function MainLayout({ menu = [] }) {
     }, [menu])
 
     useEffect(() => {
+        loginPopupRef.current = {
+            loginPopup: () => {
+                showPopup({
+                    ref: loginRef,
+                    content: <PopupLogin ref={loginRef} />
+                })
+            }
+        }
+    }, [])
+
+    useEffect(() => {
         if (ref.current)
             ref.current.scrollTo(0, 0)
     }, [location.pathname])
 
     return <div id='main-layout' className="main-layout col">
+        <Popup ref={loginRef} />
         <HeaderView />
         <div ref={ref} className='main-layout-body'>
             <SideBar menu={modules} />
@@ -57,4 +73,9 @@ export default function MainLayout({ menu = [] }) {
             </div>
         </div>
     </div>
+}
+
+export const showLoginPopup = () => {
+    if (loginPopupRef.current?.loginPopup)
+        loginPopupRef.current.loginPopup()
 }

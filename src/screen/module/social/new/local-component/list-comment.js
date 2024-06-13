@@ -1,19 +1,18 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { RatingController } from "../../../edu/rating/controller"
-import { Pagination, Popup, Rating, Text, TextArea, showPopup } from "../../../../../component/export-component"
+import { Pagination, Rating, Text, TextArea } from "../../../../../component/export-component"
 import { CustomerController } from "../../../customer/controller"
 import { useForm } from "react-hook-form"
 import { Ultis } from "../../../../../Utils"
 import { OutlineChat, OutlineHeart } from "../../../../../assets/const/icon"
 import { LikeController } from "../../../like/controller"
 import { useSelector } from "react-redux"
-import PopupLogin from "../../../account/popup-login"
+import { showLoginPopup } from "../../../../layout/main-layout"
 
 export default function ListComment({ rating = false }) {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })
     const { id } = useParams()
-    const ref = useRef()
     const userInfor = useSelector((state) => state.account.data)
     const [pageDetails, setPageDetails] = useState({ page: 1, size: 10 });
     const [data, setData] = useState()
@@ -34,28 +33,21 @@ export default function ListComment({ rating = false }) {
     }
 
     const sendRating = async (ev) => {
-        if (userInfor) {
-            const newRating = {
-                ...ev,
-                dateCreated: (new Date()).getTime(),
-                customerId: userInfor.id,
-                linkId: id,
+        const newRating = {
+            ...ev,
+            dateCreated: (new Date()).getTime(),
+            customerId: userInfor?.id,
+            linkId: id,
+        }
+        const newId = await RatingController.add(newRating)
+        if (newId) {
+            newRating.id = newId
+            if (rating) {
+                setMyRating(newRating)
+            } else {
+                getListCommnet()
+                methods.reset()
             }
-            const newId = await RatingController.add(newRating)
-            if (newId) {
-                newRating.id = newId
-                if (rating) {
-                    setMyRating(newRating)
-                } else {
-                    getListCommnet()
-                    methods.reset()
-                }
-            }
-        } else {
-            showPopup({
-                ref: ref,
-                content: <PopupLogin ref={ref} />
-            })
         }
     }
 
@@ -69,7 +61,6 @@ export default function ListComment({ rating = false }) {
     }, [userInfor])
 
     return <div className="col" style={{ gap: '2.4rem' }}>
-        <Popup ref={ref} />
         {myRating ?
             <RatingCard ratingItem={myRating} customer={userInfor} isRating={rating} showDivider={false} user={userInfor} /> :
             <form className="col" style={{ gap: '1.2rem' }}>

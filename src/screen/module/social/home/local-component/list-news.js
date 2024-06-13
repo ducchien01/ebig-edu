@@ -116,7 +116,9 @@ export default function ListNews({ isLogin = false }) {
         if (isLogin && userInfor?.listTopic?.length) {
             const _topicIds = userInfor.listTopic.split(',')
             TopicController.getByIds(_topicIds).then(res => {
-                if (res) setFollowTopics(res)
+                if (res) {
+                    setFollowTopics(res)
+                }
             })
         }
     }, [isLogin, userInfor])
@@ -170,7 +172,9 @@ export default function ListNews({ isLogin = false }) {
                                     <Text className="label-4">Đang theo dõi</Text>
                                 </button>
                                 {followTopics.map((item, i) => {
-                                    return <button key={'tab-' + i} className={`filter-tab ${filterTab === item.id ? 'selected' : ''}`} onClick={() => { setFilterTab(item.id) }}>
+                                    return <button key={item.id} className={`filter-tab ${filterTab === item.id ? 'selected' : ''}`} onClick={() => {
+                                        setFilterTab(item.id)
+                                    }}>
                                         <Text className="label-4">{item.name}</Text>
                                     </button>
                                 })}
@@ -191,7 +195,7 @@ export default function ListNews({ isLogin = false }) {
                                 key={'new-' + i}
                                 className="row"
                                 style={{ gap: '4rem', alignItems: 'start' }}
-                                to={`social/news/${item.id}`}
+                                to={`/social/news/${item.id}`}
                                 imgUrl={ConfigAPI.imgUrl + item.pictureId}
                                 imgStyle={{ width: '16.2rem', height: '16.2rem' }}
                                 heading={<div className="row" style={{ gap: '0.8rem', maxWidth: '100%', width: 'fit-content' }}>

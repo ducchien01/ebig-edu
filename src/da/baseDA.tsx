@@ -1,4 +1,5 @@
 import { ToastMessage } from "../component/export-component";
+import { showLoginPopup } from "../screen/layout/main-layout";
 import { AccountController } from "../screen/module/account/controller";
 
 export interface ObjWithKnownKeys {
@@ -18,7 +19,7 @@ export class BaseDA {
                 return jsonData
             } else if (response.status === 401) {
                 ToastMessage.errors('Không có quyền truy cập')
-                setTimeout(AccountController.logout, 1000)
+                showLoginPopup()
             } else {
                 const txt = await response.text()
                 console.error("Failed to POST data:", txt);

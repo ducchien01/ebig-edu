@@ -12,29 +12,18 @@ export default function CustomerPage() {
     const userInfor = useSelector((state) => state.account.data)
     const [customer, setCustomer] = useState()
     const [selectedTab, setSelectedTab] = useState(0)
-    const [height, setHeight] = useState(0)
+    const [fixedTabbar, setFixedTabbar] = useState()
 
     const renderUI = () => {
         switch (selectedTab) {
             case 0:
-                return <ListCustomerNews
-                    customer={customer}
-                    onScroll={(ev) => {
-                        setHeight(ev.target.scrollTop + 'px')
-                    }}
-                />;
+                return <ListCustomerNews customer={customer} />;
             case 1:
                 return <></>;
             case 2:
                 return <></>;
             case 3:
-                return <ListCustomerNews
-                    customer={customer}
-                    onScroll={(ev) => {
-                        setHeight(ev.target.scrollTop + 'px')
-                    }}
-                    newStatus={NewStatus.draft}
-                />;
+                return <ListCustomerNews customer={customer} newStatus={NewStatus.draft} />;
             default:
                 break;
         }
@@ -50,23 +39,42 @@ export default function CustomerPage() {
         }
     }, [])
 
-    return <div className="col" style={{ position: 'relative' }}>
-        <div className="col hero-header" style={{ position: 'absolute', top: `max(-${height}, -22.4rem)`, left: 0, right: 0, gap: '2.4rem' }}>
+    useEffect(() => {
+        const handleScroll = () => {
+            let _tabbar = document.getElementById('handle-tabbar-customer-page')
+            if (!_tabbar) {
+                document.body.querySelector('.main-layout').removeEventListener('scroll', handleScroll)
+                return
+            }
+            _tabbar = _tabbar.getBoundingClientRect()
+            const _header = document.body.querySelector('.header').getBoundingClientRect()
+            if (_tabbar.y < _header.height) {
+                setFixedTabbar({ position: 'fixed', top: _header.height, width: _tabbar.width, zIndex: 2 })
+            } else if (_tabbar.y >= _header.height) {
+                setFixedTabbar(undefined)
+            }
+        }
+        document.body.querySelector('.main-layout').addEventListener('scroll', handleScroll)
+    }, [])
+
+    return <div className="col">
+        <div className="col hero-header">
             <img src={expertBg} alt="" style={{ width: '100%', height: '20rem' }} />
-            <div className="row filter-container" style={{ padding: '0 2rem', zIndex: 2 }}>
-                <div className="row" style={{ gap: '1.6rem', borderBottom: '1px inset #00358014', backgroundColor: '#ffffff' }}>
-                    <div className={`filter-tab ${selectedTab === 0 ? 'selected' : ''}`} onClick={() => { setSelectedTab(0) }}>
-                        <Text className="label-4">Bài viết</Text>
+            <div id='handle-tabbar-customer-page' style={{ height: '6rem' }}>
+                <div className='row' style={{ justifyContent: 'center', backgroundColor: '#fff', ...(fixedTabbar ?? {}) }}>
+                    <div className="row filter-container col24 col20-xxl">
+                        <div className="row">
+                            <button className={`filter-tab ${selectedTab === 0 ? 'selected' : ''}`} onClick={() => { setSelectedTab(0) }}>
+                                <Text className="label-4">Bài viết</Text>
+                            </button>
+                            <button className={`filter-tab ${selectedTab === 1 ? 'selected' : ''}`} onClick={() => { setSelectedTab(1) }}>
+                                <Text className="label-4">Danh mục bài viết</Text>
+                            </button>
+                            {userInfor?.id === id ? <button className={`filter-tab ${selectedTab === 2 ? 'selected' : ''}`} onClick={() => { setSelectedTab(2) }}>
+                                <Text className="label-4">Nháp</Text>
+                            </button> : undefined}
+                        </div>
                     </div>
-                    <div className={`filter-tab ${selectedTab === 1 ? 'selected' : ''}`} onClick={() => { setSelectedTab(1) }}>
-                        <Text className="label-4">Danh mục bài viết</Text>
-                    </div>
-                    <div className={`filter-tab ${selectedTab === 2 ? 'selected' : ''}`} onClick={() => { setSelectedTab(2) }}>
-                        <Text className="label-4">Danh sách khóa học</Text>
-                    </div>
-                    {userInfor?.id === id ? <div className={`filter-tab ${selectedTab === 3 ? 'selected' : ''}`} onClick={() => { setSelectedTab(3) }}>
-                        <Text className="label-4">Nháp</Text>
-                    </div> : null}
                 </div>
             </div>
         </div>

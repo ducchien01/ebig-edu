@@ -8,7 +8,6 @@ import { Ultis } from "../../../../../Utils"
 import { OutlineChat, OutlineHeart } from "../../../../../assets/const/icon"
 import { LikeController } from "../../../like/controller"
 import { useSelector } from "react-redux"
-import { showLoginPopup } from "../../../../layout/main-layout"
 
 export default function ListComment({ rating = false }) {
     const methods = useForm({ defaultValues: { message: '', value: 0 } })

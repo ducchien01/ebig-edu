@@ -262,9 +262,9 @@ const PopupAddMember = forwardRef(function PopupAddMember(data, ref) {
         const _mail = methods.getValues('mail').trim()
         const newCustomerCenters = []
         if (valid && _mail.length && emails.every(e => e.email !== _mail)) {
-            const ids = await CustomerController.getIDByEmail(_mail)
-            if (ids?.length) {
-                const _newMember = await CustomerController.getById(ids[0])
+            const id = await CustomerController.getIDByEmail(_mail)
+            if (id?.length) {
+                const _newMember = await CustomerController.getById(id)
                 if (_newMember.customerCenters?.some(el => el.centerId === data.centerId)) {
                     setLoading(false)
                     ToastMessage.errors(_mail + ' đã là thành viên trong trung tâm')

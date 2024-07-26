@@ -15,12 +15,12 @@ div:has(table) {
 ::-webkit-scrollbar-thumb {
     border-radius: 0.4rem;
     background-color: #c1c1c1;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 
-/* ::-webkit-scrollbar-thumb:hover {
+*:hover::-webkit-scrollbar-thumb {
     visibility: visible;
-} */
+}
 
 .main-layout::-webkit-scrollbar {
     width: 1.2rem;

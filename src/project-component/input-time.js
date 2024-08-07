@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
-import { Popup, Text, TextField, closePopup, showPopup } from "../component/export-component"
+import { Popup, Text, TextField, closePopup, showPopup } from "wini-web-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClock } from "@fortawesome/free-solid-svg-icons"
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { CustomerController } from "../../../customer/controller"
 import expertBg from '../../../../../assets/expert-bg.png'
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import ListCustomerNews from "./list-customer-news"
 import { NewStatus } from "../../new/da"
 import { useSelector } from "react-redux"

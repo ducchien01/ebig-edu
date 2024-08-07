@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
-import { CellAlignItems, Checkbox, Pagination, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, closePopup } from "../../../../../component/export-component";
+import { CellAlignItems, Checkbox, Pagination, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, closePopup } from "wini-web-components";
 import { FilledSetupPreferences } from "../../../../../assets/const/icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";

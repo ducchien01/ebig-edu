@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
-import { Text } from "../../../../../component/export-component";
+import { Text } from "wini-web-components";
 import { TopicController } from "../../../topic/controller";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";

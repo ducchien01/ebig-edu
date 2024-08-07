@@ -5,7 +5,7 @@ import { CheckboxForm, ImportFileForm, RadioButtonForm, TextAreaForm, TextFieldF
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { uuidv4 } from "../../../../../Utils";
-import { Text, closePopup } from "../../../../../component/export-component";
+import { Text, closePopup } from "wini-web-components";
 import { uploadFiles } from "../../../../baseDA";
 import ConfigAPI from "../../../../../config/configApi";
 

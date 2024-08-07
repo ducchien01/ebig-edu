@@ -1,7 +1,7 @@
 import { faArrowRight, faEllipsisV, faEye, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useRef, useState } from "react"
-import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from "../../../../component/export-component"
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from "wini-web-components"
 import { FilledBook, FilledClock, FilledEdit, FilledFileCopy, FilledNetworkCommunication, FilledPeople, FilledSetupPreferences, FilledTrashCan, OutlineStar } from "../../../../assets/const/icon"
 import { CourseController } from "../../edu/course/controller"
 import { CourseStatus } from "../../edu/course/da"

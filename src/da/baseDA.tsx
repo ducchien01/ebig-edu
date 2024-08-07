@@ -1,4 +1,4 @@
-import { ToastMessage } from "../component/export-component";
+import { ToastMessage } from "wini-web-components";
 import { showLoginPopup } from "../screen/layout/main-layout";
 import { AccountController } from "../screen/module/account/controller";
 

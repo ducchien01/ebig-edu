@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import avatarDemo2 from '../../../../../assets/demo-avatar2.png';
-import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from '../../../../../component/export-component';
+import { CellAlignItems, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from 'wini-web-components';
 import demoAvatar from '../../../../../assets/demo-avatar1.png'
 
 export default function MentorList() {

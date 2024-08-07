@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Checkbox, ComponentStatus, Dialog, DialogAlignment, RadioButton, Text, showDialog } from "../../../../../component/export-component"
+import { Checkbox, ComponentStatus, Dialog, DialogAlignment, RadioButton, Text, showDialog } from "wini-web-components"
 import { FilledEdit, FilledIndicator, FilledTrashCan } from "../../../../../assets/const/icon"
 import { QuestionType } from "../da"
 import ConfigAPI from "../../../../../config/configApi"

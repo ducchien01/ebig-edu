@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form"
 import { TopicController } from "../../../topic/controller"
 import { TagController } from "../../../tag/controller"
 import { Ultis } from "../../../../../Utils"
-import { CalendarType, DatePicker, ToastMessage } from "../../../../../component/export-component"
+import { CalendarType, DatePicker, ToastMessage } from "wini-web-components"
 
 export default function SettingsExam() {
     const { id } = useParams()

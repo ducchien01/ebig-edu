@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { FilledCircleQuestion, FilledFileText, FilledLogoYoutube } from "../../../../../assets/const/icon"
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import { LessonType } from "../da"
 
 export default function ListLessonTile({ courseLessons = [], selectedId, style = {}, onSelected }) {

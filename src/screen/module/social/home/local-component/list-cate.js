@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { InfiniteScroll } from "../../../../../component/export-component"
+import { InfiniteScroll } from "wini-web-components"
 
 export default function ListCustomerCate({onScroll}) {
     const [total, setTotal] = useState()

@@ -9,7 +9,7 @@ import SideBar from './sidebar/sidebar';
 import { AccountActions } from '../module/account/reducer';
 import { useDispatch } from 'react-redux';
 import { AccountController } from '../module/account/controller';
-import { Popup, showPopup } from '../../component/export-component';
+import { Popup, showPopup } from 'wini-web-components';
 import PopupLogin from '../module/account/popup-login';
 
 const loginPopupRef = createRef()

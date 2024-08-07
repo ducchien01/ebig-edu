@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef, useState } from 'react';
 import { FilledThreeLines, OutlineBell, OutlineBookMark, OutlineBooks, OutlineHeart, OutlineSearch, OutlineSettings, OutlineShop, OutlineShoppingCart, OutlineUserProfile } from '../../../assets/const/icon'
 import './header.css'
-import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from '../../../component/export-component';
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, closePopup, showDialog, showPopup } from 'wini-web-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AccountController } from '../../module/account/controller';

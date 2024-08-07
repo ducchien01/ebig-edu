@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import './assets/skin/layout.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from './screen/layout/main-layout';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import { ExamController } from "../controller"
 import { TestResultController } from "../../test-result/controller"
 import { CustomerController } from "../../../customer/controller"

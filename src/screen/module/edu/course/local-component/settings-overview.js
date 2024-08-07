@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { ImportFileForm, Select1Form, SelectMultipleForm, SwitchForm, TextAreaForm, TextFieldForm } from "../../../../../project-component/component-form";
-import { Text } from "../../../../../component/export-component";
+import { Text } from "wini-web-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Ultis, uuidv4 } from "../../../../../Utils";

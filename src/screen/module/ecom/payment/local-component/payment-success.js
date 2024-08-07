@@ -1,5 +1,5 @@
 import { NavLink, useParams } from "react-router-dom";
-import { Text } from "../../../../../component/export-component";
+import { Text } from "wini-web-components";
 import { useEffect, useState } from "react";
 import { OrderController } from "../../order/controller";
 import { Ultis } from "../../../../../Utils";

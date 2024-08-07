@@ -2,10 +2,10 @@ import { Ultis } from "../../../Utils";
 import ConfigAPI from "../../../config/configApi";
 import { decryptData, encryptData } from "../../base-controller";
 import { postData } from "../../baseDA";
-import { ToastMessage } from "../../../component/export-component";
 import { CustomerController } from "../customer/controller";
 import { BaseDA } from "../../../da/baseDA";
 import { showLoginPopup } from "../../layout/main-layout";
+import { ToastMessage } from "wini-web-components";
 
 const setToken = (txt: string) => Ultis.setStorage('token', txt)
 const setTimeRefresh = () => {

@@ -1,8 +1,18 @@
+.icon-button60 {
+    width: 6rem;
+    height: 6rem;
+    justify-content: center;
+}
+
+.icon-button60>* {
+    font-size: 4rem;
+    color: #00204D99;
+}
+
 .icon-button40 {
     width: 4rem;
     height: 4rem;
     justify-content: center;
-    border-radius: 50%;
 }
 
 .icon-button40>* {
@@ -14,7 +24,6 @@
     width: 3.2rem;
     height: 3.2rem;
     justify-content: center;
-    border-radius: 50%;
 }
 
 .icon-button32>* {
@@ -26,11 +35,10 @@
     width: 2.8rem;
     height: 2.8rem;
     justify-content: center;
-    border-radius: 50%;
 }
 
 .icon-button28>* {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #00204D99;
 }
 
@@ -38,11 +46,10 @@
     width: 2.4rem;
     height: 2.4rem;
     justify-content: center;
-    border-radius: 50%;
 }
 
 .icon-button24>* {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #00204D99;
 }
 
@@ -50,7 +57,6 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    border-radius: 50%;
 }
 
 .icon-button20>* {
@@ -62,7 +68,6 @@
     width: 1.6rem;
     height: 1.6rem;
     justify-content: center;
-    border-radius: 50%;
 }
 
 .icon-button16>* {
@@ -71,39 +76,52 @@
 }
 
 .button-grey {
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
     background-color: var(--background);
     gap: 0.8rem;
-    border-radius: 2.4rem;
+    border-radius: 0.6rem;
     justify-content: center;
     width: fit-content;
 }
 
 .button-grey * {
-    color: #00204D99;
+    color: #00204D99 !important;
 }
 
 .button-primary {
     gap: 0.8rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 2.4rem;
-    text-decoration: none;
-    background-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    background-color: var(--infor-color);
     justify-content: center;
     width: fit-content;
+    border: 1px solid var(--infor-color);
 }
 
 .button-primary * {
-    color: #ffffff;
+    color: #ffffff !important;
+}
+
+.button-neutral {
+    gap: 0.8rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    justify-content: center;
+    width: fit-content;
+    border: 1px solid #161D2433;
+}
+
+.button-neutral * {
+    color: #161D24D9 !important;
 }
 
 .button-disabled,
 .tag-disabled {
     color: #00204D99 !important;
     background-color: var(--background);
-    padding: 0.4rem 0.8rem;
     gap: 0.8rem;
-    border-radius: 10rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
     width: fit-content;
     justify-content: center;
     pointer-events: none !important;
@@ -111,7 +129,7 @@
 
 .button-disabled *,
 .tag-disabled * {
-    color: #00204D99;
+    color: #00204D99 !important;
 }
 
 .button-disabled.border,
@@ -121,55 +139,39 @@
 
 .button-infor,
 .tag-infor {
-    color: var(--primary-color) !important;
-    background-color: var(--primary-background);
-    padding: 0.4rem 0.8rem;
+    color: var(--infor-color) !important;
+    background-color: var(--infor-background);
+    padding: 0.5rem 1rem;
     gap: 0.8rem;
-    border-radius: 10rem;
+    border-radius: 0.6rem;
     width: fit-content;
     justify-content: center;
 }
 
 .button-infor *,
 .tag-infor * {
-    color: var(--primary-color);
+    color: var(--infor-color) !important;
 }
 
 .button-infor.border,
 .tag-infor.border {
-    border: 1px solid var(--primary-color);
-}
-
-.button-error,
-.tag-error {
-    color: var(--error-color) !important;
-    background-color: var(--error-background);
-    padding: 0.4rem 0.8rem;
-    gap: 0.8rem;
-    border-radius: 10rem;
-    width: fit-content;
-    justify-content: center;
-}
-
-.button-error *,
-.tag-error * {
-    color: var(--error-color);
+    border: 1px solid var(--infor-color);
 }
 
 .button-warning,
 .tag-warning {
     color: var(--warning-color) !important;
     background-color: var(--warning-background);
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 1rem;
     gap: 0.8rem;
-    border-radius: 10rem;
+    border-radius: 0.6rem;
     width: fit-content;
     justify-content: center;
 }
 
 .button-warning *,
 .tag-warning * {
-    color: var(--warning-color);
+    color: var(--warning-color) !important;
 }
 
 .button-warning.border,
@@ -181,16 +183,16 @@
 .tag-success {
     color: var(--success-color) !important;
     background-color: var(--success-background);
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 1rem;
     gap: 0.8rem;
-    border-radius: 10rem;
+    border-radius: 0.6rem;
     width: fit-content;
     justify-content: center;
 }
 
 .button-success *,
 .tag-success * {
-    color: var(--success-color);
+    color: var(--success-color) !important;
 }
 
 .button-success.border,
@@ -313,7 +315,7 @@
     height: fit-content;
     align-items: stretch !important;
     background-color: #fff;
-    padding: 2.4rem;
+    padding: 1.6rem 0;
     border-radius: 0.8rem;
 }
 

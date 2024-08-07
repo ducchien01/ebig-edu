@@ -1,5 +1,5 @@
 import { forwardRef } from "react"
-import { Text, closePopup } from "../../../../../component/export-component"
+import { Text, closePopup } from "wini-web-components"
 import { useForm } from "react-hook-form"
 import { TextFieldForm } from "../../../../../project-component/component-form"
 import { useNavigate } from "react-router-dom"

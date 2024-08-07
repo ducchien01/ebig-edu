@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './curriculum.css'
 import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from '../../../../component/export-component'
+import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from 'wini-web-components'
 import { FilledSetupPreferences, FilledTrashCan } from '../../../../assets/const/icon'
 import { useEffect, useState } from 'react'
 import { LessonController } from '../lesson/controller'

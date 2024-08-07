@@ -10,7 +10,7 @@ import { QuestionType } from "../../lesson/da"
 import ConfigAPI from "../../../../../config/configApi"
 import { uuidv4 } from "../../../../../Utils"
 import { uploadFiles } from "../../../../baseDA"
-import { TextField } from "../../../../../component/export-component"
+import { TextField } from "wini-web-components"
 
 export default function SettingsQuestion() {
     const { id } = useParams()

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { RatingController } from "../../../edu/rating/controller"
-import { Pagination, Rating, Text, TextArea } from "../../../../../component/export-component"
+import { Pagination, Rating, Text, TextArea } from "wini-web-components"
 import { CustomerController } from "../../../customer/controller"
 import { useForm } from "react-hook-form"
 import { Ultis } from "../../../../../Utils"

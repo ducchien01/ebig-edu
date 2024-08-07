@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { Ultis } from "../../../../Utils";
-import { Popup, Text, TextField, showPopup } from "../../../../component/export-component";
+import { Popup, Text, TextField, showPopup } from "wini-web-components";
 import { CheckboxForm, RadioButtonForm, Select1Form, TextFieldForm } from "../../../../project-component/component-form";
 import { useForm } from "react-hook-form";
 import { OrderController } from "../order/controller";

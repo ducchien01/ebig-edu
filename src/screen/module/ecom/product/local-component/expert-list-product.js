@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, } from "../../../../../component/export-component";
+import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, } from "wini-web-components";
 import { NavLink } from "react-router-dom";
 import { FilledEdit } from "../../../../../assets/const/icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

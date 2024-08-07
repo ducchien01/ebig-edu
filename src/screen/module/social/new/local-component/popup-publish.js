@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
-import { Text, ToastMessage, closePopup } from "../../../../../component/export-component";
+import { Text, ToastMessage, closePopup } from "wini-web-components";
 import { useForm } from "react-hook-form";
 import ConfigAPI from "../../../../../config/configApi";
 import { Select1Form, SelectMultipleForm } from "../../../../../project-component/component-form";

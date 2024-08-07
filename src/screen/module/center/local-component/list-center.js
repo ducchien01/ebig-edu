@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { CenterController } from "../controller"
-import { Text } from "../../../../component/export-component"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEllipsis, faListDots, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsis, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { NavLink } from "react-router-dom"
 import { CenterPermisson } from "../da"
 import GroupDefaultBg from '../../../../assets/groups-bg.png'
 import ConfigAPI from "../../../../config/configApi"
 import { TopicController } from "../../topic/controller"
+import { Text } from "wini-web-components"
 
 export default function ListCenter() {
     const userInfor = useSelector((state) => state.account.data)

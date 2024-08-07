@@ -1,4 +1,4 @@
-import { ToastMessage } from "../component/export-component"
+import { ToastMessage } from "wini-web-components"
 import ConfigAPI from "../config/configApi"
 import { BaseDA, ObjWithKnownKeys } from "../da/baseDA"
 import { AccountController } from "./module/account/controller"

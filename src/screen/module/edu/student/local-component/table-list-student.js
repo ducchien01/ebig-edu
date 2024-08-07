@@ -1,7 +1,7 @@
 import { faEye, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FilledFileDownload, FilledSetupPreferences } from "../../../../../assets/const/icon";
-import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from "../../../../../component/export-component";
+import { CellAlignItems, Pagination, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from "wini-web-components";
 import { useState } from "react";
 import demoAvatar from '../../../../../assets/demo-avatar.png'
 

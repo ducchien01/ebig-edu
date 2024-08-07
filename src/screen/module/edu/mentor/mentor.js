@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './mentor.css'
 import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { CellAlignItems, ComponentStatus, Dialog, DialogAlignment, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, ToastMessage, showDialog, showPopup } from '../../../../component/export-component'
+import { CellAlignItems, ComponentStatus, Dialog, DialogAlignment, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, ToastMessage, showDialog, showPopup } from 'wini-web-components'
 import { FilledEdit, FilledSetupPreferences, FilledTrashCan } from '../../../../assets/const/icon'
 import { useEffect, useRef, useState } from 'react'
 import { MentorController } from './controller'

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { ExamController } from "./controller"
-import { CellAlignItems, Checkbox, Dialog, Popup, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, closePopup, showDialog, showPopup } from "../../../../component/export-component"
+import { CellAlignItems, Checkbox, Dialog, Popup, RadioButton, Table, TbBody, TbCell, TbHeader, TbRow, Text, closePopup, showDialog, showPopup } from "wini-web-components"
 import { FilledLogoFacebook, OutLineGoToExam, OutlineCircleQuestion, OutlineFileCopy, OutlineForm, OutlinePeople, OutlineScoreAPlus, OutlineSharing, OutlineTimeAlarm, OutlineVerified } from "../../../../assets/const/icon"
 import { ExamStatus } from "./da"
 import { TestResultController } from "../test-result/controller"

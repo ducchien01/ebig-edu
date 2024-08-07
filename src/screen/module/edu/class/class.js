@@ -3,7 +3,7 @@ import './class.css'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 import ListClass from './local-component/list-class'
-import { Popup, Text, ToastMessage, showPopup } from '../../../../component/export-component'
+import { Popup, Text, ToastMessage, showPopup } from 'wini-web-components'
 import { ClassController } from './controller'
 import PopupSettingsClass from './local-component/popup-settings-details'
 

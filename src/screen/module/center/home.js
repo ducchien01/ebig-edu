@@ -1,28 +1,17 @@
 import { useSelector } from 'react-redux';
-import { ComponentStatus, Dialog, DialogAlignment, Popup, Select1, Text, TextField, ToastMessage, closePopup, showDialog, showPopup } from '../../../component/export-component';
+import { Popup, Select1, Text, ToastMessage, closePopup, showPopup } from 'wini-web-components';
 import './home.css'
 import GroupDefaultBg from '../../../assets/groups-bg.png'
 import { useForm } from 'react-hook-form';
-import { Select1Form, TextFieldForm } from '../../../project-component/component-form';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { TopicController } from '../topic/controller';
-import { RootState } from '../../../store';
-import { FilledPeople, FilledPhone, OutlineLocation, OutlineSharing } from '../../../assets/const/icon';
+import { FilledPeople, OutlineSharing } from '../../../assets/const/icon';
 import { CenterController } from './controller';
 import { uuidv4 } from '../../../Utils';
 import { CenterPermisson } from './da';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
-import EduSchedule from '../edu/schedule/schedule';
-import EduStudent from '../edu/student/student';
-import SchoolCourse from '../edu/course/course';
-import SchoolClass from '../edu/class/class';
-import SchoolMentor from '../edu/mentor/mentor';
-import CurriculumManagment from '../edu/curriculum/curriculum';
-import ExamManagment from '../edu/exam/exam';
-import QuestionManagment from '../edu/question/question';
-import SidebarActions from '../../layout/sidebar/sidebar-actions';
+import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faEdit, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CustomerController } from '../customer/controller';
 import CommonTab from './local-component/common';
 import { ValidateType, validateForm } from '../../../project-component/validate';
@@ -190,7 +179,7 @@ const CenterManagement = ({ userInfor, centerId, permisson }) => {
                         {permisson === CenterPermisson.owner || permisson === CenterPermisson.admin ? <button type='button' onClick={showPopupAddMember} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '1.4rem' }} />
                             <Text className='button-text-3'>Mời</Text>
-                        </button> : <button type='button' onClick={() => {}} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
+                        </button> : <button type='button' onClick={() => { }} className='row button-primary' style={{ borderRadius: '0.8rem' }}>
                             <Text className='button-text-3'>Xin vào</Text>
                         </button>}
                         <button type="button" className="row button-grey" style={{ borderRadius: '0.8rem', padding: '0.8rem 1.6rem' }} onClick={(ev) => { }} >

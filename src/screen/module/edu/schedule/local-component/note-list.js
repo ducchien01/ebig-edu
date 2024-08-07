@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { FilledBell, FilledEdit, FilledSocialSharing, FilledTrashCan } from "../../../../../assets/const/icon"
-import { Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from "../../../../../component/export-component"
+import { Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, showPopup } from "wini-web-components"
 import { useNavigate } from "react-router-dom"
 
 export default function NoteList() {

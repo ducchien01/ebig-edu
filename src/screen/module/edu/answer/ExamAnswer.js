@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { ExamAnswerController } from "./controller"
-import { Checkbox, ComponentStatus, Dialog, DialogAlignment, InfiniteScroll, RadioButton, Text, showDialog } from "../../../../component/export-component"
+import { Checkbox, ComponentStatus, Dialog, DialogAlignment, InfiniteScroll, RadioButton, Text, showDialog } from "wini-web-components"
 import { QuestionController } from "../question/controller"
 import { LessonType, QuestionType } from "../lesson/da"
 import ConfigAPI from "../../../../config/configApi"

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { CellAlignItems, ComponentStatus, Dialog, DialogAlignment, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showDialog, showPopup } from "../../../../component/export-component";
+import { CellAlignItems, ComponentStatus, Dialog, DialogAlignment, Pagination, Popup, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField, showDialog, showPopup } from "wini-web-components";
 import { FilledEdit, FilledSetupPreferences, FilledTrashCan } from "../../../../assets/const/icon";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";

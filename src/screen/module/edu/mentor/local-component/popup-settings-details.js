@@ -1,7 +1,7 @@
 import { forwardRef, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import WeekCalendar from "../../../../../project-component/week-calendar"
-import { Checkbox, RadioButton, Text, ToastMessage, closePopup } from "../../../../../component/export-component"
+import { Checkbox, RadioButton, Text, ToastMessage, closePopup } from "wini-web-components"
 import { TextFieldForm } from "../../../../../project-component/component-form"
 import { Ultis, uuidv4 } from "../../../../../Utils"
 import InputTime from "../../../../../project-component/input-time"

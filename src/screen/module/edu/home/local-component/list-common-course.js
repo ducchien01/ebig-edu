@@ -1,7 +1,7 @@
 import demoImage from '../../../../../assets/demo-image5.png'
 import avatarDemo from '../../../../../assets/demo-avatar2.png'
 import { PostCard } from "../../../../../project-component/card"
-import { Text } from '../../../../../component/export-component'
+import { Text } from 'wini-web-components'
 import { OutlineHeart, OutlineShoppingCart, OutlineStar, OutlineUserProfile } from '../../../../../assets/const/icon'
 import { useEffect, useState } from 'react'
 import { CourseController } from '../../course/controller'

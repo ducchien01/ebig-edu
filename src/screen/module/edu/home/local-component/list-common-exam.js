@@ -1,4 +1,4 @@
-import { Text } from '../../../../../component/export-component'
+import { Text } from 'wini-web-components'
 import { FilledBook, FilledClock, OutlineStar } from '../../../../../assets/const/icon'
 import { useEffect, useState } from 'react'
 import { ExamController } from '../../exam/controller'

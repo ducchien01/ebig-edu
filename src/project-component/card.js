@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { Text } from "../component/export-component"
+import { Text } from "wini-web-components"
 
 export const PostCard = ({ className = 'col', imgUrl, imgStyle, heading, title, content, actions, style, to, state }) => {
     return <div className={`${className} post-card-container`} style={style}>

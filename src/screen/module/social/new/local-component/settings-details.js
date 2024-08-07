@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { ComponentStatus, CustomCKEditor, Dialog, DialogAlignment, Popup, Text, TextArea, ToastMessage, showDialog, showPopup } from "../../../../../component/export-component";
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextArea, ToastMessage, showDialog, showPopup } from "wini-web-components";
 import { ImportFileForm, Select1Form, SelectMultipleForm } from "../../../../../project-component/component-form";
 import { uploadFiles } from "../../../../baseDA";
 import ConfigAPI from "../../../../../config/configApi";
@@ -10,6 +10,7 @@ import { editorConfiguration } from "../../../../../assets/const/const-list";
 import PopupPublishNews from "./popup-publish";
 import { FilledTrashCan } from "../../../../../assets/const/icon";
 import { NewStatus } from "../da";
+import { CustomCKEditor } from "../../../../../project-component/ckeditor/ck-editor";
 
 export default function SettingsNews() {
     const { id } = useParams()

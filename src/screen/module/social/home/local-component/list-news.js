@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../new/controller"
-import { Popup, Text, closePopup, showPopup } from "../../../../../component/export-component"
+import { Popup, Text, closePopup, showPopup } from "wini-web-components"
 import { FilledLogoFacebook, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineSharing, OutlineThumbUp } from "../../../../../assets/const/icon"
 import { TopicController } from "../../../topic/controller"
 import { PostCard } from "../../../../../project-component/card"
@@ -91,7 +91,7 @@ export default function ListNews({ isLogin = false }) {
             })
             const customerIds = newList.map(e => e.customerId).filter(id => id && customerList.every(e => e.id !== id))
             CustomerController.getByIds(customerIds).then(cusRes => {
-                if (cusRes) setCustomerList(cusRes)
+                if (cusRes) setCustomerList([...customerList, ...cusRes])
             })
             if (page) {
                 setNewsData({
@@ -194,7 +194,7 @@ export default function ListNews({ isLogin = false }) {
                             return <PostCard
                                 key={'new-' + i}
                                 className="row"
-                                style={{ gap: '4rem', alignItems: 'start' }}
+                                style={{ gap: '4rem', alignItems: 'start', padding: '2.4rem' }}
                                 to={`/social/news/${item.id}`}
                                 imgUrl={ConfigAPI.imgUrl + item.pictureId}
                                 imgStyle={{ width: '16.2rem', height: '16.2rem' }}

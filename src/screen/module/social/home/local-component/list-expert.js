@@ -1,4 +1,4 @@
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import { InforCard } from "../../../../../project-component/card"
 import avatarDemo from '../../../../../assets/demo-avatar.png'
 import { NavLink } from "react-router-dom"

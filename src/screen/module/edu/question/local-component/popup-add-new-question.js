@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { ExamController, QuestionController } from "../controller"
 import { TextFieldForm } from "../../../../../project-component/component-form"
-import { Text, ToastMessage, closePopup } from "../../../../../component/export-component"
+import { Text, ToastMessage, closePopup } from "wini-web-components"
 import { uuidv4 } from "../../../../../Utils"
 import { LessonType } from "../../lesson/da"
 

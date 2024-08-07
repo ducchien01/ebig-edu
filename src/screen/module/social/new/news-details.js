@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { NewController } from "./controller"
-import { Popup, Text, closePopup, showPopup } from "../../../../component/export-component"
+import { Popup, Text, closePopup, showPopup } from "wini-web-components"
 import avatarDemo from "../../../../assets/demo-avatar2.png"
 import { NavLink } from "react-router-dom"
 import ListExpertByTopic from "../home/local-component/list-expert"

@@ -1,4 +1,4 @@
-import { ToastMessage } from "../../../../component/export-component"
+import { ToastMessage } from "wini-web-components"
 import ConfigAPI from "../../../../config/configApi"
 import { FilterListSimpleBody, getListSimpleBase } from "../../../base-controller"
 import { postData } from "../../../baseDA"

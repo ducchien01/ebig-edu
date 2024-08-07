@@ -4,7 +4,7 @@ import { FilledSendMessage } from '../../../../../assets/const/icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { extendView } from '../../../../../assets/const/const-list';
-import { Checkbox, ComponentStatus, Dialog, DialogAlignment, Text, ToastMessage, showDialog } from '../../../../../component/export-component';
+import { Checkbox, ComponentStatus, Dialog, DialogAlignment, Text, ToastMessage, showDialog } from 'wini-web-components';
 import { CourseController } from '../controller';
 import FormEditLesson from '../../lesson/lesson-details';
 import CourseCurriculum from './course-curriculum';

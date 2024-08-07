@@ -1,5 +1,5 @@
 import { FilledStar } from "../../../../../assets/const/icon"
-import { ProgressBar, Rating } from "../../../../../component/export-component"
+import { ProgressBar, Rating } from "wini-web-components"
 import ListComment from "../../../social/new/local-component/list-comment"
 
 export default function CourseRatingTab({ rateDetails }) {

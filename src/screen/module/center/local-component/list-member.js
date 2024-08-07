@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { CenterController } from "../controller"
 import { CustomerController } from "../../customer/controller"
-import { Popup, Text, TextField, ToastMessage, closePopup, showPopup } from "../../../../component/export-component"
+import { Popup, Text, TextField, ToastMessage, closePopup, showPopup } from "wini-web-components"
 import { CenterPermisson } from "../da"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsisH, faSearch } from "@fortawesome/free-solid-svg-icons"

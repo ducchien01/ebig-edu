@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { LessonController } from "../../lesson/controller"
 import { LessonType, QuestionType } from "../../lesson/da"
-import { Checkbox, RadioButton, Text } from "../../../../../component/export-component"
+import { Checkbox, RadioButton, Text } from "wini-web-components"
 import ConfigAPI from "../../../../../config/configApi"
 import ReactPlayer from "react-player"
 import { useForm } from "react-hook-form"

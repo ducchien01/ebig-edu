@@ -1,5 +1,5 @@
 import { FilledSEdit } from "../../../../assets/const/icon"
-import { Text, TextField } from "../../../../component/export-component"
+import { Text, TextField } from "wini-web-components"
 import { AccountController } from "../../account/controller"
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"

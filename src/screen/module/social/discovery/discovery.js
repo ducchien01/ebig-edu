@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Text, TextField } from '../../../../component/export-component'
+import { Text, TextField } from 'wini-web-components'
 import './discovery.css'
 import ListExpert from './local-component/list-expert'
 import ListTrendingNews from './local-component/list-trending-news'

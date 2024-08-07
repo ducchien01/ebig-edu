@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { FilledSocialSharing, OutlineBooks, OutlineGChart, OutlineHeart, OutlineLock, OutlineTimeAlarm, OutlineVerified, OutlineVideoPlaylist } from "../../../../../assets/const/icon"
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import ConfigAPI from "../../../../../config/configApi"
 import { studentLevelList } from "../../../../../assets/const/const-list"
 import CourseRatingTab from "./rating-tab"

@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import WeekCalendar from "../../../../../project-component/week-calendar"
-import { Checkbox, Text, ToastMessage, closePopup } from "../../../../../component/export-component"
+import { Checkbox, Text, ToastMessage, closePopup } from "wini-web-components"
 import { DatePickerForm, Select1Form, TextFieldForm } from "../../../../../project-component/component-form"
 import { Ultis } from "../../../../../Utils"
 import InputTime from "../../../../../project-component/input-time"

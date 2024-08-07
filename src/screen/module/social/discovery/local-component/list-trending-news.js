@@ -1,5 +1,5 @@
 import { OutlineBookMarkAdd, OutlineChat, OutlineThumbUp } from "../../../../../assets/const/icon"
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import avatarDemo from '../../../../../assets/demo-avatar.png'
 import thumnailDemo from '../../../../../assets/demo-image4.png'
 import { PostCard } from "../../../../../project-component/card"

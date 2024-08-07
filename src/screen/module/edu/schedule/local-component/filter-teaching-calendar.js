@@ -1,7 +1,7 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useRef, useState } from "react"
-import { Calendar, Popup, Text, showPopup } from "../../../../../component/export-component"
+import { Calendar, Popup, Text, showPopup } from "wini-web-components"
 import demoBanner5 from '../../../../../assets/demo-image5.png'
 import WeekCalendar from "../../../../../project-component/week-calendar"
 

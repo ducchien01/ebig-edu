@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { ComponentStatus, Dialog, DialogAlignment, Text, showDialog } from "../../../../../component/export-component"
+import { ComponentStatus, Dialog, DialogAlignment, Text, showDialog } from "wini-web-components"
 import { FilledEdit, FilledTrashCan } from "../../../../../assets/const/icon"
 import { Ultis } from "../../../../../Utils"
 import { CustomerController } from "../../../customer/controller"

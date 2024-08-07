@@ -3,7 +3,7 @@ import './account.css';
 import eBigLogo from '../../../assets/eBig-logo.svg'
 import ggICon from '../../../assets/Google-Icon.svg'
 import fbIcon from '../../../assets/Faceebook-Icon.svg'
-import { Text, ToastMessage } from "../../../component/export-component";
+import { Text, ToastMessage } from "wini-web-components";
 import { AccountController } from "./controller";
 import { useGoogleLogin } from "@react-oauth/google";
 

@@ -1,7 +1,7 @@
 import { FilledTimeAlarm } from "../../../../assets/const/icon";
 import './schedule.css'
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Popup, showPopup } from "../../../../component/export-component";
+import { Popup, showPopup } from "wini-web-components";
 import TeachingProcessList from './local-component/teaching-process-list'
 import MentorList from "./local-component/mentor-list";
 import NoteList from "./local-component/note-list";

@@ -3,7 +3,7 @@ import demoImg2 from '../../../../../assets/demo-image2.png';
 import demoImg3 from '../../../../../assets/demo-image3.png';
 import demoImg4 from '../../../../../assets/demo-image4.png';
 import { FilledBook } from '../../../../../assets/const/icon';
-import { ProgressBar } from '../../../../../component/export-component';
+import { ProgressBar } from 'wini-web-components';
 import { PostCard } from '../../../../../project-component/card';
 
 export default function TeachingProcessList() {

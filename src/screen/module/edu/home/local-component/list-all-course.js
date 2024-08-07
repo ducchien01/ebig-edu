@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { InfiniteScroll, Rating, Text } from "../../../../../component/export-component";
+import { InfiniteScroll, Rating, Text } from "wini-web-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faRotate } from "@fortawesome/free-solid-svg-icons";
 import { CourseController } from "../../course/controller";

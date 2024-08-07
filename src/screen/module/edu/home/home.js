@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from '../../../../component/export-component'
+import { Checkbox, CustomSlider, ProgressBar, Text, TextField } from 'wini-web-components'
 import './home.css'
 import ListTopic from '../../social/discovery/local-component/list-topic'
 import { PostCard } from '../../../../project-component/card'

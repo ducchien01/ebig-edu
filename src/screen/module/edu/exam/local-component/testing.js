@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Checkbox, ComponentStatus, Dialog, DialogAlignment, Text, showDialog } from "../../../../../component/export-component"
+import { Checkbox, ComponentStatus, Dialog, DialogAlignment, Text, showDialog } from "wini-web-components"
 import { RadioButtonForm } from "../../../../../project-component/component-form"
 import { useForm } from "react-hook-form"
 import { ExamController } from "../controller"

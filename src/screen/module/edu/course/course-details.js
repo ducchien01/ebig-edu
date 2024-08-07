@@ -1,4 +1,4 @@
-import { Checkbox, Popup, ProgressCircle, RadioButton, Text, showPopup } from "../../../../component/export-component";
+import { Checkbox, Popup, ProgressCircle, RadioButton, Text, showPopup } from "wini-web-components";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { OutlineCalendarDate, OutlineTimeAlarm, OutlineUserProfile, OutlineVideoPlaylist } from "../../../../assets/const/icon";

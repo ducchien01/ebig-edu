@@ -1,5 +1,5 @@
 import { forwardRef } from "react"
-import { DatePicker, Select1, Text, TextField, closePopup } from "../../../../../component/export-component"
+import { DatePicker, Select1, Text, TextField, closePopup } from "wini-web-components"
 import { useForm } from "react-hook-form"
 import { RadioButtonForm, Select1Form, TextFieldForm } from "../../../../../project-component/component-form"
 

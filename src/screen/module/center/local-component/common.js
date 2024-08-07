@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { NewController } from "../../social/new/controller"
-import { Popup, Text, TextField, ToastMessage, closePopup, showPopup } from "../../../../component/export-component"
+import { Popup, Text, TextField, ToastMessage, closePopup, showPopup } from "wini-web-components"
 import { FilledLogoFacebook, FilledPhone, OutlineBookMarkAdd, OutlineChat, OutlineFileCopy, OutlineLocation, OutlineSharing, OutlineThumbUp } from "../../../../assets/const/icon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight, faEdit } from "@fortawesome/free-solid-svg-icons"
@@ -57,7 +57,7 @@ export default function CommonTab({ centerItem, userInfor, permisson }) {
             getInteractInfor(newList)
             const customerIds = newList.map(e => e.customerId).filter(id => id && customerList.every(e => e.id !== id))
             CustomerController.getByIds(customerIds).then(cusRes => {
-                if (cusRes) setCustomerList(cusRes)
+                if (cusRes) setCustomerList([...customerList, ...cusRes])
             })
             setNews({
                 totalCount: res.totalCount,
@@ -141,7 +141,7 @@ export default function CommonTab({ centerItem, userInfor, permisson }) {
                 return <PostCard
                     key={item.id}
                     className="row"
-                    style={{ gap: '4rem', alignItems: 'start' }}
+                    style={{ gap: '4rem', alignItems: 'start', padding: '2.4rem' }}
                     to={`/center/news/${item.id}`}
                     state={{ centerId: centerItem.id }}
                     imgUrl={ConfigAPI.imgUrl + item.pictureId}

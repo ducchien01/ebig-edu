@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import banner from '../../../assets/banner2.png'
-import { Text } from '../../../component/export-component'
 import './customer.css'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { Text } from 'wini-web-components'
 
 export default function ProfileView() {
     const userInfor = useSelector((state) => state.account.data)

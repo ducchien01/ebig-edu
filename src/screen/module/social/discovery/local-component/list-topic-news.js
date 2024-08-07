@@ -2,7 +2,7 @@ import topicThumnailDemo from '../../../../../assets/demo-image3.png'
 import avatarDemo from '../../../../../assets/demo-avatar1.png'
 import { OutlineBookMarkAdd } from "../../../../../assets/const/icon"
 import { PostCard } from '../../../../../project-component/card'
-import { Text } from '../../../../../component/export-component'
+import { Text } from 'wini-web-components'
 
 export default function ListTopicNews() {
     return <div className='row' style={{ gap: '3.2rem 4rem', width: '100%', flexWrap: 'wrap' }}>

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './student.css'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { Text } from '../../../../component/export-component'
+import { Text } from 'wini-web-components'
 import { NavLink } from 'react-router-dom'
 import avatarDemo2 from '../../../../assets/demo-avatar2.png';
 import ListStudent from './local-component/table-list-student'

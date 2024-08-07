@@ -3,7 +3,7 @@ import ListClass from "../../class/local-component/list-class";
 import { ClassController } from "../../class/controller";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, ToastMessage, showDialog, showPopup } from "../../../../../component/export-component";
+import { ComponentStatus, Dialog, DialogAlignment, Popup, Text, TextField, ToastMessage, showDialog, showPopup } from "wini-web-components";
 import PopupListClass from "../../class/local-component/popup-list-class";
 import { FilledSetupPreferences } from "../../../../../assets/const/icon";
 import PopupSettingsClass from "../../class/local-component/popup-settings-details";

@@ -31,7 +31,8 @@
     "react-toastify": "^9.1.3",
     "shallow-equal-fuzzy": "^0.0.2",
     "validate.js": "^0.13.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "wini-web-components": "^0.9.3"
   },
   "scripts": {
     "start": "react-scripts start",

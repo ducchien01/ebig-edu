@@ -1,4 +1,4 @@
-import { CellAlignItems, Checkbox, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from "../../../../component/export-component";
+import { CellAlignItems, Checkbox, Table, TbBody, TbCell, TbHeader, TbRow, Text, TextField } from "wini-web-components";
 import demoImg from '../../../../assets/demo-image4.png'
 import { FilledTrashCan } from "../../../../assets/const/icon";
 import { NavLink, useLocation } from "react-router-dom";

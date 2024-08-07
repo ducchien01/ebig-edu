@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useSelector } from "react-redux"
-import { ComponentStatus, Dialog, DialogAlignment, Text, ToastMessage, showDialog } from "../../../../component/export-component"
+import { ComponentStatus, Dialog, DialogAlignment, Text, ToastMessage, showDialog } from "wini-web-components"
 import { uuidv4 } from "../../../../Utils"
 import { CenterController } from "../controller"
 import { TopicController } from "../../topic/controller"

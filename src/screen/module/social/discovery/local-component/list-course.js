@@ -1,7 +1,7 @@
 import { PostCard } from "../../../../../project-component/card";
 import thumbnailDemo from '../../../../../assets/demo-image4.png';
 import avatarDemo from '../../../../../assets/demo-avatar2.png';
-import { Text } from "../../../../../component/export-component";
+import { Text } from "wini-web-components";
 import { OutlineStar, OutlineUserProfile } from "../../../../../assets/const/icon";
 
 export default function ListCourse() {

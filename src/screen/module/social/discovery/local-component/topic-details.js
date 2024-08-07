@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Text } from "../../../../../component/export-component"
+import { Text } from "wini-web-components"
 import topicThumnailDemo from '../../../../../assets/demo-image3.png'
 import { PostCard } from "../../../../../project-component/card"
 import { NavLink, useParams } from "react-router-dom"

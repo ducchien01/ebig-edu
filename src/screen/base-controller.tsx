@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 import { postData } from './baseDA';
 import ConfigAPI from '../config/configApi';
-import { ToastMessage } from '../component/export-component';
+import { ToastMessage } from 'wini-web-components';
 const secretPass = "lkjhgndsa123!@#";
 
 export const encryptData = (text: string) => {

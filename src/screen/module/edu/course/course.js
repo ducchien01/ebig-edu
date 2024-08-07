@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import ListCourse from '../../center/local-component/education'
 import PopupAddNewCourse from './local-component/popup-add-new-course'
 import { CourseController } from './controller'
-import { Popup, Text, showPopup } from '../../../../component/export-component'
+import { Popup, Text, showPopup } from 'wini-web-components'
 import { useSelector } from 'react-redux'
 
 export default function SchoolCourse() {
